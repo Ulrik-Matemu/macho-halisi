@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080808;
+  --foreground: #f4f4f0;
+  --safari-russet: #8d5524;
+  --safari-ochre: #c68642;
+  --safari-gold: #e0ac69;
+  --safari-sand: #f1c27d;
+  --safari-champagne: #ffdbac;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-safari-russet: var(--safari-russet);
+  --color-safari-ochre: var(--safari-ochre);
+  --color-safari-gold: var(--safari-gold);
+  --color-safari-sand: var(--safari-sand);
+  --color-safari-champagne: var(--safari-champagne);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --font-serif: var(--font-serif-luxury), "Cormorant Garamond", Georgia, serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }
+
+/* Editorial Serif Utility */
+.font-serif-luxury {
+  font-family: var(--font-serif-luxury), "Cormorant Garamond", Georgia, serif;
+}
+
+/* Custom subtle scrollbar for menu */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--safari-ochre);
+}
+
+/* Luxury Cinematic Transitions */
+.transition-luxury {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Navigation Luxury Keyframe Animations */
+@keyframes navCascade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subItemCascade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imageZoomSettle {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-nav-cascade {
+  animation: navCascade 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-sub-cascade {
+  animation: subItemCascade 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-image-settle {
+  animation: imageZoomSettle 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Curtain Wipe Luxury Motion */
+.transition-curtain {
+  transition-property: clip-path, opacity, transform;
+  transition-duration: 480ms;
+  transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.curtain-open {
+  clip-path: inset(0 0 0% 0);
+  opacity: 1;
+}
+
+.curtain-closed {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0.8;
+}
+
+
+
