@@ -167,7 +167,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
       className="relative w-full h-[220vh] bg-[#050505] select-none"
     >
       {/* Sticky Viewport: Keeps Background Video & Layout Continuous */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-end">
+      <div className="sticky top-0 h-screen h-dvh w-full overflow-hidden flex flex-col justify-end">
         {/* Background Dual-Video Player with Cross-Fade Transitions */}
         <div
           className={`absolute inset-0 w-full h-full z-0 overflow-hidden transition-all duration-1000 transition-luxury ${
@@ -222,7 +222,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
             filter: `blur(${stage1Blur}px)`,
             pointerEvents: scrollProgress > 0.25 ? "none" : "auto",
           }}
-          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-16 sm:pb-20 lg:pb-24 flex flex-col items-start text-left transition-all duration-150"
+          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(5.5rem,24dvh,14rem)] sm:pb-20 lg:pb-24 flex flex-col items-start text-left transition-all duration-150"
         >
           {/* Pre-title Tagline */}
           <div

@@ -140,7 +140,7 @@ export default function FullscreenNavMenu({
               onClick={handleClose}
               className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
             >
-              <div className="relative lg:h-14 sm:h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
+              <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
                 <Image
                   src="/media/macho-halisi-logo-2.jpg"
                   alt="Macho Halisi Logo"
