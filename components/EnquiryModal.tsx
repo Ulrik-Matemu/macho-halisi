@@ -58,10 +58,10 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
             <div className="w-16 h-16 rounded-full bg-[#8d5524]/20 border border-[#c68642] flex items-center justify-center text-[#c68642]">
               <Check className="w-8 h-8" />
             </div>
-            <h3 className="font-serif-luxury text-3xl text-white">
+            <h3 className="font-serif-luxury text-3xl font-light text-white tracking-wide">
               Safari Request Received
             </h3>
-            <p className="text-xs sm:text-sm text-white/70 max-w-md font-sans">
+            <p className="text-xs sm:text-sm text-white/75 max-w-md font-sans leading-relaxed">
               Asante sana. A dedicated Macho Halisi safari naturalist will review
               your itinerary desires and connect with you within 24 hours.
             </p>
@@ -72,7 +72,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
               <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#f1c27d] block mb-1">
                 TAILOR-MADE EXPEDITIONS
               </span>
-              <h3 className="font-serif-luxury text-2xl sm:text-3xl text-white font-light">
+              <h3 className="font-serif-luxury text-2xl sm:text-3xl text-white font-light tracking-wide">
                 Begin Your Journey With Macho Halisi
               </h3>
               <p className="text-xs text-white/60 font-sans mt-1">

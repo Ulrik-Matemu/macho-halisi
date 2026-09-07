@@ -10,6 +10,7 @@ interface NavbarProps {
   onOpenEnquiry: () => void;
   onOpenSearch?: () => void;
   isVisible?: boolean;
+  scrollThreshold?: number;
 }
 
 export default function Navbar({
@@ -17,16 +18,23 @@ export default function Navbar({
   onOpenEnquiry,
   onOpenSearch,
   isVisible = true,
+  scrollThreshold = Number.POSITIVE_INFINITY,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    if (scrollThreshold === Number.POSITIVE_INFINITY) {
+      return;
+    }
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > scrollThreshold);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [scrollThreshold]);
+
+  const isScrolled = scrollThreshold !== Number.POSITIVE_INFINITY && scrolled;
 
   return (
     <header
@@ -35,7 +43,7 @@ export default function Navbar({
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-6 pointer-events-none"
       } ${
-        scrolled
+        isScrolled
           ? "bg-[#080808]/90 backdrop-blur-md py-3 border-b border-white/10 shadow-2xl"
           : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 sm:py-6"
       }`}
@@ -46,9 +54,9 @@ export default function Navbar({
           href="/"
           className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
         >
-          <div className="relative h-10 sm:h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
+          <div className="relative lg:h-14 sm:h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
             <Image
-              src="/media/macho-halisi-logo.jpg"
+              src="/media/macho-halisi-logo-2.jpg"
               alt="Macho Halisi Logo"
               fill
               priority
@@ -73,7 +81,7 @@ export default function Navbar({
           {/* Enquire CTA Button */}
           <button
             onClick={onOpenEnquiry}
-            className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-[#c68642] hover:bg-[#c68642] text-white hover:text-[#ffdbac] text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
+            className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-[#c68642] hover:bg-[#c68642] text-white hover:text-[#ffdbac] font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
           >
             ENQUIRE
           </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ArrowRight, Search } from "lucide-react";
@@ -17,10 +17,6 @@ export default function FullscreenNavMenu({
   onClose,
   onOpenEnquiry,
 }: FullscreenNavMenuProps) {
-  // Two-stage lifecycle state for smooth physical curtain open & close transitions
-  const [isRendered, setIsRendered] = useState(isOpen);
-  const [isCurtainOpen, setIsCurtainOpen] = useState(false);
-
   // Progressive disclosure navigation state
   const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null);
   const [hoveredSubItem, setHoveredSubItem] = useState<NavSubItem | null>(null);
@@ -30,73 +26,54 @@ export default function FullscreenNavMenu({
   // Timer reference for safe hover travel between columns
   const resetTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const cancelResetTimer = () => {
+  const cancelResetTimer = useCallback(() => {
     if (resetTimerRef.current) {
       clearTimeout(resetTimerRef.current);
       resetTimerRef.current = null;
     }
-  };
+  }, []);
 
-  const scheduleReset = (delay = 320) => {
+  const scheduleReset = useCallback((delay = 320) => {
     cancelResetTimer();
     resetTimerRef.current = setTimeout(() => {
       setHoveredCategoryId(null);
       setHoveredSubItem(null);
     }, delay);
-  };
+  }, [cancelResetTimer]);
 
-  // Synchronize incoming isOpen prop with curtain lifecycle
+  // Synchronize body scroll with isOpen
   useEffect(() => {
     if (isOpen) {
-      setIsRendered(true);
       cancelResetTimer();
-      setHoveredCategoryId(null);
-      setHoveredSubItem(null);
-      setSearchQuery("");
-      setMobileStep("categories");
       document.body.style.overflow = "hidden";
-
-      // Brief RAF-like delay so element mounts before curtain sweep begins
-      const timer = setTimeout(() => {
-        setIsCurtainOpen(true);
-      }, 25);
-      return () => clearTimeout(timer);
     } else {
-      setIsCurtainOpen(false);
-      const timer = setTimeout(() => {
-        setIsRendered(false);
-        document.body.style.overflow = "auto";
-      }, 480);
-      return () => clearTimeout(timer);
+      document.body.style.overflow = "auto";
     }
-  }, [isOpen]);
-
-  // Clean up timer on unmount
-  useEffect(() => {
     return () => {
-      cancelResetTimer();
       document.body.style.overflow = "auto";
     };
-  }, []);
+  }, [isOpen, cancelResetTimer]);
 
-  // Graceful close handler that plays curtain retraction before notifying parent
-  const handleClose = () => {
-    setIsCurtainOpen(false);
-    setTimeout(() => {
-      onClose();
-    }, 480);
-  };
+  // Graceful close handler
+  const handleClose = useCallback(() => {
+    cancelResetTimer();
+    setHoveredCategoryId(null);
+    setHoveredSubItem(null);
+    setSearchQuery("");
+    setMobileStep("categories");
+    onClose();
+  }, [cancelResetTimer, onClose]);
 
-  // Close on Escape key with full retraction animation
+  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen && isCurtainOpen) {
+      if (e.key === "Escape" && isOpen) {
         handleClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, isCurtainOpen]);
+  }, [isOpen, handleClose]);
 
   const activeCategory: NavCategory | undefined = navigationData.find(
     (cat) => cat.id === hoveredCategoryId
@@ -135,21 +112,20 @@ export default function FullscreenNavMenu({
     });
   }
 
-  if (!isRendered) return null;
-
   return (
     <div
+      aria-hidden={!isOpen}
       className={`fixed inset-0 z-50 bg-[#050505] text-white flex flex-col select-none transition-curtain ${
-        isCurtainOpen ? "curtain-open" : "curtain-closed"
+        isOpen ? "curtain-open pointer-events-auto" : "curtain-closed pointer-events-none"
       } border-b border-[#c68642]/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
       onMouseLeave={() => scheduleReset(200)}
     >
       {/* Inner Content Layer: Fades in after curtain unfurls, dissolves upward during curtain retraction */}
       <div
         className={`flex flex-col flex-1 overflow-hidden transition-all ${
-          isCurtainOpen
+          isOpen
             ? "opacity-100 translate-y-0 duration-400 delay-150 transition-luxury"
-            : "opacity-0 -translate-y-3 duration-200 ease-in"
+            : "opacity-0 -translate-y-3 duration-200 ease-in pointer-events-none"
         }`}
       >
         {/* Top Bar with Staggered Header Descent */}
@@ -164,9 +140,9 @@ export default function FullscreenNavMenu({
               onClick={handleClose}
               className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
             >
-              <div className="relative h-10 sm:h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
+              <div className="relative lg:h-14 sm:h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
                 <Image
-                  src="/media/macho-halisi-logo.jpg"
+                  src="/media/macho-halisi-logo-2.jpg"
                   alt="Macho Halisi Logo"
                   fill
                   priority
@@ -198,7 +174,7 @@ export default function FullscreenNavMenu({
                   handleClose();
                   onOpenEnquiry();
                 }}
-                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
+                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
               >
                 ENQUIRE
               </button>
@@ -237,10 +213,15 @@ export default function FullscreenNavMenu({
                       <span className="text-[10px] tracking-[0.25em] text-[#e0ac69] uppercase block mb-1">
                         {categoryTitle}
                       </span>
-                      <h4 className="font-serif-luxury text-xl text-white group-hover:text-[#ffdbac] transition-colors">
+                      <h4 className="font-serif-luxury text-xl font-normal text-white group-hover:text-[#ffdbac] transition-colors tracking-wide">
                         {item.title}
                       </h4>
-                      <p className="text-xs text-white/60 line-clamp-2 mt-2 font-sans">
+                      {item.tagline && (
+                        <p className="font-serif-italic text-xs text-[#e0ac69]/80 mt-1">
+                          {item.tagline}
+                        </p>
+                      )}
+                      <p className="text-xs text-white/60 line-clamp-2 mt-2 font-sans leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -287,7 +268,7 @@ export default function FullscreenNavMenu({
                             : "border-white/10 text-white/60 hover:text-[#ffdbac] hover:border-white/20"
                         }`}
                       >
-                        <span className="font-sans text-xs sm:text-sm tracking-[0.25em] uppercase font-medium transition-transform duration-300 group-hover:translate-x-2">
+                        <span className="font-serif-luxury text-sm sm:text-base lg:text-lg tracking-[0.14em] uppercase font-light transition-transform duration-300 group-hover:translate-x-2">
                           {category.title}
                         </span>
                         {/* Orange Arrow on active/hovered state with smooth slide-in */}
@@ -345,7 +326,7 @@ export default function FullscreenNavMenu({
                                 : "border-white/10 text-white/60 hover:text-[#ffdbac] hover:border-white/20"
                             }`}
                           >
-                            <span className="font-sans text-xs sm:text-sm tracking-[0.22em] uppercase font-medium transition-transform duration-200 group-hover:translate-x-2">
+                            <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light transition-transform duration-200 group-hover:translate-x-2">
                               {subItem.title}
                             </span>
                             {/* Indicator Pip on Hover */}
@@ -367,24 +348,32 @@ export default function FullscreenNavMenu({
                 </div>
               </div>
 
-              {/* COLUMN 3 (RIGHT): Full-Height Top-Border Flush Preview Panel with Dead-Center Text */}
+              {/* COLUMN 3 (RIGHT): Full-Height Top-Border Flush Preview Panel with Persistent Top Crown */}
               <div
                 onMouseEnter={cancelResetTimer}
                 onMouseLeave={() => scheduleReset(320)}
-                className={`w-full lg:w-5/12 xl:w-1/3 border-t lg:border-t-0 lg:border-l border-white/10 relative flex flex-col ${
+                className={`w-full lg:w-5/12 xl:w-1/3 border-t lg:border-t-0 lg:border-l border-white/10 relative flex flex-col overflow-hidden ${
                   mobileStep === "preview"
                     ? "flex min-h-[calc(100vh-140px)]"
                     : "hidden lg:flex min-h-full"
                 }`}
               >
                 {/* Mobile Back to Sub-items */}
-                <div className="lg:hidden p-4 bg-black/60 backdrop-blur-md z-20">
+                <div className="lg:hidden p-4 bg-black/60 backdrop-blur-md z-40">
                   <button
                     onClick={() => setMobileStep("subItems")}
                     className="flex items-center gap-2 text-xs text-[#e0ac69] uppercase tracking-widest py-1"
                   >
                     ← Back to {activeCategory?.title || "List"}
                   </button>
+                </div>
+
+                {/* Persistent Brand Crown - Stuck at the top of it all across destinations */}
+                <div className="absolute top-8 sm:top-12 inset-x-0 z-30 flex flex-col items-center justify-center text-center pointer-events-none select-none">
+                  <span className="font-serif-luxury font-light text-xs sm:text-sm tracking-[0.42em] uppercase text-[#ffdbac] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+                    MACHO HALISI
+                  </span>
+                  <span className="h-[1px] w-8 sm:w-10 bg-[#e0ac69]/60 mt-2" />
                 </div>
 
                 {/* Render right column content ONLY if a sub-item in the middle is hovered */}
@@ -405,23 +394,19 @@ export default function FullscreenNavMenu({
                     />
 
                     {/* Cinematic Contrast Overlays */}
-                    <div className="absolute inset-0 bg-black/50 transition-colors duration-500 group-hover:bg-black/40 pointer-events-none" />
+                    <div className="absolute inset-0 bg-black/45 transition-colors duration-500 group-hover:bg-black/35 pointer-events-none" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/60 pointer-events-none" />
 
-                    {/* Dead-Center Aligned Editorial Typography */}
-                    <div className="relative z-10 flex flex-col items-center justify-center max-w-md px-4">
-                      <h3 className="font-serif-luxury text-3xl sm:text-4xl lg:text-2xl text-white group-hover:text-[#ffdbac] transition-colors duration-300 tracking-[0.14em] uppercase leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+                    {/* Sole Text Element: Destination Name */}
+                    <div className="relative z-20 flex flex-col items-center justify-center max-w-lg px-6 text-center">
+                      <h3 className="font-serif-luxury font-light text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-[#ffdbac] transition-colors duration-300 tracking-[0.16em] uppercase leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
                         {hoveredSubItem.title}
                       </h3>
-                      <span className="h-[1px] w-12 bg-[#e0ac69]/70 my-4 transition-all duration-300 group-hover:w-20 group-hover:bg-[#e0ac69]" />
-                      <p className="text-xs sm:text-sm font-sans tracking-[0.4em] text-[#e0ac69] uppercase font-medium">
-                        Macho Halisi
-                      </p>
                     </div>
                   </Link>
                 ) : (
                   /* Blank state when no sub-item is hovered (matching nav-1.png & nav-2.png) */
-                  <div className="hidden lg:block w-full h-full bg-black/[0.08]" />
+                  <div className="hidden lg:flex w-full h-full items-center justify-center bg-black/[0.08]" />
                 )}
               </div>
             </div>
