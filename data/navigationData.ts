@@ -225,7 +225,13 @@ export const navigationData: NavCategory[] = [
   {
     id: "journeys",
     title: "BESPOKE JOURNEYS",
-    href: "/journeys",
+    // Repointed at the live, dynamic itineraries index rather than the
+    // fictional /journeys/* slugs below, which never resolved to a route —
+    // every link in this category 404'd until the public itineraries
+    // pages existed. The four sub-items shown here are illustrative
+    // examples pending real per-itinerary slugs; until then they all route
+    // to the same place a visitor can actually browse published journeys.
+    href: "/itineraries",
     featuredDefaultId: "classic-northern",
     subItems: [
       {
@@ -234,7 +240,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Serengeti, Ngorongoro, Tarangire & Manyara",
         description:
           "The quintessential luxury Tanzania expedition. Traverse the great parks by private 4WD safari vehicle with seasoned naturalist guides.",
-        href: "/journeys/ultimate-northern-circuit",
+        href: "/itineraries",
         image:
           "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
         badge: "Most Popular",
@@ -246,7 +252,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Exclusive Front-Row to River Crossings",
         description:
           "Timed meticulously to intercept herds confronting the Mara River in northern Serengeti, staying in mobile luxury camps that move with the herds.",
-        href: "/journeys/migration-trail",
+        href: "/itineraries",
         image:
           "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
         badge: "Seasonal Masterpiece",
@@ -258,11 +264,22 @@ export const navigationData: NavCategory[] = [
         tagline: "Thrilling Game Drives to Idyllic Turquoise Waters",
         description:
           "The best of both worlds: seven days tracking Tanzania's wildest animals followed by five days of serene barefoot indulgence in Zanzibar.",
-        href: "/journeys/bush-to-beach",
+        href: "/itineraries",
         image:
           "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
         badge: "Honeymoon Favorite",
         highlights: ["12 Days / 11 Nights", "Serengeti Safari", "Zanzibar Private Villa"],
+      },
+      {
+        id: "view-all-journeys",
+        title: "VIEW ALL SAFARI JOURNEYS",
+        tagline: "The Complete, Live Itinerary Catalog",
+        description:
+          "Browse every published Macho Halisi safari itinerary — day-by-day programs, pricing, and availability, updated as our specialists curate new journeys.",
+        href: "/itineraries",
+        image:
+          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+        highlights: [],
       },
     ],
   },

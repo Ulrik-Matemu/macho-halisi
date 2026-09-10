@@ -3,13 +3,11 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
 interface HeroProps {
-  onOpenMenu?: () => void;
-  onOpenEnquiry?: () => void;
   onVideoReady?: () => void;
 }
 
 const HERO_VIDEOS = [
-  { id: "lion", src: "/media/hero-vids/elephant.mp4", duration: 12.8 },
+  { id: "lion", src: "/media/hero-vids/lion.mp4", duration: 12.8 },
   { id: "landscape", src: "/media/hero-vids/elephant.mp4", duration: 21.48 },
 ];
 
@@ -155,11 +153,15 @@ export default function Hero({ onVideoReady }: HeroProps) {
   const stage1TranslateY = -scrollProgress * 65;
   const stage1Blur = scrollProgress * 10;
 
-  // Stage 2 Interpolations (Bottom Right): Rises up into position on scroll
+  // Stage 2 Interpolations (Bottom Right): Rises up into position on scroll,
+  // then fades back out over the hero's final 15% so the narrative panel is
+  // fully clear by the time the sticky viewport releases and whatever
+  // follows (e.g. FeaturedItineraries) scrolls into view underneath it.
   const stage2T = Math.min(1, Math.max(0, (scrollProgress - 0.2) / 0.45));
-  const stage2Opacity = stage2T;
-  const stage2TranslateY = (1 - stage2T) * 40;
-  const stage2Blur = (1 - stage2T) * 8;
+  const stage2FadeOutT = Math.min(1, Math.max(0, (scrollProgress - 0.85) / 0.15));
+  const stage2Opacity = stage2T * (1 - stage2FadeOutT);
+  const stage2TranslateY = (1 - stage2T) * 40 - stage2FadeOutT * 24;
+  const stage2Blur = (1 - stage2T) * 8 + stage2FadeOutT * 6;
 
   return (
     <section
@@ -256,7 +258,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
             opacity: stage2Opacity,
             transform: `translateY(${stage2TranslateY}px)`,
             filter: `blur(${stage2Blur}px)`,
-            pointerEvents: scrollProgress > 0.3 ? "auto" : "none",
+            pointerEvents: scrollProgress > 0.3 && stage2FadeOutT < 1 ? "auto" : "none",
           }}
           className="absolute inset-0 z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
