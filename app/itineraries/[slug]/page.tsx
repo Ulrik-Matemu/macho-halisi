@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  Calendar,
-  CalendarRange,
-  Compass,
-  DollarSign,
-  ListCheck,
-  Map as MapIcon,
-  MapPin,
-  Moon,
-} from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
 import EnquireButton from "@/components/public/EnquireButton";
-import { getItineraryBySlug, getPublishedItineraries, formatStartingPrice } from "@/lib/public/api";
+import ItineraryReadingBar from "@/components/public/itinerary/ItineraryReadingBar";
+import ItineraryRouteSection from "@/components/public/itinerary/ItineraryRouteSection";
+import RelatedItineraryCard from "@/components/public/itinerary/RelatedItineraryCard";
+import {
+  getItineraryBySlug,
+  getPublishedItineraries,
+  formatStartingPrice,
+  formatBestMonths,
+  formatAvailabilityPeriodLabel,
+  getCurrentOrUpcomingPeriod,
+  groupAccommodationNights,
+} from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
 
 interface ItineraryPageParams {
@@ -60,6 +61,8 @@ export async function generateMetadata({
   };
 }
 
+const HERO_ELEMENT_ID = "itinerary-hero";
+
 export default async function ItineraryDetailPage({
   params,
 }: {
@@ -75,291 +78,337 @@ export default async function ItineraryDetailPage({
   const coverImage = itinerary.images[0];
   const galleryImages = itinerary.images.slice(1);
   const price = formatStartingPrice(itinerary.startingPrice);
+  const bestMonths = formatBestMonths(itinerary.availabilityPeriods);
+  const accommodationStays = groupAccommodationNights(itinerary.days);
+  const activePeriod = getCurrentOrUpcomingPeriod(itinerary.availabilityPeriods);
+
+  const durationLabelCompact =
+    itinerary.nights !== null ? `${itinerary.nights + 1}D / ${itinerary.nights}N` : null;
+  const priceLabel = itinerary.priceOnRequest
+    ? "Price on request"
+    : price
+    ? `From $${price} pp`
+    : "";
+
+  // Overview is a single text blob — split on blank lines so the first
+  // paragraph can render as the large serif lead and the rest as body copy,
+  // matching the design. An itinerary with a one-paragraph overview (the
+  // common case) just gets a lead paragraph and no body copy.
+  const overviewParagraphs = itinerary.overview
+    ? itinerary.overview.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+    : [];
+  const [leadParagraph, ...bodyParagraphs] = overviewParagraphs;
+
+  const { data: relatedRaw } = await getPublishedItineraries({ limit: 4 });
+  const related = relatedRaw.filter((i) => i.slug !== itinerary.slug).slice(0, 3);
+
+  const hasOverviewSection =
+    Boolean(leadParagraph) || itinerary.destinations.length > 0 || itinerary.availabilityPeriods.length > 0;
+  const hasIncludedSection =
+    itinerary.inclusions.length > 0 || itinerary.exclusions.length > 0 || Boolean(itinerary.travelInfo);
 
   return (
     <SiteChrome>
-      {/* Hero image */}
-      <div className="relative w-full h-[55vh] sm:h-[65vh] min-h-[420px] bg-[#050505] overflow-hidden">
-        {coverImage ? (
-          <Image
-            src={coverImage.url}
-            alt={coverImage.altText || itinerary.title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1c160f] to-[#0a0a0a]" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/50" />
+      <ItineraryReadingBar
+        itineraryId={itinerary.id}
+        title={itinerary.title}
+        durationLabel={durationLabelCompact}
+        priceLabel={priceLabel}
+        heroElementId={HERO_ELEMENT_ID}
+      />
 
-        <div className="absolute inset-x-0 bottom-0 max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14">
-          {itinerary.destinations.length > 0 && (
-            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-3">
-              <MapPin className="w-3.5 h-3.5 text-[#c68642]" />
-              <span>{itinerary.destinations.map((d) => d.destination.name).join(" · ")}</span>
-            </div>
+      <div className="bg-[#F6F2EA] text-[#1E1913]">
+        {/* Hero */}
+        <section id={HERO_ELEMENT_ID} className="relative h-[88vh] min-h-[620px]">
+          {coverImage ? (
+            <Image
+              src={coverImage.url}
+              alt={coverImage.altText || itinerary.title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#3a2f22] to-[#181410]" />
           )}
-          <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-[0.08em] uppercase drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)] leading-[1.05] max-w-4xl">
-            {itinerary.title}
-          </h1>
-        </div>
-      </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/70" />
 
-      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
-          {/* Main content column */}
-          <div className="lg:col-span-2 space-y-12">
-            {itinerary.overview && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
-                  Overview
-                </h2>
-                <p className="text-sm sm:text-base text-white/80 font-sans font-light leading-relaxed whitespace-pre-line">
-                  {itinerary.overview}
-                </p>
-              </section>
-            )}
-
-            {itinerary.days.length > 0 && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
-                  Day-by-Day Itinerary
-                </h2>
-                <div className="space-y-6">
-                  {itinerary.days.map((day) => (
-                    <div
-                      key={day.id ?? day.dayNumber}
-                      className="p-5 sm:p-6 border border-white/10 rounded bg-white/[0.02]"
-                    >
-                      <div className="flex items-baseline gap-3 mb-2">
-                        <span className="font-serif-luxury text-lg text-[#ffdbac]">
-                          Day {day.dayNumber}
-                        </span>
-                        {day.title && (
-                          <h3 className="font-serif-luxury text-lg text-white font-normal tracking-wide">
-                            {day.title}
-                          </h3>
-                        )}
-                      </div>
-                      {day.description && (
-                        <p className="text-sm text-white/70 font-sans leading-relaxed mb-3">
-                          {day.description}
-                        </p>
-                      )}
-                      <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/50">
-                        {day.accommodation && (
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-[#c68642]" />
-                            {day.accommodation}
-                          </span>
-                        )}
-                        {day.activities.length > 0 && (
-                          <span className="flex items-center gap-1.5">
-                            <Compass className="w-3.5 h-3.5 text-[#c68642]" />
-                            {day.activities.join(", ")}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+          <div className="absolute inset-x-0 bottom-0 px-6 sm:px-16 pb-14 sm:pb-16">
+            <div className="max-w-[1240px] mx-auto">
+              {itinerary.destinations.length > 0 && (
+                <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#E3C99A] uppercase mb-5">
+                  {itinerary.destinations.map((d) => d.destination.name).join(" · ")}
                 </div>
-              </section>
-            )}
+              )}
+              <h1 className="font-serif-luxury font-light text-5xl sm:text-7xl lg:text-8xl leading-[1.02] tracking-[0.08em] sm:tracking-[0.1em] text-[#FBF7F0] uppercase mb-7 max-w-5xl">
+                {itinerary.title}
+              </h1>
 
-            {(itinerary.inclusions.length > 0 || itinerary.exclusions.length > 0) && (
-              <section className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                {itinerary.inclusions.length > 0 && (
-                  <div>
-                    <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
-                      <ListCheck className="w-3.5 h-3.5" />
-                      Inclusions
-                    </h2>
-                    <ul className="space-y-2 text-sm text-white/70 font-sans">
-                      {itinerary.inclusions.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-[#c68642] mt-1">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {itinerary.exclusions.length > 0 && (
-                  <div>
-                    <h2 className="text-xs font-sans font-light tracking-[0.25em] text-white/40 uppercase mb-4 flex items-center gap-2">
-                      <ListCheck className="w-3.5 h-3.5" />
-                      Exclusions
-                    </h2>
-                    <ul className="space-y-2 text-sm text-white/50 font-sans">
-                      {itinerary.exclusions.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-white/30 mt-1">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </section>
-            )}
-
-            {itinerary.travelInfo && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
-                  Travel Information
-                </h2>
-                <p className="text-sm text-white/70 font-sans leading-relaxed whitespace-pre-line">
-                  {itinerary.travelInfo}
-                </p>
-              </section>
-            )}
-
-            {itinerary.availabilityPeriods.length > 0 && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6 flex items-center gap-2">
-                  <CalendarRange className="w-3.5 h-3.5" />
-                  Seasonal Availability
-                </h2>
-                <div className="space-y-3">
-                  {itinerary.availabilityPeriods.map((period) => {
-                    const formatDate = (iso: string) =>
-                      new Date(iso).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      });
-                    const statusLabel =
-                      period.status === "AVAILABLE"
-                        ? "Available"
-                        : period.status === "LIMITED"
-                        ? "Limited"
-                        : "Fully Booked";
-                    const statusColor =
-                      period.status === "AVAILABLE"
-                        ? "text-emerald-300"
-                        : period.status === "LIMITED"
-                        ? "text-amber-300"
-                        : "text-white/50";
-
-                    return (
-                      <div
-                        key={period.id}
-                        className="p-4 sm:p-5 border border-white/10 rounded bg-white/[0.02] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
-                      >
-                        <div>
-                          <span className="text-sm text-white/80 font-sans">
-                            {formatDate(period.startDate)} – {formatDate(period.endDate)}
-                          </span>
-                          {period.note && (
-                            <p className="text-xs text-white/50 font-sans mt-1">{period.note}</p>
-                          )}
-                        </div>
-                        <span className={`text-xs font-sans font-medium uppercase tracking-wider shrink-0 ${statusColor}`}>
-                          {statusLabel}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </section>
-            )}
-
-            {itinerary.routeMapUrl && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
-                  <MapIcon className="w-3.5 h-3.5" />
-                  Route Map
-                </h2>
-                <a
-                  href={itinerary.routeMapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[#e0ac69] hover:text-[#ffdbac] underline underline-offset-4 transition-colors"
-                >
-                  View the full route map
-                </a>
-              </section>
-            )}
-
-            {galleryImages.length > 0 && (
-              <section>
-                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
-                  Gallery
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {galleryImages.map((img) => (
-                    <div
-                      key={img.id}
-                      className="relative aspect-[4/3] rounded overflow-hidden bg-black/60 border border-white/10"
-                    >
-                      <Image
-                        src={img.url}
-                        alt={img.altText || itinerary.title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 33vw"
-                        className="object-cover object-center hover:scale-105 transition-transform duration-700"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Sticky sidebar */}
-          <aside className="lg:col-span-1">
-            <div className="sticky top-24 p-6 sm:p-8 rounded-xl bg-[#0e0e0e] border border-[#8d5524]/30 shadow-2xl space-y-6">
-              <div className="space-y-3 pb-6 border-b border-white/10">
+              <div className="flex flex-wrap gap-x-10 gap-y-6 items-baseline">
                 {itinerary.nights !== null && (
-                  <div className="flex items-center gap-2.5 text-sm text-white/80">
-                    <Moon className="w-4 h-4 text-[#c68642]" />
-                    <span>
-                      {itinerary.nights} night{itinerary.nights === 1 ? "" : "s"}
-                    </span>
+                  <div>
+                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                      Duration
+                    </div>
+                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
+                      {itinerary.nights + 1} Days / {itinerary.nights} Nights
+                    </div>
                   </div>
                 )}
-                <div className="flex items-center gap-2.5 text-sm text-white/80">
-                  <Calendar className="w-4 h-4 text-[#c68642]" />
-                  <span>
-                    {itinerary.availabilityStatus === "AVAILABLE" && "Available now"}
-                    {itinerary.availabilityStatus === "LIMITED" && "Limited availability"}
-                    {itinerary.availabilityStatus === "FULLY_BOOKED" && "Fully booked"}
+                {(itinerary.priceOnRequest || price) && (
+                  <div>
+                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                      From
+                    </div>
+                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#E3C99A]">
+                      {itinerary.priceOnRequest ? "On Request" : `$${price} pp`}
+                    </div>
+                  </div>
+                )}
+                {bestMonths && (
+                  <div>
+                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                      Best months
+                    </div>
+                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
+                      {bestMonths}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Overview + aside */}
+        {hasOverviewSection && (
+          <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-12 lg:gap-16 items-start">
+              <div>
+                {leadParagraph && (
+                  <p className="font-serif-luxury font-light text-2xl sm:text-3xl leading-[1.62] text-[#1E1913] mb-8 text-balance">
+                    {leadParagraph}
+                  </p>
+                )}
+                {bodyParagraphs.map((para, idx) => (
+                  <p
+                    key={idx}
+                    className="font-sans font-light text-[15.5px] leading-[2] text-[#1E1913]/66 max-w-[620px] mb-5 last:mb-0"
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
+
+              {(itinerary.destinations.length > 0 || itinerary.availabilityPeriods.length > 0) && (
+                <aside className="border-t border-[#1E1913]/[0.16] pt-7 flex flex-col gap-7">
+                  {itinerary.destinations.length > 0 && (
+                    <div>
+                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase mb-2.5">
+                        Destinations visited
+                      </div>
+                      <div className="font-sans font-light text-[15px] leading-[1.85] text-[#1E1913]">
+                        {itinerary.destinations.map((d) => d.destination.name).join(" · ")}
+                      </div>
+                    </div>
+                  )}
+
+                  {itinerary.availabilityPeriods.length > 0 && (
+                    <div>
+                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase mb-2.5">
+                        Seasonal availability
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        {itinerary.availabilityPeriods.map((period) => (
+                          <div
+                            key={period.id}
+                            className="font-sans font-light text-[15px] leading-[1.6] text-[#1E1913]"
+                          >
+                            {formatAvailabilityPeriodLabel(period)}
+                            {period.note && <span className="text-[#1E1913]/55"> — {period.note}</span>}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </aside>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Day by day */}
+        <ItineraryRouteSection
+          days={itinerary.days}
+          images={itinerary.images}
+          routeMapUrl={itinerary.routeMapUrl}
+        />
+
+        {/* Accommodation — derived from day.accommodation, no dedicated
+            model exists, so no photos (see ARCHITECTURE_REVIEW / plan). */}
+        {accommodationStays.length > 0 && (
+          <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+              Where you sleep
+            </div>
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase mb-10">
+              Accommodation
+            </h2>
+            <div className="flex flex-col divide-y divide-[#1E1913]/[0.12]">
+              {accommodationStays.map((stay, idx) => (
+                <div key={idx} className="flex items-baseline justify-between gap-6 py-5">
+                  <span className="font-serif-luxury font-light text-xl sm:text-2xl tracking-[0.04em] text-[#1E1913]">
+                    {stay.name}
+                  </span>
+                  <span className="font-sans font-light text-xs tracking-[0.18em] text-[#1E1913]/66 uppercase whitespace-nowrap">
+                    {stay.nights} night{stay.nights === 1 ? "" : "s"}
                   </span>
                 </div>
-              </div>
+              ))}
+            </div>
+          </section>
+        )}
 
+        {/* Included / Not included / Travel information */}
+        {hasIncludedSection && (
+          <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-14">
+              {itinerary.inclusions.length > 0 && (
+                <div>
+                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-6">
+                    What&apos;s included
+                  </div>
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-[#1E1913]/72">
+                    {itinerary.inclusions.map((item, idx) => (
+                      <div key={idx}>{item}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {itinerary.exclusions.length > 0 && (
+                <div>
+                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#1E1913]/70 uppercase mb-6">
+                    Not included
+                  </div>
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-[#1E1913]/62">
+                    {itinerary.exclusions.map((item, idx) => (
+                      <div key={idx}>{item}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {itinerary.travelInfo && (
+                <div>
+                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#1E1913]/70 uppercase mb-6">
+                    Travel information
+                  </div>
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-[#1E1913]/72 whitespace-pre-line">
+                    {itinerary.travelInfo}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Gallery */}
+        {galleryImages.length > 0 && (
+          <section className="pt-24 sm:pt-32">
+            <div className="max-w-[1240px] mx-auto px-6 sm:px-16 mb-10">
+              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+                Gallery
+              </div>
+              <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase">
+                {itinerary.nights !== null ? `${itinerary.nights + 1} days, in pictures` : "In pictures"}
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-4 sm:px-10">
+              {galleryImages.map((img, idx) => {
+                const isWide = idx % 6 === 0 || idx % 6 === 4;
+                return (
+                  <div
+                    key={img.id}
+                    className={`relative rounded overflow-hidden ${
+                      isWide ? "col-span-2 aspect-[16/10]" : "aspect-[4/5]"
+                    }`}
+                  >
+                    <Image
+                      src={img.url}
+                      alt={img.altText || itinerary.title}
+                      fill
+                      sizes={isWide ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 640px) 50vw, 25vw"}
+                      className="object-cover object-center"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* Enquire */}
+        <section className="mt-24 sm:mt-32 bg-[#181410] text-[#F6F2EA]">
+          <div className="max-w-[1240px] mx-auto px-6 sm:px-16 py-20 sm:py-28">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-16 items-start">
               <div>
-                <span className="text-[10px] font-sans font-light tracking-widest uppercase text-white/50 block mb-1">
-                  {itinerary.priceOnRequest ? "Pricing" : "Starting From"}
-                </span>
-                {itinerary.priceOnRequest ? (
-                  <span className="font-serif-luxury text-2xl text-[#ffdbac]">Price on Request</span>
-                ) : price ? (
-                  <span className="flex items-baseline gap-1 font-serif-luxury text-3xl text-[#ffdbac]">
-                    <DollarSign className="w-5 h-5 text-[#c68642]" />
-                    {price}
-                    <span className="text-xs text-white/40 font-sans ml-1">per person</span>
-                  </span>
-                ) : null}
+                <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#C9A46A] uppercase mb-5">
+                  Availability & enquiry
+                </div>
+                <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-[#FBF7F0] uppercase mb-6">
+                  Plan this trip
+                </h2>
+                <p className="font-sans font-light text-[15px] leading-[2] text-[#FBF7F0]/72 max-w-md mb-8">
+                  Tell us roughly when you would like to travel and we will come back within 24
+                  hours with dates, camps and a firm price — no deposit until the route is right.
+                </p>
+
+                {activePeriod && (
+                  <div>
+                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/70 uppercase mb-2">
+                      Next availability
+                    </div>
+                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
+                      {formatAvailabilityPeriodLabel(activePeriod)}
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <EnquireButton
-                itineraryId={itinerary.id}
-                itineraryTitle={itinerary.title}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-black font-serif-luxury font-medium text-xs tracking-[0.18em] uppercase rounded transition-all shadow-lg shadow-[#c68642]/20 cursor-pointer"
-              />
+              <div className="sm:pt-16">
+                <EnquireButton
+                  itineraryId={itinerary.id}
+                  itineraryTitle={itinerary.title}
+                  label="Enquire Now"
+                  showIcon={false}
+                  className="inline-flex items-center justify-center font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#181410] bg-[#C9A46A] hover:bg-[#F6F2EA] transition-colors px-10 py-4 rounded whitespace-nowrap cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
+        {/* You may also like */}
+        {related.length > 0 && (
+          <section className="max-w-[1240px] mx-auto px-6 sm:px-16 py-24 sm:py-32">
+            <div className="flex items-end justify-between gap-10 mb-11 flex-wrap">
+              <h2 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.1] tracking-[0.14em] text-[#1E1913] uppercase">
+                You may also like
+              </h2>
               <Link
                 href="/itineraries"
-                className="block text-center text-xs text-white/50 hover:text-white transition-colors pt-2"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-[#1E1913] hover:text-[#8A6A33] uppercase transition-colors whitespace-nowrap"
               >
-                ← Back to all journeys
+                All itineraries →
               </Link>
             </div>
-          </aside>
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
+              {related.map((r) => (
+                <RelatedItineraryCard key={r.id} itinerary={r} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </SiteChrome>
   );

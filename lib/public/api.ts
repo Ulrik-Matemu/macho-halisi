@@ -1,5 +1,5 @@
 import { getExpressApiUrl } from "@/lib/auth/constants";
-import type { AvailabilityPeriod } from "@/lib/itineraries/types";
+import type { AvailabilityPeriod, ItineraryDay } from "@/lib/itineraries/types";
 import type { PublicItineraryDetail, PublicPaginatedItineraries } from "./types";
 
 // Tag used to invalidate every public itinerary fetch at once — see
@@ -117,4 +117,59 @@ export function formatAvailabilityPeriodLabel(period: AvailabilityPeriod): strin
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return `${AVAILABILITY_PERIOD_STATUS_LABEL[period.status]} ${formatDate(period.startDate)} – ${formatDate(period.endDate)}`;
+}
+
+/**
+ * Hero stat, e.g. "Jun – Oct" — the month span covered by AVAILABLE
+ * periods (earliest start through latest end). Returns null when there
+ * are no AVAILABLE periods to summarize, so the hero stat is skipped
+ * entirely rather than showing a misleading range built from LIMITED/
+ * FULLY_BOOKED windows.
+ */
+export function formatBestMonths(periods: AvailabilityPeriod[] = []): string | null {
+  const available = periods.filter((p) => p.status === "AVAILABLE");
+  if (available.length === 0) return null;
+
+  let earliest = available[0]!;
+  let latest = available[0]!;
+  for (const period of available) {
+    if (new Date(period.startDate) < new Date(earliest.startDate)) earliest = period;
+    if (new Date(period.endDate) > new Date(latest.endDate)) latest = period;
+  }
+
+  const monthOf = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short" });
+  const startMonth = monthOf(earliest.startDate);
+  const endMonth = monthOf(latest.endDate);
+  return startMonth === endMonth ? startMonth : `${startMonth} – ${endMonth}`;
+}
+
+export interface AccommodationStay {
+  name: string;
+  nights: number;
+}
+
+/**
+ * Derives an accommodation list from day.accommodation — there is no
+ * dedicated accommodation model, so this collapses consecutive days that
+ * share the same accommodation string into one { name, nights } entry.
+ * Days with no accommodation set are skipped, not treated as a gap that
+ * breaks a run (an itinerary can have a free/transit day between two
+ * nights at the same camp without splitting the count).
+ */
+export function groupAccommodationNights(days: ItineraryDay[]): AccommodationStay[] {
+  const stays: AccommodationStay[] = [];
+
+  for (const day of days) {
+    const name = day.accommodation?.trim();
+    if (!name) continue;
+
+    const last = stays[stays.length - 1];
+    if (last && last.name === name) {
+      last.nights += 1;
+    } else {
+      stays.push({ name, nights: 1 });
+    }
+  }
+
+  return stays;
 }
