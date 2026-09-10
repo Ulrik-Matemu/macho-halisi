@@ -5,6 +5,7 @@ import { setAuthCookies, clearAuthCookies } from "./cookies";
 interface ServerFetchResult {
   response: Response;
   newAccessToken?: string;
+  newRefreshToken?: string;
 }
 
 /**
@@ -21,6 +22,7 @@ export async function serverFetch(
   let accessToken = request.cookies.get(AUTH_COOKIES.ACCESS_TOKEN)?.value;
   const refreshToken = request.cookies.get(AUTH_COOKIES.REFRESH_TOKEN)?.value;
   let newAccessToken: string | undefined = undefined;
+  let newRefreshToken: string | undefined = undefined;
 
   const expressBase = getExpressApiUrl();
   const targetUrl = `${expressBase}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
@@ -49,6 +51,12 @@ export async function serverFetch(
         const refreshData = await refreshRes.json();
         if (refreshData.status === "ok" && typeof refreshData.accessToken === "string") {
           newAccessToken = refreshData.accessToken;
+          // The backend now rotates the refresh token on every use (and
+          // revokes the presented one), so the old cookie value is dead
+          // the moment this response arrives — the new one must replace it.
+          if (typeof refreshData.refreshToken === "string") {
+            newRefreshToken = refreshData.refreshToken;
+          }
           headers.set("Authorization", `Bearer ${newAccessToken}`);
 
           // Retry the original request with new token
@@ -63,7 +71,7 @@ export async function serverFetch(
     }
   }
 
-  return { response: res, newAccessToken };
+  return { response: res, newAccessToken, newRefreshToken };
 }
 
 /**
@@ -76,13 +84,13 @@ export async function proxyJsonResponse(
   init: RequestInit = {}
 ): Promise<NextResponse> {
   try {
-    const { response, newAccessToken } = await serverFetch(request, endpoint, init);
+    const { response, newAccessToken, newRefreshToken } = await serverFetch(request, endpoint, init);
     const data = await response.json();
 
     const nextResponse = NextResponse.json(data, { status: response.status });
 
     if (newAccessToken) {
-      setAuthCookies(nextResponse, newAccessToken);
+      setAuthCookies(nextResponse, newAccessToken, newRefreshToken);
     }
 
     if (response.status === 401 && !newAccessToken) {

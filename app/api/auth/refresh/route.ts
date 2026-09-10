@@ -28,7 +28,9 @@ export async function POST(request: NextRequest) {
 
     if (res.ok && data.status === "ok" && data.accessToken) {
       const response = NextResponse.json({ status: "ok" }, { status: 200 });
-      setAuthCookies(response, data.accessToken);
+      // The backend rotates the refresh token on every use, so the new one
+      // must always replace the cookie alongside the new access token.
+      setAuthCookies(response, data.accessToken, data.refreshToken);
       return response;
     }
 

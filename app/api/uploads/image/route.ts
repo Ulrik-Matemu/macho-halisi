@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
 
-    const { response, newAccessToken } = await serverFetch(request, "/uploads/image", {
+    const { response, newAccessToken, newRefreshToken } = await serverFetch(request, "/uploads/image", {
       method: "POST",
       body: formData,
     });
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const nextResponse = NextResponse.json(data, { status: response.status });
 
     if (newAccessToken) {
-      setAuthCookies(nextResponse, newAccessToken);
+      setAuthCookies(nextResponse, newAccessToken, newRefreshToken);
     }
 
     if (response.status === 401 && !newAccessToken) {

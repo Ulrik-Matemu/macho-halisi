@@ -42,11 +42,36 @@ export async function GET(request: NextRequest) {
           const refreshData = await refreshRes.json();
           if (refreshData.status === "ok" && typeof refreshData.accessToken === "string") {
             const newAccessToken: string = refreshData.accessToken;
+            // The backend rotates + revokes the presented refresh token on
+            // every /auth/refresh call. If we don't persist the new one
+            // here, the cookie is left holding an already-dead token — the
+            // *next* refresh attempt would then hit reuse detection and
+            // revoke the whole session. So the rotated cookie must be
+            // written regardless of what fetchMe() below does next.
+            const newRefreshToken: string | undefined =
+              typeof refreshData.refreshToken === "string" ? refreshData.refreshToken : undefined;
+
             const meRes = await fetchMe(newAccessToken);
             if (meRes.ok) {
               const meData = await meRes.json();
               const response = NextResponse.json(meData, { status: 200 });
-              setAuthCookies(response, newAccessToken);
+              setAuthCookies(response, newAccessToken, newRefreshToken);
+              return response;
+            }
+
+            // Refresh succeeded but /auth/me still rejected the new access
+            // token (unexpected, but possible e.g. the user was deleted).
+            // Still persist the rotated refresh token rather than clearing
+            // it outright, since it is genuinely valid — clearing it would
+            // discard a working session over an unrelated failure. If it
+            // truly can't be used, the next call will fail the same way
+            // and fall through to the unauthorized branch below.
+            if (newRefreshToken) {
+              const response = NextResponse.json(
+                { status: "error", message: "Unauthorized" },
+                { status: 401 }
+              );
+              setAuthCookies(response, newAccessToken, newRefreshToken);
               return response;
             }
           }
