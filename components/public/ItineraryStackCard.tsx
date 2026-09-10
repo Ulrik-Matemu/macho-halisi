@@ -43,14 +43,14 @@ export default function ItineraryStackCard({
 
   return (
     <article
-      className="lg:sticky bg-[#F6F2EA] rounded-[22px] p-[30px] lg:grid lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-11 lg:items-center lg:min-h-[460px]"
+      className="lg:sticky bg-[#F6F2EA] rounded  p-[30px] lg:grid lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-11 lg:items-center lg:min-h-[460px]"
       style={{
         top: stickyTop,
         boxShadow: "0 -2px 0 rgba(30,25,19,.06), 0 -24px 48px rgba(30,25,19,.1)",
       }}
     >
       {/* Image */}
-      <div className="relative min-w-0 aspect-[4/3] lg:aspect-auto lg:self-stretch rounded-2xl overflow-hidden">
+      <div className="relative min-w-0 rounded aspect-[4/3] lg:aspect-auto lg:self-stretch  overflow-hidden">
         {cover ? (
           <Image
             src={cover.url}
@@ -128,7 +128,7 @@ export default function ItineraryStackCard({
             itineraryTitle={itinerary.title}
             label="Plan this trip"
             showIcon={false}
-            className="inline-flex items-center justify-center font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] transition-colors px-8 py-4 rounded-[2px] whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center justify-center font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] transition-colors px-8 py-4 rounded whitespace-nowrap cursor-pointer"
           />
           <Link
             href={`/itineraries/${itinerary.slug}`}
