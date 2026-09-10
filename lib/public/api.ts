@@ -1,4 +1,5 @@
 import { getExpressApiUrl } from "@/lib/auth/constants";
+import type { AvailabilityPeriod } from "@/lib/itineraries/types";
 import type { PublicItineraryDetail, PublicPaginatedItineraries } from "./types";
 
 // Tag used to invalidate every public itinerary fetch at once — see
@@ -70,4 +71,50 @@ export function formatStartingPrice(value: number | string | null): string | nul
   const numeric = typeof value === "string" ? Number(value) : value;
   if (Number.isNaN(numeric)) return null;
   return numeric.toLocaleString("en-US", { maximumFractionDigits: 0 });
+}
+
+/**
+ * Picks the single period worth surfacing on a compact card: whichever one
+ * covers `referenceDate`, or failing that the soonest upcoming one, or null
+ * if every period is in the past. Periods arrive pre-sorted by startDate
+ * from the backend (see availabilityPeriodsSelect in public.serializers.ts),
+ * so this is a straightforward linear scan, not a sort.
+ */
+export function getCurrentOrUpcomingPeriod(
+  periods: AvailabilityPeriod[] = [],
+  referenceDate: Date = new Date()
+): AvailabilityPeriod | null {
+  const now = referenceDate.getTime();
+  let upcoming: AvailabilityPeriod | null = null;
+
+  for (const period of periods) {
+    const start = new Date(period.startDate).getTime();
+    const end = new Date(period.endDate).getTime();
+
+    if (start <= now && now <= end) {
+      return period;
+    }
+    if (start > now && !upcoming) {
+      upcoming = period;
+    }
+  }
+
+  return upcoming;
+}
+
+const AVAILABILITY_PERIOD_STATUS_LABEL: Record<AvailabilityPeriod["status"], string> = {
+  AVAILABLE: "Available",
+  LIMITED: "Limited",
+  FULLY_BOOKED: "Fully Booked",
+};
+
+/**
+ * Compact card label, e.g. "Available Jun 1 – Oct 31" — no year, unlike the
+ * detail page's own full period list, which keeps its year-inclusive
+ * format since it isn't fighting for space in a card.
+ */
+export function formatAvailabilityPeriodLabel(period: AvailabilityPeriod): string {
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `${AVAILABILITY_PERIOD_STATUS_LABEL[period.status]} ${formatDate(period.startDate)} – ${formatDate(period.endDate)}`;
 }

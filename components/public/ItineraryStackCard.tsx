@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarRange } from "lucide-react";
 import type { PublicItinerarySummary } from "@/lib/public/types";
-import { formatStartingPrice } from "@/lib/public/api";
+import {
+  formatStartingPrice,
+  getCurrentOrUpcomingPeriod,
+  formatAvailabilityPeriodLabel,
+} from "@/lib/public/api";
 import EnquireButton from "./EnquireButton";
 
 interface ItineraryStackCardProps {
@@ -35,6 +39,7 @@ export default function ItineraryStackCard({
   const destinationNames = itinerary.destinations.map((d) => d.destination.name).join(" · ");
   const price = formatStartingPrice(itinerary.startingPrice);
   const indexLabel = String(index + 1).padStart(2, "0");
+  const activePeriod = getCurrentOrUpcomingPeriod(itinerary.availabilityPeriods);
 
   return (
     <article
@@ -89,7 +94,7 @@ export default function ItineraryStackCard({
           </p>
         )}
 
-        <div className="flex items-center gap-10 sm:gap-12 mb-7 sm:mb-8">
+        <div className="flex items-center gap-10 sm:gap-12 mb-3 sm:mb-4">
           {itinerary.nights !== null && (
             <div>
               <div className="font-sans font-light text-[10px] tracking-[0.28em] text-[#1E1913]/70 uppercase mb-2">
@@ -110,7 +115,14 @@ export default function ItineraryStackCard({
           </div>
         </div>
 
-        <div className="flex items-center gap-7 flex-wrap">
+        {activePeriod && (
+          <div className="flex items-center gap-1.5 font-sans font-light text-xs text-[#1E1913]/70">
+            <CalendarRange className="w-3.5 h-3.5 text-[#8A6A33]" />
+            <span>{formatAvailabilityPeriodLabel(activePeriod)}</span>
+          </div>
+        )}
+
+        <div className="flex items-center gap-7 flex-wrap mt-4 sm:mt-5">
           <EnquireButton
             itineraryId={itinerary.id}
             itineraryTitle={itinerary.title}

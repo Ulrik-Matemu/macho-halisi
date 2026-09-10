@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Moon, DollarSign } from "lucide-react";
+import { ArrowRight, Moon, DollarSign, CalendarRange } from "lucide-react";
 import type { PublicItinerarySummary } from "@/lib/public/types";
-import { formatStartingPrice } from "@/lib/public/api";
+import {
+  formatStartingPrice,
+  getCurrentOrUpcomingPeriod,
+  formatAvailabilityPeriodLabel,
+} from "@/lib/public/api";
 
 interface ItineraryCardProps {
   itinerary: PublicItinerarySummary;
@@ -22,6 +26,7 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
   const cover = itinerary.images[0];
   const destinationName = itinerary.destinations[0]?.destination.name;
   const price = formatStartingPrice(itinerary.startingPrice);
+  const activePeriod = getCurrentOrUpcomingPeriod(itinerary.availabilityPeriods);
 
   return (
     <Link
@@ -89,6 +94,13 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
           </span>
         </div>
+
+        {activePeriod && (
+          <div className="mt-2 flex items-center gap-1 text-xs text-white/50 font-sans font-light">
+            <CalendarRange className="w-3 h-3 text-[#c68642]" />
+            <span>{formatAvailabilityPeriodLabel(activePeriod)}</span>
+          </div>
+        )}
       </div>
     </Link>
   );

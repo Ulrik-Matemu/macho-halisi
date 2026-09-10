@@ -36,6 +36,11 @@ export interface PublicItinerarySummary {
   updatedAt: string;
   images: PublicItineraryCoverImage[];
   destinations: ItineraryDestinationItem[];
+  // Full period list, same as PublicItineraryDetail — cards compute a
+  // single "current or next" line from this via
+  // getCurrentOrUpcomingPeriod() in lib/public/api.ts rather than the
+  // backend precomputing and trimming it server-side.
+  availabilityPeriods: AvailabilityPeriod[];
 }
 
 export interface PublicItineraryDetail {
@@ -58,9 +63,8 @@ export interface PublicItineraryDetail {
   days: ItineraryDay[];
   images: ItineraryImage[];
   destinations: ItineraryDestinationItem[];
-  // Detail-only supplementary calendar detail — deliberately absent from
-  // PublicItinerarySummary above, matching the backend's serializer split
-  // (see public.serializers.ts: only publicItineraryDetailSelect has it).
+  // Full period list — the detail page renders all of them, unlike cards
+  // (see PublicItinerarySummary.availabilityPeriods above).
   availabilityPeriods: AvailabilityPeriod[];
 }
 
