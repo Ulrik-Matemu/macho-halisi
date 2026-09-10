@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   Calendar,
+  CalendarRange,
   Compass,
   DollarSign,
   ListCheck,
@@ -212,6 +213,56 @@ export default async function ItineraryDetailPage({
                 <p className="text-sm text-white/70 font-sans leading-relaxed whitespace-pre-line">
                   {itinerary.travelInfo}
                 </p>
+              </section>
+            )}
+
+            {itinerary.availabilityPeriods.length > 0 && (
+              <section>
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6 flex items-center gap-2">
+                  <CalendarRange className="w-3.5 h-3.5" />
+                  Seasonal Availability
+                </h2>
+                <div className="space-y-3">
+                  {itinerary.availabilityPeriods.map((period) => {
+                    const formatDate = (iso: string) =>
+                      new Date(iso).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      });
+                    const statusLabel =
+                      period.status === "AVAILABLE"
+                        ? "Available"
+                        : period.status === "LIMITED"
+                        ? "Limited"
+                        : "Fully Booked";
+                    const statusColor =
+                      period.status === "AVAILABLE"
+                        ? "text-emerald-300"
+                        : period.status === "LIMITED"
+                        ? "text-amber-300"
+                        : "text-white/50";
+
+                    return (
+                      <div
+                        key={period.id}
+                        className="p-4 sm:p-5 border border-white/10 rounded bg-white/[0.02] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+                      >
+                        <div>
+                          <span className="text-sm text-white/80 font-sans">
+                            {formatDate(period.startDate)} – {formatDate(period.endDate)}
+                          </span>
+                          {period.note && (
+                            <p className="text-xs text-white/50 font-sans mt-1">{period.note}</p>
+                          )}
+                        </div>
+                        <span className={`text-xs font-sans font-medium uppercase tracking-wider shrink-0 ${statusColor}`}>
+                          {statusLabel}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </section>
             )}
 

@@ -4,6 +4,7 @@ import {
   ItineraryDestinationItem,
   AvailabilityStatus,
   ItineraryStatus,
+  AvailabilityPeriod,
 } from "@/lib/itineraries/types";
 
 // Shapes returned by the backend's unauthenticated /public/* routes (see
@@ -57,6 +58,10 @@ export interface PublicItineraryDetail {
   days: ItineraryDay[];
   images: ItineraryImage[];
   destinations: ItineraryDestinationItem[];
+  // Detail-only supplementary calendar detail — deliberately absent from
+  // PublicItinerarySummary above, matching the backend's serializer split
+  // (see public.serializers.ts: only publicItineraryDetailSelect has it).
+  availabilityPeriods: AvailabilityPeriod[];
 }
 
 export interface PublicPaginatedItineraries {

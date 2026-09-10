@@ -31,6 +31,22 @@ export interface ItineraryDestinationItem {
   destination: Destination;
 }
 
+/**
+ * Seasonal / date-based availability detail — distinct from
+ * Itinerary.availabilityStatus, which remains the single, manually set
+ * badge shown on cards and the detail-page sidebar. Periods are
+ * supplementary calendar detail (e.g. "Jun 1 - Oct 31: Available - peak
+ * migration season") managed as their own resource via dedicated
+ * POST/PATCH/DELETE endpoints, not part of the itinerary's autosave PUT.
+ */
+export interface AvailabilityPeriod {
+  id: string;
+  startDate: string;
+  endDate: string;
+  status: AvailabilityStatus;
+  note?: string | null;
+}
+
 export interface UserSummary {
   id: string;
   email: string;
@@ -73,6 +89,7 @@ export interface ItineraryDetail {
   days: ItineraryDay[];
   images: ItineraryImage[];
   destinations: ItineraryDestinationItem[];
+  availabilityPeriods?: AvailabilityPeriod[];
   author?: UserSummary;
   editor?: UserSummary;
 }

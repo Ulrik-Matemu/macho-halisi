@@ -15,6 +15,7 @@ import {
   Send,
   Eye,
   Calendar,
+  CalendarRange,
   Compass,
   FileText,
   MapPin,
@@ -29,6 +30,7 @@ import {
   ItineraryDay,
   ItineraryDestinationItem,
   ItineraryImage,
+  AvailabilityPeriod,
 } from "@/lib/itineraries/types";
 
 // Sub-tabs
@@ -37,8 +39,9 @@ import DaysTab from "@/components/dashboard/itineraries/DaysTab";
 import DestinationsTab from "@/components/dashboard/itineraries/DestinationsTab";
 import InclusionsTab from "@/components/dashboard/itineraries/InclusionsTab";
 import GalleryTab from "@/components/dashboard/itineraries/GalleryTab";
+import AvailabilityTab from "@/components/dashboard/itineraries/AvailabilityTab";
 
-type TabKey = "overview" | "days" | "destinations" | "inclusions" | "gallery";
+type TabKey = "overview" | "days" | "destinations" | "inclusions" | "gallery" | "availability";
 type SaveStatus = "saved" | "unsaved" | "saving" | "error";
 
 export default function ItineraryEditorPage() {
@@ -596,6 +599,18 @@ export default function ItineraryEditorPage() {
             <ImageIcon className="w-3.5 h-3.5" />
             <span>Gallery ({formState.images?.length || 0})</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab("availability")}
+            className={`px-4 py-2 text-xs font-serif-luxury tracking-wider uppercase rounded-md transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeTab === "availability"
+                ? "bg-[#c68642]/20 border border-[#c68642]/50 text-[#ffdbac]"
+                : "text-white/60 hover:text-white hover:bg-white/5 border border-transparent"
+            }`}
+          >
+            <CalendarRange className="w-3.5 h-3.5" />
+            <span>Availability ({formState.availabilityPeriods?.length || 0})</span>
+          </button>
         </div>
       </div>
 
@@ -649,6 +664,17 @@ export default function ItineraryEditorPage() {
             images={formState.images || []}
             onImagesChange={(images: ItineraryImage[]) => {
               setFormState((prev) => (prev ? { ...prev, images } : prev));
+            }}
+            disabled={isViewer}
+          />
+        )}
+
+        {activeTab === "availability" && (
+          <AvailabilityTab
+            itineraryId={itineraryId}
+            periods={formState.availabilityPeriods || []}
+            onPeriodsChange={(availabilityPeriods: AvailabilityPeriod[]) => {
+              setFormState((prev) => (prev ? { ...prev, availabilityPeriods } : prev));
             }}
             disabled={isViewer}
           />
