@@ -44,7 +44,7 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25" />
 
         {itinerary.availabilityStatus !== "AVAILABLE" && (
-          <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-mono tracking-wider uppercase font-semibold bg-black/70 backdrop-blur-md border border-white/15 text-[#f1c27d]">
+          <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-sans tracking-wider uppercase font-semibold bg-black/70 backdrop-blur-md border border-white/15 text-[#f1c27d]">
             {itinerary.availabilityStatus === "LIMITED" ? "Limited Availability" : "Fully Booked"}
           </span>
         )}
@@ -68,7 +68,7 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
         </div>
 
         <div className="mt-4 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-3 text-white/50 font-mono">
+          <div className="flex items-center gap-3 text-white/50 font-sans font-light">
             {itinerary.nights !== null && (
               <span className="flex items-center gap-1">
                 <Moon className="w-3 h-3 text-[#c68642]" />

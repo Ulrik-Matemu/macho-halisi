@@ -196,7 +196,7 @@ export default function FullscreenNavMenu({
           {/* If user is actively searching */}
           {isSearching ? (
             <div className="max-w-[1400px] mx-auto p-6 sm:p-12 animate-in fade-in duration-300">
-              <h3 className="text-xs font-mono uppercase tracking-[0.3em] text-[#e0ac69] mb-6">
+              <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-[#e0ac69] mb-6">
                 Found {searchResults.length} destination(s) for &quot;{searchQuery}&quot;
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

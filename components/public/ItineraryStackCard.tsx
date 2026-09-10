@@ -60,7 +60,7 @@ export default function ItineraryStackCard({
         )}
 
         {itinerary.availabilityStatus !== "AVAILABLE" && (
-          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-sm text-[10px] font-mono tracking-wider uppercase font-semibold bg-[#1E1913]/85 text-[#F6F2EA]">
+          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-sm text-[10px] font-sans tracking-wider uppercase font-semibold bg-[#1E1913]/85 text-[#F6F2EA]">
             {itinerary.availabilityStatus === "LIMITED" ? "Limited Availability" : "Fully Booked"}
           </span>
         )}

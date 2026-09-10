@@ -22,7 +22,7 @@ export default async function ItinerariesIndexPage() {
       <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="mb-10 sm:mb-14 pb-8 border-b border-white/10">
-            <div className="flex items-center gap-2 text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-2">
+            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-2">
               <Compass className="w-3.5 h-3.5 text-[#c68642]" />
               <span>Safari Expeditions</span>
             </div>

@@ -95,7 +95,7 @@ export default async function ItineraryDetailPage({
 
         <div className="absolute inset-x-0 bottom-0 max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14">
           {itinerary.destinations.length > 0 && (
-            <div className="flex items-center gap-2 text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-3">
+            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-3">
               <MapPin className="w-3.5 h-3.5 text-[#c68642]" />
               <span>{itinerary.destinations.map((d) => d.destination.name).join(" · ")}</span>
             </div>
@@ -112,7 +112,7 @@ export default async function ItineraryDetailPage({
           <div className="lg:col-span-2 space-y-12">
             {itinerary.overview && (
               <section>
-                <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
                   Overview
                 </h2>
                 <p className="text-sm sm:text-base text-white/80 font-sans font-light leading-relaxed whitespace-pre-line">
@@ -123,7 +123,7 @@ export default async function ItineraryDetailPage({
 
             {itinerary.days.length > 0 && (
               <section>
-                <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
                   Day-by-Day Itinerary
                 </h2>
                 <div className="space-y-6">
@@ -171,7 +171,7 @@ export default async function ItineraryDetailPage({
               <section className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {itinerary.inclusions.length > 0 && (
                   <div>
-                    <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
+                    <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
                       <ListCheck className="w-3.5 h-3.5" />
                       Inclusions
                     </h2>
@@ -187,7 +187,7 @@ export default async function ItineraryDetailPage({
                 )}
                 {itinerary.exclusions.length > 0 && (
                   <div>
-                    <h2 className="text-xs font-mono tracking-[0.25em] text-white/40 uppercase mb-4 flex items-center gap-2">
+                    <h2 className="text-xs font-sans font-light tracking-[0.25em] text-white/40 uppercase mb-4 flex items-center gap-2">
                       <ListCheck className="w-3.5 h-3.5" />
                       Exclusions
                     </h2>
@@ -206,7 +206,7 @@ export default async function ItineraryDetailPage({
 
             {itinerary.travelInfo && (
               <section>
-                <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4">
                   Travel Information
                 </h2>
                 <p className="text-sm text-white/70 font-sans leading-relaxed whitespace-pre-line">
@@ -217,7 +217,7 @@ export default async function ItineraryDetailPage({
 
             {itinerary.routeMapUrl && (
               <section>
-                <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-4 flex items-center gap-2">
                   <MapIcon className="w-3.5 h-3.5" />
                   Route Map
                 </h2>
@@ -234,7 +234,7 @@ export default async function ItineraryDetailPage({
 
             {galleryImages.length > 0 && (
               <section>
-                <h2 className="text-xs font-mono tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
+                <h2 className="text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-6">
                   Gallery
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -280,7 +280,7 @@ export default async function ItineraryDetailPage({
               </div>
 
               <div>
-                <span className="text-[10px] font-mono tracking-widest uppercase text-white/50 block mb-1">
+                <span className="text-[10px] font-sans font-light tracking-widest uppercase text-white/50 block mb-1">
                   {itinerary.priceOnRequest ? "Pricing" : "Starting From"}
                 </span>
                 {itinerary.priceOnRequest ? (

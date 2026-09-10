@@ -26,13 +26,13 @@ export default function ItinerariesError({
           <button
             type="button"
             onClick={() => retry()}
-            className="px-5 py-2.5 bg-[#c68642] text-[#080808] text-xs font-mono uppercase tracking-wider rounded font-medium cursor-pointer"
+            className="px-5 py-2.5 bg-[#c68642] text-[#080808] text-xs font-sans uppercase tracking-wider rounded font-medium cursor-pointer"
           >
             Try Again
           </button>
           <Link
             href="/"
-            className="px-5 py-2.5 border border-white/15 text-white/70 hover:text-white text-xs font-mono uppercase tracking-wider rounded transition-colors"
+            className="px-5 py-2.5 border border-white/15 text-white/70 hover:text-white text-xs font-sans font-light uppercase tracking-wider rounded transition-colors"
           >
             Return Home
           </Link>
