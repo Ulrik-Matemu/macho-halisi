@@ -9,8 +9,8 @@ interface HeroProps {
 }
 
 const HERO_VIDEOS = [
-  { id: "lion", src: "/media/hero-vids/lion.mp4", duration: 12.8 },
-  { id: "landscape", src: "/media/hero-vids/5214258-sd_960_540_25fps.mp4", duration: 21.48 },
+  { id: "lion", src: "/media/hero-vids/elephant.mp4", duration: 12.8 },
+  { id: "landscape", src: "/media/hero-vids/elephant.mp4", duration: 21.48 },
 ];
 
 export default function Hero({ onVideoReady }: HeroProps) {
@@ -210,7 +210,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
           />
 
           {/* Cinematic dark overlays to balance both left & right typography */}
-          <div className="absolute inset-0 bg-black/35 z-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/15 z-20 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/50 z-20 pointer-events-none" />
         </div>
 
@@ -232,17 +232,15 @@ export default function Hero({ onVideoReady }: HeroProps) {
           >
             <span
               className={`h-[1px] bg-[#e0ac69]/60 transition-all duration-900 transition-luxury delay-300 ${
-                isEntered ? "w-8 sm:w-14" : "w-0"
+                isEntered ? "w-8 sm:w-84" : "w-0"
               }`}
             />
-            <p className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.35em] sm:tracking-[0.45em] text-[#f1c27d] font-sans font-medium">
-              WELCOME TO TANZANIA
-            </p>
+           
           </div>
 
           {/* Monumental Left-Aligned Editorial Brand Title */}
           <h1
-            className={`font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light text-white tracking-[0.14em] sm:tracking-[0.18em] uppercase drop-shadow-[0_4px_40px_rgba(0,0,0,0.85)] leading-[0.95] transition-all duration-1100 transition-luxury delay-700 ${
+            className={`font-serif-luxury text-4xl md:text-8xl font-light text-white tracking-[0.14em] sm:tracking-[0.18em] uppercase drop-shadow-[0_4px_40px_rgba(0,0,0,0.85)] leading-[0.95] transition-all duration-1100 transition-luxury delay-700 ${
               isEntered
                 ? "opacity-100 translate-y-0 blur-0"
                 : "opacity-0 translate-y-6 blur-[8px]"
@@ -263,7 +261,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
           className="absolute inset-0 z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
           <div className="max-w-2xl border-r-2 border-[#c68642]/75 pr-6 sm:pr-8 py-2">
-            <h2 className="font-serif-luxury font-light text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+            <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl lg:text-xl text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
               MACHO HALISI - SAFARI AND TOUR OPERATOR TANZANIA
             </h2>
             <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-[#f1c27d] mt-2 mb-4 sm:mb-5">
