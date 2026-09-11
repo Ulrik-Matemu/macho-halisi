@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { LogOut, Loader2, ShieldCheck, User, Compass, Map } from "lucide-react";
+import { LogOut, Loader2, ShieldCheck, User, Compass, Map, MapPin, Users } from "lucide-react";
 import { AuthUser } from "@/lib/auth/types";
 
 interface DashboardHeaderProps {
@@ -31,6 +31,8 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
   };
 
   const isItinerariesActive = pathname.startsWith("/dashboard/itineraries");
+  const isDestinationsActive = pathname.startsWith("/dashboard/destinations");
+  const isUsersActive = pathname.startsWith("/dashboard/users");
   const isDashboardActive = pathname === "/dashboard";
 
   return (
@@ -84,6 +86,30 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
               <Map className="w-3.5 h-3.5" />
               <span>Itineraries</span>
             </Link>
+            <Link
+              href="/dashboard/destinations"
+              className={`px-3 py-1.5 rounded text-xs font-serif-luxury tracking-wider uppercase transition-colors flex items-center gap-1.5 ${
+                isDestinationsActive
+                  ? "text-[#ffdbac] bg-white/5 font-medium"
+                  : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Destinations</span>
+            </Link>
+            {user.role === "ADMIN" && (
+              <Link
+                href="/dashboard/users"
+                className={`px-3 py-1.5 rounded text-xs font-serif-luxury tracking-wider uppercase transition-colors flex items-center gap-1.5 ${
+                  isUsersActive
+                    ? "text-[#ffdbac] bg-white/5 font-medium"
+                    : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                }`}
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>Users</span>
+              </Link>
+            )}
           </nav>
         </div>
 
