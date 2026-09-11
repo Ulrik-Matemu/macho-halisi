@@ -40,6 +40,7 @@ import DestinationsTab from "@/components/dashboard/itineraries/DestinationsTab"
 import InclusionsTab from "@/components/dashboard/itineraries/InclusionsTab";
 import GalleryTab from "@/components/dashboard/itineraries/GalleryTab";
 import AvailabilityTab from "@/components/dashboard/itineraries/AvailabilityTab";
+import PublishChangesModal from "@/components/dashboard/itineraries/PublishChangesModal";
 
 type TabKey = "overview" | "days" | "destinations" | "inclusions" | "gallery" | "availability";
 type SaveStatus = "saved" | "unsaved" | "saving" | "error";
@@ -61,6 +62,15 @@ export default function ItineraryEditorPage() {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("saved");
   const [saveError, setSaveError] = useState<string | null>(null);
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+
+  // Review-before-publish: once PUBLISHED, autosaves land in a pending
+  // ItineraryRevision instead of the live record (see PUT /:id on the
+  // backend). `liveSnapshot` is what visitors are actually seeing right
+  // now; `formState` may be ahead of it when hasPendingChanges is true.
+  const [liveSnapshot, setLiveSnapshot] = useState<ItineraryDetail | null>(null);
+  const [hasPendingChanges, setHasPendingChanges] = useState(false);
+  const [showPublishChangesModal, setShowPublishChangesModal] = useState(false);
+  const [discarding, setDiscarding] = useState(false);
 
   // Modals
   const [showPublishModal, setShowPublishModal] = useState(false);
@@ -103,8 +113,30 @@ export default function ItineraryEditorPage() {
           return;
         }
 
-        setFormState(itinData.itinerary);
-        setLastSavedAt(new Date(itinData.itinerary.updatedAt));
+        const live: ItineraryDetail = itinData.itinerary;
+        setLiveSnapshot(live);
+        setLastSavedAt(new Date(live.updatedAt));
+
+        // A PUBLISHED itinerary may have a pending, unapplied edit sitting
+        // in an ItineraryRevision — resume that draft rather than showing
+        // the (possibly stale, from the editor's perspective) live record.
+        if (live.status === "PUBLISHED") {
+          try {
+            const revRes = await fetch(`/api/itineraries/${itineraryId}/revision`);
+            const revData = await revRes.json();
+            if (revRes.ok && revData.status === "ok" && revData.revision && revData.preview) {
+              setFormState(revData.preview);
+              setHasPendingChanges(true);
+            } else {
+              setFormState(live);
+            }
+          } catch (revErr) {
+            console.error("Failed to load pending revision:", revErr);
+            setFormState(live);
+          }
+        } else {
+          setFormState(live);
+        }
       } catch (err: any) {
         console.error("Load failed:", err);
         if (isMounted) setError("Failed to communicate with server.");
@@ -164,12 +196,17 @@ export default function ItineraryEditorPage() {
           exclusions: current.exclusions || [],
           travelInfo: current.travelInfo ?? null,
           routeMapUrl: current.routeMapUrl || "",
+          showRouteMap: current.showRouteMap ?? true,
           days: (current.days || []).map((d, index) => ({
             dayNumber: index + 1,
             title: d.title || null,
             description: d.description || null,
             accommodation: d.accommodation || null,
             activities: d.activities || [],
+            latitude: d.latitude ?? null,
+            longitude: d.longitude ?? null,
+            heroImageId: d.heroImageId || null,
+            highlight: Boolean(d.highlight),
           })),
           destinationIds: (current.destinations || []).map((d) => d.destination.id),
         };
@@ -200,6 +237,12 @@ export default function ItineraryEditorPage() {
             updatedAt: data.itinerary.updatedAt,
           };
         });
+
+        // pendingReview: true means this save landed in an ItineraryRevision,
+        // not the live record — the itinerary was already PUBLISHED. The
+        // live snapshot is untouched; only the "you have unpublished
+        // changes" flag flips.
+        setHasPendingChanges(Boolean(data.pendingReview));
 
         setSaveStatus("saved");
         setLastSavedAt(new Date());
@@ -288,11 +331,49 @@ export default function ItineraryEditorPage() {
       }
 
       setFormState(data.itinerary);
+      setLiveSnapshot(data.itinerary);
       setShowPublishModal(false);
     } catch (err: any) {
       setActionError(err.message || "Publishing failed.");
     } finally {
       setActionLoading(false);
+    }
+  };
+
+  // Applies the pending ItineraryRevision to the live record — the actual
+  // "go live" moment for an edit made after the itinerary was already
+  // published. Thrown errors surface inside PublishChangesModal itself.
+  const handlePublishChanges = async () => {
+    const res = await fetch(`/api/itineraries/${itineraryId}/publish-changes`, {
+      method: "PATCH",
+    });
+    const data = await res.json();
+    if (!res.ok || data.status !== "ok" || !data.itinerary) {
+      throw new Error(data.message || "Failed to publish changes.");
+    }
+    setFormState(data.itinerary);
+    setLiveSnapshot(data.itinerary);
+    setHasPendingChanges(false);
+    setShowPublishChangesModal(false);
+  };
+
+  // Abandons the pending revision and resets the editor back to whatever
+  // is actually live.
+  const handleDiscardChanges = async () => {
+    setDiscarding(true);
+    try {
+      await fetch(`/api/itineraries/${itineraryId}/revision`, { method: "DELETE" });
+      const res = await fetch(`/api/itineraries/${itineraryId}`);
+      const data = await res.json();
+      if (res.ok && data.status === "ok" && data.itinerary) {
+        setFormState(data.itinerary);
+        setLiveSnapshot(data.itinerary);
+      }
+      setHasPendingChanges(false);
+    } catch (err) {
+      console.error("Failed to discard pending changes:", err);
+    } finally {
+      setDiscarding(false);
     }
   };
 
@@ -456,9 +537,13 @@ export default function ItineraryEditorPage() {
                   </span>
                 )}
                 {saveStatus === "saved" && (
-                  <span className="flex items-center gap-1.5 text-emerald-400">
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>All changes saved</span>
+                  <span
+                    className={`flex items-center gap-1.5 ${
+                      hasPendingChanges ? "text-[#ffdbac]" : "text-emerald-400"
+                    }`}
+                  >
+                    <Check className={`w-3.5 h-3.5 ${hasPendingChanges ? "text-[#c68642]" : "text-emerald-400"}`} />
+                    <span>{hasPendingChanges ? "Draft saved (not yet live)" : "All changes saved"}</span>
                   </span>
                 )}
                 {saveStatus === "unsaved" && (
@@ -537,6 +622,34 @@ export default function ItineraryEditorPage() {
             )}
           </div>
         </div>
+
+        {/* Unpublished changes banner — only once an already-PUBLISHED
+            itinerary has a pending, unapplied revision (see PUT /:id). */}
+        {formState.status === "PUBLISHED" && hasPendingChanges && (
+          <div className="max-w-[1600px] mx-auto mt-4 px-4 py-3 rounded-md bg-[#c68642]/10 border border-[#c68642]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <span className="text-xs text-[#ffdbac] flex items-center gap-2">
+              <Eye className="w-3.5 h-3.5 shrink-0" />
+              You have unpublished changes — visitors are still seeing the live version.
+            </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setShowPublishChangesModal(true)}
+                className="px-3 py-1.5 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] rounded text-xs font-serif-luxury tracking-wider uppercase transition-colors cursor-pointer"
+              >
+                Review &amp; Publish
+              </button>
+              {!isViewer && (
+                <button
+                  onClick={handleDiscardChanges}
+                  disabled={discarding}
+                  className="px-3 py-1.5 bg-transparent border border-white/20 hover:border-white/40 text-white/70 hover:text-white rounded text-xs font-serif-luxury tracking-wider uppercase transition-colors disabled:opacity-50 cursor-pointer"
+                >
+                  {discarding ? "Discarding..." : "Discard Changes"}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Tab Navigation Navigation Strip */}
         <div className="max-w-[1600px] mx-auto mt-4 pt-3 border-t border-white/10 flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar">
@@ -628,6 +741,8 @@ export default function ItineraryEditorPage() {
           <DaysTab
             days={formState.days || []}
             onChange={(days: ItineraryDay[]) => handleFieldChange({ days })}
+            images={formState.images || []}
+            destinations={formState.destinations || []}
             disabled={isViewer}
           />
         )}
@@ -653,6 +768,7 @@ export default function ItineraryEditorPage() {
             exclusions={formState.exclusions || []}
             travelInfo={formState.travelInfo || ""}
             routeMapUrl={formState.routeMapUrl || ""}
+            showRouteMap={formState.showRouteMap ?? true}
             onChange={handleFieldChange}
             disabled={isViewer}
           />
@@ -665,6 +781,7 @@ export default function ItineraryEditorPage() {
             onImagesChange={(images: ItineraryImage[]) => {
               setFormState((prev) => (prev ? { ...prev, images } : prev));
             }}
+            isPublished={formState.status === "PUBLISHED"}
             disabled={isViewer}
           />
         )}
@@ -676,10 +793,21 @@ export default function ItineraryEditorPage() {
             onPeriodsChange={(availabilityPeriods: AvailabilityPeriod[]) => {
               setFormState((prev) => (prev ? { ...prev, availabilityPeriods } : prev));
             }}
+            isPublished={formState.status === "PUBLISHED"}
             disabled={isViewer}
           />
         )}
       </main>
+
+      {showPublishChangesModal && liveSnapshot && (
+        <PublishChangesModal
+          live={liveSnapshot}
+          pending={formState}
+          isAdmin={isAdmin}
+          onPublish={handlePublishChanges}
+          onClose={() => setShowPublishChangesModal(false)}
+        />
+      )}
 
       {/* ─── MODAL: PUBLISH ITINERARY ─────────────────────── */}
       {showPublishModal && (

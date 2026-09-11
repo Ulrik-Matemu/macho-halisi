@@ -1,21 +1,31 @@
 "use client";
 
-import React from "react";
-import { ItineraryDay } from "@/lib/itineraries/types";
+import React, { useState } from "react";
+import Image from "next/image";
+import { ItineraryDay, ItineraryImage, ItineraryDestinationItem } from "@/lib/itineraries/types";
 import TagInput from "./TagInput";
-import { Plus, Trash2, ArrowUp, ArrowDown, Calendar, Hotel } from "lucide-react";
+import LocationPickerModal from "@/components/dashboard/LocationPickerModal";
+import { Plus, Trash2, ArrowUp, ArrowDown, Calendar, Hotel, MapPin, Star, ImageOff, Crosshair } from "lucide-react";
 
 interface DaysTabProps {
   days: ItineraryDay[];
   onChange: (days: ItineraryDay[]) => void;
+  /** For the hero-image picker — the itinerary's already-uploaded gallery. */
+  images?: ItineraryImage[];
+  /** For the "use destination coordinates" quick-fill. */
+  destinations?: ItineraryDestinationItem[];
   disabled?: boolean;
 }
 
 export default function DaysTab({
   days = [],
   onChange,
+  images = [],
+  destinations = [],
   disabled = false,
 }: DaysTabProps) {
+  const [pickerForIndex, setPickerForIndex] = useState<number | null>(null);
+
   const updateDay = (index: number, patch: Partial<ItineraryDay>) => {
     if (disabled) return;
     const next = [...days];
@@ -32,6 +42,10 @@ export default function DaysTab({
       description: "",
       accommodation: "",
       activities: [],
+      latitude: null,
+      longitude: null,
+      heroImageId: null,
+      highlight: false,
     };
     onChange([...days, newDay]);
   };
@@ -218,6 +232,128 @@ export default function DaysTab({
                     className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none transition-colors leading-relaxed resize-y disabled:opacity-60"
                   />
                 </div>
+
+                {/* Map pin — powers the public journey map */}
+                <div>
+                  <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-[#c68642]" />
+                    Map Pin (optional — falls back to destination coordinates)
+                  </label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      disabled={disabled}
+                      value={day.latitude ?? ""}
+                      onChange={(e) =>
+                        updateDay(idx, { latitude: e.target.value === "" ? null : Number(e.target.value) })
+                      }
+                      placeholder="Latitude"
+                      className="w-32 bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none disabled:opacity-60"
+                    />
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      disabled={disabled}
+                      value={day.longitude ?? ""}
+                      onChange={(e) =>
+                        updateDay(idx, { longitude: e.target.value === "" ? null : Number(e.target.value) })
+                      }
+                      placeholder="Longitude"
+                      className="w-32 bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none disabled:opacity-60"
+                    />
+                    {!disabled && process.env.NEXT_PUBLIC_MAPBOX_TOKEN && (
+                      <button
+                        type="button"
+                        onClick={() => setPickerForIndex(idx)}
+                        className="px-2.5 py-1.5 bg-white/5 border border-[#c68642]/40 hover:border-[#c68642] text-[#e0ac69] rounded text-[10px] font-mono tracking-wide uppercase transition-colors cursor-pointer flex items-center gap-1.5"
+                      >
+                        <Crosshair className="w-3 h-3" />
+                        Pick on Map
+                      </button>
+                    )}
+                    {!disabled &&
+                      destinations
+                        .filter((d) => d.destination.latitude != null && d.destination.longitude != null)
+                        .map((d) => (
+                          <button
+                            key={d.destination.id}
+                            type="button"
+                            onClick={() =>
+                              updateDay(idx, {
+                                latitude: d.destination.latitude,
+                                longitude: d.destination.longitude,
+                              })
+                            }
+                            className="px-2.5 py-1.5 bg-white/5 border border-white/15 hover:border-[#c68642]/60 text-white/60 hover:text-[#ffdbac] rounded text-[10px] font-mono tracking-wide uppercase transition-colors cursor-pointer"
+                          >
+                            Use {d.destination.name}
+                          </button>
+                        ))}
+                  </div>
+                </div>
+
+                {/* Hero image + signature moment */}
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-start">
+                  <div>
+                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
+                      Hero Photo (optional — overrides the default photo cycle)
+                    </label>
+                    {images.length === 0 ? (
+                      <p className="text-[11px] text-white/30 flex items-center gap-1.5">
+                        <ImageOff className="w-3.5 h-3.5" />
+                        Upload gallery photos in the Gallery tab to pick one here.
+                      </p>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          disabled={disabled}
+                          onClick={() => updateDay(idx, { heroImageId: null })}
+                          title="Use default photo cycle"
+                          className={`w-14 h-14 rounded border flex items-center justify-center text-[9px] text-white/50 uppercase transition-colors ${
+                            !day.heroImageId
+                              ? "border-[#c68642] bg-[#c68642]/10 text-[#ffdbac]"
+                              : "border-white/15 hover:border-white/30"
+                          } disabled:opacity-60`}
+                        >
+                          None
+                        </button>
+                        {images.map((img) => (
+                          <button
+                            key={img.id}
+                            type="button"
+                            disabled={disabled}
+                            onClick={() => updateDay(idx, { heroImageId: img.id })}
+                            title={img.altText || undefined}
+                            className={`relative w-14 h-14 rounded overflow-hidden border-2 transition-colors disabled:opacity-60 ${
+                              day.heroImageId === img.id ? "border-[#c68642]" : "border-transparent hover:border-white/30"
+                            }`}
+                          >
+                            <Image src={img.url} alt={img.altText || ""} fill className="object-cover" sizes="56px" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-1">
+                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
+                      Signature Moment
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer w-fit px-3 py-2 rounded border border-white/15 hover:border-white/30 transition-colors">
+                      <input
+                        type="checkbox"
+                        disabled={disabled}
+                        checked={Boolean(day.highlight)}
+                        onChange={(e) => updateDay(idx, { highlight: e.target.checked })}
+                        className="w-4 h-4 accent-[#c68642] cursor-pointer disabled:opacity-60"
+                      />
+                      <Star className="w-3.5 h-3.5 text-[#c68642]" />
+                      <span className="text-xs text-white/80 whitespace-nowrap">Highlight this day</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -235,6 +371,19 @@ export default function DaysTab({
             </div>
           )}
         </div>
+      )}
+
+      {pickerForIndex !== null && days[pickerForIndex] && (
+        <LocationPickerModal
+          title={`Set location for Day ${days[pickerForIndex]!.dayNumber}`}
+          initialLat={days[pickerForIndex]!.latitude}
+          initialLng={days[pickerForIndex]!.longitude}
+          onConfirm={(lat, lng) => {
+            updateDay(pickerForIndex, { latitude: lat, longitude: lng });
+            setPickerForIndex(null);
+          }}
+          onClose={() => setPickerForIndex(null)}
+        />
       )}
     </div>
   );

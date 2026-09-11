@@ -2,18 +2,20 @@
 
 import React from "react";
 import TagInput from "./TagInput";
-import { CheckCircle2, XCircle, Info, Map } from "lucide-react";
+import { CheckCircle2, XCircle, Info, Map, Compass } from "lucide-react";
 
 interface InclusionsTabProps {
   inclusions: string[];
   exclusions: string[];
   travelInfo: string | null;
   routeMapUrl: string | null;
+  showRouteMap: boolean;
   onChange: (patch: {
     inclusions?: string[];
     exclusions?: string[];
     travelInfo?: string | null;
     routeMapUrl?: string | null;
+    showRouteMap?: boolean;
   }) => void;
   disabled?: boolean;
 }
@@ -23,6 +25,7 @@ export default function InclusionsTab({
   exclusions = [],
   travelInfo = "",
   routeMapUrl = "",
+  showRouteMap = true,
   onChange,
   disabled = false,
 }: InclusionsTabProps) {
@@ -109,6 +112,32 @@ export default function InclusionsTab({
           placeholder="https://maps.google.com/..."
           className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-4 py-2.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors disabled:opacity-60"
         />
+      </div>
+
+      {/* Interactive journey map toggle */}
+      <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-4">
+        <div className="flex items-center gap-2">
+          <Compass className="w-4 h-4 text-[#c68642]" />
+          <h3 className="font-serif-luxury text-base text-white font-light">
+            Interactive Journey Map
+          </h3>
+        </div>
+        <p className="text-xs text-white/50">
+          Shows the built-in Mapbox journey map on the public page (route overview + the
+          scroll-synced map in the day-by-day section), plotted from each day&apos;s coordinates or
+          its destination&apos;s. Turn off if geo data isn&apos;t ready yet — the page falls back to
+          the plain route map URL link above with no visible gap.
+        </p>
+        <label className="flex items-center gap-2.5 cursor-pointer w-fit">
+          <input
+            type="checkbox"
+            disabled={disabled}
+            checked={showRouteMap}
+            onChange={(e) => onChange({ showRouteMap: e.target.checked })}
+            className="w-4 h-4 accent-[#c68642] cursor-pointer disabled:opacity-60"
+          />
+          <span className="text-xs text-white/80">Show interactive route map</span>
+        </label>
       </div>
     </div>
   );

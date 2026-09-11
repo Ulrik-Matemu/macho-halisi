@@ -1,6 +1,7 @@
 import SiteChrome from "@/components/SiteChrome";
 import Hero from "@/components/Hero";
 import FeaturedItineraries from "@/components/public/FeaturedItineraries";
+import SmoothScroll from "@/components/public/SmoothScroll";
 
 // Server component: SiteChrome (client) owns the Navbar/menu/modal
 // interaction state, and receives this page's server-rendered content as
@@ -10,6 +11,7 @@ import FeaturedItineraries from "@/components/public/FeaturedItineraries";
 export default function Home() {
   return (
     <SiteChrome>
+      <SmoothScroll />
       <Hero />
       <FeaturedItineraries />
     </SiteChrome>

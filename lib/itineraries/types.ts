@@ -5,6 +5,9 @@ export interface Destination {
   id: string;
   name: string;
   slug: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  blurb?: string | null;
   createdAt?: string;
 }
 
@@ -15,6 +18,15 @@ export interface ItineraryDay {
   description: string | null;
   accommodation: string | null;
   activities: string[];
+  // This day's own map pin, falling back to its destination's coordinates
+  // (see getItineraryMapPins in lib/public/api.ts) when unset.
+  latitude?: number | null;
+  longitude?: number | null;
+  // References one of the itinerary's own ItineraryImage records.
+  heroImageId?: string | null;
+  heroImage?: ItineraryImage | null;
+  // "Signature moment" flag — gives this day distinct visual treatment.
+  highlight?: boolean;
 }
 
 export interface ItineraryImage {
@@ -81,6 +93,7 @@ export interface ItineraryDetail {
   exclusions: string[];
   travelInfo: string | null;
   routeMapUrl: string | null;
+  showRouteMap: boolean;
   availabilityStatus: AvailabilityStatus;
   publishedAt: string | null;
   expiresAt: string | null;

@@ -8,6 +8,8 @@ interface AvailabilityTabProps {
   itineraryId: string;
   periods: AvailabilityPeriod[];
   onPeriodsChange: (periods: AvailabilityPeriod[]) => void;
+  /** Shows the "saves immediately" note when the itinerary is already live. */
+  isPublished?: boolean;
   disabled?: boolean;
 }
 
@@ -38,6 +40,7 @@ export default function AvailabilityTab({
   itineraryId,
   periods = [],
   onPeriodsChange,
+  isPublished = false,
   disabled = false,
 }: AvailabilityTabProps) {
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -149,6 +152,13 @@ export default function AvailabilityTab({
           set in Overview.
         </p>
       </div>
+
+      {isPublished && (
+        <p className="text-[11px] text-[#ffdbac]/80">
+          Unlike the other tabs, availability changes save immediately and are visible to visitors right
+          away — they aren&apos;t held for review.
+        </p>
+      )}
 
       {error && (
         <div className="p-3.5 bg-red-950/40 border border-red-800/50 rounded flex items-start gap-2.5 text-xs text-red-200">

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useMemo, useState } from "react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import FullscreenNavMenu from "./FullscreenNavMenu";
 import EnquiryModal from "./EnquiryModal";
 import { EnquiryProvider, useEnquiry } from "./EnquiryProvider";
@@ -28,8 +29,8 @@ export function useNavbarVisibility(): NavbarVisibilityContextValue {
 }
 
 /**
- * Owns every piece of client-only interaction chrome shared by every public
- * page — the Navbar, the fullscreen nav menu, and the enquiry modal — so
+ * Owns every piece of chrome shared by every public page — the Navbar, the
+ * closing-CTA + Footer, the fullscreen nav menu, and the enquiry modal — so
  * that pages can stay plain server components and pass server-rendered
  * content as children. Deliberately does NOT render Hero: that belongs only
  * to the homepage, which composes it explicitly as a child
@@ -56,6 +57,8 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
         />
 
         {children}
+
+        <Footer />
 
         <FullscreenNavMenu
           isOpen={isMenuOpen}

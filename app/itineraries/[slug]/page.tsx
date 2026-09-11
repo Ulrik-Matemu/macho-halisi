@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import SiteChrome from "@/components/SiteChrome";
 import EnquireButton from "@/components/public/EnquireButton";
 import ItineraryReadingBar from "@/components/public/itinerary/ItineraryReadingBar";
+import ItineraryHero from "@/components/public/itinerary/ItineraryHero";
+import ItineraryJourneyOverviewMap from "@/components/public/itinerary/ItineraryJourneyOverviewMap";
 import ItineraryRouteSection from "@/components/public/itinerary/ItineraryRouteSection";
 import RelatedItineraryCard from "@/components/public/itinerary/RelatedItineraryCard";
 import {
@@ -15,6 +17,7 @@ import {
   formatAvailabilityPeriodLabel,
   getCurrentOrUpcomingPeriod,
   groupAccommodationNights,
+  getItineraryMapPins,
 } from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
 
@@ -81,6 +84,7 @@ export default async function ItineraryDetailPage({
   const bestMonths = formatBestMonths(itinerary.availabilityPeriods);
   const accommodationStays = groupAccommodationNights(itinerary.days);
   const activePeriod = getCurrentOrUpcomingPeriod(itinerary.availabilityPeriods);
+  const mapPins = itinerary.showRouteMap ? getItineraryMapPins(itinerary) : [];
 
   const durationLabelCompact =
     itinerary.nights !== null ? `${itinerary.nights + 1}D / ${itinerary.nights}N` : null;
@@ -119,67 +123,16 @@ export default async function ItineraryDetailPage({
 
       <div className="bg-[#F6F2EA] text-[#1E1913]">
         {/* Hero */}
-        <section id={HERO_ELEMENT_ID} className="relative h-[88vh] min-h-[620px]">
-          {coverImage ? (
-            <Image
-              src={coverImage.url}
-              alt={coverImage.altText || itinerary.title}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-[#3a2f22] to-[#181410]" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/70" />
-
-          <div className="absolute inset-x-0 bottom-0 px-6 sm:px-16 pb-14 sm:pb-16">
-            <div className="max-w-[1240px] mx-auto">
-              {itinerary.destinations.length > 0 && (
-                <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#E3C99A] uppercase mb-5">
-                  {itinerary.destinations.map((d) => d.destination.name).join(" · ")}
-                </div>
-              )}
-              <h1 className="font-serif-luxury font-light text-5xl sm:text-7xl lg:text-8xl leading-[1.02] tracking-[0.08em] sm:tracking-[0.1em] text-[#FBF7F0] uppercase mb-7 max-w-5xl">
-                {itinerary.title}
-              </h1>
-
-              <div className="flex flex-wrap gap-x-10 gap-y-6 items-baseline">
-                {itinerary.nights !== null && (
-                  <div>
-                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
-                      Duration
-                    </div>
-                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
-                      {itinerary.nights + 1} Days / {itinerary.nights} Nights
-                    </div>
-                  </div>
-                )}
-                {(itinerary.priceOnRequest || price) && (
-                  <div>
-                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
-                      From
-                    </div>
-                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#E3C99A]">
-                      {itinerary.priceOnRequest ? "On Request" : `$${price} pp`}
-                    </div>
-                  </div>
-                )}
-                {bestMonths && (
-                  <div>
-                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
-                      Best months
-                    </div>
-                    <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
-                      {bestMonths}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ItineraryHero
+          elementId={HERO_ELEMENT_ID}
+          coverImage={coverImage ? { url: coverImage.url, altText: coverImage.altText ?? null } : null}
+          title={itinerary.title}
+          destinationNames={itinerary.destinations.map((d) => d.destination.name)}
+          nights={itinerary.nights}
+          price={price}
+          priceOnRequest={itinerary.priceOnRequest}
+          bestMonths={bestMonths}
+        />
 
         {/* Overview + aside */}
         {hasOverviewSection && (
@@ -238,11 +191,15 @@ export default async function ItineraryDetailPage({
           </section>
         )}
 
+        {/* The journey — full-route map overview, before the day-by-day */}
+        <ItineraryJourneyOverviewMap pins={mapPins} />
+
         {/* Day by day */}
         <ItineraryRouteSection
           days={itinerary.days}
           images={itinerary.images}
           routeMapUrl={itinerary.routeMapUrl}
+          mapPins={mapPins}
         />
 
         {/* Accommodation — derived from day.accommodation, no dedicated

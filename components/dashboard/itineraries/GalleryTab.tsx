@@ -9,6 +9,8 @@ interface GalleryTabProps {
   itineraryId: string;
   images: ItineraryImage[];
   onImagesChange: (images: ItineraryImage[]) => void;
+  /** Shows the "saves immediately" note when the itinerary is already live. */
+  isPublished?: boolean;
   disabled?: boolean;
 }
 
@@ -19,6 +21,7 @@ export default function GalleryTab({
   itineraryId,
   images = [],
   onImagesChange,
+  isPublished = false,
   disabled = false,
 }: GalleryTabProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -177,6 +180,13 @@ export default function GalleryTab({
           {images.length} image{images.length === 1 ? "" : "s"} attached
         </span>
       </div>
+
+      {isPublished && (
+        <p className="text-[11px] text-[#ffdbac]/80 -mt-4">
+          Unlike the other tabs, gallery changes save immediately and are visible to visitors right away —
+          they aren&apos;t held for review.
+        </p>
+      )}
 
       {uploadError && (
         <div className="p-3.5 bg-red-950/40 border border-red-800/50 rounded flex items-start gap-2.5 text-xs text-red-200">

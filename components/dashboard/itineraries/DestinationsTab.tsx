@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { Destination } from "@/lib/itineraries/types";
-import { MapPin, Plus, Check, Search, Loader2, AlertCircle } from "lucide-react";
+import { MapPin, Plus, Check, Search, Loader2, AlertCircle, ExternalLink } from "lucide-react";
 
 interface DestinationsTabProps {
   selectedIds: string[];
@@ -111,19 +112,30 @@ export default function DestinationsTab({
           </p>
         </div>
 
-        {!disabled && (
-          <button
-            type="button"
-            onClick={() => {
-              setIsAddingNew(!isAddingNew);
-              setAddError(null);
-            }}
-            className="px-3 py-1.5 bg-[#c68642]/20 border border-[#c68642]/50 hover:bg-[#c68642]/30 text-[#ffdbac] rounded text-xs font-mono tracking-wider uppercase transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <Link
+            href="/dashboard/destinations"
+            target="_blank"
+            className="px-3 py-1.5 bg-white/5 border border-white/15 hover:border-white/30 text-white/70 hover:text-white rounded text-xs font-mono tracking-wider uppercase transition-colors flex items-center gap-1.5"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>{isAddingNew ? "Cancel" : "Add New Destination"}</span>
-          </button>
-        )}
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span>Manage Coordinates</span>
+          </Link>
+
+          {!disabled && (
+            <button
+              type="button"
+              onClick={() => {
+                setIsAddingNew(!isAddingNew);
+                setAddError(null);
+              }}
+              className="px-3 py-1.5 bg-[#c68642]/20 border border-[#c68642]/50 hover:bg-[#c68642]/30 text-[#ffdbac] rounded text-xs font-mono tracking-wider uppercase transition-colors flex items-center gap-1.5"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>{isAddingNew ? "Cancel" : "Add New Destination"}</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Inline Quick-Add Form */}

@@ -56,6 +56,7 @@ export interface PublicItineraryDetail {
   exclusions: string[];
   travelInfo: string | null;
   routeMapUrl: string | null;
+  showRouteMap: boolean;
   availabilityStatus: AvailabilityStatus;
   publishedAt: string | null;
   createdAt: string;

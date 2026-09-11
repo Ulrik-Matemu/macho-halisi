@@ -4,13 +4,6 @@ import ItineraryStackCard from "./ItineraryStackCard";
 
 const FEATURED_COUNT = 4;
 
-// Sticky offsets (px) for each card, staggered by 16px per the design.
-// Base is ~24px below the fixed Navbar's rendered height (py-6 + h-14 logo
-// ≈ 104px at lg and up), not the design file's raw 28/44/60/76 — those
-// assume no fixed header and would slide every card underneath the Navbar.
-const STICKY_TOP_BASE = 128;
-const STICKY_TOP_STEP = 16;
-
 /**
  * Homepage section rendered directly below the Hero. Server component —
  * fetches PUBLISHED itineraries at request/build time via the backend's
@@ -21,7 +14,10 @@ const STICKY_TOP_STEP = 16;
  * Design source: Claude Design project 97cc8521-65d3-4bbc-9442-088e8a572c22,
  * "Featured Itineraries.dc.html", option 2a — "sticky stack". Each
  * itinerary is a wide card (see ItineraryStackCard) that pins in place and
- * piles beneath the next as the visitor scrolls past it.
+ * piles beneath the next as the visitor scrolls past it — at every
+ * breakpoint, phones included; ItineraryStackCard carries its own
+ * responsive sticky offsets and a lighter mobile footprint so the pile
+ * still has room to read as a pile on a short viewport.
  */
 export default async function FeaturedItineraries() {
   const { data: itineraries, pagination } = await getPublishedItineraries({ limit: FEATURED_COUNT });
@@ -31,7 +27,16 @@ export default async function FeaturedItineraries() {
   }
 
   return (
-    <section className="relative z-10 bg-[#EFE9DE] pt-16 sm:pt-20 lg:pt-[76px]">
+    // Curtain-reveal over the Hero: Hero's video stays sticky-pinned for a
+    // 220vh scroll range (see Hero.tsx) and its own text has already faded
+    // out by 85% of that range, leaving nothing but plain video for the
+    // final ~15% — exactly the window this section's negative top margin
+    // pulls it into, so it visually slides up and over the still-pinned
+    // video like a sheet being drawn across it. Pure CSS (negative margin
+    // + rounded top + z-10 painting over Hero's un-indexed sticky child,
+    // which loses stacking ties to normal DOM paint order) — no scroll
+    // listener needed, so it stays smooth on any device.
+    <section className="relative z-10 bg-[#EFE9DE] -mt-[110px] sm:-mt-[150px] lg:-mt-[190px] rounded shadow-[0_-60px_110px_-45px_rgba(0,0,0,0.55)] pt-16 sm:pt-20 lg:pt-[76px]">
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12 mb-12 lg:mb-11">
           <div>
@@ -49,15 +54,9 @@ export default async function FeaturedItineraries() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-10 pb-4 lg:pb-[120px]">
+        <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 pb-4 lg:pb-[120px]">
           {itineraries.map((itinerary, idx) => (
-            <ItineraryStackCard
-              key={itinerary.id}
-              itinerary={itinerary}
-              index={idx}
-              stickyTop={STICKY_TOP_BASE + idx * STICKY_TOP_STEP}
-              priority={idx < 2}
-            />
+            <ItineraryStackCard key={itinerary.id} itinerary={itinerary} index={idx} priority={idx < 2} />
           ))}
         </div>
 

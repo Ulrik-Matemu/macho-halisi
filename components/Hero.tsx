@@ -154,11 +154,19 @@ export default function Hero({ onVideoReady }: HeroProps) {
   const stage1Blur = scrollProgress * 10;
 
   // Stage 2 Interpolations (Bottom Right): Rises up into position on scroll,
-  // then fades back out over the hero's final 15% so the narrative panel is
-  // fully clear by the time the sticky viewport releases and whatever
-  // follows (e.g. FeaturedItineraries) scrolls into view underneath it.
-  const stage2T = Math.min(1, Math.max(0, (scrollProgress - 0.2) / 0.45));
-  const stage2FadeOutT = Math.min(1, Math.max(0, (scrollProgress - 0.85) / 0.15));
+  // holds at full visibility for a wide plateau, then fades back out with
+  // enough clearance before the hero releases that the narrative panel is
+  // fully gone before FeaturedItineraries' curtain-reveal (its negative
+  // top margin, ~15-18% of this range) starts sliding up over the sticky
+  // video underneath.
+  //
+  // Arrives earlier and holds far longer than it used to (0.10–0.38 fade
+  // in, then a 0.27-wide plateau at full opacity/no motion) — the previous
+  // curve only arrived at 0.65 and started leaving at 0.85, a 0.20 window
+  // that read as a blip easy to scroll straight through rather than an
+  // intentional reveal.
+  const stage2T = Math.min(1, Math.max(0, (scrollProgress - 0.1) / 0.28));
+  const stage2FadeOutT = Math.min(1, Math.max(0, (scrollProgress - 0.65) / 0.13));
   const stage2Opacity = stage2T * (1 - stage2FadeOutT);
   const stage2TranslateY = (1 - stage2T) * 40 - stage2FadeOutT * 24;
   const stage2Blur = (1 - stage2T) * 8 + stage2FadeOutT * 6;
@@ -212,7 +220,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
           />
 
           {/* Cinematic dark overlays to balance both left & right typography */}
-          <div className="absolute inset-0 bg-black/15 z-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/5 z-20 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/50 z-20 pointer-events-none" />
         </div>
 

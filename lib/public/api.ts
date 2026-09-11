@@ -173,3 +173,52 @@ export function groupAccommodationNights(days: ItineraryDay[]): AccommodationSta
 
   return stays;
 }
+
+export interface ItineraryMapPin {
+  dayNumber: number;
+  lat: number;
+  lng: number;
+  label: string;
+  blurb: string | null;
+  isHighlight: boolean;
+}
+
+/**
+ * Builds the ordered pin list the journey map (overview + scroll-synced)
+ * draws its route from. A day's own coordinates win when set (the exact
+ * camp/stop); otherwise it falls back to the itinerary's first linked
+ * destination's coordinates (a national-park-sized centroid) — there is no
+ * per-day destination link in the data model, so this is the best
+ * available fallback until a day gets its own pin. Days with neither are
+ * skipped rather than plotted at (0, 0) — this is the single place that
+ * "which pin wins" logic lives, so both map components stay in sync.
+ */
+export function getItineraryMapPins(itinerary: PublicItineraryDetail): ItineraryMapPin[] {
+  const pins: ItineraryMapPin[] = [];
+  const fallbackDestination = itinerary.destinations[0]?.destination;
+
+  for (const day of itinerary.days) {
+    let lat = day.latitude ?? null;
+    let lng = day.longitude ?? null;
+    let blurb: string | null = null;
+
+    if ((lat === null || lng === null) && fallbackDestination) {
+      lat = fallbackDestination.latitude ?? null;
+      lng = fallbackDestination.longitude ?? null;
+      blurb = fallbackDestination.blurb ?? null;
+    }
+
+    if (lat === null || lng === null) continue;
+
+    pins.push({
+      dayNumber: day.dayNumber,
+      lat,
+      lng,
+      label: day.title || `Day ${day.dayNumber}`,
+      blurb,
+      isHighlight: Boolean(day.highlight),
+    });
+  }
+
+  return pins;
+}
