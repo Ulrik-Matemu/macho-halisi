@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: "Macho Halisi | Luxury Tanzanian Safaris & Wilderness Journeys",
   description:
     "Experience Tanzania through authentic eyes. Bespoke luxury wildlife safaris across the Serengeti, Ngorongoro Crater, Mount Kilimanjaro, and Zanzibar.",
+  openGraph: {
+    siteName: "Macho Halisi",
+  },
 };
 
 export default function RootLayout({

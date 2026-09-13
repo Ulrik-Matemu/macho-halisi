@@ -55,7 +55,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
 
   return (
     <article
-      className="sticky top-[var(--stack-top-mobile)] lg:top-[var(--stack-top-desktop)] bg-[#F6F2EA] rounded p-5 sm:p-6 lg:p-[30px] grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] gap-5 sm:gap-6 lg:gap-11 lg:items-center lg:min-h-[460px]"
+      className="sticky top-[var(--stack-top-mobile)] lg:top-[var(--stack-top-desktop)] bg-[#F6F2EA] rounded overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:items-stretch lg:min-h-[460px]"
       style={
         {
           "--stack-top-mobile": `${mobileTop}px`,
@@ -64,11 +64,13 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         } as React.CSSProperties
       }
     >
-      {/* Image — shorter on mobile (16:9) so the card has less height to
-          scroll past before it settles, leaving room for the pile beneath
-          it to actually show; widens back out to the design's 4:3 at sm,
-          then fills its own grid cell at lg. */}
-      <div className="relative min-w-0 rounded aspect-[16/9] sm:aspect-[4/3] lg:aspect-auto lg:self-stretch overflow-hidden">
+      {/* Image — fills its half of the card edge-to-edge (the article's own
+          rounded+overflow-hidden clips it, rather than the image carrying
+          its own inset radius). Shorter on mobile (16:9) so the card has
+          less height to scroll past before it settles, leaving room for the
+          pile beneath it to actually show; widens back out to the design's
+          4:3 at sm, then fills its own grid cell at lg. */}
+      <div className="relative min-w-0 aspect-[16/9] sm:aspect-[4/3] lg:aspect-auto lg:h-full">
         {cover ? (
           <Image
             src={cover.url}
@@ -89,8 +91,9 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         )}
       </div>
 
-      {/* Content */}
-      <div className="min-w-0 pt-1 sm:pt-2 lg:pt-3.5 lg:pr-8 lg:pl-0 pb-1">
+      {/* Content — carries the padding the article used to apply uniformly,
+          now that the image bleeds edge-to-edge instead. */}
+      <div className="min-w-0 px-5 pt-6 pb-5 sm:px-6 sm:pt-8 sm:pb-6 lg:pl-11 lg:pr-[30px] lg:py-[30px]">
         <div className="flex items-baseline gap-4 mb-3 sm:mb-4 lg:mb-5">
           <span className="font-sans font-light text-xs tracking-[0.2em] text-[#8A6A33]">
             {indexLabel}

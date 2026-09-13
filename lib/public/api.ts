@@ -20,6 +20,13 @@ async function publicFetch<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(url, {
       next: { revalidate: 300, tags: [ITINERARIES_TAG] },
+      // The backend runs on a free-tier host that cold-starts after idle
+      // (30-50s in practice) — without a bound, a visitor's very first
+      // request would hang the whole page render for that long. 8s is
+      // comfortably longer than a warm response but short enough that a
+      // cold backend degrades to an empty/skeleton state instead of
+      // blocking first paint.
+      signal: AbortSignal.timeout(8000),
     });
 
     if (!res.ok) {
@@ -31,9 +38,10 @@ async function publicFetch<T>(path: string): Promise<T | null> {
 
     return (await res.json()) as T;
   } catch (err) {
-    // The backend being unreachable should degrade the marketing site to an
-    // empty state, not crash the page — this is public, unauthenticated
-    // content with no user-specific consequence to a soft failure here.
+    // The backend being unreachable (or the 8s timeout above firing) should
+    // degrade the marketing site to an empty state, not crash the page —
+    // this is public, unauthenticated content with no user-specific
+    // consequence to a soft failure here.
     console.error(`Public API request errored: ${path}`, err);
     return null;
   }
@@ -51,7 +59,17 @@ export async function getPublishedItineraries(
     `/public/itineraries${qs ? `?${qs}` : ""}`
   );
 
-  return data ?? { ...EMPTY_RESULT, pagination: { ...EMPTY_RESULT.pagination, limit: params.limit ?? 12 } };
+  if (data) return data;
+
+  // `degraded` distinguishes "the backend didn't answer" from "it answered
+  // and there's genuinely nothing published yet" — callers like
+  // FeaturedItineraries show different copy for each rather than treating
+  // an outage as if the catalog were simply empty.
+  return {
+    ...EMPTY_RESULT,
+    pagination: { ...EMPTY_RESULT.pagination, limit: params.limit ?? 12 },
+    degraded: true,
+  };
 }
 
 export async function getItineraryBySlug(slug: string): Promise<PublicItineraryDetail | null> {

@@ -21,15 +21,11 @@ function LoginContent() {
 
   const handleLoginSuccess = (data: LoginSuccessResponse) => {
     setChallengeToken(data.challengeToken);
-    if (data.status === "mfa_required") {
-      setStep("mfa_challenge");
-    } else if (data.status === "mfa_enrollment_required") {
-      setStep("mfa_enrollment");
-    }
+    if (data.status === "mfa_required") setStep("mfa_challenge");
+    else if (data.status === "mfa_enrollment_required") setStep("mfa_enrollment");
   };
 
   const handleMfaComplete = () => {
-    // Navigate into the authenticated dashboard
     router.push(fromPath);
     router.refresh();
   };
@@ -40,59 +36,32 @@ function LoginContent() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 sm:p-8 bg-[#0d0d0d] border border-[#8d5524]/30 rounded-xl shadow-2xl relative overflow-hidden backdrop-blur-sm">
-      {/* Decorative top accent border */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8d5524] via-[#c68642] to-[#8d5524]" />
-
-      {/* Brand Header */}
+    <div className="w-full max-w-md mx-auto p-6 sm:p-8 rounded-xl shadow-2xl" style={{ background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" }}>
       <div className="flex flex-col items-center text-center mb-8">
-        <Link href="/" className="mb-4 inline-block group">
-          <div className="relative h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black group-hover:border-[#c68642] transition-colors">
-            <Image
-              src="/media/macho-halisi-logo-2.jpg"
-              alt="Macho Halisi Logo"
-              fill
-              priority
-              className="object-cover object-center"
-            />
+        <Link href="/" className="mb-4 inline-block">
+          <div className="relative h-12 aspect-[180/94] rounded overflow-hidden" style={{ border: "1px solid var(--dash-border-strong)" }}>
+            <Image src="/media/macho-halisi-logo-2.jpg" alt="Macho Halisi Logo" fill priority className="object-cover object-center" />
           </div>
         </Link>
-        <span className="font-serif-luxury text-xl sm:text-2xl text-white font-light tracking-[0.14em] uppercase">
+        <span className="dash-title" style={{ color: "var(--dash-text)" }}>
           Macho Halisi
         </span>
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#f1c27d] mt-1">
-          Staff & Operations Portal
+        <span className="text-sm mt-1" style={{ color: "var(--dash-text-subtle)" }}>
+          Staff & operations portal
         </span>
       </div>
 
-      {/* Step Views */}
-      {step === "credentials" && (
-        <LoginForm onSuccess={handleLoginSuccess} />
-      )}
-
-      {step === "mfa_challenge" && (
-        <MfaChallengeForm
-          challengeToken={challengeToken}
-          onSuccess={handleMfaComplete}
-          onBack={handleBackToCredentials}
-        />
-      )}
-
-      {step === "mfa_enrollment" && (
-        <MfaEnrollForm
-          challengeToken={challengeToken}
-          onSuccess={handleMfaComplete}
-          onBack={handleBackToCredentials}
-        />
-      )}
+      {step === "credentials" && <LoginForm onSuccess={handleLoginSuccess} />}
+      {step === "mfa_challenge" && <MfaChallengeForm challengeToken={challengeToken} onSuccess={handleMfaComplete} onBack={handleBackToCredentials} />}
+      {step === "mfa_enrollment" && <MfaEnrollForm challengeToken={challengeToken} onSuccess={handleMfaComplete} onBack={handleBackToCredentials} />}
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#080808] flex items-center justify-center px-4 py-12">
-      <Suspense fallback={<div className="text-xs text-white/40 font-mono">Loading authentication...</div>}>
+    <div data-app="dashboard" className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "var(--dash-bg)" }}>
+      <Suspense fallback={<div className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>Loading authentication...</div>}>
         <LoginContent />
       </Suspense>
     </div>

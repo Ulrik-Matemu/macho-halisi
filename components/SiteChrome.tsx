@@ -49,9 +49,21 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
 
   return (
     <NavbarVisibilityContext.Provider value={navbarVisibilityValue}>
-      <main className="min-h-screen bg-[#080808] text-white flex flex-col selection:bg-[#8d5524] selection:text-[#ffdbac]">
+      {/* Visually hidden until focused — first Tab stop on every page, so
+          keyboard users can jump past the fixed Navbar straight to content. */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#c68642] focus:text-[#080808] focus:rounded focus:text-xs focus:font-serif-luxury focus:tracking-[0.18em] focus:uppercase"
+      >
+        Skip to content
+      </a>
+      <main
+        id="main"
+        className="min-h-screen bg-[#080808] text-white flex flex-col selection:bg-[#8d5524] selection:text-[#ffdbac]"
+      >
         <Navbar
           isVisible={isNavbarVisible}
+          scrollThreshold={120}
           onOpenMenu={() => setIsMenuOpen(true)}
           onOpenEnquiry={() => openEnquiry()}
         />

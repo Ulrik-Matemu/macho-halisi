@@ -6,24 +6,22 @@ import { ItineraryDay, ItineraryImage, ItineraryDestinationItem } from "@/lib/it
 import TagInput from "./TagInput";
 import LocationPickerModal from "@/components/dashboard/LocationPickerModal";
 import { Plus, Trash2, ArrowUp, ArrowDown, Calendar, Hotel, MapPin, Star, ImageOff, Crosshair } from "lucide-react";
+import Field, { inputClass, inputStyle } from "@/components/dashboard/ui/Field";
+import Button from "@/components/dashboard/ui/Button";
+import IconButton from "@/components/dashboard/ui/IconButton";
+import EmptyState from "@/components/dashboard/ui/EmptyState";
 
 interface DaysTabProps {
   days: ItineraryDay[];
   onChange: (days: ItineraryDay[]) => void;
-  /** For the hero-image picker — the itinerary's already-uploaded gallery. */
   images?: ItineraryImage[];
-  /** For the "use destination coordinates" quick-fill. */
   destinations?: ItineraryDestinationItem[];
   disabled?: boolean;
 }
 
-export default function DaysTab({
-  days = [],
-  onChange,
-  images = [],
-  destinations = [],
-  disabled = false,
-}: DaysTabProps) {
+const cardStyle: React.CSSProperties = { background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" };
+
+export default function DaysTab({ days = [], onChange, images = [], destinations = [], disabled = false }: DaysTabProps) {
   const [pickerForIndex, setPickerForIndex] = useState<number | null>(null);
 
   const updateDay = (index: number, patch: Partial<ItineraryDay>) => {
@@ -35,9 +33,8 @@ export default function DaysTab({
 
   const addDay = () => {
     if (disabled) return;
-    const nextDayNumber = days.length + 1;
     const newDay: ItineraryDay = {
-      dayNumber: nextDayNumber,
+      dayNumber: days.length + 1,
       title: "",
       description: "",
       accommodation: "",
@@ -53,12 +50,7 @@ export default function DaysTab({
   const removeDay = (index: number) => {
     if (disabled) return;
     const filtered = days.filter((_, idx) => idx !== index);
-    // Re-index dayNumbers
-    const reindexed = filtered.map((d, idx) => ({
-      ...d,
-      dayNumber: idx + 1,
-    }));
-    onChange(reindexed);
+    onChange(filtered.map((d, idx) => ({ ...d, dayNumber: idx + 1 })));
   };
 
   const moveDay = (fromIndex: number, toIndex: number) => {
@@ -67,210 +59,162 @@ export default function DaysTab({
     const next = [...days];
     const [moved] = next.splice(fromIndex, 1);
     next.splice(toIndex, 0, moved);
-    // Re-index dayNumbers sequentially
-    const reindexed = next.map((d, idx) => ({
-      ...d,
-      dayNumber: idx + 1,
-    }));
-    onChange(reindexed);
+    onChange(next.map((d, idx) => ({ ...d, dayNumber: idx + 1 })));
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex items-center justify-between pb-2 border-b border-white/10">
+    <div className="space-y-6 max-w-3xl">
+      <div className="flex items-center justify-between gap-4 pb-4" style={{ borderBottom: "1px solid var(--dash-border)" }}>
         <div>
-          <h3 className="font-serif-luxury text-lg text-white font-light flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-[#c68642]" />
-            <span>Day-by-Day Journey Schedule</span>
+          <h3 className="dash-subtitle flex items-center gap-2" style={{ color: "var(--dash-text)" }}>
+            <Calendar className="w-4 h-4" style={{ color: "var(--dash-accent)" }} />
+            Day-by-day journey schedule
           </h3>
-          <p className="text-xs text-white/50 mt-0.5">
-            {days.length === 0
-              ? "No days added yet. Click Add Day below to start building the itinerary."
-              : `${days.length} day${days.length === 1 ? "" : "s"} sequenced.`}
+          <p className="text-sm mt-0.5" style={{ color: "var(--dash-text-subtle)" }}>
+            {days.length === 0 ? "No days added yet. Click Add day below to start building the itinerary." : `${days.length} day${days.length === 1 ? "" : "s"} sequenced.`}
           </p>
         </div>
-
         {!disabled && (
-          <button
-            type="button"
-            onClick={addDay}
-            className="px-3.5 py-2 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] font-serif-luxury text-xs tracking-wider uppercase rounded transition-colors flex items-center gap-1.5 shadow"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Day</span>
-          </button>
+          <Button variant="primary" size="sm" icon={<Plus className="w-3.5 h-3.5" />} onClick={addDay}>
+            Add day
+          </Button>
         )}
       </div>
 
       {days.length === 0 ? (
-        <div className="p-12 text-center border border-dashed border-white/15 rounded-lg bg-[#0e0e0e]/50 space-y-4">
-          <Calendar className="w-10 h-10 text-white/20 mx-auto" />
-          <div className="space-y-1">
-            <p className="text-sm font-medium text-white/80">
-              No Days Defined
-            </p>
-            <p className="text-xs text-white/40 max-w-md mx-auto">
-              Safari itineraries require at least one day before they can be published.
-            </p>
-          </div>
-          {!disabled && (
-            <button
-              type="button"
-              onClick={addDay}
-              className="px-4 py-2.5 bg-[#c68642]/20 border border-[#c68642]/50 text-[#ffdbac] hover:bg-[#c68642]/30 rounded text-xs font-mono tracking-wider uppercase transition-colors"
-            >
-              + Add Day 1
-            </button>
-          )}
-        </div>
+        <EmptyState
+          icon={Calendar}
+          title="No days defined"
+          description="Safari itineraries require at least one day before they can be published."
+          action={
+            !disabled && (
+              <Button variant="secondary" size="sm" icon={<Plus className="w-3.5 h-3.5" />} onClick={addDay}>
+                Add day 1
+              </Button>
+            )
+          }
+        />
       ) : (
         <div className="space-y-5">
           {days.map((day, idx) => (
-            <div
-              key={`day-${idx}-${day.dayNumber}`}
-              className="p-5 sm:p-6 rounded-lg bg-[#0e0e0e] border border-white/10 hover:border-white/20 transition-all space-y-4 shadow-sm"
-            >
-              {/* Day Header with Controls */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div key={`day-${idx}-${day.dayNumber}`} className="p-5 sm:p-6 rounded-lg space-y-4" style={cardStyle}>
+              <div className="flex items-center justify-between pb-3" style={{ borderBottom: "1px solid var(--dash-border)" }}>
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded bg-[#1c160f] border border-[#c68642]/50 flex items-center justify-center font-serif-luxury text-[#ffdbac] text-xs font-semibold">
+                  <span
+                    className="w-8 h-8 rounded-md flex items-center justify-center text-xs font-semibold"
+                    style={{ background: "var(--dash-accent-soft)", border: "1px solid var(--dash-accent-soft-border)", color: "var(--dash-accent)" }}
+                  >
                     {day.dayNumber}
                   </span>
-                  <span className="font-serif-luxury text-base text-white tracking-wide">
+                  <span className="text-sm font-medium" style={{ color: "var(--dash-text)" }}>
                     Day {day.dayNumber}
                   </span>
                 </div>
-
                 {!disabled && (
                   <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      disabled={idx === 0}
-                      onClick={() => moveDay(idx, idx - 1)}
-                      title="Move day earlier"
-                      className="p-1.5 text-white/60 hover:text-white rounded hover:bg-white/10 disabled:opacity-20 transition-colors cursor-pointer"
-                    >
+                    <IconButton label="Move day earlier" disabled={idx === 0} onClick={() => moveDay(idx, idx - 1)}>
                       <ArrowUp className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      disabled={idx === days.length - 1}
-                      onClick={() => moveDay(idx, idx + 1)}
-                      title="Move day later"
-                      className="p-1.5 text-white/60 hover:text-white rounded hover:bg-white/10 disabled:opacity-20 transition-colors cursor-pointer"
-                    >
+                    </IconButton>
+                    <IconButton label="Move day later" disabled={idx === days.length - 1} onClick={() => moveDay(idx, idx + 1)}>
                       <ArrowDown className="w-4 h-4" />
-                    </button>
-                    <div className="w-[1px] h-4 bg-white/15 mx-1" />
-                    <button
-                      type="button"
-                      onClick={() => removeDay(idx)}
-                      title="Delete this day"
-                      className="p-1.5 text-red-400 hover:text-red-300 rounded hover:bg-red-950/30 transition-colors cursor-pointer"
-                    >
+                    </IconButton>
+                    <IconButton label="Delete this day" tone="danger" onClick={() => removeDay(idx)}>
                       <Trash2 className="w-4 h-4" />
-                    </button>
+                    </IconButton>
                   </div>
                 )}
               </div>
 
-              {/* Day Inputs */}
               <div className="space-y-4">
-                <div>
-                  <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
-                    Day Title / Route Highlight
-                  </label>
-                  <input
-                    type="text"
-                    disabled={disabled}
-                    value={day.title || ""}
-                    onChange={(e) => updateDay(idx, { title: e.target.value })}
-                    placeholder="e.g. Arusha to Tarangire National Park — Land of Giants"
-                    className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none transition-colors disabled:opacity-60"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5 flex items-center gap-1">
-                      <Hotel className="w-3 h-3 text-[#c68642]" />
-                      Accommodation / Lodge
-                    </label>
+                <Field label="Day title / route highlight">
+                  {({ id }) => (
                     <input
+                      id={id}
                       type="text"
                       disabled={disabled}
-                      value={day.accommodation || ""}
-                      onChange={(e) => updateDay(idx, { accommodation: e.target.value })}
-                      placeholder="e.g. Tarangire Treetops Lodge or Luxury Canvas Camp"
-                      className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3.5 py-2 text-xs text-white placeholder-white/30 focus:outline-none transition-colors disabled:opacity-60"
+                      value={day.title || ""}
+                      onChange={(e) => updateDay(idx, { title: e.target.value })}
+                      placeholder="e.g. Arusha to Tarangire National Park — Land of Giants"
+                      className={inputClass}
+                      style={inputStyle}
                     />
-                  </div>
+                  )}
+                </Field>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Field label="Accommodation / lodge">
+                    {({ id }) => (
+                      <div className="relative">
+                        <Hotel className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "var(--dash-accent)" }} />
+                        <input
+                          id={id}
+                          type="text"
+                          disabled={disabled}
+                          value={day.accommodation || ""}
+                          onChange={(e) => updateDay(idx, { accommodation: e.target.value })}
+                          placeholder="e.g. Tarangire Treetops Lodge"
+                          className={`${inputClass} pl-9`}
+                          style={inputStyle}
+                        />
+                      </div>
+                    )}
+                  </Field>
 
                   <div>
-                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
-                      Activities (Press Enter after each)
-                    </label>
-                    <TagInput
-                      disabled={disabled}
-                      tags={day.activities || []}
-                      onChange={(activities) => updateDay(idx, { activities })}
-                      placeholder="e.g. Morning Game Drive, Bush Walk..."
-                    />
+                    <span className="dash-label block mb-1.5" style={{ color: "var(--dash-text-muted)" }}>
+                      Activities (press Enter after each)
+                    </span>
+                    <TagInput disabled={disabled} tags={day.activities || []} onChange={(activities) => updateDay(idx, { activities })} placeholder="e.g. Morning Game Drive, Bush Walk..." />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
-                    Day Narrative & Wildlife Encounters
-                  </label>
-                  <textarea
-                    rows={3}
-                    disabled={disabled}
-                    value={day.description || ""}
-                    onChange={(e) => updateDay(idx, { description: e.target.value })}
-                    placeholder="Details about the day's drive, scenic overlooks, picnic lunches in the wild, and animal encounters..."
-                    className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none transition-colors leading-relaxed resize-y disabled:opacity-60"
-                  />
-                </div>
+                <Field label="Day narrative & wildlife encounters">
+                  {({ id }) => (
+                    <textarea
+                      id={id}
+                      rows={3}
+                      disabled={disabled}
+                      value={day.description || ""}
+                      onChange={(e) => updateDay(idx, { description: e.target.value })}
+                      placeholder="Details about the day's drive, scenic overlooks, picnic lunches, and animal encounters..."
+                      className={`${inputClass} leading-relaxed resize-y`}
+                      style={inputStyle}
+                    />
+                  )}
+                </Field>
 
-                {/* Map pin — powers the public journey map */}
                 <div>
-                  <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5 flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-[#c68642]" />
-                    Map Pin (optional — falls back to destination coordinates)
-                  </label>
+                  <span className="dash-label mb-1.5 flex items-center gap-1" style={{ color: "var(--dash-text-muted)" }}>
+                    <MapPin className="w-3 h-3" style={{ color: "var(--dash-accent)" }} />
+                    Map pin (optional — falls back to destination coordinates)
+                  </span>
                   <div className="flex flex-wrap items-center gap-2">
                     <input
                       type="text"
                       inputMode="decimal"
                       disabled={disabled}
                       value={day.latitude ?? ""}
-                      onChange={(e) =>
-                        updateDay(idx, { latitude: e.target.value === "" ? null : Number(e.target.value) })
-                      }
+                      onChange={(e) => updateDay(idx, { latitude: e.target.value === "" ? null : Number(e.target.value) })}
                       placeholder="Latitude"
-                      className="w-32 bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none disabled:opacity-60"
+                      aria-label="Latitude"
+                      className={`w-32 ${inputClass} py-2`}
+                      style={inputStyle}
                     />
                     <input
                       type="text"
                       inputMode="decimal"
                       disabled={disabled}
                       value={day.longitude ?? ""}
-                      onChange={(e) =>
-                        updateDay(idx, { longitude: e.target.value === "" ? null : Number(e.target.value) })
-                      }
+                      onChange={(e) => updateDay(idx, { longitude: e.target.value === "" ? null : Number(e.target.value) })}
                       placeholder="Longitude"
-                      className="w-32 bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none disabled:opacity-60"
+                      aria-label="Longitude"
+                      className={`w-32 ${inputClass} py-2`}
+                      style={inputStyle}
                     />
                     {!disabled && process.env.NEXT_PUBLIC_MAPBOX_TOKEN && (
-                      <button
-                        type="button"
-                        onClick={() => setPickerForIndex(idx)}
-                        className="px-2.5 py-1.5 bg-white/5 border border-[#c68642]/40 hover:border-[#c68642] text-[#e0ac69] rounded text-[10px] font-mono tracking-wide uppercase transition-colors cursor-pointer flex items-center gap-1.5"
-                      >
-                        <Crosshair className="w-3 h-3" />
-                        Pick on Map
-                      </button>
+                      <Button variant="secondary" size="sm" icon={<Crosshair className="w-3 h-3" />} onClick={() => setPickerForIndex(idx)}>
+                        Pick on map
+                      </Button>
                     )}
                     {!disabled &&
                       destinations
@@ -279,13 +223,9 @@ export default function DaysTab({
                           <button
                             key={d.destination.id}
                             type="button"
-                            onClick={() =>
-                              updateDay(idx, {
-                                latitude: d.destination.latitude,
-                                longitude: d.destination.longitude,
-                              })
-                            }
-                            className="px-2.5 py-1.5 bg-white/5 border border-white/15 hover:border-[#c68642]/60 text-white/60 hover:text-[#ffdbac] rounded text-[10px] font-mono tracking-wide uppercase transition-colors cursor-pointer"
+                            onClick={() => updateDay(idx, { latitude: d.destination.latitude, longitude: d.destination.longitude })}
+                            className="dash-focusable px-2.5 py-1.5 rounded-md text-xs transition-colors"
+                            style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)", color: "var(--dash-text-muted)" }}
                           >
                             Use {d.destination.name}
                           </button>
@@ -293,14 +233,13 @@ export default function DaysTab({
                   </div>
                 </div>
 
-                {/* Hero image + signature moment */}
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-start">
                   <div>
-                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
-                      Hero Photo (optional — overrides the default photo cycle)
-                    </label>
+                    <span className="dash-label block mb-1.5" style={{ color: "var(--dash-text-muted)" }}>
+                      Hero photo (optional — overrides the default photo cycle)
+                    </span>
                     {images.length === 0 ? (
-                      <p className="text-[11px] text-white/30 flex items-center gap-1.5">
+                      <p className="text-xs flex items-center gap-1.5" style={{ color: "var(--dash-text-subtle)" }}>
                         <ImageOff className="w-3.5 h-3.5" />
                         Upload gallery photos in the Gallery tab to pick one here.
                       </p>
@@ -311,11 +250,12 @@ export default function DaysTab({
                           disabled={disabled}
                           onClick={() => updateDay(idx, { heroImageId: null })}
                           title="Use default photo cycle"
-                          className={`w-14 h-14 rounded border flex items-center justify-center text-[9px] text-white/50 uppercase transition-colors ${
-                            !day.heroImageId
-                              ? "border-[#c68642] bg-[#c68642]/10 text-[#ffdbac]"
-                              : "border-white/15 hover:border-white/30"
-                          } disabled:opacity-60`}
+                          className="dash-focusable w-14 h-14 rounded-md flex items-center justify-center text-[9px] uppercase transition-colors disabled:opacity-60"
+                          style={{
+                            border: `1px solid ${!day.heroImageId ? "var(--dash-accent)" : "var(--dash-border-strong)"}`,
+                            background: !day.heroImageId ? "var(--dash-accent-soft)" : "transparent",
+                            color: !day.heroImageId ? "var(--dash-accent)" : "var(--dash-text-subtle)",
+                          }}
                         >
                           None
                         </button>
@@ -326,9 +266,8 @@ export default function DaysTab({
                             disabled={disabled}
                             onClick={() => updateDay(idx, { heroImageId: img.id })}
                             title={img.altText || undefined}
-                            className={`relative w-14 h-14 rounded overflow-hidden border-2 transition-colors disabled:opacity-60 ${
-                              day.heroImageId === img.id ? "border-[#c68642]" : "border-transparent hover:border-white/30"
-                            }`}
+                            className="dash-focusable relative w-14 h-14 rounded-md overflow-hidden transition-colors disabled:opacity-60"
+                            style={{ border: `2px solid ${day.heroImageId === img.id ? "var(--dash-accent)" : "transparent"}` }}
                           >
                             <Image src={img.url} alt={img.altText || ""} fill className="object-cover" sizes="56px" />
                           </button>
@@ -338,19 +277,25 @@ export default function DaysTab({
                   </div>
 
                   <div className="pt-1">
-                    <label className="block text-[10px] font-medium tracking-widest uppercase text-white/60 mb-1.5">
-                      Signature Moment
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer w-fit px-3 py-2 rounded border border-white/15 hover:border-white/30 transition-colors">
+                    <span className="dash-label block mb-1.5" style={{ color: "var(--dash-text-muted)" }}>
+                      Signature moment
+                    </span>
+                    <label
+                      className="dash-focusable flex items-center gap-2 cursor-pointer w-fit px-3 py-2 rounded-md transition-colors"
+                      style={{ border: "1px solid var(--dash-border-strong)" }}
+                    >
                       <input
                         type="checkbox"
                         disabled={disabled}
                         checked={Boolean(day.highlight)}
                         onChange={(e) => updateDay(idx, { highlight: e.target.checked })}
-                        className="w-4 h-4 accent-[#c68642] cursor-pointer disabled:opacity-60"
+                        className="w-4 h-4 cursor-pointer disabled:opacity-60"
+                        style={{ accentColor: "var(--dash-accent-fill)" }}
                       />
-                      <Star className="w-3.5 h-3.5 text-[#c68642]" />
-                      <span className="text-xs text-white/80 whitespace-nowrap">Highlight this day</span>
+                      <Star className="w-3.5 h-3.5" style={{ color: "var(--dash-accent)" }} />
+                      <span className="text-sm whitespace-nowrap" style={{ color: "var(--dash-text-muted)" }}>
+                        Highlight this day
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -359,16 +304,15 @@ export default function DaysTab({
           ))}
 
           {!disabled && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={addDay}
-                className="w-full py-3.5 border border-dashed border-[#c68642]/40 hover:border-[#c68642] bg-[#c68642]/5 hover:bg-[#c68642]/10 text-[#ffdbac] font-serif-luxury text-xs tracking-wider uppercase rounded transition-colors flex items-center justify-center gap-2"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Day {days.length + 1}</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={addDay}
+              className="dash-focusable w-full py-3.5 rounded-md text-sm font-medium transition-colors flex items-center justify-center gap-2"
+              style={{ border: "1px dashed var(--dash-accent-soft-border)", background: "var(--dash-accent-soft)", color: "var(--dash-accent)" }}
+            >
+              <Plus className="w-4 h-4" />
+              Add day {days.length + 1}
+            </button>
           )}
         </div>
       )}

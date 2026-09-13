@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { QrCode, ArrowLeft, Loader2, AlertCircle, Copy, Check } from "lucide-react";
+import { QrCode, ArrowLeft, Copy, Check } from "lucide-react";
 import Image from "next/image";
+import Button from "@/components/dashboard/ui/Button";
+import { InlineMessage } from "@/components/dashboard/ui/Toast";
 
 interface MfaEnrollFormProps {
   challengeToken: string;
@@ -10,11 +12,7 @@ interface MfaEnrollFormProps {
   onBack: () => void;
 }
 
-export default function MfaEnrollForm({
-  challengeToken,
-  onSuccess,
-  onBack,
-}: MfaEnrollFormProps) {
+export default function MfaEnrollForm({ challengeToken, onSuccess, onBack }: MfaEnrollFormProps) {
   const [secret, setSecret] = useState<string | null>(null);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
   const [initLoading, setInitLoading] = useState(true);
@@ -25,28 +23,20 @@ export default function MfaEnrollForm({
   const [verifying, setVerifying] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // 1. Fetch QR code and secret on mount
   const loadEnrollmentDetails = useCallback(async () => {
     setInitLoading(true);
     setInitError(null);
-
     try {
       const res = await fetch("/api/auth/mfa/enroll", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${challengeToken}`,
-        },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${challengeToken}` },
         body: JSON.stringify({ challengeToken }),
       });
-
       const data = await res.json();
-
       if (!res.ok || data.status === "error") {
         setInitError(data.message || "Failed to initiate MFA enrollment.");
         return;
       }
-
       setSecret(data.secret);
       setQrCodeDataUrl(data.qrCodeDataUrl);
     } catch (err) {
@@ -61,7 +51,6 @@ export default function MfaEnrollForm({
     loadEnrollmentDetails();
   }, [loadEnrollmentDetails]);
 
-  // 2. Submit confirmation code
   const handleConfirm = async (e: React.FormEvent) => {
     e.preventDefault();
     setVerifyError(null);
@@ -73,27 +62,17 @@ export default function MfaEnrollForm({
     }
 
     setVerifying(true);
-
     try {
       const res = await fetch("/api/auth/mfa/enroll/confirm", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${challengeToken}`,
-        },
-        body: JSON.stringify({
-          challengeToken,
-          code: cleanCode,
-        }),
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${challengeToken}` },
+        body: JSON.stringify({ challengeToken, code: cleanCode }),
       });
-
       const data = await res.json();
-
       if (!res.ok || data.status === "error") {
         setVerifyError(data.message || "Invalid verification code. Please check your authenticator app.");
         return;
       }
-
       onSuccess();
     } catch (err) {
       console.error("MFA confirmation error:", err);
@@ -112,10 +91,10 @@ export default function MfaEnrollForm({
 
   if (initLoading) {
     return (
-      <div className="py-12 flex flex-col items-center justify-center space-y-4 text-center">
-        <Loader2 className="w-8 h-8 text-[#c68642] animate-spin" />
-        <p className="text-xs text-white/60 tracking-wider uppercase font-mono">
-          Generating security credentials...
+      <div role="status" className="py-12 flex flex-col items-center justify-center space-y-4 text-center">
+        <div className="w-8 h-8 rounded-full animate-spin" style={{ border: "2px solid var(--dash-border-strong)", borderTopColor: "var(--dash-accent)" }} />
+        <p className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>
+          Generating security credentials…
         </p>
       </div>
     );
@@ -124,21 +103,13 @@ export default function MfaEnrollForm({
   if (initError) {
     return (
       <div className="space-y-6">
-        <div className="p-4 bg-red-950/40 border border-red-800/50 rounded text-xs text-red-200 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-          <div className="leading-relaxed">
-            <p className="font-semibold mb-1">MFA Setup Failed</p>
-            <p>{initError}</p>
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={onBack}
-          className="w-full py-3 bg-white/5 hover:bg-white/10 text-white rounded text-xs transition-colors flex items-center justify-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Return to login</span>
-        </button>
+        <InlineMessage tone="error">
+          <p className="font-medium mb-1">MFA setup failed</p>
+          <p>{initError}</p>
+        </InlineMessage>
+        <Button variant="secondary" fullWidth icon={<ArrowLeft className="w-4 h-4" />} onClick={onBack}>
+          Return to login
+        </Button>
       </div>
     );
   }
@@ -146,75 +117,52 @@ export default function MfaEnrollForm({
   return (
     <form onSubmit={handleConfirm} className="space-y-6">
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#8d5524]/20 border border-[#c68642]/40 text-[#c68642] mb-1">
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-1" style={{ background: "var(--dash-accent-soft)", border: "1px solid var(--dash-accent-soft-border)", color: "var(--dash-accent)" }}>
           <QrCode className="w-5 h-5" />
         </div>
-        <h3 className="font-serif-luxury text-xl text-white font-normal">
-          Set Up Two-Factor Authentication
+        <h3 className="dash-title" style={{ color: "var(--dash-text)" }}>
+          Set up two-factor authentication
         </h3>
-        <p className="text-xs text-white/60 max-w-sm mx-auto leading-relaxed">
+        <p className="text-sm max-w-sm mx-auto leading-relaxed" style={{ color: "var(--dash-text-subtle)" }}>
           Scan this QR code with your authenticator app (Google Authenticator, 1Password, or Authy).
         </p>
       </div>
 
-      {verifyError && (
-        <div className="p-3.5 bg-red-950/40 border border-red-800/50 rounded flex items-start gap-2.5 text-xs text-red-200 animate-in fade-in duration-200">
-          <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-          <div className="leading-relaxed">{verifyError}</div>
-        </div>
-      )}
+      {verifyError && <InlineMessage tone="error">{verifyError}</InlineMessage>}
 
-      {/* QR Code Presentation */}
-      <div className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-white/20 max-w-[220px] mx-auto shadow-inner">
+      <div className="flex flex-col items-center justify-center p-4 bg-white rounded-lg max-w-[220px] mx-auto">
         {qrCodeDataUrl ? (
-          <Image
-            src={qrCodeDataUrl}
-            alt="MFA QR Code"
-            width={190}
-            height={190}
-            unoptimized
-            className="w-full h-auto"
-          />
+          <Image src={qrCodeDataUrl} alt="MFA QR Code" width={190} height={190} unoptimized className="w-full h-auto" />
         ) : (
-          <div className="w-44 h-44 flex items-center justify-center text-black/50 text-xs">
-            No QR Code
-          </div>
+          <div className="w-44 h-44 flex items-center justify-center text-black/50 text-sm">No QR code</div>
         )}
       </div>
 
-      {/* Manual Secret Fallback */}
       {secret && (
         <div className="space-y-1.5 text-center">
-          <span className="text-[10px] font-mono tracking-widest uppercase text-white/50 block">
-            Manual Setup Key
+          <span className="dash-label block" style={{ color: "var(--dash-text-subtle)" }}>
+            Manual setup key
           </span>
           <div className="flex items-center justify-center gap-2 max-w-xs mx-auto">
-            <code className="bg-[#141414] border border-white/10 px-2.5 py-1 rounded text-xs font-mono text-[#f1c27d] tracking-widest select-all break-all">
+            <code className="dash-code px-2.5 py-1 rounded tracking-widest select-all break-all" style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)", color: "var(--dash-accent)" }}>
               {secret}
             </code>
             <button
               type="button"
               onClick={copySecretToClipboard}
               aria-label="Copy secret"
-              className="p-1.5 rounded border border-white/15 hover:border-[#c68642] text-white/60 hover:text-white transition-colors cursor-pointer"
+              className="dash-focusable p-1.5 rounded-md transition-colors"
+              style={{ border: "1px solid var(--dash-border-strong)", color: "var(--dash-text-muted)" }}
             >
-              {copied ? (
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-              ) : (
-                <Copy className="w-3.5 h-3.5" />
-              )}
+              {copied ? <Check className="w-3.5 h-3.5" style={{ color: "var(--dash-status-published)" }} /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </div>
         </div>
       )}
 
-      {/* Code Input */}
       <div>
-        <label
-          htmlFor="enroll-code"
-          className="block text-[11px] font-medium tracking-[0.16em] uppercase text-white/70 mb-2 text-center"
-        >
-          Enter 6-Digit Code from Authenticator
+        <label htmlFor="enroll-code" className="dash-label block mb-2 text-center" style={{ color: "var(--dash-text-muted)" }}>
+          Enter 6-digit code from authenticator
         </label>
         <input
           id="enroll-code"
@@ -228,35 +176,18 @@ export default function MfaEnrollForm({
           onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
           placeholder="000000"
           disabled={verifying}
-          className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded py-3 text-center text-2xl tracking-[0.4em] font-mono text-white placeholder-white/20 focus:outline-none transition-colors disabled:opacity-50"
+          className="dash-focusable dash-code w-full rounded-md py-3 text-center text-2xl tracking-[0.4em] disabled:opacity-50"
+          style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border-strong)", color: "var(--dash-text)" }}
         />
       </div>
 
       <div className="space-y-3 pt-1">
-        <button
-          type="submit"
-          disabled={verifying || code.length !== 6}
-          className="w-full py-3.5 px-4 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] font-serif-luxury text-xs tracking-[0.24em] uppercase font-medium rounded transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)] disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {verifying ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Confirming Setup...</span>
-            </>
-          ) : (
-            <span>Confirm & Enter Dashboard</span>
-          )}
-        </button>
-
-        <button
-          type="button"
-          onClick={onBack}
-          disabled={verifying}
-          className="w-full py-2.5 text-xs text-white/50 hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to email and password</span>
-        </button>
+        <Button type="submit" variant="primary" fullWidth loading={verifying} disabled={code.length !== 6}>
+          Confirm & enter dashboard
+        </Button>
+        <Button type="button" variant="ghost" fullWidth disabled={verifying} icon={<ArrowLeft className="w-3.5 h-3.5" />} onClick={onBack}>
+          Back to email and password
+        </Button>
       </div>
     </form>
   );

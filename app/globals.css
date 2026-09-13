@@ -23,6 +23,12 @@
   --font-serif: var(--font-serif-luxury), "Source Serif 4", Georgia, serif;
 }
 
+html {
+  /* The Navbar is fixed (Navbar.tsx), so an in-page anchor/focus jump would
+     otherwise land content underneath it. */
+  scroll-padding-top: 6rem;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -31,6 +37,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Visible focus ring for keyboard users only — mouse/touch clicks never
+   trigger :focus-visible, so this doesn't add a ring to every click. */
+:focus-visible {
+  outline: 2px solid var(--safari-ochre);
+  outline-offset: 2px;
 }
 
 /* Luxury Editorial Serif Utilities (Source Serif 4) */
@@ -130,5 +143,198 @@ body {
   opacity: 0.8;
 }
 
+/* Hero scroll cue — a gentle bob to draw the eye downward. */
+@keyframes scrollCue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.4;
+  }
+}
+
+.animate-scroll-cue {
+  animation: scrollCue 1.8s ease-in-out infinite;
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   Dashboard design tokens — the internal operations app deliberately
+   does NOT reuse --background/--safari-* above. Those are the public
+   marketing site's exact black-and-gold skin; wearing it on UI chrome
+   (buttons, tabs, nav) is what made the dashboard read as a generic
+   "luxury template" rather than a piece of software. This is a warm,
+   layered charcoal workbench that stays related in materials/warmth
+   but has its own voice, and every text/surface pair here is chosen to
+   clear WCAG AA (4.5:1 for text, 3:1 for large text/UI) against
+   --dash-bg or the surface it's actually painted on.
+   Scoped to [data-app="dashboard"], set once on the shell root. */
+[data-app="dashboard"] {
+  /* Surfaces — layered so elevation reads as elevation, not a single flat black */
+  --dash-bg: #14110d;
+  --dash-surface-1: #1b1713; /* sidebar, cards */
+  --dash-surface-2: #221d18; /* table headers, inputs, popovers */
+  --dash-surface-3: #2b2520; /* hover / active fill */
+  --dash-border: #322b24;
+  --dash-border-strong: #453c33;
+
+  /* Text — each measured against --dash-bg; -subtle is the floor (5.1:1) */
+  --dash-text: #f2eee8; /* 16.4:1 */
+  --dash-text-muted: #b8aea2; /* 8.6:1 */
+  --dash-text-subtle: #8e8378; /* 5.1:1 — never render text fainter than this */
+
+  /* Accent — gold demoted from "paint everything" to identity/selection only */
+  --dash-accent: #e0ac69; /* 9.2:1 as text/border on --dash-bg */
+  --dash-accent-fill: #c68642; /* filled buttons only */
+  --dash-accent-fill-hover: #b3792f;
+  --dash-accent-on-fill: #1a1105; /* 6.1:1 on --dash-accent-fill */
+  --dash-accent-soft: rgb(198 134 66 / 12%);
+  --dash-accent-soft-border: rgb(198 134 66 / 35%);
+
+  /* Status recipe: text solid / fill 12% / border 35% */
+  --dash-status-draft: #e0ac69;
+  --dash-status-review: #7eb6e8;
+  --dash-status-published: #6fcf97;
+  --dash-status-archived: #8e8378;
+  --dash-status-danger: #f28b82;
+
+  --dash-focus-ring: #e0ac69;
+  --dash-content: 1240px;
+  --dash-topbar-h: 64px;
+  --dash-sidebar-w: 240px;
+  --dash-sidebar-w-collapsed: 64px;
+
+  background: var(--dash-bg);
+  color: var(--dash-text);
+  font-family: var(--font-sans);
+}
+
+/* Sentence-case status badges — one recipe reused everywhere a lifecycle
+   status appears (itineraries, users, MFA). Never uppercase+letterspaced;
+   that eyebrow pattern is exactly the "generic template" tell this
+   redesign removes. */
+[data-app="dashboard"] .dash-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+[data-app="dashboard"] .dash-badge--draft {
+  color: var(--dash-status-draft);
+  background: color-mix(in srgb, var(--dash-status-draft) 12%, transparent);
+  border-color: color-mix(in srgb, var(--dash-status-draft) 35%, transparent);
+}
+[data-app="dashboard"] .dash-badge--review {
+  color: var(--dash-status-review);
+  background: color-mix(in srgb, var(--dash-status-review) 12%, transparent);
+  border-color: color-mix(in srgb, var(--dash-status-review) 35%, transparent);
+}
+[data-app="dashboard"] .dash-badge--published {
+  color: var(--dash-status-published);
+  background: color-mix(in srgb, var(--dash-status-published) 12%, transparent);
+  border-color: color-mix(in srgb, var(--dash-status-published) 35%, transparent);
+}
+[data-app="dashboard"] .dash-badge--archived {
+  color: var(--dash-status-archived);
+  background: color-mix(in srgb, var(--dash-status-archived) 12%, transparent);
+  border-color: color-mix(in srgb, var(--dash-status-archived) 35%, transparent);
+}
+[data-app="dashboard"] .dash-badge--danger {
+  color: var(--dash-status-danger);
+  background: color-mix(in srgb, var(--dash-status-danger) 12%, transparent);
+  border-color: color-mix(in srgb, var(--dash-status-danger) 35%, transparent);
+}
+[data-app="dashboard"] .dash-badge--neutral {
+  color: var(--dash-text-muted);
+  background: var(--dash-surface-2);
+  border-color: var(--dash-border);
+}
+
+/* Typography roles (see the redesign plan) — Geist Sans by default;
+   serif is intentionally NOT one of these roles, because it is reserved
+   for the itinerary's own title text, never UI chrome. */
+[data-app="dashboard"] .dash-display {
+  font-size: clamp(24px, 2.2vw, 30px);
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+[data-app="dashboard"] .dash-title {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+}
+[data-app="dashboard"] .dash-subtitle {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+[data-app="dashboard"] .dash-label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+[data-app="dashboard"] .dash-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 19px;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-app="dashboard"] table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visible dashboard-scoped focus ring, tuned to the warm surfaces rather
+   than reusing the marketing gold ring on marketing colours. Applied via
+   the .dash-focusable utility on inputs/buttons/rows that previously set
+   focus:outline-none — the global :focus-visible rule above still covers
+   anything that doesn't opt in. */
+[data-app="dashboard"] .dash-focusable:focus-visible {
+  outline: 2px solid var(--dash-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Real keyframes for the animate-in/fade-in classes used across the
+   dashboard's tag chips and modals — previously undefined (no animation
+   plugin installed), so those classes were dead weight. Kept minimal and
+   already covered by the global prefers-reduced-motion block below. */
+@keyframes dash-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+[data-app="dashboard"] .animate-in.fade-in {
+  animation: dash-fade-in 200ms ease-out both;
+}
+
+/* Reduced motion: neutralize every animation/transition duration in one
+   place rather than hunting down each `animate-*`/`transition-*` class
+   individually. Scoped to the OS preference, so it only ever affects users
+   who have opted in — everyone else's experience is unchanged. Hero's
+   scroll-driven inline styles (transform/filter) are handled in JS
+   (see components/Hero.tsx) since they can't be reached from CSS alone. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 

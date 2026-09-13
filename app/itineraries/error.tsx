@@ -6,10 +6,10 @@ import { AlertCircle } from "lucide-react";
 
 export default function ItinerariesError({
   error,
-  retry,
+  reset,
 }: {
   error: Error & { digest?: string };
-  retry: () => void;
+  reset: () => void;
 }) {
   useEffect(() => {
     console.error("Itineraries route error:", error);
@@ -25,7 +25,7 @@ export default function ItinerariesError({
         <div className="flex items-center justify-center gap-3 pt-2">
           <button
             type="button"
-            onClick={() => retry()}
+            onClick={() => reset()}
             className="px-5 py-2.5 bg-[#c68642] text-[#080808] text-xs font-sans uppercase tracking-wider rounded font-medium cursor-pointer"
           >
             Try Again

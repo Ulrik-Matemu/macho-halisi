@@ -78,4 +78,8 @@ export interface PublicPaginatedItineraries {
     total: number;
     totalPages: number;
   };
+  // Set by lib/public/api.ts when the backend didn't answer (unreachable,
+  // or the request timed out) — distinct from a real empty catalog, so the
+  // UI can tell visitors "we're having trouble" rather than "nothing here".
+  degraded?: boolean;
 }

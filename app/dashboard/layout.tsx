@@ -6,14 +6,9 @@ export const metadata: Metadata = {
   description: "Internal operations and management dashboard for Macho Halisi",
 };
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="min-h-screen bg-[#080808] text-[#f4f4f0] flex flex-col font-sans selection:bg-[#8d5524] selection:text-[#ffdbac]">
-      {children}
-    </div>
-  );
+// Thin wrapper only — chrome (sidebar/topbar/auth) lives in
+// (shell)/layout.tsx via DashboardShell, so the bare /dashboard/login
+// route (outside that group) isn't forced into the app shell.
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return <div className="min-h-screen font-sans">{children}</div>;
 }

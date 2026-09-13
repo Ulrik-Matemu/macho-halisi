@@ -3,6 +3,8 @@
 import React from "react";
 import TagInput from "./TagInput";
 import { CheckCircle2, XCircle, Info, Map, Compass } from "lucide-react";
+import Field, { inputClass, inputStyle } from "@/components/dashboard/ui/Field";
+import Switch from "@/components/dashboard/ui/Switch";
 
 interface InclusionsTabProps {
   inclusions: string[];
@@ -20,6 +22,8 @@ interface InclusionsTabProps {
   disabled?: boolean;
 }
 
+const cardStyle: React.CSSProperties = { background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" };
+
 export default function InclusionsTab({
   inclusions = [],
   exclusions = [],
@@ -30,18 +34,16 @@ export default function InclusionsTab({
   disabled = false,
 }: InclusionsTabProps) {
   return (
-    <div className="space-y-8 max-w-4xl">
-      {/* Inclusions & Exclusions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Inclusions */}
-        <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-3">
+    <div className="space-y-6 max-w-3xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="p-6 rounded-lg space-y-3" style={cardStyle}>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <h3 className="font-serif-luxury text-base text-white font-light">
-              Package Inclusions
+            <CheckCircle2 className="w-4 h-4" style={{ color: "var(--dash-status-published)" }} />
+            <h3 className="dash-subtitle" style={{ color: "var(--dash-text)" }}>
+              Package inclusions
             </h3>
           </div>
-          <p className="text-xs text-white/50">
+          <p className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>
             Services, park entry fees, and safari amenities covered in the trip cost.
           </p>
           <TagInput
@@ -52,15 +54,14 @@ export default function InclusionsTab({
           />
         </div>
 
-        {/* Exclusions */}
-        <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-3">
+        <div className="p-6 rounded-lg space-y-3" style={cardStyle}>
           <div className="flex items-center gap-2">
-            <XCircle className="w-4 h-4 text-red-400" />
-            <h3 className="font-serif-luxury text-base text-white font-light">
-              Package Exclusions
+            <XCircle className="w-4 h-4" style={{ color: "var(--dash-status-danger)" }} />
+            <h3 className="dash-subtitle" style={{ color: "var(--dash-text)" }}>
+              Package exclusions
             </h3>
           </div>
-          <p className="text-xs text-white/50">
+          <p className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>
             Items travelers are responsible for independently.
           </p>
           <TagInput
@@ -72,72 +73,70 @@ export default function InclusionsTab({
         </div>
       </div>
 
-      {/* Travel Info Narrative */}
-      <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-4">
+      <div className="p-6 rounded-lg space-y-4" style={cardStyle}>
         <div className="flex items-center gap-2">
-          <Info className="w-4 h-4 text-[#c68642]" />
-          <h3 className="font-serif-luxury text-base text-white font-light">
-            Essential Travel Guidelines & Briefing
+          <Info className="w-4 h-4" style={{ color: "var(--dash-accent)" }} />
+          <h3 className="dash-subtitle" style={{ color: "var(--dash-text)" }}>
+            Essential travel guidelines & briefing
           </h3>
         </div>
-        <p className="text-xs text-white/50">
-          Important guidance regarding optimal clothing colors, baggage weight limits on light aircraft flights, visa recommendations, and vaccination requirements.
+        <p className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>
+          Important guidance regarding optimal clothing colors, baggage weight limits on light aircraft flights, visa
+          recommendations, and vaccination requirements.
         </p>
-        <textarea
-          rows={5}
-          disabled={disabled}
-          value={travelInfo || ""}
-          onChange={(e) => onChange({ travelInfo: e.target.value })}
-          placeholder="e.g. Luggage on internal safari flights is strictly limited to 15kg in soft-sided duffel bags. Light neutral tones (khaki, beige, olive) are recommended; avoid dark blue or black in tsetse fly zones..."
-          className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none transition-colors leading-relaxed resize-y disabled:opacity-60"
-        />
+        <Field label="Travel guidelines">
+          {({ id }) => (
+            <textarea
+              id={id}
+              rows={5}
+              disabled={disabled}
+              value={travelInfo || ""}
+              onChange={(e) => onChange({ travelInfo: e.target.value })}
+              placeholder="e.g. Luggage on internal safari flights is strictly limited to 15kg in soft-sided duffel bags..."
+              className={`${inputClass} leading-relaxed resize-y`}
+              style={inputStyle}
+            />
+          )}
+        </Field>
       </div>
 
-      {/* Route Map URL */}
-      <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-4">
+      <div className="p-6 rounded-lg space-y-4" style={cardStyle}>
         <div className="flex items-center gap-2">
-          <Map className="w-4 h-4 text-[#c68642]" />
-          <h3 className="font-serif-luxury text-base text-white font-light">
-            Interactive Route Map URL
+          <Map className="w-4 h-4" style={{ color: "var(--dash-accent)" }} />
+          <h3 className="dash-subtitle" style={{ color: "var(--dash-text)" }}>
+            Interactive route map URL
           </h3>
         </div>
-        <p className="text-xs text-white/50">
-          Optional embeddable Mapbox, Google Maps, or custom GIS route URL displaying the circuit travel path.
-        </p>
-        <input
-          type="url"
-          disabled={disabled}
-          value={routeMapUrl || ""}
-          onChange={(e) => onChange({ routeMapUrl: e.target.value })}
-          placeholder="https://maps.google.com/..."
-          className="w-full bg-[#141414] border border-white/15 focus:border-[#c68642] rounded px-4 py-2.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors disabled:opacity-60"
-        />
+        <Field label="Route map URL" hint="Optional embeddable Mapbox, Google Maps, or custom GIS route URL displaying the circuit travel path.">
+          {({ id, describedBy }) => (
+            <input
+              id={id}
+              aria-describedby={describedBy}
+              type="url"
+              disabled={disabled}
+              value={routeMapUrl || ""}
+              onChange={(e) => onChange({ routeMapUrl: e.target.value })}
+              placeholder="https://maps.google.com/..."
+              className={`${inputClass} dash-code`}
+              style={inputStyle}
+            />
+          )}
+        </Field>
       </div>
 
-      {/* Interactive journey map toggle */}
-      <div className="p-6 rounded-lg bg-[#0e0e0e] border border-white/10 space-y-4">
+      <div className="p-6 rounded-lg space-y-4" style={cardStyle}>
         <div className="flex items-center gap-2">
-          <Compass className="w-4 h-4 text-[#c68642]" />
-          <h3 className="font-serif-luxury text-base text-white font-light">
-            Interactive Journey Map
+          <Compass className="w-4 h-4" style={{ color: "var(--dash-accent)" }} />
+          <h3 className="dash-subtitle" style={{ color: "var(--dash-text)" }}>
+            Interactive journey map
           </h3>
         </div>
-        <p className="text-xs text-white/50">
-          Shows the built-in Mapbox journey map on the public page (route overview + the
-          scroll-synced map in the day-by-day section), plotted from each day&apos;s coordinates or
-          its destination&apos;s. Turn off if geo data isn&apos;t ready yet — the page falls back to
-          the plain route map URL link above with no visible gap.
+        <p className="text-sm" style={{ color: "var(--dash-text-subtle)" }}>
+          Shows the built-in Mapbox journey map on the public page, plotted from each day&apos;s coordinates or its
+          destination&apos;s. Turn off if geo data isn&apos;t ready yet — the page falls back to the plain route map
+          URL link above with no visible gap.
         </p>
-        <label className="flex items-center gap-2.5 cursor-pointer w-fit">
-          <input
-            type="checkbox"
-            disabled={disabled}
-            checked={showRouteMap}
-            onChange={(e) => onChange({ showRouteMap: e.target.checked })}
-            className="w-4 h-4 accent-[#c68642] cursor-pointer disabled:opacity-60"
-          />
-          <span className="text-xs text-white/80">Show interactive route map</span>
-        </label>
+        <Switch checked={showRouteMap} disabled={disabled} label="Show interactive route map" onChange={(checked) => onChange({ showRouteMap: checked })} />
       </div>
     </div>
   );

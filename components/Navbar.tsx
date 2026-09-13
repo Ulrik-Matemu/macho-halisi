@@ -106,6 +106,7 @@ export default function Navbar({
               alt="Macho Halisi Logo"
               fill
               priority
+              sizes="112px"
               className="object-cover object-center"
             />
           </div>
@@ -134,7 +135,7 @@ export default function Navbar({
           <button
             onClick={onOpenMenu}
             aria-label="Open Navigation Menu"
-            className="group flex items-center gap-3 text-white focus:outline-none cursor-pointer"
+            className="group flex items-center gap-3 text-white rounded cursor-pointer"
           >
             <div className="w-10 h-10 flex flex-col justify-center gap-2.5 transition-all duration-300 group-hover:scale-105">
               <span className="w-10 h-[2px] bg-white transition-all duration-400 group-hover:bg-[#c68642] group-hover:w-12" />

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /**
  * Sleek, subtle inertia smooth-scrolling for the homepage — mouse-wheel
@@ -28,10 +29,12 @@ import Lenis from "lenis";
  * changes the easing of how scroll position gets there.
  */
 export default function SmoothScroll() {
+  const reducedMotion = useReducedMotion();
+
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
     const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    if (prefersReducedMotion || isCoarsePointer) return;
+    if (isCoarsePointer) return;
 
     const lenis = new Lenis({
       duration: 1.0,
@@ -42,7 +45,7 @@ export default function SmoothScroll() {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [reducedMotion]);
 
   return null;
 }

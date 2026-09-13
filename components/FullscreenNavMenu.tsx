@@ -115,6 +115,11 @@ export default function FullscreenNavMenu({
   return (
     <div
       aria-hidden={!isOpen}
+      // Closed state relies on clip-path + pointer-events for its visual
+      // hide, which leaves the menu's links tab-focusable while invisible.
+      // `inert` (React 19) removes it from both tab order and hit-testing
+      // in one attribute, without touching the curtain transition itself.
+      inert={!isOpen}
       className={`fixed inset-0 z-50 bg-[#050505] text-white flex flex-col select-none transition-curtain ${
         isOpen ? "curtain-open pointer-events-auto" : "curtain-closed pointer-events-none"
       } border-b border-[#c68642]/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
@@ -131,7 +136,7 @@ export default function FullscreenNavMenu({
         {/* Top Bar with Staggered Header Descent */}
         <header
           onMouseEnter={cancelResetTimer}
-          className="border-b border-white/10 bg-[#050505] py-5 sm:py-6 animate-in fade-in slide-in-from-top-3 duration-500"
+          className="border-b border-white/10 bg-[#050505] py-5 sm:py-6"
         >
           <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
             {/* Left: Brand Logo (matching Navbar) */}
@@ -146,6 +151,7 @@ export default function FullscreenNavMenu({
                   alt="Macho Halisi Logo"
                   fill
                   priority
+                  sizes="112px"
                   className="object-cover object-center"
                 />
               </div>
@@ -195,7 +201,7 @@ export default function FullscreenNavMenu({
         <div className="flex-1 overflow-y-auto custom-scrollbar flex flex-col">
           {/* If user is actively searching */}
           {isSearching ? (
-            <div className="max-w-[1400px] mx-auto p-6 sm:p-12 animate-in fade-in duration-300">
+            <div className="max-w-[1400px] mx-auto p-6 sm:p-12">
               <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-[#e0ac69] mb-6">
                 Found {searchResults.length} destination(s) for &quot;{searchQuery}&quot;
               </h3>

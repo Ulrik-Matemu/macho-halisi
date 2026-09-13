@@ -136,6 +136,7 @@ export default function Footer() {
                     src="/media/macho-halisi-logo-2.jpg"
                     alt="Macho Halisi"
                     fill
+                    sizes="160px"
                     className="object-cover object-center"
                   />
                 </div>

@@ -51,16 +51,18 @@ export default function TagInput({
 
   return (
     <div
-      className={`min-h-[46px] p-2 bg-[#121212] border rounded flex flex-wrap items-center gap-2 transition-colors ${
-        disabled
-          ? "border-white/10 opacity-70 cursor-not-allowed"
-          : "border-white/15 focus-within:border-[#c68642]"
-      }`}
+      className="min-h-[46px] p-2 rounded-md flex flex-wrap items-center gap-2 transition-colors"
+      style={{
+        background: "var(--dash-surface-2)",
+        border: `1px solid ${disabled ? "var(--dash-border)" : "var(--dash-border-strong)"}`,
+        opacity: disabled ? 0.7 : 1,
+      }}
     >
       {tags.map((tag, idx) => (
         <span
           key={`${tag}-${idx}`}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1f1a14] border border-[#c68642]/40 text-[#ffdbac] text-xs font-sans animate-in fade-in duration-150"
+          className="animate-in fade-in inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs"
+          style={{ background: "var(--dash-accent-soft)", border: "1px solid var(--dash-accent-soft-border)", color: "var(--dash-accent)" }}
         >
           <span>{tag}</span>
           {!disabled && (
@@ -68,7 +70,8 @@ export default function TagInput({
               type="button"
               onClick={() => removeTag(idx)}
               aria-label={`Remove ${tag}`}
-              className="p-0.5 text-[#ffdbac]/60 hover:text-white rounded hover:bg-white/10 transition-colors"
+              className="dash-focusable p-0.5 rounded transition-colors"
+              style={{ color: "var(--dash-accent)" }}
             >
               <X className="w-3 h-3" />
             </button>
@@ -85,13 +88,16 @@ export default function TagInput({
             onKeyDown={handleKeyDown}
             onBlur={() => inputVal && addTag(inputVal)}
             placeholder={tags.length === 0 ? placeholder : "Add more..."}
-            className="w-full bg-transparent text-xs text-white placeholder-white/30 focus:outline-none py-1"
+            className="dash-focusable w-full bg-transparent text-sm py-1 rounded"
+            style={{ color: "var(--dash-text)" }}
           />
           {inputVal.trim() && (
             <button
               type="button"
               onClick={() => addTag(inputVal)}
-              className="p-1 rounded bg-[#c68642]/20 text-[#ffdbac] hover:bg-[#c68642]/30 text-xs flex items-center"
+              aria-label="Add tag"
+              className="dash-focusable p-1 rounded"
+              style={{ background: "var(--dash-accent-soft)", color: "var(--dash-accent)" }}
             >
               <Plus className="w-3 h-3" />
             </button>
