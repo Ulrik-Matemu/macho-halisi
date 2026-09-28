@@ -1,6 +1,11 @@
 import { getExpressApiUrl } from "@/lib/auth/constants";
 import type { AvailabilityPeriod, ItineraryDay } from "@/lib/itineraries/types";
-import type { PublicItineraryDetail, PublicPaginatedItineraries } from "./types";
+import type {
+  PublicItineraryDetail,
+  PublicPaginatedItineraries,
+  PublicAccommodationDetail,
+  PublicPaginatedAccommodations,
+} from "./types";
 
 // Tag used to invalidate every public itinerary fetch at once — see
 // revalidateTag(ITINERARIES_TAG) in the dashboard's publish/archive/delete
@@ -8,18 +13,21 @@ import type { PublicItineraryDetail, PublicPaginatedItineraries } from "./types"
 // without waiting out the full revalidate window below.
 export const ITINERARIES_TAG = "itineraries";
 
+// Same mechanism as ITINERARIES_TAG, for the accommodations catalog.
+export const ACCOMMODATIONS_TAG = "accommodations";
+
 const EMPTY_RESULT: PublicPaginatedItineraries = {
   status: "ok",
   data: [],
   pagination: { page: 1, limit: 12, total: 0, totalPages: 1 },
 };
 
-async function publicFetch<T>(path: string): Promise<T | null> {
+async function publicFetch<T>(path: string, tag: string = ITINERARIES_TAG): Promise<T | null> {
   const url = `${getExpressApiUrl()}${path}`;
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 300, tags: [ITINERARIES_TAG] },
+      next: { revalidate: 300, tags: [tag] },
       // The backend runs on a free-tier host that cold-starts after idle
       // (30-50s in practice) — without a bound, a visitor's very first
       // request would hang the whole page render for that long. 8s is
@@ -77,6 +85,54 @@ export async function getItineraryBySlug(slug: string): Promise<PublicItineraryD
     `/public/itineraries/${encodeURIComponent(slug)}`
   );
   return data?.itinerary ?? null;
+}
+
+const EMPTY_ACCOMMODATIONS: PublicPaginatedAccommodations = {
+  status: "ok",
+  data: [],
+  pagination: { page: 1, limit: 12, total: 0, totalPages: 1 },
+};
+
+export async function getPublishedAccommodations(
+  params: { page?: number; limit?: number } = {}
+): Promise<PublicPaginatedAccommodations> {
+  const search = new URLSearchParams();
+  if (params.page) search.set("page", String(params.page));
+  if (params.limit) search.set("limit", String(params.limit));
+  const qs = search.toString();
+
+  const data = await publicFetch<PublicPaginatedAccommodations>(
+    `/public/accommodations${qs ? `?${qs}` : ""}`,
+    ACCOMMODATIONS_TAG
+  );
+
+  if (data) return data;
+
+  return {
+    ...EMPTY_ACCOMMODATIONS,
+    pagination: { ...EMPTY_ACCOMMODATIONS.pagination, limit: params.limit ?? 12 },
+    degraded: true,
+  };
+}
+
+export async function getAccommodationBySlug(slug: string): Promise<PublicAccommodationDetail | null> {
+  const data = await publicFetch<{ status: "ok"; accommodation: PublicAccommodationDetail }>(
+    `/public/accommodations/${encodeURIComponent(slug)}`,
+    ACCOMMODATIONS_TAG
+  );
+  return data?.accommodation ?? null;
+}
+
+/**
+ * Formats a per-night price for display. Prisma serializes Decimal as a
+ * string over JSON, so this normalizes either representation. Returns null
+ * when there is no price to show (priceOnRequest, or unset).
+ */
+export function formatPricePerNight(value: number | string | null): string | null {
+  if (value === null || value === undefined) return null;
+  const numeric = typeof value === "string" ? Number(value) : value;
+  if (Number.isNaN(numeric)) return null;
+  return numeric.toLocaleString("en-US", { maximumFractionDigits: 0 });
 }
 
 /**

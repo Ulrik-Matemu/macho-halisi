@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{overflow-x:hidden}
+body{margin:0;background:#F6F2EA;font-family:Jost,system-ui,sans-serif;color:#1E1913}
+a{color:#8A6A33;text-decoration:none}a:hover{color:#1E1913}
+[data-mask]{clip-path:inset(0 0 100% 0);transform:scale(1.08);transition:clip-path 1.25s cubic-bezier(.22,.7,.3,1),transform 1.6s cubic-bezier(.22,.7,.3,1)}
+[data-mask].mh-open{clip-path:inset(0 0 0 0);transform:scale(1)}
+</style></helmet>
+
+<div style="background:#F6F2EA">
+
+<div style="position:fixed;top:0;left:0;height:2px;background:#8A6A33;z-index:70;width:{{ progress }}"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(246,242,234,.93);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:32px;padding:16px 48px;opacity:{{ barOpacity }};pointer-events:{{ barEvents }};transform:translateY({{ barY }});transition:opacity .45s ease,transform .45s ease">
+<div style="display:flex;align-items:baseline;gap:18px;min-width:0">
+<span style="font:300 18px 'Cormorant Garamond',serif;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap">Macho Halisi</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.28em;color:rgba(30,25,19,.7);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Safari Experiences · {{ ex.short }}</span>
+</div>
+<a href="#plan" style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#F6F2EA;background:#1E1913;text-transform:uppercase;padding:13px 26px;border-radius:2px;white-space:nowrap" style-hover="background:#8A6A33;color:#F6F2EA">Plan this experience</a>
+</header>
+
+<section data-hero style="position:relative;height:230vh">
+<div style="position:sticky;top:0;height:100vh;overflow:hidden;background:#F6F2EA">
+
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 48px">
+<div style="position:absolute;top:30px;left:48px;right:48px;display:flex;justify-content:space-between;font:300 10.5px Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#1E1913"><span>Macho Halisi</span><span>Safari Experiences · {{ ex.num }} / {{ total }}</span></div>
+<div style="transform:translateY({{ titleY }})">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.46em;color:#8A6A33;text-transform:uppercase;margin-bottom:28px">{{ ex.badge }}</div>
+<h1 style="margin:0;font:300 clamp(54px,9vw,150px)/.94 'Cormorant Garamond',serif;letter-spacing:.01em;color:#1E1913">{{ ex.line1 }}<br><em style="font-style:italic;font-weight:300">{{ ex.line2 }}</em></h1>
+<p style="margin:34px auto 0;max-width:520px;font:300 12px Jost,sans-serif;letter-spacing:.34em;color:rgba(30,25,19,.72);text-transform:uppercase">{{ ex.tagline }}</p>
+</div>
+<div style="position:absolute;bottom:30px;left:0;right:0;font:300 10px Jost,sans-serif;letter-spacing:.36em;color:rgba(30,25,19,.7);text-transform:uppercase;opacity:{{ cueOpacity }}">Scroll to open</div>
+</div>
+
+<div style="position:absolute;inset:0;clip-path:{{ heroClip }};will-change:clip-path">
+<div style="position:absolute;inset:0;transform:scale({{ heroScale }})"><image-slot id="ex-{{ ex.id }}-hero" shape="rect" placeholder="Hero — {{ ex.short }}"></image-slot></div>
+{{ heroImgEl }}
+<div style="position:absolute;inset:0;background:rgba(18,14,10,{{ heroShade }})"></div>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 48px">
+<div style="position:absolute;top:30px;left:48px;right:48px;display:flex;justify-content:space-between;font:300 10.5px Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#FBF7F0"><span>Macho Halisi</span><span>Safari Experiences · {{ ex.num }} / {{ total }}</span></div>
+<div style="transform:translateY({{ titleY }})">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.46em;color:#E3C99A;text-transform:uppercase;margin-bottom:28px">{{ ex.badge }}</div>
+<h1 aria-hidden="true" style="margin:0;font:300 clamp(54px,9vw,150px)/.94 'Cormorant Garamond',serif;letter-spacing:.01em;color:#FBF7F0">{{ ex.line1 }}<br><em style="font-style:italic;font-weight:300">{{ ex.line2 }}</em></h1>
+<p style="margin:34px auto 0;max-width:520px;font:300 12px Jost,sans-serif;letter-spacing:.34em;color:rgba(251,247,240,.9);text-transform:uppercase">{{ ex.tagline }}</p>
+</div>
+<div style="position:absolute;bottom:30px;left:0;right:0;font:300 10px Jost,sans-serif;letter-spacing:.36em;color:rgba(251,247,240,.85);text-transform:uppercase;opacity:{{ cueOpacity }}">Scroll to open</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section data-words style="max-width:1160px;margin:0 auto;padding:150px 64px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:34px">The experience</div>
+<p style="margin:0;font:300 clamp(30px,3.5vw,52px)/1.36 'Cormorant Garamond',serif;letter-spacing:.005em;color:#1E1913;text-wrap:pretty"><sc-for list="{{ words }}" as="word" hint-placeholder-count="24"><span style="opacity:{{ word.o }};transition:opacity .3s ease">{{ word.w }} </span></sc-for></p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:28px;margin-top:96px;padding-top:30px;border-top:1px solid rgba(30,25,19,.18)">
+<sc-for list="{{ ex.glance }}" as="g" hint-placeholder-count="5">
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:10px">{{ g.k }}</div><div style="font:300 21px/1.35 'Cormorant Garamond',serif;letter-spacing:.04em;color:#1E1913">{{ g.v }}</div></div>
+</sc-for>
+</div>
+</section>
+
+<section data-strip style="position:relative;height:{{ stripHeight }};margin-top:140px">
+<div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+<div data-track style="display:flex;align-items:center;gap:72px;padding:0 64px;width:max-content;transform:translate3d({{ stripX }},0,0);will-change:transform">
+<div style="width:min(34vw,440px);flex:none">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:20px">What sets it apart</div>
+<h2 style="margin:0 0 30px;font:300 clamp(40px,4.6vw,66px)/1.02 'Cormorant Garamond',serif;letter-spacing:.02em">Three things you<br><em>will not forget</em></h2>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:360px">Keep scrolling — the page moves sideways through each one.</p>
+</div>
+<sc-for list="{{ ex.highlights }}" as="h" hint-placeholder-count="3">
+<article style="width:min(66vw,900px);flex:none;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end">
+<div style="position:relative;height:min(62vh,560px);overflow:hidden"><image-slot id="ex-{{ ex.id }}-h{{ $index }}" shape="rect" placeholder="{{ h.t }}"></image-slot></div>
+<div style="padding-bottom:10px">
+<div style="font:300 clamp(60px,6vw,96px)/1 'Cormorant Garamond',serif;color:#C9A46A;margin-bottom:20px">{{ h.n }}</div>
+<h3 style="margin:0 0 18px;font:300 clamp(26px,2.5vw,36px)/1.16 'Cormorant Garamond',serif;letter-spacing:.03em">{{ h.t }}</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68)">{{ h.d }}</p>
+</div>
+</article>
+</sc-for>
+</div>
+<div style="position:absolute;left:64px;right:64px;bottom:44px;display:flex;align-items:center;gap:24px">
+<span style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#1E1913;white-space:nowrap">{{ stripCount }}</span>
+<span style="flex:1;height:1px;background:rgba(30,25,19,.16);position:relative"><span style="position:absolute;left:0;top:0;height:1px;background:#8A6A33;width:{{ stripBar }}"></span></span>
+</div>
+</div>
+</section>
+
+<section data-day style="max-width:1240px;margin:0 auto;padding:130px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:100px;align-items:start">
+<div style="position:sticky;top:120px">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:20px">Hour by hour</div>
+<h2 style="margin:0 0 26px;font:300 clamp(36px,4vw,56px)/1.04 'Cormorant Garamond',serif;letter-spacing:.02em">The shape<br><em>of a day</em></h2>
+<p style="margin:0 0 40px;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:360px">An indicative day. Your guide adjusts every hour of it to the light, the weather and the animals.</p>
+<div style="font:300 clamp(64px,7vw,108px)/1 'Cormorant Garamond',serif;color:#1E1913;letter-spacing:.02em">{{ dayClock }}</div>
+</div>
+<div style="position:relative;padding-left:56px">
+<span style="position:absolute;left:0;top:10px;bottom:10px;width:1px;background:rgba(30,25,19,.16)"></span>
+<span style="position:absolute;left:0;top:10px;width:1px;background:#8A6A33;height:{{ dayFill }}"></span>
+<sc-for list="{{ day }}" as="d" hint-placeholder-count="5">
+<div style="position:relative;padding:0 0 88px">
+<span style="position:absolute;left:-60px;top:14px;width:9px;height:9px;border-radius:50%;background:{{ d.dot }};transition:background .5s ease"></span>
+<div style="font:300 12px Jost,sans-serif;letter-spacing:.3em;color:{{ d.tc }};text-transform:uppercase;margin-bottom:14px;transition:color .5s ease">{{ d.time }}</div>
+<h3 style="margin:0 0 14px;font:300 clamp(26px,2.6vw,36px)/1.16 'Cormorant Garamond',serif;letter-spacing:.03em;color:{{ d.hc }};transition:color .5s ease">{{ d.t }}</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:{{ d.pc }};max-width:520px;transition:color .5s ease">{{ d.d }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section data-quote style="margin-top:60px;position:relative;height:88vh;min-height:540px;overflow:hidden">
+<div style="position:absolute;inset:0;transform:scale({{ quoteScale }});will-change:transform"><image-slot id="ex-{{ ex.id }}-q" shape="rect" placeholder="Full-bleed mood image"></image-slot></div>
+<div style="position:absolute;inset:0;background:rgba(18,14,10,.42);pointer-events:none"></div>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 64px;pointer-events:none;text-align:center">
+<p style="margin:0 0 26px;max-width:960px;font:300 italic clamp(28px,3.4vw,50px)/1.42 'Cormorant Garamond',serif;color:#FBF7F0;text-wrap:balance">“{{ ex.quote }}”</p>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.34em;color:#E3C99A;text-transform:uppercase">{{ ex.quoteBy }}</span>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:52px">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">Where it happens</div>
+<h2 style="margin:0;font:300 clamp(34px,4vw,52px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">Destinations</h2>
+</div>
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;text-transform:uppercase">All destinations →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px">
+<sc-for list="{{ places }}" as="p" hint-placeholder-count="3">
+<a href="#plan" style="color:inherit;display:block;margin-top:{{ p.offset }}">
+<div style="position:relative;aspect-ratio:4/5;overflow:hidden;margin-bottom:22px"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ex-{{ ex.id }}-p{{ $index }}" shape="rect" placeholder="{{ p.name }}"></image-slot></span></div>
+<div style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#8A6A33;text-transform:uppercase;margin-bottom:10px">{{ p.type }}</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px"><span style="font:300 27px 'Cormorant Garamond',serif;letter-spacing:.04em">{{ p.name }}</span><span style="font:300 16px Jost,sans-serif;color:#8A6A33">→</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section id="plan" style="margin-top:140px;background:#181410;color:#F6F2EA">
+<div style="max-width:1240px;margin:0 auto;padding:120px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:80px;align-items:end">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#C9A46A;text-transform:uppercase;margin-bottom:22px">Plan this experience</div>
+<h2 style="margin:0;font:300 clamp(40px,5vw,72px)/1 'Cormorant Garamond',serif;letter-spacing:.02em;color:#FBF7F0">{{ ex.line1 }}<br><em style="color:#E3C99A">{{ ex.line2 }}</em></h2>
+</div>
+<div>
+<p style="margin:0 0 36px;font:300 15.5px/2 Jost,sans-serif;color:rgba(251,247,240,.72);max-width:460px">Take it on its own or fold it into a longer journey. Tell us your dates — we reply within 24 hours with availability and a firm price.</p>
+<div style="display:flex;gap:26px;flex-wrap:wrap;align-items:center">
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#181410;background:#C9A46A;text-transform:uppercase;padding:18px 40px;border-radius:2px" style-hover="background:#F6F2EA;color:#181410">Enquire now</a>
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase" style-hover="color:#C9A46A">Itineraries with this →</a>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:120px 64px 150px" onMouseMove="{{ track }}" onMouseLeave="{{ leave }}">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:40px">More safari experiences</div>
+<div style="border-top:1px solid rgba(30,25,19,.16)">
+<sc-for list="{{ others }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.go }}" onMouseEnter="{{ o.enter }}" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(30,25,19,.12);cursor:pointer;display:grid;grid-template-columns:minmax(0,64px) minmax(0,1fr) minmax(0,320px) 30px;gap:28px;align-items:baseline;padding:34px 0;text-align:left;color:#1E1913" style-hover="color:#8A6A33">
+<span style="font:300 12px Jost,sans-serif;letter-spacing:.24em;color:#8A6A33">{{ o.num }}</span>
+<span style="font:300 clamp(28px,3.4vw,48px)/1.08 'Cormorant Garamond',serif;letter-spacing:.02em">{{ o.line1 }} <em>{{ o.line2 }}</em></span>
+<span style="font:300 11px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">{{ o.tagline }}</span>
+<span style="font:300 18px Jost,sans-serif;text-align:right">→</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<div style="position:fixed;left:0;top:0;width:280px;height:360px;overflow:hidden;pointer-events:none;z-index:40;opacity:{{ hoverOpacity }};transform:translate3d({{ hoverX }},{{ hoverY }},0) scale({{ hoverScale }});transition:opacity .35s ease,transform .5s cubic-bezier(.22,.7,.3,1)">
+{{ hoverImgEl }}
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;experience&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;migration&quot;,&quot;hot-air-balloon&quot;,&quot;walking-safari&quot;,&quot;photo-safari&quot;,&quot;maasai-cultural&quot;],&quot;default&quot;:&quot;migration&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;wordReveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { exp: null, y: 0, progress: 0, heroP: 0, wordsP: 0, stripP: 0, stripX: 0, dayP: 0, quoteP: 0, hover: -1, hx: 0, hy: 0, failed: {} };
+
+  data() {
+    if (this._d) return this._d;
+    this._d = [
+      { id: 'migration', short: 'The Great Migration', line1: 'Great Migration', line2: 'Expeditions', badge: 'Signature Journey', tagline: 'The Greatest Wildlife Spectacle on Earth',
+        image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1800&q=85',
+        description: 'Follow two million hooves on the move through river crossings, predator ambushes, and calving season in the Ndutu plains.',
+        glance: [['Duration','4 – 10 nights'],['Where','Serengeti · Ndutu · Mara'],['Season','Year-round, by sector'],['Group','Private, 2 – 6'],['From','$6,450 pp']],
+        highlights: [['Mara River Crossings','July to October the herds mass on the northern banks. Our mobile camps sit minutes from the busiest crossing points.'],['Predator Action','Lion, cheetah and crocodile shadow the herds. Your guide positions for the hunt, not for the crowd.'],['Mobile Camps','Canvas camps that relocate with the migration, so the herds come to your tent rather than the other way round.']],
+        day: [['05:45','First light','Coffee at the fire and out before the columns begin to move.'],['08:30','On the herds','Your guide reads the lines of animals and chooses a crossing point.'],['13:00','Bush lunch','Shade, cold drinks and the radio for news of movement upriver.'],['16:00','The river','Afternoon on the bank as the herds build toward a crossing.'],['19:30','Camp','Dinner under canvas, the grunt of wildebeest all night long.']],
+        quote: 'You hear it before you see it — a low sound, like weather, moving across the plain.', quoteBy: 'Guide, Northern Serengeti',
+        places: [['Serengeti','National park'],['Ndutu','Calving grounds'],['Mara River','Crossing country']] },
+      { id: 'hot-air-balloon', short: 'Balloon Safaris', line1: 'Balloon Safaris', line2: 'over the Serengeti', badge: 'Aerial View', tagline: 'Dawn Flights Over the Savannah',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=85',
+        description: 'Float silently over the awakening plains at sunrise, observing herds from above before enjoying a champagne bush breakfast under an acacia tree.',
+        glance: [['Duration','One morning · 3 hrs'],['Where','Central & Western Serengeti'],['Season','Year-round, not Apr – May'],['Basket','Up to 16 guests'],['From','$599 pp']],
+        highlights: [['Sunrise Panorama','Lift off in the half-dark and watch the plains light up beneath you, herd by herd.'],['Champagne Bush Breakfast','Land where the wind decides, to a table laid under an acacia and a glass already poured.'],['Silent Flight','Between burns the only sound is the grass below — close enough to hear hooves.']],
+        day: [['05:00','Collection','A quiet drive through the dark to the launch site.'],['06:15','Lift-off','The envelope fills, the basket lightens, and the ground falls away.'],['07:15','Landing','Down wherever the wind has carried you, the chase crew already waiting.'],['08:00','Bush breakfast','Linen, champagne and a full cooked breakfast on the plains.'],['09:30','The drive back','A game drive to camp through the morning light.']],
+        quote: 'At a thousand feet the Serengeti finally makes sense — you can see where everything is going.', quoteBy: 'Pilot, Seronera',
+        places: [['Central Serengeti','Seronera valley'],['Western Corridor','Grumeti river'],['Ndutu','Seasonal flights']] },
+      { id: 'walking-safari', short: 'Walking Safaris', line1: 'Guided Walking', line2: 'Bush Safaris', badge: 'Immersive Safari', tagline: "Track Africa's Wild on Foot",
+        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=85',
+        description: 'Step into the bush accompanied by professional armed rangers. Learn ancient tracking techniques, medicinal botany, and the intimacy of wild encounters.',
+        glance: [['Duration','3 hrs to multi-day'],['Where','Ruaha · Nyerere · Serengeti'],['Season','June – October'],['Group','Max 6 walkers'],['From','On request']],
+        highlights: [['Spoor Tracking',"Read the night's story in the dust — who passed, how long ago, and which way they went."],['Armed Expert Guide','Walk behind a licensed armed ranger and a trained naturalist, never more than six in file.'],['Senses Awakened','On foot the bush sharpens: scent, birdsong, and the small life a vehicle drives straight past.']],
+        day: [['06:00','Briefing','Hand signals, spacing, and what to do if the bush says stop.'],['06:30','Into the bush','Single file, slow pace, the ranger reading the wind.'],['08:30','On the trail','Following fresh spoor toward water and whatever made it.'],['10:30','Brunch in the shade','Back to camp before the heat, or a table set beneath a baobab.'],['16:30','Sundowner walk','A short loop to a kopje and a drink as the light drops.']],
+        quote: 'In a vehicle you watch Africa. On foot, for the first time, it watches you.', quoteBy: 'Ranger, Ruaha',
+        places: [['Ruaha','National park'],['Nyerere','Rufiji river'],['Serengeti','Wilderness zones']] },
+      { id: 'photo-safari', short: 'Photographic Expeditions', line1: 'Photographic', line2: 'Expeditions', badge: 'Pro Photographers', tagline: 'Golden Hour Mastery with Custom 4x4s',
+        image: 'https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=1800&q=85',
+        description: 'Custom photographic vehicles with 360-degree open hatches, bean bags, low-angle mounts, and private expert guides attuned to optimal lighting.',
+        glance: [['Duration','6 – 12 nights'],['Where','Serengeti · Crater · Tarangire'],['Season','Year-round'],['Vehicle','1 – 3 photographers'],['From','$8,900 pp']],
+        highlights: [['Modified Open Vehicles','Full 360° hatches, bean bags, floor-level mounts and charging at every seat.'],['Prime Lighting Hours','Out before dawn and back after dark — midday is for editing, not driving.'],['Expert Trackers','Guides who understand the shot as well as the animal, and position for light over proximity.']],
+        day: [['05:15','Golden hour','In position before sunrise, sun behind you, subject ahead.'],['09:00','Tracking','Following leads from the night for behaviour, not just portraits.'],['12:00','Review & edit','Back in camp with a calibrated screen and a cold drink.'],['15:30','Afternoon light','Low-angle mounts and long lenses as the shadows stretch.'],['18:45','Blue hour','Silhouettes, then the stars from the vehicle roof.']],
+        quote: 'The animals are everywhere. The light is the thing you have to hunt.', quoteBy: 'Photographic guide, Ngorongoro',
+        places: [['Serengeti','Big cat country'],['Ngorongoro Crater','Rhino & lion'],['Tarangire','Elephant & baobab']] },
+      { id: 'maasai-cultural', short: 'Maasai Encounters', line1: 'Authentic Maasai', line2: 'Encounters', badge: 'Cultural Heritage', tagline: 'Centuries of Pastoral Traditions',
+        image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1800&q=85',
+        description: 'Respectful, non-commercial cultural exchanges with Maasai elders and warriors in traditional bomas, celebrating age-old songs and stories.',
+        glance: [['Duration','Half or full day'],['Where','Ngorongoro highlands · Monduli'],['Season','Year-round'],['Group','Small & private'],['From','Included in itineraries']],
+        highlights: [['Traditional Bomas','A working homestead visited by invitation, not a staged village, with a guide from the community.'],['Elder Storytelling','The histories of cattle, land and age-sets, told in Maa and translated as you sit together.'],['Direct Community Support',"Every visit fee goes straight to the boma's school and water fund, published each year."]],
+        day: [['09:00','Arrival','Welcomed at the gate of the boma by the family who host you.'],['09:45','With the women','Beadwork, house-building and the running of a homestead.'],['11:00','The elders','Stories of the age-sets, the land and the long migrations of cattle.'],['12:30','A shared meal','Lunch together, and questions in both directions.'],['14:00','With the herders','A walk out with the young men and the cattle to water.']],
+        quote: 'We are not a show. Come as a guest, and you will leave as one who has been told something.', quoteBy: 'Elder, Monduli',
+        places: [['Ngorongoro','Conservation area'],['Monduli','Highlands'],['Lake Natron','Rift valley']] }
+    ];
+    return this._d;
+  }
+
+  currentIndex() {
+    const id = this.state.exp || this.props.experience || 'migration';
+    const i = this.data().findIndex(e => e.id === id);
+    return i < 0 ? 0 : i;
+  }
+
+  componentDidMount() {
+    const scroller = () => {
+      const se = document.scrollingElement || document.documentElement;
+      return se.scrollHeight > se.clientHeight + 4 ? se : document.body;
+    };
+    this.scroller = scroller;
+    const clamp = v => Math.min(1, Math.max(0, v));
+    this.onScroll = () => {
+      const sc = scroller(), vh = window.innerHeight;
+      const y = sc.scrollTop || window.scrollY || 0;
+      const progress = clamp(y / Math.max(1, sc.scrollHeight - sc.clientHeight));
+      const rect = s => { const el = document.querySelector(s); return el ? el.getBoundingClientRect() : null; };
+      const pin = r => r ? clamp(-r.top / Math.max(1, r.height - vh)) : 0;
+      const h = rect('[data-hero]'), st = rect('[data-strip]'), w = rect('[data-words]'), d = rect('[data-day]'), q = rect('[data-quote]');
+      const heroP = pin(h), stripP = pin(st);
+      const wordsP = w ? clamp((vh * 0.82 - w.top) / (w.height * 0.55 + vh * 0.2)) : 0;
+      const dayP = d ? clamp((vh * 0.55 - d.top) / (d.height - 120)) : 0;
+      const quoteP = q ? clamp((vh - q.top) / (q.height + vh)) : 0;
+      const t = document.querySelector('[data-track]');
+      const max = t ? Math.max(0, t.scrollWidth - window.innerWidth) : 0;
+      const stripX = -stripP * max;
+      document.querySelectorAll('[data-mask]:not(.mh-open)').forEach(el => {
+        if (el.getBoundingClientRect().top < vh * 0.86) el.classList.add('mh-open');
+      });
+      const s = this.state;
+      const ch = (a, b) => Math.abs(a - b) > 0.001;
+      if (ch(y, s.y) || ch(heroP, s.heroP) || ch(stripX, s.stripX) || ch(wordsP, s.wordsP) || ch(dayP, s.dayP) || ch(quoteP, s.quoteP)) {
+        this.setState({ y, progress, heroP, stripP, stripX, wordsP, dayP, quoteP });
+      }
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', this.onScroll);
+    this.tick = setInterval(this.onScroll, 400);
+    requestAnimationFrame(this.onScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll, true);
+    window.removeEventListener('resize', this.onScroll);
+    clearInterval(this.tick);
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.experience !== this.props.experience && this.props.experience) this.setState({ exp: this.props.experience });
+  }
+
+  renderVals() {
+    const all = this.data(), idx = this.currentIndex(), e = all[idx], s = this.state;
+    const pad = n => String(n).padStart(2, '0');
+    const ease = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const hp = ease(Math.min(1, s.heroP / 0.85));
+    const it = (22 * (1 - hp)).toFixed(2), il = (31 * (1 - hp)).toFixed(2);
+
+    const reveal = this.props.wordReveal ?? true;
+    const words = e.description.split(' ');
+    const n = words.length;
+
+    const hl = e.highlights.length;
+    const activeH = Math.min(hl, Math.max(1, Math.ceil(s.stripP * (hl + 1) - 0.5)));
+
+    const dn = e.day.length;
+    const dayActive = Math.min(dn - 1, Math.floor(s.dayP * dn));
+
+    const hov = s.hover >= 0 ? all[s.hover] : null;
+
+    return {
+      total: pad(all.length),
+      ex: {
+        id: e.id, short: e.short, num: pad(idx + 1), line1: e.line1, line2: e.line2, badge: e.badge, tagline: e.tagline,
+        image: e.image, quote: e.quote, quoteBy: e.quoteBy,
+        glance: e.glance.map(([k, v]) => ({ k, v })),
+        highlights: e.highlights.map(([t, d], i) => ({ n: pad(i + 1), t, d }))
+      },
+      progress: (s.progress * 100).toFixed(2) + '%',
+      barOpacity: s.heroP >= 0.98 ? 1 : 0,
+      barEvents: s.heroP >= 0.98 ? 'auto' : 'none',
+      barY: s.heroP >= 0.98 ? '0px' : '-12px',
+      heroClip: 'inset(' + it + '% ' + il + '% ' + it + '% ' + il + '%)',
+      heroScale: (1.18 - 0.18 * hp).toFixed(4),
+      heroShade: (0.12 + 0.3 * hp).toFixed(3),
+      titleY: (-hp * 30).toFixed(1) + 'px',
+      cueOpacity: Math.max(0, 1 - s.heroP * 5).toFixed(2),
+      words: words.map((w, i) => ({ w, o: reveal ? (0.16 + 0.84 * Math.min(1, Math.max(0, s.wordsP * n * 1.1 - i))).toFixed(3) : 1 })),
+      stripHeight: (100 + hl * 90) + 'vh',
+      stripX: s.stripX.toFixed(1) + 'px',
+      stripBar: (s.stripP * 100).toFixed(2) + '%',
+      stripCount: pad(activeH) + ' / ' + pad(hl),
+      dayFill: (s.dayP * 100).toFixed(2) + '%',
+      dayClock: e.day[Math.max(0, dayActive)][0],
+      day: e.day.map(([time, t, d], i) => {
+        const on = i <= dayActive && s.dayP > 0.01;
+        return { time, t, d, dot: on ? '#8A6A33' : 'rgba(30,25,19,.2)', tc: on ? '#8A6A33' : 'rgba(30,25,19,.4)', hc: on ? '#1E1913' : 'rgba(30,25,19,.34)', pc: on ? 'rgba(30,25,19,.68)' : 'rgba(30,25,19,.3)' };
+      }),
+      quoteScale: (1.16 - 0.16 * s.quoteP).toFixed(4),
+      places: e.places.map(([name, type], i) => ({ name, type, offset: ['0px', '64px', '24px'][i % 3] })),
+      others: all.map((o, i) => ({ o, i })).filter(x => x.i !== idx).map(({ o, i }) => ({
+        num: pad(i + 1), line1: o.line1, line2: o.line2, tagline: o.tagline,
+        go: () => { this.setState({ exp: o.id, hover: -1 }); const sc = this.scroller && this.scroller(); if (sc) sc.scrollTop = 0; window.scrollTo(0, 0); },
+        enter: () => this.setState({ hover: i })
+      })),
+      track: ev => this.setState({ hx: ev.clientX, hy: ev.clientY }),
+      leave: () => this.setState({ hover: -1 }),
+      heroImgEl: (e.image && !s.failed[e.id]) ? React.createElement('img', { key: e.id, src: e.image, alt: '', onError: () => this.setState(st => ({ failed: { ...st.failed, [e.id]: true } })), style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(' + (1.18 - 0.18 * hp).toFixed(4) + ')', pointerEvents: 'none' } }) : null,
+      hoverImgEl: (hov && hov.image && !s.failed[hov.id]) ? React.createElement('img', { key: hov.id, src: hov.image, alt: '', onError: () => this.setState(st => ({ failed: { ...st.failed, [hov.id]: true } })), style: { width: '100%', height: '100%', objectFit: 'cover', background: '#E7DFD1' } }) : null,
+      hoverOpacity: hov ? 1 : 0,
+      hoverScale: hov ? 1 : 0.92,
+      hoverX: (s.hx + 36) + 'px',
+      hoverY: (s.hy - 180) + 'px'
+    };
+  }
+}
+</script>
+</body>
+</html>

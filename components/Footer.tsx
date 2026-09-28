@@ -154,7 +154,7 @@ export default function Footer() {
                     href="tel:+255700000000"
                     className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0] hover:text-[#C9A46A] transition-colors"
                   >
-                    +255 700 000 000
+                    +255 754 474 792
                   </a>
                 </div>
                 <div>
@@ -162,10 +162,10 @@ export default function Footer() {
                     Write to us
                   </div>
                   <a
-                    href="mailto:hello@machohalisi.com"
+                    href="mailto:info@machohalisi.com"
                     className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0] hover:text-[#C9A46A] transition-colors"
                   >
-                    hello@machohalisi.com
+                    info@machohalisi.com
                   </a>
                 </div>
               </div>
@@ -213,11 +213,11 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Itineraries"
                 links={[
-                  { label: "The Great Migration", href: "/itineraries" },
-                  { label: "Roof of Africa", href: "/itineraries" },
-                  { label: "The Southern Circuit", href: "/itineraries" },
-                  { label: "Spice Coast & Sands", href: "/itineraries" },
-                  { label: "All journeys →", href: "/itineraries" },
+                  { label: "The Great Migration", href: "/journeys/signature-itineraries#the-great-migration" },
+                  { label: "Roof of Africa", href: "/journeys/kilimanjaro-routes" },
+                  { label: "The Southern Circuit", href: "/journeys/signature-itineraries#the-southern-circuit" },
+                  { label: "Spice Coast & Sands", href: "/journeys/zanzibar-journeys#spice-coast-sands" },
+                  { label: "All journeys →", href: "/journeys" },
                 ]}
               />
             </ScrollReveal>
@@ -225,11 +225,12 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Destinations"
                 links={[
-                  { label: "Serengeti", href: "/itineraries" },
-                  { label: "Ngorongoro Crater", href: "/itineraries" },
-                  { label: "Kilimanjaro", href: "/itineraries" },
-                  { label: "Ruaha & Nyerere", href: "/itineraries" },
-                  { label: "Zanzibar", href: "/itineraries" },
+                  { label: "Serengeti", href: "/destinations/serengeti" },
+                  { label: "Ngorongoro Crater", href: "/destinations/ngorongoro" },
+                  { label: "Kilimanjaro", href: "/destinations/kilimanjaro" },
+                  { label: "Ruaha & Nyerere", href: "/destinations/southern-circuit" },
+                  { label: "Zanzibar", href: "/destinations/zanzibar" },
+                  { label: "All destinations →", href: "/destinations" },
                 ]}
               />
             </ScrollReveal>
@@ -237,11 +238,11 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Travel with us"
                 links={[
-                  { label: "How we plan", href: "#" },
-                  { label: "When to travel", href: "#" },
-                  { label: "Accommodation", href: "#" },
-                  { label: "Travel information", href: "#" },
-                  { label: "Enquire", onClick: () => openEnquiry() },
+                  { label: "How we plan", href: "/how-we-plan" },
+                  { label: "When to travel", href: "/when-to-travel" },
+                  { label: "Accommodation", href: "/accommodations" },
+                  { label: "Travel information", href: "/travel-information" },
+                  { label: "Enquire", href: "/enquire" },
                 ]}
               />
             </ScrollReveal>
@@ -249,11 +250,11 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Studio"
                 links={[
-                  { label: "Our story", href: "#" },
-                  { label: "The guides", href: "#" },
-                  { label: "Conservation", href: "#" },
+                  { label: "Our story", href: "/about" },
+                  { label: "The guides", href: "/about#guides" },
+                  { label: "Conservation", href: "/impact" },
                   { label: "Journal", href: "#" },
-                  { label: "Contact", onClick: () => openEnquiry() },
+                  { label: "Contact", href: "/enquire" },
                 ]}
               />
             </ScrollReveal>
@@ -277,13 +278,13 @@ export default function Footer() {
             <div className="flex items-center justify-between gap-9 flex-wrap py-8 sm:py-[42px] border-t border-[#FBF7F0]/[0.14]">
               <div className="flex gap-7 flex-wrap font-sans font-light text-[10.5px] tracking-[0.22em] uppercase">
                 <span className="text-[#FBF7F0]/55">© {new Date().getFullYear()} Macho Halisi Safaris</span>
-                <a href="#" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
+                <Link href="/privacy" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
                   Privacy
-                </a>
-                <a href="#" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
+                </Link>
+                <Link href="/terms" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
                   Terms
-                </a>
-                <span className="text-[#FBF7F0]/55">TALA licensed</span>
+                </Link>
+dc                 <span className="text-[#FBF7F0]/55">TALA licensed</span>
               </div>
               <div className="flex items-center gap-7 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">
                 <a

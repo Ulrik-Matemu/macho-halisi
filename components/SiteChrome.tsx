@@ -40,7 +40,7 @@ export function useNavbarVisibility(): NavbarVisibilityContextValue {
 function SiteChromeInner({ children }: { children?: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const { isOpen: isEnquiryOpen, openEnquiry, closeEnquiry } = useEnquiry();
+  const { isOpen: isEnquiryOpen, seed: enquirySeed, openEnquiry, closeEnquiry } = useEnquiry();
 
   const navbarVisibilityValue = useMemo(
     () => ({ setNavbarVisible: setIsNavbarVisible }),
@@ -78,7 +78,7 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
           onOpenEnquiry={() => openEnquiry()}
         />
 
-        <EnquiryModal isOpen={isEnquiryOpen} onClose={closeEnquiry} />
+        <EnquiryModal isOpen={isEnquiryOpen} onClose={closeEnquiry} seed={enquirySeed} />
       </main>
     </NavbarVisibilityContext.Provider>
   );

@@ -56,7 +56,7 @@ export const navigationData: NavCategory[] = [
           "Traverse dry riverbeds flanked by colossal baobab trees where massive breeding herds of elephants gather during dry season spectacles.",
         href: "/destinations/tarangire",
         image:
-          "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1400&q=85",
+          "/media/tarangire/tara-hero.jpg",
         badge: "Elephant Haven",
         highlights: ["500+ Bird Species", "Ancient Baobabs", "Silale Swamps"],
       },
@@ -107,6 +107,17 @@ export const navigationData: NavCategory[] = [
           "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1400&q=85",
         badge: "Raw Wilderness",
         highlights: ["Boat Safaris", "African Wild Dogs", "Immense Solitude"],
+      },
+      {
+        id: "view-all-destinations",
+        title: "VIEW ALL DESTINATIONS",
+        tagline: "27 National Parks, Islands & Natural Wonders",
+        description:
+          "Browse every Tanzania destination we cover — national parks, conservation areas, mountains, islands and more — with search and category filters.",
+        href: "/destinations",
+        image:
+          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+        highlights: [],
       },
     ],
   },
@@ -181,7 +192,10 @@ export const navigationData: NavCategory[] = [
   {
     id: "camps-lodges",
     title: "CAMPS & LODGES",
-    href: "/camps-and-lodges",
+    // Points at the live, database-backed accommodations catalog. The
+    // sub-items below are curated marketing entries that all funnel into
+    // the same filterable /accommodations page.
+    href: "/accommodations",
     featuredDefaultId: "luxury-tented",
     subItems: [
       {
@@ -190,7 +204,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Under Canvas with Five-Star Luxury",
         description:
           "Handcrafted canvas suites with en-suite copper bathtubs, private viewing decks, and lanterns lit under the southern cross.",
-        href: "/camps-and-lodges/luxury-tented",
+        href: "/accommodations",
         image:
           "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
         badge: "Exclusive Wilderness",
@@ -202,7 +216,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Perched Above the Volcanic Clouds",
         description:
           "Dramatic architectural wonders clinging to the edge of the Ngorongoro caldera with floor-to-ceiling panoramic glass windows and log fires.",
-        href: "/camps-and-lodges/crater-lodges",
+        href: "/accommodations",
         image:
           "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
         badge: "Caldera Vistas",
@@ -214,7 +228,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Barefoot Elegance on the Swahili Coast",
         description:
           "Private ocean villas featuring plunge pools, private chefs, and direct access to powder sands and turquoise waves.",
-        href: "/camps-and-lodges/beach-villas",
+        href: "/accommodations",
         image:
           "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85",
         badge: "Coastal Bliss",
@@ -225,96 +239,85 @@ export const navigationData: NavCategory[] = [
   {
     id: "journeys",
     title: "BESPOKE JOURNEYS",
-    // Repointed at the live, dynamic itineraries index rather than the
-    // fictional /journeys/* slugs below, which never resolved to a route —
-    // every link in this category 404'd until the public itineraries
-    // pages existed. The four sub-items shown here are illustrative
-    // examples pending real per-itinerary slugs; until then they all route
-    // to the same place a visitor can actually browse published journeys.
-    href: "/itineraries",
-    featuredDefaultId: "classic-northern",
+    // Mirrors the five collections in data/journeys.ts (not imported here —
+    // this file ships in the client bundle via FullscreenNavMenu).
+    href: "/journeys",
+    featuredDefaultId: "signature-itineraries",
     subItems: [
       {
-        id: "classic-northern",
-        title: "THE ULTIMATE NORTHERN CIRCUIT (8 DAYS)",
-        tagline: "Serengeti, Ngorongoro, Tarangire & Manyara",
+        id: "signature-itineraries",
+        title: "SIGNATURE ITINERARIES",
+        tagline: "Safari · Mountain · Coast",
         description:
-          "The quintessential luxury Tanzania expedition. Traverse the great parks by private 4WD safari vehicle with seasoned naturalist guides.",
-        href: "/itineraries",
+          "Our most-travelled journeys across Tanzania. Every one is private, and every one is a starting point rather than a fixed programme.",
+        href: "/journeys/signature-itineraries",
         image:
           "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
-        badge: "Most Popular",
-        highlights: ["8 Days / 7 Nights", "Private Naturalist Guide", "All Big Five"],
+        badge: "26 Journeys",
+        highlights: ["Private Safaris", "North · South · Coast", "Always Tailor-made"],
       },
       {
-        id: "migration-river-trail",
-        title: "MARA RIVER MIGRATION TRAIL (10 DAYS)",
-        tagline: "Exclusive Front-Row to River Crossings",
+        id: "kilimanjaro-routes",
+        title: "KILIMANJARO ROUTES",
+        tagline: "Uhuru Peak · 5,895 m",
         description:
-          "Timed meticulously to intercept herds confronting the Mara River in northern Serengeti, staying in mobile luxury camps that move with the herds.",
-        href: "/itineraries",
+          "Seven ways up the same mountain, each with its own forest, its own camps and its own summit night. The route matters more than the fitness.",
+        href: "/journeys/kilimanjaro-routes",
         image:
-          "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        badge: "Seasonal Masterpiece",
-        highlights: ["10 Days / 9 Nights", "Fly-In Bush Flights", "Predator Tracking"],
+          "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
+        badge: "7 Routes",
+        highlights: ["Machame & Lemosho", "Northern Circuit", "≈ 95% Success, 8-day"],
       },
       {
-        id: "bush-to-beach",
-        title: "BUSH TO BEACH: SAFARI & ZANZIBAR (12 DAYS)",
-        tagline: "Thrilling Game Drives to Idyllic Turquoise Waters",
+        id: "kilimanjaro-climbing-itineraries",
+        title: "KILIMANJARO CLIMBING ITINERARIES",
+        tagline: "Fixed-departure & private",
         description:
-          "The best of both worlds: seven days tracking Tanzania's wildest animals followed by five days of serene barefoot indulgence in Zanzibar.",
-        href: "/itineraries",
+          "Every route in the lengths we actually recommend, plus climbs paired with a safari or the coast. Private climbs start any day you choose.",
+        href: "/journeys/kilimanjaro-climbing-itineraries",
+        image:
+          "https://images.unsplash.com/photo-1783099994045-7243bccf2d5b?auto=format&fit=crop&w=1400&q=85",
+        badge: "15 Climbs",
+        highlights: ["Daily Private Departures", "3 – 4 Crew per Climber", "Park & Rescue Fees Included"],
+      },
+      {
+        id: "zanzibar-journeys",
+        title: "ZANZIBAR JOURNEYS",
+        tagline: "Indian Ocean · Spice Islands",
+        description:
+          "Stone Town alleys, reef lagoons and a slower clock. Take the island on its own or as the soft landing after the mountain or the plains.",
+        href: "/journeys/zanzibar-journeys",
         image:
           "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
-        badge: "Honeymoon Favorite",
-        highlights: ["12 Days / 11 Nights", "Serengeti Safari", "Zanzibar Private Villa"],
+        badge: "10 Journeys",
+        highlights: ["Stone Town", "Pemba & Mafia", "Honeymoons"],
+      },
+      {
+        id: "spice-tours",
+        title: "ZANZIBAR SPICE TOURS",
+        tagline: "Zanzibar farms & kitchens",
+        description:
+          "Cloves, vanilla, cardamom and nutmeg — walked, picked, cooked and eaten with the families who grow them.",
+        href: "/journeys/spice-tours",
+        image:
+          "https://images.unsplash.com/photo-1740824570732-f2a2d2557dd5?auto=format&fit=crop&w=1400&q=85",
+        badge: "6 Tours",
+        highlights: ["Spice Farm Walks", "Swahili Cooking", "Private Pick-up"],
       },
       {
         id: "view-all-journeys",
-        title: "VIEW ALL SAFARI JOURNEYS",
+        title: "VIEW ALL SAFARI ITINERARIES",
         tagline: "The Complete, Live Itinerary Catalog",
         description:
           "Browse every published Macho Halisi safari itinerary — day-by-day programs, pricing, and availability, updated as our specialists curate new journeys.",
         href: "/itineraries",
         image:
-          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+          "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
         highlights: [],
       },
     ],
   },
-  {
-    id: "impact",
-    title: "IMPACT & CONSERVATION",
-    href: "/impact",
-    featuredDefaultId: "wildlife-protection",
-    subItems: [
-      {
-        id: "wildlife-protection",
-        title: "ANTI-POACHING & WILDLIFE HABITATS",
-        tagline: "Protecting Tanzania's Natural Heritage",
-        description:
-          "A portion of every safari booked directly funds anti-poaching ranger units and veterinary interventions in vulnerable wildlife corridors.",
-        href: "/impact/wildlife-protection",
-        image:
-          "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1400&q=85",
-        badge: "Conservation",
-        highlights: ["Ranger Equipment", "Corridor Preservation", "Rhino Patrols"],
-      },
-      {
-        id: "community-empowerment",
-        title: "INDIGENOUS COMMUNITY PARTNERSHIPS",
-        tagline: "Empowering Local Tanzanian Families",
-        description:
-          "Supporting local clean water projects, educational scholarships, and sustainable guide training academies for youth in rural villages.",
-        href: "/impact/community",
-        image:
-          "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        badge: "Community",
-        highlights: ["Water Wells", "Guide Scholarships", "Women Craft Collectives"],
-      },
-    ],
-  },
+  
   {
     id: "about",
     title: "ABOUT MACHO HALISI",
@@ -327,7 +330,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Genuine Eyes on the Wild",
         description:
           "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
-        href: "/about/our-story",
+        href: "/about#story",
         image:
           "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1400&q=85",
         badge: "Native Born & Led",
@@ -339,11 +342,59 @@ export const navigationData: NavCategory[] = [
         tagline: "The Soul of Every Expedition",
         description:
           "Our certified guides have spent lifetimes studying animal behavior, bird calls, and tracking signs, transforming every drive into a masterclass.",
-        href: "/about/our-guides",
+        href: "/about#guides",
         image:
           "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=85",
         badge: "Elite Naturalists",
         highlights: ["Level 3 Certified Guides", "Multi-lingual", "Wildlife Photographers"],
+      },
+      {
+        id: "how-we-plan",
+        title: "HOW WE PLAN SAFARIS",
+        tagline: "Bespoke Safari Architecture",
+        description:
+          "Explore our five-stage planning blueprint — discovery dialogue, ecological canvas, intimate canvas sanctuaries, guide pairing, and on-ground concierge.",
+        href: "/how-we-plan",
+        image:
+          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+        badge: "Our Process",
+        highlights: ["100% Private Vehicles", "Zero Rigid Packages", "Bespoke Routes"],
+      },
+      {
+        id: "when-to-travel",
+        title: "WHEN TO TRAVEL",
+        tagline: "12 Months in the Wild",
+        description:
+          "Month-by-month safari intelligence. Discover Great Migration positions, calving spectacles, dry season river crossings, and green season solitude.",
+        href: "/when-to-travel",
+        image:
+          "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1400&q=85",
+        badge: "Safari Seasons",
+        highlights: ["Migration Scrubber", "Climate Patterns", "Wildlife Highlights"],
+      },
+      {
+        id: "travel-information",
+        title: "TRAVEL INFORMATION",
+        tagline: "Visas, Packing & Bush Logistics",
+        description:
+          "Essential pre-departure field guide for Tanzania — entry visas, health and malaria, 15kg bush luggage limits, and interactive packing assistant.",
+        href: "/travel-information",
+        image:
+          "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1400&q=85",
+        badge: "Field Guide",
+        highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
+      },
+      {
+        id: "enquire-studio",
+        title: "TAILOR-MADE EXPEDITION STUDIO",
+        tagline: "Begin Your Bespoke Consultation",
+        description:
+          "Design your custom Tanzanian journey with native safari specialists. Multi-step consultative planner with transparent pricing and direct director contact.",
+        href: "/enquire",
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
+        badge: "Start Planning",
+        highlights: ["24h Specialist Review", "Private 4x4 Cruiser", "Karatu Office Direct"],
       },
     ],
   },

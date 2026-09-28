@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{overflow-x:hidden}
+body{margin:0;background:#F6F2EA;font-family:Jost,system-ui,sans-serif;color:#1E1913}
+a{color:#8A6A33;text-decoration:none}a:hover{color:#1E1913}
+@keyframes mh-rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.mh-reveal{animation:mh-rise .9s cubic-bezier(.22,.7,.3,1) both}
+[data-mask]{clip-path:inset(0 0 100% 0);transform:scale(1.08);transition:clip-path 1.25s cubic-bezier(.22,.7,.3,1),transform 1.6s cubic-bezier(.22,.7,.3,1)}
+[data-mask].mh-open{clip-path:inset(0 0 0 0);transform:scale(1)}
+[data-drift]{will-change:transform}
+</style></helmet>
+
+<div style="background:#F6F2EA">
+
+<div style="position:fixed;top:0;left:0;height:2px;background:#8A6A33;z-index:60;width:{{ progress }}"></div>
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(246,242,234,.93);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:32px;padding:16px 48px;opacity:{{ barOpacity }};pointer-events:{{ barEvents }};transition:opacity .45s ease">
+<div style="display:flex;align-items:baseline;gap:18px;min-width:0">
+<span style="font:300 18px 'Cormorant Garamond',serif;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap">Macho Halisi</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.28em;color:rgba(30,25,19,.7);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serengeti National Park · Northern Tanzania</span>
+</div>
+<a href="#plan" style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#F6F2EA;background:#1E1913;text-transform:uppercase;padding:13px 26px;border-radius:2px;white-space:nowrap" style-hover="background:#8A6A33;color:#F6F2EA">Plan this trip</a>
+</header>
+
+<section style="position:relative;height:92vh;min-height:640px;margin-top:-70px;overflow:hidden">
+<div style="position:absolute;inset:-8% 0;transform:translateY({{ parallax }});will-change:transform"><image-slot id="ds-hero" shape="rect" placeholder="Hero — full-bleed destination landscape"></image-slot></div>
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,14,10,.52) 0%,rgba(18,14,10,.08) 34%,rgba(18,14,10,.76) 100%);pointer-events:none"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:0 64px 0;pointer-events:none">
+<div style="max-width:1240px;margin:0 auto">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#E3C99A;text-transform:uppercase;margin-bottom:26px">National Park · Northern Circuit</div>
+<h1 style="margin:0 0 26px;font:300 clamp(58px,10.5vw,168px)/.9 'Cormorant Garamond',serif;letter-spacing:.02em;color:#FBF7F0;text-wrap:balance">Serengeti</h1>
+<p style="margin:0 0 54px;max-width:560px;font:300 italic clamp(19px,1.8vw,25px)/1.6 'Cormorant Garamond',serif;color:rgba(251,247,240,.9)">Fourteen thousand square kilometres of grass, and everything that has ever needed to cross it.</p>
+</div>
+<div style="border-top:1px solid rgba(251,247,240,.28)">
+<div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px;padding:26px 0 34px">
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(251,247,240,.72);text-transform:uppercase;margin-bottom:9px">Size</div><div style="font:300 21px 'Cormorant Garamond',serif;letter-spacing:.06em;color:#FBF7F0">14,763 km²</div></div>
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(251,247,240,.72);text-transform:uppercase;margin-bottom:9px">Best time</div><div style="font:300 21px 'Cormorant Garamond',serif;letter-spacing:.06em;color:#FBF7F0">Jun – Oct</div></div>
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(251,247,240,.72);text-transform:uppercase;margin-bottom:9px">Getting there</div><div style="font:300 21px 'Cormorant Garamond',serif;letter-spacing:.06em;color:#FBF7F0">1h flight, Arusha</div></div>
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(251,247,240,.72);text-transform:uppercase;margin-bottom:9px">Known for</div><div style="font:300 21px 'Cormorant Garamond',serif;letter-spacing:.06em;color:#E3C99A">The Great Migration</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:100px;align-items:start">
+<div>
+<p style="margin:0 0 40px;font:300 clamp(25px,2.5vw,34px)/1.58 'Cormorant Garamond',serif;color:#1E1913;text-wrap:pretty">The Serengeti is less a place than a rhythm. Rain falls in the south, grass rises, two million animals turn toward it, and the whole plain reorganises itself around water it cannot yet see.</p>
+<div style="columns:2;column-gap:56px;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68)">
+<p style="margin:0 0 20px">Its short-grass plains in the south give way to acacia woodland, granite kopjes and the riverine forest of the west — each holding a different cast of animals and a different quality of light. The result is a park that never quite looks the same twice, even along the same track.</p>
+<p style="margin:0 0 20px">Lion density here is the highest in Africa. Cheetah hunt the open south, leopard hold the sausage trees along the Seronera, and the Mara River in the far north stages the crossings that define the migration in most people's imagination.</p>
+<p style="margin:0">Where you stay matters more than how long you stay. A camp in the right place in the right month puts the herds on your doorstep; the wrong one puts four hours of driving between you and the day.</p>
+</div>
+</div>
+<aside style="border-top:1px solid rgba(30,25,19,.2);padding-top:28px;display:flex;flex-direction:column;gap:0">
+<div style="padding:0 0 20px;border-bottom:1px solid rgba(30,25,19,.12)"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">Region</div><div style="font:300 15px/1.8 Jost,sans-serif">Northern Tanzania · Mara &amp; Simiyu</div></div>
+<div style="padding:20px 0;border-bottom:1px solid rgba(30,25,19,.12)"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">Established</div><div style="font:300 15px/1.8 Jost,sans-serif">1951 · UNESCO World Heritage</div></div>
+<div style="padding:20px 0;border-bottom:1px solid rgba(30,25,19,.12)"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">Altitude</div><div style="font:300 15px/1.8 Jost,sans-serif">920 – 1,850 m</div></div>
+<div style="padding:20px 0;border-bottom:1px solid rgba(30,25,19,.12)"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">Airstrips</div><div style="font:300 15px/1.8 Jost,sans-serif">Seronera · Kogatende · Grumeti</div></div>
+<div style="padding:20px 0"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">Pairs well with</div><div style="font:300 15px/1.8 Jost,sans-serif">Ngorongoro · Lake Natron · Zanzibar</div></div>
+</aside>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:150px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:100px;align-items:start">
+<div style="position:sticky;top:92px">
+<div style="position:relative;width:100%;height:calc(100vh - 200px);min-height:360px;max-height:760px;overflow:hidden;background:#E7DFD1">
+<div style="position:absolute;inset:0;opacity:{{ ch0 }};transition:opacity .9s cubic-bezier(.4,0,.2,1);transform:scale({{ cz0 }});transition-property:opacity,transform"><image-slot id="ds-c1" shape="rect" placeholder="Chapter — the southern plains"></image-slot></div>
+<div style="position:absolute;inset:0;opacity:{{ ch1 }};transition:opacity .9s cubic-bezier(.4,0,.2,1);transform:scale({{ cz1 }});transition-property:opacity,transform"><image-slot id="ds-c2" shape="rect" placeholder="Chapter — kopjes and woodland"></image-slot></div>
+<div style="position:absolute;inset:0;opacity:{{ ch2 }};transition:opacity .9s cubic-bezier(.4,0,.2,1);transform:scale({{ cz2 }});transition-property:opacity,transform"><image-slot id="ds-c3" shape="rect" placeholder="Chapter — the northern river country"></image-slot></div>
+<div style="position:absolute;left:24px;bottom:22px;font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase;text-shadow:0 1px 12px rgba(18,14,10,.7)">{{ chapterLabel }}</div>
+</div>
+<div style="display:flex;gap:8px;margin-top:16px">
+<span style="flex:1;height:2px;background:{{ cb0 }};transition:background .6s ease"></span>
+<span style="flex:1;height:2px;background:{{ cb1 }};transition:background .6s ease"></span>
+<span style="flex:1;height:2px;background:{{ cb2 }};transition:background .6s ease"></span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column">
+<div data-chapter="0" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">The park in three parts · I</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">The southern plains</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">Grass so short it reads as a lawn from the air, laid over volcanic ash blown from Ngorongoro. Nothing interrupts the horizon, which is precisely why the wildebeest calve here — a predator has nowhere to hide either.</p>
+</div>
+<div data-chapter="1" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">The park in three parts · II</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">Kopjes and woodland</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">Granite islands push up through the centre of the park, each one a self-contained world of shade, water and vantage. Prides hold the same rocks for generations; leopard take the sausage trees along the Seronera river below.</p>
+</div>
+<div data-chapter="2" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">The park in three parts · III</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">The northern river country</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">Rolling hills, denser bush and the Mara River cutting through it — the stage for the crossings. Further from the airstrips, harder to reach, and for three months of the year the most compelling ground in East Africa.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:150px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:100px;align-items:start">
+<div style="display:flex;flex-direction:column">
+<div data-chapter2="0" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">How it is travelled · I</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">Where you sleep</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">Mobile camps that move with the seasons, permanent lodges on the kopjes, and a handful of private houses. The choice is less about luxury tiers than about standing in the right place in the right month.</p>
+</div>
+<div data-chapter2="1" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">How it is travelled · II</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">Your guide and vehicle</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">One private 4×4, roof open, and a Tanzanian guide who has worked these tracks for years. No shared departures, no fixed timetable — the day is planned each morning around what the radio and the ground are saying.</p>
+</div>
+<div data-chapter2="2" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:22px">How it is travelled · III</div>
+<h3 style="margin:0 0 22px;font:300 clamp(30px,3.2vw,44px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em">Getting in and around</h3>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:520px">Light aircraft from Arusha onto Seronera, Kogatende or Grumeti — an hour instead of eight on the road. Between sectors you fly again, so nights are spent in camp rather than in transit.</p>
+</div>
+</div>
+<div style="position:sticky;top:92px">
+<div style="position:relative;width:100%;height:calc(100vh - 200px);min-height:360px;max-height:760px;overflow:hidden;background:#E7DFD1">
+<div style="position:absolute;inset:0;opacity:{{ dh0 }};transform:scale({{ dz0 }});transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)"><image-slot id="ds-e1" shape="rect" placeholder="Travel — camp at dusk"></image-slot></div>
+<div style="position:absolute;inset:0;opacity:{{ dh1 }};transform:scale({{ dz1 }});transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)"><image-slot id="ds-e2" shape="rect" placeholder="Travel — guide and open vehicle"></image-slot></div>
+<div style="position:absolute;inset:0;opacity:{{ dh2 }};transform:scale({{ dz2 }});transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)"><image-slot id="ds-e3" shape="rect" placeholder="Travel — light aircraft on a bush strip"></image-slot></div>
+<div style="position:absolute;left:24px;bottom:22px;font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase;text-shadow:0 1px 12px rgba(18,14,10,.7)">{{ chapter2Label }}</div>
+</div>
+<div style="display:flex;gap:8px;margin-top:16px">
+<span style="flex:1;height:2px;background:{{ db0 }};transition:background .6s ease"></span>
+<span style="flex:1;height:2px;background:{{ db1 }};transition:background .6s ease"></span>
+<span style="flex:1;height:2px;background:{{ db2 }};transition:background .6s ease"></span>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:130px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
+<div data-drift="-0.055" style="position:relative;aspect-ratio:4/5;border-radius:0;overflow:hidden"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-d1" shape="rect" placeholder="Diptych left — detail"></image-slot></span></div>
+<div data-drift="0.055" style="margin-top:14%"><div style="position:relative;aspect-ratio:4/5;border-radius:0;overflow:hidden;margin-bottom:22px"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-d2" shape="rect" placeholder="Diptych right — detail"></image-slot></span></div>
+<p style="margin:0;font:300 13px/1.9 Jost,sans-serif;color:rgba(30,25,19,.7);max-width:360px">Dry season, Seronera valley — the hour before the vehicles arrive.</p></div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:56px">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">Why go</div>
+<h2 style="margin:0;font:300 clamp(34px,4.2vw,54px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">Highlights</h2>
+</div>
+<span style="font:300 11px Jost,sans-serif;letter-spacing:.26em;color:rgba(30,25,19,.7);text-transform:uppercase">Four reasons</span>
+</div>
+<div style="border-top:1px solid rgba(30,25,19,.16)">
+<div style="display:grid;grid-template-columns:minmax(0,72px) minmax(0,1fr) minmax(0,250px);gap:44px;padding:52px 0;border-bottom:1px solid rgba(30,25,19,.12);align-items:center">
+<span style="font:300 clamp(34px,3.4vw,46px)/1 'Cormorant Garamond',serif;color:#C9A46A">01</span>
+<div><h3 style="margin:0 0 14px;font:300 clamp(25px,2.4vw,32px)/1.22 'Cormorant Garamond',serif;letter-spacing:.03em">The river crossings</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:560px">From July the herds mass on the Mara's southern bank and wait, sometimes for days. When one animal finally commits, a hundred thousand follow in a single column through crocodile water.</p></div>
+<div data-drift="-0.04" style="position:relative;aspect-ratio:5/4;border-radius:0;overflow:hidden"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-h1" shape="rect" placeholder="Highlight 01"></image-slot></span></div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,72px) minmax(0,1fr) minmax(0,250px);gap:44px;padding:52px 0;border-bottom:1px solid rgba(30,25,19,.12);align-items:center">
+<span style="font:300 clamp(34px,3.4vw,46px)/1 'Cormorant Garamond',serif;color:#C9A46A">02</span>
+<div><h3 style="margin:0 0 14px;font:300 clamp(25px,2.4vw,32px)/1.22 'Cormorant Garamond',serif;letter-spacing:.03em">Calving on the short grass</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:560px">Half a million calves are born in the southern plains across three weeks of February — and every predator in the ecosystem arrives to meet them.</p></div>
+<div data-drift="0.04" style="position:relative;aspect-ratio:5/4;border-radius:0;overflow:hidden"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-h2" shape="rect" placeholder="Highlight 02"></image-slot></span></div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,72px) minmax(0,1fr) minmax(0,250px);gap:44px;padding:52px 0;border-bottom:1px solid rgba(30,25,19,.12);align-items:center">
+<span style="font:300 clamp(34px,3.4vw,46px)/1 'Cormorant Garamond',serif;color:#C9A46A">03</span>
+<div><h3 style="margin:0 0 14px;font:300 clamp(25px,2.4vw,32px)/1.22 'Cormorant Garamond',serif;letter-spacing:.03em">Balloon over the plains</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:560px">Lift off before sunrise, drift a few metres above the grass with the burner off, and land to breakfast laid out on the ground where you came down.</p></div>
+<div data-drift="-0.04" style="position:relative;aspect-ratio:5/4;border-radius:0;overflow:hidden"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-h3" shape="rect" placeholder="Highlight 03"></image-slot></span></div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,72px) minmax(0,1fr) minmax(0,250px);gap:44px;padding:52px 0;border-bottom:1px solid rgba(30,25,19,.12);align-items:center">
+<span style="font:300 clamp(34px,3.4vw,46px)/1 'Cormorant Garamond',serif;color:#C9A46A">04</span>
+<div><h3 style="margin:0 0 14px;font:300 clamp(25px,2.4vw,32px)/1.22 'Cormorant Garamond',serif;letter-spacing:.03em">Kopjes and big cats</h3>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:560px">The granite islands scattered across the Seronera hold prides that have used the same rocks for generations — shade, vantage and theatre in one.</p></div>
+<div data-drift="0.04" style="position:relative;aspect-ratio:5/4;border-radius:0;overflow:hidden"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="ds-h4" shape="rect" placeholder="Highlight 04"></image-slot></span></div>
+</div>
+</div>
+</section>
+
+<section style="margin:140px 0 0;position:relative;height:86vh;min-height:540px;overflow:hidden">
+<div style="position:absolute;inset:0"><image-slot id="ds-band" shape="rect" placeholder="Full-bleed breath image — dust, low light"></image-slot></div>
+<div style="position:absolute;inset:0;background:rgba(18,14,10,.4);pointer-events:none"></div>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 64px;pointer-events:none">
+<p style="margin:0;max-width:940px;text-align:center;font:300 italic clamp(26px,3.3vw,48px)/1.46 'Cormorant Garamond',serif;color:#FBF7F0;text-wrap:balance">“Nowhere else does the ground itself seem to be moving.”</p>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:88px;align-items:start">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">What you will see</div>
+<h2 style="margin:0 0 34px;font:300 clamp(32px,3.8vw,48px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">Wildlife</h2>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:420px">Sightings vary by season and sector. Your guide plans each day around what is currently moving, not around a checklist.</p>
+</div>
+<div style="border-top:1px solid rgba(30,25,19,.16)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Wildebeest &amp; zebra</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Year-round · in the millions</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Lion</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Highest density in Africa</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Cheetah</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Southern plains</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Leopard</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Seronera river valley</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Elephant &amp; buffalo</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Woodland &amp; west</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(30,25,19,.12)"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Black rhino</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">Rare · Moru kopjes</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0"><span style="font:300 24px 'Cormorant Garamond',serif;letter-spacing:.04em">Birdlife</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">500+ species</span></div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:48px">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">When to travel</div>
+<h2 style="margin:0;font:300 clamp(32px,3.8vw,48px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">The year, month by month</h2>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;align-items:end;height:150px;margin-bottom:18px">
+<button onClick="{{ m0 }}" style="background:{{ b0 }};border:none;cursor:pointer;height:52%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m1 }}" style="background:{{ b1 }};border:none;cursor:pointer;height:88%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m2 }}" style="background:{{ b2 }};border:none;cursor:pointer;height:80%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m3 }}" style="background:{{ b3 }};border:none;cursor:pointer;height:34%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m4 }}" style="background:{{ b4 }};border:none;cursor:pointer;height:30%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m5 }}" style="background:{{ b5 }};border:none;cursor:pointer;height:64%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m6 }}" style="background:{{ b6 }};border:none;cursor:pointer;height:92%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m7 }}" style="background:{{ b7 }};border:none;cursor:pointer;height:100%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m8 }}" style="background:{{ b8 }};border:none;cursor:pointer;height:96%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m9 }}" style="background:{{ b9 }};border:none;cursor:pointer;height:86%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m10 }}" style="background:{{ b10 }};border:none;cursor:pointer;height:42%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+<button onClick="{{ m11 }}" style="background:{{ b11 }};border:none;cursor:pointer;height:58%;border-radius:3px;transition:background .3s ease,height .3s ease"></button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;padding-bottom:30px;border-bottom:1px solid rgba(30,25,19,.16)">
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l0 }};text-transform:uppercase;text-align:center">Jan</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l1 }};text-transform:uppercase;text-align:center">Feb</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l2 }};text-transform:uppercase;text-align:center">Mar</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l3 }};text-transform:uppercase;text-align:center">Apr</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l4 }};text-transform:uppercase;text-align:center">May</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l5 }};text-transform:uppercase;text-align:center">Jun</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l6 }};text-transform:uppercase;text-align:center">Jul</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l7 }};text-transform:uppercase;text-align:center">Aug</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l8 }};text-transform:uppercase;text-align:center">Sep</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l9 }};text-transform:uppercase;text-align:center">Oct</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l10 }};text-transform:uppercase;text-align:center">Nov</span>
+<span style="font:300 10.5px Jost,sans-serif;letter-spacing:.14em;color:{{ l11 }};text-transform:uppercase;text-align:center">Dec</span>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:60px;padding-top:32px">
+<div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:12px">{{ monthName }}</div><div style="font:300 clamp(26px,2.4vw,32px) 'Cormorant Garamond',serif;letter-spacing:.04em;color:#8A6A33">{{ monthRating }}</div></div>
+<p style="margin:0;font:300 15.5px/2.05 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:640px">{{ monthNote }}</p>
+</div>
+</section>
+
+<section style="padding:140px 0 0">
+<div style="max-width:1240px;margin:0 auto;padding:0 64px 46px">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">Gallery</div>
+<h2 style="margin:0;font:300 clamp(32px,3.8vw,48px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">The park, in pictures</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px;padding:0 40px">
+<div style="grid-column:span 7;position:relative;aspect-ratio:16/10;border-radius:0;overflow:hidden"><image-slot id="ds-g1" shape="rect" placeholder="Gallery 01"></image-slot></div>
+<div style="grid-column:span 5;align-self:end;position:relative;aspect-ratio:4/5;border-radius:0;overflow:hidden"><image-slot id="ds-g2" shape="rect" placeholder="Gallery 02"></image-slot></div>
+<div style="grid-column:span 4;position:relative;aspect-ratio:3/4;border-radius:0;overflow:hidden"><image-slot id="ds-g3" shape="rect" placeholder="Gallery 03"></image-slot></div>
+<div style="grid-column:span 8;position:relative;aspect-ratio:16/9;border-radius:0;overflow:hidden"><image-slot id="ds-g4" shape="rect" placeholder="Gallery 04"></image-slot></div>
+<div style="grid-column:span 5;position:relative;aspect-ratio:5/4;border-radius:0;overflow:hidden"><image-slot id="ds-g5" shape="rect" placeholder="Gallery 05"></image-slot></div>
+<div style="grid-column:span 7;align-self:start;position:relative;aspect-ratio:16/10;border-radius:0;overflow:hidden"><image-slot id="ds-g6" shape="rect" placeholder="Gallery 06"></image-slot></div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:140px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:88px;align-items:start">
+<div style="position:sticky;top:110px">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:18px">Good to know</div>
+<h2 style="margin:0 0 26px;font:300 clamp(32px,3.8vw,48px)/1.06 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">Questions</h2>
+<p style="margin:0;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68);max-width:340px">Anything not answered here, ask us directly — we reply within a day.</p>
+</div>
+<div style="border-top:1px solid rgba(30,25,19,.16)">
+<div style="border-bottom:1px solid rgba(30,25,19,.12)">
+<button onClick="{{ q0 }}" style="width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:28px;padding:28px 0;text-align:left">
+<span style="font:300 clamp(21px,2vw,26px)/1.35 'Cormorant Garamond',serif;letter-spacing:.03em;color:#1E1913">How many days should I spend in the Serengeti?</span>
+<span style="font:200 21px Jost,sans-serif;color:#8A6A33">{{ s0 }}</span>
+</button>
+<sc-if value="{{ o0 }}" hint-placeholder-val="{{ true }}"><p style="margin:0;padding:0 0 30px;max-width:640px;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68)">Three nights is the working minimum; five or six lets you follow the herds between sectors rather than commuting back to the same camp each evening.</p></sc-if>
+</div>
+<div style="border-bottom:1px solid rgba(30,25,19,.12)">
+<button onClick="{{ q1 }}" style="width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:28px;padding:28px 0;text-align:left">
+<span style="font:300 clamp(21px,2vw,26px)/1.35 'Cormorant Garamond',serif;letter-spacing:.03em;color:#1E1913">Is the migration guaranteed?</span>
+<span style="font:200 21px Jost,sans-serif;color:#8A6A33">{{ s1 }}</span>
+</button>
+<sc-if value="{{ o1 }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 0 30px;max-width:640px;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68)">The herds are always somewhere in the ecosystem, so the question is where — we place you in the right sector for your month, and move camps mid-trip when the rain moves them.</p></sc-if>
+</div>
+<div style="border-bottom:1px solid rgba(30,25,19,.12)">
+<button onClick="{{ q2 }}" style="width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:28px;padding:28px 0;text-align:left">
+<span style="font:300 clamp(21px,2vw,26px)/1.35 'Cormorant Garamond',serif;letter-spacing:.03em;color:#1E1913">Fly in or drive from Arusha?</span>
+<span style="font:200 21px Jost,sans-serif;color:#8A6A33">{{ s2 }}</span>
+</button>
+<sc-if value="{{ o2 }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 0 30px;max-width:640px;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68)">Fly, unless you want Tarangire or Lake Manyara on the way. The road is eight hours; the light aircraft is one, and lands you on a strip inside the park.</p></sc-if>
+</div>
+<div style="border-bottom:1px solid rgba(30,25,19,.12)">
+<button onClick="{{ q3 }}" style="width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:28px;padding:28px 0;text-align:left">
+<span style="font:300 clamp(21px,2vw,26px)/1.35 'Cormorant Garamond',serif;letter-spacing:.03em;color:#1E1913">Is it suitable for children?</span>
+<span style="font:200 21px Jost,sans-serif;color:#8A6A33">{{ s3 }}</span>
+</button>
+<sc-if value="{{ o3 }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 0 30px;max-width:640px;font:300 15px/2 Jost,sans-serif;color:rgba(30,25,19,.68)">Yes, with a private vehicle. Most camps take children from six, several from any age, and family tents are worth booking well ahead in high season.</p></sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<section id="plan" style="margin-top:140px;background:#181410;color:#F6F2EA">
+<div style="max-width:1240px;margin:0 auto;padding:118px 64px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:80px;align-items:center">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#C9A46A;text-transform:uppercase;margin-bottom:20px">Plan this trip</div>
+<h2 style="margin:0 0 26px;font:300 clamp(34px,4.2vw,56px)/1.06 'Cormorant Garamond',serif;letter-spacing:.09em;text-transform:uppercase;color:#FBF7F0">Put the Serengeti in your route</h2>
+<p style="margin:0 0 38px;font:300 15.5px/2 Jost,sans-serif;color:rgba(251,247,240,.72);max-width:460px">Tell us your dates and we will come back within 24 hours with the right sector, the right camps and a firm price.</p>
+<div style="display:flex;gap:24px;flex-wrap:wrap">
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#181410;background:#C9A46A;text-transform:uppercase;padding:18px 40px;border-radius:2px" style-hover="background:#F6F2EA;color:#181410">Enquire now</a>
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase;padding:18px 4px" style-hover="color:#C9A46A">See itineraries here →</a>
+</div>
+</div>
+<div style="position:relative;aspect-ratio:4/3;border-radius:0;overflow:hidden"><image-slot id="ds-map" shape="rect" placeholder="Map — park outline with single marker"></image-slot></div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:120px 64px 140px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:46px">
+<h2 style="margin:0;font:300 clamp(28px,3.2vw,42px)/1.08 'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase">Nearby destinations</h2>
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;text-transform:uppercase">All 27 destinations →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px">
+<a href="#plan" style="color:inherit"><div style="position:relative;aspect-ratio:4/3;border-radius:0;overflow:hidden;margin-bottom:20px"><image-slot id="ds-r1" shape="rect" placeholder="Ngorongoro"></image-slot></div><div style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#8A6A33;text-transform:uppercase;margin-bottom:10px">Conservation area</div><div style="font:300 27px 'Cormorant Garamond',serif;letter-spacing:.04em;margin-bottom:8px">Ngorongoro Crater</div><div style="font:300 12.5px Jost,sans-serif;letter-spacing:.16em;color:rgba(30,25,19,.7);text-transform:uppercase">3h by road</div></a>
+<a href="#plan" style="color:inherit"><div style="position:relative;aspect-ratio:4/3;border-radius:0;overflow:hidden;margin-bottom:20px"><image-slot id="ds-r2" shape="rect" placeholder="Lake Natron"></image-slot></div><div style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#8A6A33;text-transform:uppercase;margin-bottom:10px">Natural wonder</div><div style="font:300 27px 'Cormorant Garamond',serif;letter-spacing:.04em;margin-bottom:8px">Lake Natron</div><div style="font:300 12.5px Jost,sans-serif;letter-spacing:.16em;color:rgba(30,25,19,.7);text-transform:uppercase">45min flight</div></a>
+<a href="#plan" style="color:inherit"><div style="position:relative;aspect-ratio:4/3;border-radius:0;overflow:hidden;margin-bottom:20px"><image-slot id="ds-r3" shape="rect" placeholder="Tarangire"></image-slot></div><div style="font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#8A6A33;text-transform:uppercase;margin-bottom:10px">National park</div><div style="font:300 27px 'Cormorant Garamond',serif;letter-spacing:.04em;margin-bottom:8px">Tarangire</div><div style="font:300 12.5px Jost,sans-serif;letter-spacing:.16em;color:rgba(30,25,19,.7);text-transform:uppercase">4h by road</div></a>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { progress: 0, scrolled: false, y: 0, month: 7, faq: 0, chapter: 0, chapter2: 0 };
+  componentDidMount() {
+    const scroller = () => {
+      const se = document.scrollingElement || document.documentElement;
+      return se.scrollHeight > se.clientHeight + 4 ? se : document.body;
+    };
+    this.onScroll = () => {
+      const sc = scroller();
+      const y = sc.scrollTop || window.scrollY || 0;
+      const max = Math.max(1, sc.scrollHeight - sc.clientHeight);
+      const progress = Math.min(1, y / max);
+      const scrolled = y > 340;
+      const vh = window.innerHeight;
+      let chapter = this.state.chapter, chapter2 = this.state.chapter2;
+      document.querySelectorAll('[data-chapter]').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= vh * 0.5 && r.bottom > vh * 0.25) chapter = Number(el.dataset.chapter);
+      });
+      document.querySelectorAll('[data-chapter2]').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= vh * 0.5 && r.bottom > vh * 0.25) chapter2 = Number(el.dataset.chapter2);
+      });
+      document.querySelectorAll('[data-mask]:not(.mh-open)').forEach(el => {
+        if (el.getBoundingClientRect().top < vh * 0.86) el.classList.add('mh-open');
+      });
+      document.querySelectorAll('[data-drift]').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        const d = (r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.drift);
+        el.style.transform = 'translate3d(0,' + d.toFixed(1) + 'px,0)';
+      });
+      if (y !== this.state.y || scrolled !== this.state.scrolled || chapter !== this.state.chapter || chapter2 !== this.state.chapter2) {
+        this.setState({ y, progress, scrolled, chapter, chapter2 });
+      }
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    this.io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('mh-reveal'); this.io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -12% 0px' });
+    requestAnimationFrame(() => {
+      document.querySelectorAll('section > div, section > h2, section > p').forEach(el => this.io.observe(el));
+      this.onScroll();
+    });
+    this.tick = setInterval(() => this.onScroll(), 400);
+    this.onScroll();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll, true);
+    if (this.io) this.io.disconnect();
+    clearInterval(this.tick);
+  }
+  renderVals() {
+    const { month, faq, progress, scrolled, y, chapter, chapter2 } = this.state;
+    const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const rating = ['Good','Exceptional','Excellent','Quiet','Quiet','Very good','Exceptional','Exceptional','Exceptional','Excellent','Fair','Good'];
+    const notes = [
+      'The herds are settling onto the southern short-grass plains. Green, uncrowded, and the light after an afternoon storm is the best of the year.',
+      'Calving season. Half a million births across three weeks, with every predator in the ecosystem in attendance — the most dramatic month in the south.',
+      'Calving tails off and the herds begin drifting west. Still green, still quiet, and camps are at their most affordable.',
+      'The long rains. Some camps close, black-cotton tracks turn heavy, and access is limited — a month we rarely recommend.',
+      'Rain easing. Very few vehicles and excellent value, but sightings take patience and the grass is long.',
+      'The rut begins in the western corridor and the Grumeti crossings start. Dry season conditions return.',
+      'The herds reach the Mara River. First crossings, sharp light, and the busiest sector of the park — book camps far ahead.',
+      'Peak crossings in the north. The single best month for the migration, and priced accordingly.',
+      'Crossings continue with slightly thinner crowds. Dry, dusty, and outstanding predator viewing throughout.',
+      'The herds begin the turn south. Excellent game viewing park-wide before the short rains arrive.',
+      'Short rains. Green flush, migrating birds, and a brief lull in visitor numbers before the December season.',
+      'Herds return to the southern plains. Warm, green, festive season pricing in camps.'
+    ];
+    const v = {
+      progress: (progress * 100).toFixed(2) + '%',
+      barOpacity: scrolled ? 1 : 0,
+      barEvents: scrolled ? 'auto' : 'none',
+      parallax: Math.min(y * 0.22, 220) + 'px',
+      monthName: names[month],
+      monthRating: rating[month],
+      monthNote: notes[month],
+      chapterLabel: ['Southern plains', 'Central kopjes', 'Northern river country'][chapter] || '',
+      chapter2Label: ['Camps & lodges', 'Guide & vehicle', 'Flights & transfers'][chapter2] || ''
+    };
+    for (let i = 0; i < 3; i++) {
+      v['ch' + i] = chapter === i ? 1 : 0;
+      v['cz' + i] = chapter === i ? 1 : 1.06;
+      v['cb' + i] = chapter === i ? '#8A6A33' : 'rgba(30,25,19,.16)';
+      v['dh' + i] = chapter2 === i ? 1 : 0;
+      v['dz' + i] = chapter2 === i ? 1 : 1.06;
+      v['db' + i] = chapter2 === i ? '#8A6A33' : 'rgba(30,25,19,.16)';
+    }
+    const strong = [1, 6, 7, 8, 9];
+    for (let i = 0; i < 12; i++) {
+      v['m' + i] = () => this.setState({ month: i });
+      v['b' + i] = month === i ? '#1E1913' : (strong.includes(i) ? '#C9A46A' : 'rgba(30,25,19,.16)');
+      v['l' + i] = month === i ? '#1E1913' : 'rgba(30,25,19,.55)';
+    }
+    for (let i = 0; i < 4; i++) {
+      v['o' + i] = faq === i;
+      v['s' + i] = faq === i ? '–' : '+';
+      v['q' + i] = () => this.setState(s => ({ faq: s.faq === i ? -1 : i }));
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

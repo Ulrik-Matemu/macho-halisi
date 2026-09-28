@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{overflow-x:hidden}
+body{margin:0;background:#F6F2EA;font-family:Jost,system-ui,sans-serif;color:#1E1913}
+a{color:#8A6A33;text-decoration:none}a:hover{color:#1E1913}
+button{font-family:inherit}
+[data-mask]{clip-path:inset(0 0 100% 0);transform:scale(1.08);transition:clip-path 1.25s cubic-bezier(.22,.7,.3,1),transform 1.6s cubic-bezier(.22,.7,.3,1)}
+[data-mask].mh-open{clip-path:inset(0 0 0 0);transform:scale(1)}
+</style></helmet>
+
+<div style="background:#F6F2EA">
+
+<div style="position:fixed;top:0;left:0;height:2px;background:#8A6A33;z-index:70;width:{{ progress }}"></div>
+
+<nav style="max-width:1340px;margin:0 auto;padding:28px 64px 0;display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap">
+<span style="font:300 18px 'Cormorant Garamond',serif;letter-spacing:.2em;text-transform:uppercase">Macho Halisi</span>
+<div style="display:flex;gap:26px;flex-wrap:wrap">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<button onClick="{{ t.go }}" style="background:none;border:none;cursor:pointer;padding:6px 0;font:300 10.5px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:{{ t.c }};border-bottom:1px solid {{ t.u }};transition:color .3s ease,border-color .3s ease">{{ t.label }}</button>
+</sc-for>
+</div>
+</nav>
+
+<section style="max-width:1340px;margin:0 auto;padding:72px 64px 0">
+<div style="display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:80px;align-items:stretch;min-height:74vh">
+<div style="display:flex;flex-direction:column;justify-content:space-between;padding:20px 0 6px">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.44em;color:#8A6A33;text-transform:uppercase;margin-bottom:30px">Journeys · {{ col.eyebrow }}</div>
+<h1 style="margin:0 0 36px;font:300 clamp(56px,8.4vw,138px)/.92 'Cormorant Garamond',serif;letter-spacing:.005em;color:#1E1913">{{ col.l1 }}<br><em style="font-style:italic;color:#8A6A33">{{ col.l2 }}</em></h1>
+<p style="margin:0;max-width:520px;font:300 clamp(19px,1.7vw,23px)/1.62 'Cormorant Garamond',serif;color:rgba(30,25,19,.8);text-wrap:pretty">{{ col.lead }}</p>
+</div>
+<div style="display:flex;align-items:flex-end;gap:48px;flex-wrap:wrap;margin-top:56px;padding-top:26px;border-top:1px solid rgba(30,25,19,.18)">
+<div><div style="font:300 clamp(54px,5.6vw,84px)/.9 'Cormorant Garamond',serif;color:#1E1913">{{ col.count }}</div><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-top:10px">Journeys</div></div>
+<sc-for list="{{ col.facts }}" as="f" hint-placeholder-count="3">
+<div style="padding-bottom:4px"><div style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;margin-bottom:9px">{{ f.k }}</div><div style="font:300 20px 'Cormorant Garamond',serif;letter-spacing:.04em">{{ f.v }}</div></div>
+</sc-for>
+</div>
+</div>
+<div style="position:relative;min-height:520px;overflow:hidden">
+<div style="position:absolute;inset:-6% 0;transform:translateY({{ heroShift }})"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="jr-{{ col.id }}-hero" shape="rect" placeholder="{{ col.l1 }} {{ col.l2 }} — hero"></image-slot></span></div>
+<div style="position:absolute;left:24px;bottom:22px;font:300 10.5px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase;text-shadow:0 1px 12px rgba(18,14,10,.7);pointer-events:none">{{ col.caption }}</div>
+</div>
+</div>
+</section>
+
+<section data-list style="margin-top:110px">
+<div style="position:sticky;top:0;z-index:40;background:rgba(246,242,234,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(30,25,19,.12)">
+<div style="max-width:1340px;margin:0 auto;padding:18px 64px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:34px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<span style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase">Length</span>
+<sc-for list="{{ lenChips }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.go }}" style="background:none;border:none;cursor:pointer;padding:5px 0;font:300 13px Jost,sans-serif;letter-spacing:.06em;color:{{ c.c }};border-bottom:1px solid {{ c.u }};transition:color .3s ease,border-color .3s ease">{{ c.label }}</button>
+</sc-for>
+</div>
+<span style="width:1px;height:18px;background:rgba(30,25,19,.18)"></span>
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<span style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase">{{ col.facet }}</span>
+<sc-for list="{{ facetChips }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.go }}" style="background:none;border:none;cursor:pointer;padding:5px 0;font:300 13px Jost,sans-serif;letter-spacing:.06em;color:{{ c.c }};border-bottom:1px solid {{ c.u }};transition:color .3s ease,border-color .3s ease">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap">
+<button onClick="{{ cycleSort }}" style="background:none;border:none;cursor:pointer;padding:5px 0;font:300 10.5px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#1E1913">Sort · <span style="color:#8A6A33">{{ sortLabel }}</span></button>
+<span style="width:1px;height:18px;background:rgba(30,25,19,.18)"></span>
+<div style="display:flex;gap:16px">
+<button onClick="{{ setIndex }}" style="background:none;border:none;cursor:pointer;padding:5px 0;font:300 10.5px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:{{ vi.c }};border-bottom:1px solid {{ vi.u }}">Index</button>
+<button onClick="{{ setGallery }}" style="background:none;border:none;cursor:pointer;padding:5px 0;font:300 10.5px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:{{ vg.c }};border-bottom:1px solid {{ vg.u }}">Gallery</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="max-width:1340px;margin:0 auto;padding:44px 64px 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:26px">
+<span style="font:300 11px Jost,sans-serif;letter-spacing:.28em;color:rgba(30,25,19,.7);text-transform:uppercase">{{ countLabel }}</span>
+<sc-if value="{{ filtered }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clear }}" style="background:none;border:none;cursor:pointer;font:300 10.5px Jost,sans-serif;letter-spacing:.26em;color:#8A6A33;text-transform:uppercase">Clear filters ×</button></sc-if>
+</div>
+
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:110px 0;text-align:center;border-top:1px solid rgba(30,25,19,.16)">
+<p style="margin:0 0 22px;font:300 italic 32px 'Cormorant Garamond',serif;color:#1E1913">Nothing quite matches that.</p>
+<button onClick="{{ clear }}" style="background:none;border:none;cursor:pointer;font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#8A6A33;text-transform:uppercase">Show all journeys</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ showIndex }}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1.25fr) 150px 24px;gap:36px;align-items:end;padding:0 0 14px;border-bottom:1px solid rgba(30,25,19,.2)">
+<span style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase">No.</span>
+<span style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase">Journey</span>
+<div style="position:relative;height:30px">
+<span style="position:absolute;left:0;top:0;font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase">{{ axisTitle }}</span>
+<sc-for list="{{ ticks }}" as="k" hint-placeholder-count="8">
+<span style="position:absolute;bottom:0;left:{{ k.left }};transform:translateX(-50%);font:300 10px Jost,sans-serif;color:rgba(30,25,19,.6)">{{ k.label }}</span>
+</sc-for>
+</div>
+<span style="font:300 10px Jost,sans-serif;letter-spacing:.3em;color:rgba(30,25,19,.7);text-transform:uppercase;text-align:right">From</span>
+<span></span>
+</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+<a href="#plan" style="display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1.25fr) 150px 24px;gap:36px;align-items:center;padding:34px 0;border-bottom:1px solid rgba(30,25,19,.12);color:#1E1913" style-hover="background:rgba(201,164,106,.07)">
+<span style="font:300 12px Jost,sans-serif;letter-spacing:.22em;color:#8A6A33">{{ r.num }}</span>
+<div style="min-width:0">
+<div style="font:300 clamp(24px,2.3vw,32px)/1.14 'Cormorant Garamond',serif;letter-spacing:.03em;margin-bottom:8px">{{ r.name }}</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:rgba(30,25,19,.66)">{{ r.sub }}</div>
+</div>
+<div style="position:relative;min-width:0">
+<div style="position:relative;height:14px">
+<span style="position:absolute;left:0;right:0;top:6px;height:1px;background:rgba(30,25,19,.12)"></span>
+<span style="position:absolute;left:0;top:5px;height:3px;background:#8A6A33;width:{{ r.barW }};transition:width 1s cubic-bezier(.22,.7,.3,1) {{ r.delay }}"></span>
+<span style="position:absolute;top:2px;width:9px;height:9px;border-radius:50%;background:#1E1913;left:{{ r.barW }};transform:translateX(-50%);transition:left 1s cubic-bezier(.22,.7,.3,1) {{ r.delay }}"></span>
+</div>
+<div style="display:flex;gap:20px;margin-top:12px;font:300 10.5px Jost,sans-serif;letter-spacing:.2em;color:rgba(30,25,19,.7);text-transform:uppercase"><span style="color:#1E1913">{{ r.lenLabel }}</span><span>{{ r.facet }}</span></div>
+</div>
+<span style="font:300 21px 'Cormorant Garamond',serif;letter-spacing:.04em;color:#8A6A33;text-align:right">{{ r.price }}</span>
+<span style="font:300 16px Jost,sans-serif;color:#8A6A33;text-align:right">→</span>
+</a>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:56px 36px;padding-top:12px">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+<a href="#plan" style="display:block;color:#1E1913;margin-top:{{ r.offset }}">
+<div style="position:relative;aspect-ratio:4/5;overflow:hidden;margin-bottom:22px"><span data-mask style="position:absolute;inset:0;display:block"><image-slot id="{{ r.img }}" shape="rect" placeholder="{{ r.name }}"></image-slot></span>
+<span style="position:absolute;top:18px;left:18px;font:300 11px Jost,sans-serif;letter-spacing:.22em;color:#FBF7F0;text-shadow:0 1px 10px rgba(18,14,10,.6);pointer-events:none">{{ r.num }}</span></div>
+<div style="display:flex;gap:18px;font:300 10.5px Jost,sans-serif;letter-spacing:.24em;color:#8A6A33;text-transform:uppercase;margin-bottom:12px"><span>{{ r.lenLabel }}</span><span>{{ r.facet }}</span></div>
+<div style="font:300 28px/1.14 'Cormorant Garamond',serif;letter-spacing:.03em;margin-bottom:10px">{{ r.name }}</div>
+<div style="font:300 13.5px/1.8 Jost,sans-serif;color:rgba(30,25,19,.66);margin-bottom:16px">{{ r.sub }}</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(30,25,19,.14)"><span style="font:300 20px 'Cormorant Garamond',serif;color:#8A6A33">{{ r.price }}</span><span style="font:300 10.5px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase">View →</span></div>
+</a>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasPages }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:64px;padding-top:28px;border-top:1px solid rgba(30,25,19,.14)">
+<button onClick="{{ prev }}" style="background:none;border:none;cursor:pointer;font:300 10.5px Jost,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:{{ prevC }};padding:8px 0">← Previous</button>
+<div style="display:flex;align-items:center;gap:22px">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="3">
+<button onClick="{{ p.go }}" style="background:none;border:none;cursor:pointer;padding:6px 2px;font:300 19px 'Cormorant Garamond',serif;letter-spacing:.1em;color:{{ p.c }};border-bottom:1px solid {{ p.u }}">{{ p.n }}</button>
+</sc-for>
+</div>
+<button onClick="{{ next }}" style="background:none;border:none;cursor:pointer;font:300 10.5px Jost,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:{{ nextC }};padding:8px 0">Next →</button>
+</div>
+</sc-if>
+</div>
+</section>
+
+<section id="plan" style="margin-top:130px;background:#181410;color:#F6F2EA">
+<div style="max-width:1340px;margin:0 auto;padding:116px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:80px;align-items:end">
+<div>
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#C9A46A;text-transform:uppercase;margin-bottom:22px">Not seeing it?</div>
+<h2 style="margin:0;font:300 clamp(40px,5vw,72px)/1 'Cormorant Garamond',serif;letter-spacing:.02em;color:#FBF7F0">Every journey<br><em style="color:#E3C99A">starts as a draft</em></h2>
+</div>
+<div>
+<p style="margin:0 0 36px;font:300 15.5px/2 Jost,sans-serif;color:rgba(251,247,240,.72);max-width:460px">Use any of these as a starting point, or tell us what you have in mind. We reply within 24 hours with a route, dates and a firm price.</p>
+<div style="display:flex;gap:26px;flex-wrap:wrap;align-items:center">
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#181410;background:#C9A46A;text-transform:uppercase;padding:18px 40px;border-radius:2px" style-hover="background:#F6F2EA;color:#181410">Plan my journey</a>
+<a href="#plan" style="font:300 11px Jost,sans-serif;letter-spacing:.3em;color:#FBF7F0;text-transform:uppercase" style-hover="color:#C9A46A">Speak to a planner →</a>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1340px;margin:0 auto;padding:120px 64px 150px">
+<div style="font:300 11px Jost,sans-serif;letter-spacing:.42em;color:#8A6A33;text-transform:uppercase;margin-bottom:40px">Other journeys</div>
+<div style="border-top:1px solid rgba(30,25,19,.16)">
+<sc-for list="{{ others }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.go }}" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(30,25,19,.12);cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px) 90px 30px;gap:28px;align-items:baseline;padding:32px 0;text-align:left;color:#1E1913" style-hover="color:#8A6A33">
+<span style="font:300 clamp(28px,3.4vw,48px)/1.08 'Cormorant Garamond',serif;letter-spacing:.02em">{{ o.l1 }} <em>{{ o.l2 }}</em></span>
+<span style="font:300 11px Jost,sans-serif;letter-spacing:.24em;color:rgba(30,25,19,.7);text-transform:uppercase">{{ o.eyebrow }}</span>
+<span style="font:300 22px 'Cormorant Garamond',serif;text-align:right;color:#8A6A33">{{ o.count }}</span>
+<span style="font:300 18px Jost,sans-serif;text-align:right">→</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;collection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signature&quot;,&quot;kili-routes&quot;,&quot;kili-itins&quot;,&quot;zanzibar&quot;,&quot;spice&quot;],&quot;default&quot;:&quot;signature&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;index&quot;,&quot;gallery&quot;],&quot;default&quot;:&quot;index&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;perPage&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;min&quot;:3,&quot;max&quot;:30,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { col: null, len: 'all', facet: 'all', sort: 0, view: null, page: 1, grow: true, y: 0, progress: 0 };
+
+  data() {
+    if (this._d) return this._d;
+    const I = (name, sub, len, facet, price) => ({ name, sub, len, facet, price });
+    this._d = [
+      { id: 'kili-routes', tab: 'Kilimanjaro Routes', l1: 'Kilimanjaro', l2: 'Routes', eyebrow: 'Uhuru Peak · 5,895 m', unit: 'days', facet: 'Difficulty', caption: 'Barranco Wall · Machame route',
+        lead: 'Seven ways up the same mountain, each with its own forest, its own camps and its own summit night. The route matters more than the fitness.',
+        facts: [['Summit', '5,895 m'], ['Best months', 'Jan – Mar · Jun – Oct'], ['Success, 8-day', '≈ 95%']],
+        items: [I('Machame', 'The Whiskey Route — scenic, busy, strong acclimatisation profile', 7, 'Challenging', 3450), I('Lemosho', 'The western approach through remote rainforest and the Shira Plateau', 8, 'Moderate', 3890), I('Marangu', 'The only route with hut accommodation, direct ascent from the south-east', 6, 'Moderate', 2950), I('Rongai', 'The quiet northern approach from the Kenyan border — drier, fewer climbers', 7, 'Moderate', 3380), I('Northern Circuit', 'The longest route, circling the summit cone for the best acclimatisation', 9, 'Moderate', 4450), I('Umbwe', 'The steepest and most direct line, for experienced trekkers only', 6, 'Demanding', 3150), I('Shira', 'High start on the Shira Plateau by vehicle, joining the Lemosho line', 7, 'Challenging', 3520)] },
+      { id: 'kili-itins', tab: 'Climbing Itineraries', l1: 'Kilimanjaro', l2: 'Climbing Itineraries', eyebrow: 'Fixed-departure & private', unit: 'days', facet: 'Difficulty', caption: 'Summit dawn · Stella Point',
+        lead: 'Every route in the lengths we actually recommend, plus climbs paired with a safari or the coast. Private climbs start any day you choose.',
+        facts: [['Departures', 'Daily, private'], ['Crew ratio', '3 – 4 per climber'], ['Includes', 'Park & rescue fees']],
+        items: [I('Machame, 6 Days', 'Fast Whiskey Route for fit, altitude-tested climbers', 6, 'Demanding', 2990), I('Machame, 7 Days', 'The classic — an extra night at Karanga for acclimatisation', 7, 'Challenging', 3450), I('Lemosho, 7 Days', 'Western approach with a short plateau crossing', 7, 'Challenging', 3620), I('Lemosho, 8 Days', 'Our most recommended climb — highest success, fewer crowds', 8, 'Moderate', 3890), I('Lemosho, 9 Days', 'Unhurried, with a Crater Camp night beside the glaciers', 9, 'Moderate', 4640), I('Marangu, 5 Days', 'Hut-to-hut, the shortest option available', 5, 'Demanding', 2490), I('Marangu, 6 Days', 'With an acclimatisation day at Horombo Huts', 6, 'Moderate', 2950), I('Rongai, 6 Days', 'Northern approach, direct', 6, 'Challenging', 3050), I('Rongai, 7 Days', 'Via Mawenzi Tarn for a better profile', 7, 'Moderate', 3380), I('Northern Circuit, 9 Days', 'Full circuit, quietest trails on the mountain', 9, 'Moderate', 4450), I('Northern Circuit, 10 Days', 'The longest, gentlest climb we offer', 10, 'Moderate', 4890), I('Umbwe, 6 Days', 'Steep and direct, for experienced mountaineers', 6, 'Demanding', 3150), I('Full Moon Lemosho, 8 Days', 'Timed so summit night falls under a full moon', 8, 'Moderate', 4190), I('Lemosho & Serengeti, 12 Days', 'Summit, then four nights on safari to recover', 12, 'Moderate', 9480), I('Machame & Zanzibar, 11 Days', 'Summit, then four nights on the Indian Ocean', 11, 'Challenging', 6120)] },
+      { id: 'zanzibar', tab: 'Zanzibar Journeys', l1: 'Zanzibar', l2: 'Journeys', eyebrow: 'Indian Ocean · Spice Islands', unit: 'days', facet: 'Style', caption: 'Dhow at dusk · Nungwi',
+        lead: 'Stone Town alleys, reef lagoons and a slower clock. Take the island on its own or as the soft landing after the mountain or the plains.',
+        facts: [['Flight from Arusha', '1h 20m'], ['Best months', 'Jun – Oct · Dec – Feb'], ['Water', '26 – 29 °C']],
+        items: [I('Stone Town & Spice Coast', 'Two nights in the old town, then the north-east shore', 6, 'Culture', 2380), I('Zanzibar Barefoot', 'A week on the sand and nothing else asked of you', 7, 'Beach', 2690), I('Mnemba Private Island', 'The atoll, the house reef and a handful of bandas', 5, 'Honeymoon', null), I('Pemba & Zanzibar', 'The wilder sister island, then the classic coast', 8, 'Island-hop', 3940), I('Mafia Island Whale Sharks', 'Seasonal swims in the marine park, Oct – Feb', 5, 'Island-hop', 2880), I('Honeymoon on the Reef', 'Private villa, sandbank picnic, sunset dhow', 7, 'Honeymoon', 4150), I('Zanzibar for Families', 'Shallow lagoons, turtles and a slower pace', 8, 'Beach', 3560), I('Swahili Coast Heritage', 'Stone Town, Bagamoyo and the Kilwa ruins', 9, 'Culture', 4280), I('Diving the Channel', 'Nine dives across Mnemba and Leven Bank', 6, 'Beach', 2740), I('Long Weekend in Stone Town', 'Rooftops, markets and the Forodhani food stalls', 3, 'Culture', 1180)] },
+      { id: 'spice', tab: 'Spice Tours', l1: 'Spice', l2: 'Tours', eyebrow: 'Zanzibar farms & kitchens', unit: 'hours', facet: 'Format', caption: 'Clove harvest · Kizimbani',
+        lead: 'Cloves, vanilla, cardamom and nutmeg — walked, picked, cooked and eaten with the families who grow them.',
+        facts: [['Pick-up', 'Stone Town & coast'], ['Season', 'Year-round'], ['Group', 'Private']],
+        items: [I('Classic Spice Farm Walk', 'Guided walk through a working organic farm near Kizimbani', 3, 'Half-day', 95), I('Spice & Stone Town', 'Morning on the farm, afternoon in the old town', 7, 'Full-day', 185), I('Swahili Cooking Class', 'Market shop, then a four-course lunch you cook yourself', 5, 'Culinary', 160), I('Vanilla & Cocoa Estate', 'Small-grower estate tasting in the island interior', 4, 'Half-day', 120), I('Spice Farm to Sunset Dhow', 'Farm lunch, then an evening sail off Mtoni', 8, 'Full-day', 240), I('Private Chef Spice Dinner', 'Spice farm visit and a candlelit dinner at the farmhouse', 6, 'Culinary', 290)] },
+      { id: 'signature', tab: 'Signature Itineraries', l1: 'Signature', l2: 'Itineraries', eyebrow: 'Safari · Mountain · Coast', unit: 'days', facet: 'Style', caption: 'Morning drive · Central Serengeti',
+        lead: 'Our most-travelled journeys across Tanzania. Every one is private, and every one is a starting point rather than a fixed programme.',
+        facts: [['Regions', 'North · South · Coast'], ['Private', 'Every journey'], ['Tailor-made', 'Always']],
+        items: [I('The Great Migration', 'Serengeti and Ngorongoro, following the herds', 8, 'Safari', 6450), I('Roof of Africa', 'Lemosho route, eight days to Uhuru Peak', 9, 'Adventure', 4200), I('The Southern Circuit', 'Ruaha and Nyerere by light aircraft', 10, 'Safari', null), I('Spice Coast & Sands', 'Stone Town and the north-east coast', 7, 'Safari & Beach', 3180), I('Tarangire & Manyara', 'Elephant country and the Rift escarpment', 5, 'Safari', 2740), I('Honeymoon in the Wild', 'Serengeti camps and a private island finale', 11, 'Honeymoon', null), I('Culture & Coffee Trails', 'Arusha, Karatu and the highland farms', 4, 'Family', 1690), I('Migration River Crossings', 'Northern Serengeti, July to October', 6, 'Safari', 5900), I('Northern Circuit Classic', 'Tarangire, Crater and Serengeti', 7, 'Safari', 4380), I('Calving Season Ndutu', 'February on the southern short-grass plains', 6, 'Safari', 5280), I('Safari & Summit', 'Five days on the plains, eight on the mountain', 14, 'Adventure', 9850), I('Family Safari Adventure', 'Short drives, pools and child-friendly camps', 8, 'Family', 5640), I('Chimpanzees of Mahale', 'Lake Tanganyika and the Mahale forests', 7, 'Adventure', null), I('Selous to Sands', 'Nyerere boat safaris, then Zanzibar', 9, 'Safari & Beach', 5120), I('Lake Natron & Ol Doinyo', 'Flamingos and a night climb of the volcano', 5, 'Adventure', 2960), I('Walking the Wild South', 'Walking and fly-camping in Ruaha', 8, 'Adventure', 6280), I('The Grand Tanzania', 'North, south and coast in one long journey', 16, 'Safari & Beach', null), I('Photographic Serengeti', 'Custom vehicles and golden-hour timing', 9, 'Safari', 8900), I('Crater & Coast', 'Ngorongoro, then a week on the beach', 9, 'Safari & Beach', 4860), I('Short Serengeti Escape', 'Three nights by air from Arusha', 4, 'Safari', 3240), I('Honeymoon Crater & Mnemba', 'Crater lodge and a private atoll', 8, 'Honeymoon', null), I('Multi-generational Tanzania', 'Private houses, flexible pace, all ages', 10, 'Family', 7420), I('Kilimanjaro & Zanzibar', 'Summit, then the Indian Ocean', 12, 'Adventure', 6120), I('Mahale & Katavi', 'Remote west — chimps and buffalo herds', 10, 'Adventure', null), I('Rift Valley Lakes', 'Manyara, Eyasi and Natron by road', 6, 'Family', 2880), I('Serengeti Balloon & Crater', 'A dawn flight and a day inside the Crater', 6, 'Safari', 4150)] }
+    ];
+    return this._d;
+  }
+
+  colIndex() {
+    const id = this.state.col || this.props.collection || 'signature';
+    const i = this.data().findIndex(c => c.id === id);
+    return i < 0 ? 0 : i;
+  }
+
+  sc() {
+    const se = document.scrollingElement || document.documentElement;
+    return se.scrollHeight > se.clientHeight + 4 ? se : document.body;
+  }
+
+  regrow() {
+    this.setState({ grow: false });
+    clearTimeout(this._g);
+    this._g = setTimeout(() => this.setState({ grow: true }), 60);
+  }
+
+  toList() {
+    const el = document.querySelector('[data-list]');
+    if (!el) return;
+    const sc = this.sc();
+    const cur = sc.scrollTop || window.scrollY || 0;
+    const top = el.getBoundingClientRect().top + cur;
+    if (cur > top) { sc.scrollTop = top; window.scrollTo(0, top); }
+  }
+
+  update(patch, scroll) {
+    this.setState(patch);
+    this.regrow();
+    if (scroll) requestAnimationFrame(() => this.toList());
+  }
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const sc = this.sc(), vh = window.innerHeight;
+      const y = sc.scrollTop || window.scrollY || 0;
+      const progress = Math.min(1, y / Math.max(1, sc.scrollHeight - sc.clientHeight));
+      document.querySelectorAll('[data-mask]:not(.mh-open)').forEach(el => {
+        if (el.getBoundingClientRect().top < vh * 0.9) el.classList.add('mh-open');
+      });
+      if (Math.abs(y - this.state.y) > 0.5) this.setState({ y, progress });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    this.tick = setInterval(this.onScroll, 350);
+    requestAnimationFrame(this.onScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll, true);
+    clearInterval(this.tick);
+    clearTimeout(this._g);
+  }
+
+  renderVals() {
+    const all = this.data(), ci = this.colIndex(), c = all[ci], s = this.state;
+    const pad = n => String(n).padStart(2, '0');
+    const per = Math.max(3, this.props.perPage ?? 8);
+    const view = s.view || this.props.defaultView || 'index';
+    const gold = '#8A6A33', dim = 'rgba(30,25,19,.55)', none = 'transparent';
+    const on = a => ({ c: a ? '#1E1913' : dim, u: a ? gold : none });
+
+    const lens = c.items.map(i => i.len), lo = Math.min(...lens), hi = Math.max(...lens);
+    const t1 = lo + (hi - lo) / 3, t2 = lo + (hi - lo) * 2 / 3;
+    const bucket = l => l <= t1 ? 'short' : l <= t2 ? 'mid' : 'long';
+    const u = c.unit;
+    const bLabel = { all: 'All', short: 'Up to ' + Math.floor(t1) + (u === 'hours' ? ' hrs' : ' days'), mid: Math.floor(t1) + 1 + ' – ' + Math.floor(t2), long: Math.floor(t2) + 1 + '+' };
+    const facets = [...new Set(c.items.map(i => i.facet))];
+
+    let items = c.items.map((it, i) => ({ ...it, i }));
+    if (s.len !== 'all') items = items.filter(it => bucket(it.len) === s.len);
+    if (s.facet !== 'all') items = items.filter(it => it.facet === s.facet);
+    const sorts = ['Recommended', 'Shortest first', 'Longest first', 'Price, low to high'];
+    const P = v => v == null ? Infinity : v;
+    if (s.sort === 1) items.sort((a, b) => a.len - b.len);
+    if (s.sort === 2) items.sort((a, b) => b.len - a.len);
+    if (s.sort === 3) items.sort((a, b) => P(a.price) - P(b.price));
+
+    const pagesN = Math.max(1, Math.ceil(items.length / per));
+    const page = Math.min(s.page, pagesN);
+    const slice = items.slice((page - 1) * per, page * per);
+    const axisMax = u === 'hours' ? Math.max(8, hi) : Math.max(10, hi);
+    const step = axisMax > 12 ? 2 : 1;
+    const ticks = [];
+    for (let d = step; d <= axisMax; d += step) ticks.push({ left: (d / axisMax * 100).toFixed(2) + '%', label: String(d) });
+
+    const slug = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const rows = slice.map((it, k) => ({
+      num: pad(it.i + 1), name: it.name, sub: it.sub, facet: it.facet,
+      lenLabel: it.len + (u === 'hours' ? ' hrs' : it.len === 1 ? ' day' : ' days'),
+      price: it.price == null ? 'On request' : '$' + it.price.toLocaleString('en-US'),
+      barW: s.grow ? (it.len / axisMax * 100).toFixed(2) + '%' : '0%',
+      delay: s.grow ? (k * 0.06).toFixed(2) + 's' : '0s',
+      img: 'jr-' + c.id + '-' + slug(it.name),
+      offset: ['0px', '56px', '22px'][k % 3]
+    }));
+
+    const filtered = s.len !== 'all' || s.facet !== 'all';
+    const from = items.length ? (page - 1) * per + 1 : 0, to = Math.min(items.length, page * per);
+
+    return {
+      progress: (s.progress * 100).toFixed(2) + '%',
+      heroShift: Math.min(s.y * 0.12, 90).toFixed(1) + 'px',
+      tabs: all.map((x, i) => ({ label: x.tab, ...on(i === ci), go: () => this.update({ col: x.id, len: 'all', facet: 'all', page: 1 }) })),
+      col: { id: c.id, l1: c.l1, l2: c.l2, eyebrow: c.eyebrow, lead: c.lead, caption: c.caption, facet: c.facet, count: pad(c.items.length), facts: c.facts.map(([k, v]) => ({ k, v })) },
+      lenChips: ['all', 'short', 'mid', 'long'].map(k => ({ label: bLabel[k], ...on(s.len === k), go: () => this.update({ len: k, page: 1 }) })),
+      facetChips: ['all', ...facets].map(k => ({ label: k === 'all' ? 'All' : k, ...on(s.facet === k), go: () => this.update({ facet: k, page: 1 }) })),
+      sortLabel: sorts[s.sort],
+      cycleSort: () => this.update({ sort: (s.sort + 1) % sorts.length, page: 1 }),
+      vi: on(view === 'index'), vg: on(view === 'gallery'),
+      setIndex: () => this.update({ view: 'index' }),
+      setGallery: () => this.update({ view: 'gallery' }),
+      showIndex: view === 'index' && items.length > 0,
+      showGallery: view === 'gallery' && items.length > 0,
+      empty: items.length === 0,
+      filtered,
+      clear: () => this.update({ len: 'all', facet: 'all', page: 1 }),
+      countLabel: items.length ? 'Showing ' + pad(from) + ' – ' + pad(to) + ' of ' + pad(items.length) + ' journeys' : 'No journeys',
+      axisTitle: 'Length in ' + u + ', to scale',
+      ticks, rows,
+      hasPages: pagesN > 1,
+      pages: Array.from({ length: pagesN }, (_, i) => ({ n: pad(i + 1), ...on(i + 1 === page), go: () => this.update({ page: i + 1 }, true) })),
+      prev: () => page > 1 && this.update({ page: page - 1 }, true),
+      next: () => page < pagesN && this.update({ page: page + 1 }, true),
+      prevC: page > 1 ? '#1E1913' : 'rgba(30,25,19,.3)',
+      nextC: page < pagesN ? '#1E1913' : 'rgba(30,25,19,.3)',
+      others: all.filter((_, i) => i !== ci).map(x => ({ l1: x.l1, l2: x.l2, eyebrow: x.eyebrow, count: pad(x.items.length), go: () => { this.update({ col: x.id, len: 'all', facet: 'all', page: 1 }); const sc = this.sc(); sc.scrollTop = 0; window.scrollTo(0, 0); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

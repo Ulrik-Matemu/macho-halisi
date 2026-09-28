@@ -23,6 +23,12 @@
   --font-serif: var(--font-serif-luxury), "Source Serif 4", Georgia, serif;
 }
 
+/* Desktop with motion allowed — where the experience page's scroll-scrubbed
+   sections (components/public/experiences/) pin and animate. Must match
+   MOTION_QUERY in useScrollFrame.ts; outside it they fall back to a
+   plain stacked layout. */
+@custom-variant scrub (@media (min-width: 1024px) and (prefers-reduced-motion: no-preference));
+
 html {
   /* The Navbar is fixed (Navbar.tsx), so an in-page anchor/focus jump would
      otherwise land content underneath it. */
@@ -124,6 +130,23 @@ body {
 
 .animate-image-settle {
   animation: imageZoomSettle 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Enquiry Modal Motion — the backdrop gets a simple fade; the panel itself
+   reuses .animate-nav-cascade (rise + fade) above for a consistent luxury
+   reveal instead of the unscoped .animate-in/.fade-in classes, which only
+   apply inside [data-app="dashboard"] and were silently inert on the
+   public site's modals. */
+@keyframes modalBackdropFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-modal-backdrop {
+  animation: modalBackdropFade 0.3s ease-out both;
 }
 
 /* Curtain Wipe Luxury Motion */

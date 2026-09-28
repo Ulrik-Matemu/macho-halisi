@@ -1,4 +1,4 @@
-import { Compass, Map, MapPin, Users, type LucideIcon } from "lucide-react";
+import { Compass, Map, MapPin, Hotel, Users, type LucideIcon } from "lucide-react";
 import { UserRole } from "@/lib/auth/types";
 
 export interface NavItem {
@@ -15,6 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard", label: "Overview", icon: Compass },
   { href: "/dashboard/itineraries", label: "Itineraries", icon: Map, matchPrefix: true },
   { href: "/dashboard/destinations", label: "Destinations", icon: MapPin, matchPrefix: true },
+  { href: "/dashboard/accommodations", label: "Accommodations", icon: Hotel, matchPrefix: true },
   { href: "/dashboard/users", label: "Users", icon: Users, matchPrefix: true, roles: ["ADMIN"] },
 ];
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { X, ArrowRight, Search } from "lucide-react";
 import { navigationData, NavCategory, NavSubItem } from "../data/navigationData";
+import { destinations } from "../data/destinations";
 
 interface FullscreenNavMenuProps {
   isOpen: boolean;
@@ -110,6 +111,36 @@ export default function FullscreenNavMenu({
         }
       });
     });
+
+    // The DESTINATIONS category above only curates 7 of the 27 destinations
+    // (data/destinations.ts) — search over the rest too so every destination
+    // is reachable from the menu, not just the curated highlights. Hrefs
+    // already surfaced via navigationData are skipped to avoid duplicates.
+    const curatedHrefs = new Set(
+      navigationData.flatMap((cat) => cat.subItems.map((item) => item.href))
+    );
+    destinations.forEach((dest) => {
+      const href = `/destinations/${dest.slug}`;
+      if (curatedHrefs.has(href)) return;
+      if (
+        dest.name.toLowerCase().includes(query) ||
+        dest.tagline.toLowerCase().includes(query) ||
+        dest.region.toLowerCase().includes(query) ||
+        dest.leadParagraph.toLowerCase().includes(query)
+      ) {
+        searchResults.push({
+          categoryTitle: "DESTINATIONS",
+          item: {
+            id: dest.slug,
+            title: dest.name,
+            tagline: dest.tagline,
+            description: dest.leadParagraph,
+            href,
+            image: dest.heroImage,
+          },
+        });
+      }
+    });
   }
 
   return (
@@ -208,7 +239,18 @@ export default function FullscreenNavMenu({
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map(({ categoryTitle, item }, idx) => (
                   <div
-                    key={item.id}
+                    // idx, not item.id or item.href: this list mixes
+                    // curated navigationData subitems with destinations.ts-
+                    // derived entries, and neither id nor href is
+                    // guaranteed unique across that combined set — e.g. the
+                    // curated "ruaha" subitem shares an id with the actual
+                    // "ruaha" destination (added by the dedup loop above,
+                    // which uses dest.slug as its id), and several curated
+                    // Camps & Lodges subitems intentionally share the href
+                    // "/accommodations". idx is the one value guaranteed
+                    // unique per render, and nothing here holds state that
+                    // depends on stable identity across reorders.
+                    key={idx}
                     onClick={() => {
                       handleClose();
                     }}
@@ -318,14 +360,12 @@ export default function FullscreenNavMenu({
                       {activeCategory.subItems.map((subItem, idx) => {
                         const isSubHovered = hoveredSubItem?.id === subItem.id;
                         return (
-                          <div
+                          <Link
                             key={subItem.id}
+                            href={subItem.href}
                             style={{ animationDelay: `${idx * 30}ms` }}
                             onMouseEnter={() => handleSubItemHover(subItem)}
-                            onClick={() => {
-                              handleSubItemHover(subItem);
-                              setMobileStep("preview");
-                            }}
+                            onClick={handleClose}
                             className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-200 animate-sub-cascade ${
                               isSubHovered
                                 ? "border-[#c68642] text-white"
@@ -343,7 +383,7 @@ export default function FullscreenNavMenu({
                                   : "opacity-0 scale-50"
                               }`}
                             />
-                          </div>
+                          </Link>
                         );
                       })}
                     </div>

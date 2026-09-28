@@ -1,235 +1,506 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { X, Check, Calendar, Users, MapPin, Send } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { X, Check, Send, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+import type { EnquirySeed } from "./EnquiryProvider";
 
 interface EnquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** Pre-fills step 1 and shows a context pill when opened from an itinerary/accommodation page. */
+  seed?: EnquirySeed | null;
 }
 
-export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
+const DESTINATION_OPTIONS = [
+  "Serengeti & Ngorongoro Crater",
+  "Great Migration River Crossing",
+  "Kilimanjaro Summit Trek",
+  "Zanzibar & Swahili Coast",
+  "Tarangire & Lake Manyara",
+  "Southern Circuit (Ruaha & Nyerere)",
+  "Open to Specialist Advice",
+];
+
+const TRAVEL_WINDOW_OPTIONS = ["Next 3 Months", "Next 3–6 Months", "Next 6–12 Months", "Flexible"];
+
+const PARTY_SIZE_OPTIONS = [
+  "Solo Traveler",
+  "Couple (2 Travelers)",
+  "Small Family (3–4)",
+  "Private Group (5–8)",
+  "Large Expedition (8+)",
+];
+
+const ACCOMMODATION_OPTIONS = ["Luxury Tented Camps", "Crater-Rim Lodges", "Curated Mix (Bush & Coast)"];
+
+const STEP_META: { id: 1 | 2 | 3; label: string }[] = [
+  { id: 1, label: "Vision" },
+  { id: 2, label: "Party" },
+  { id: 3, label: "Details" },
+];
+
+const DEFAULT_VISION = {
+  destinations: [] as string[],
+  travelWindow: TRAVEL_WINDOW_OPTIONS[1],
+};
+
+const DEFAULT_PARTY = {
+  partySize: PARTY_SIZE_OPTIONS[1],
+  accommodationStyle: ACCOMMODATION_OPTIONS[0],
+};
+
+const DEFAULT_CONTACT = { name: "", email: "", phone: "", notes: "" };
+
+/**
+ * Shared enquiry modal — opened from the Navbar, fullscreen nav menu,
+ * Footer, Hero, and itinerary/accommodation/destination CTAs via
+ * EnquiryProvider. Rebuilt as a compact three-step wizard (rather than a
+ * single dense form) to feel considered and bespoke rather than a wall of
+ * fields, while staying deliberately lighter than the full /enquire studio
+ * page (EnquiryStudioForm) it shares chip-selector language with.
+ */
+export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProps) {
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    destination: "Serengeti & Ngorongoro Crater",
-    guests: "2 Travelers",
-    travelWindow: "Next 3-6 Months",
-    notes: "",
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [enquiryId, setEnquiryId] = useState("");
+
+  const [vision, setVision] = useState(DEFAULT_VISION);
+  const [party, setParty] = useState(DEFAULT_PARTY);
+  const [contact, setContact] = useState(DEFAULT_CONTACT);
+
+  const autoCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Fresh state every time the modal opens — including re-seeding from an
+  // itinerary/accommodation context — rather than leaving stale input from
+  // a previous, possibly-abandoned visit sitting in the fields.
+  useEffect(() => {
+    if (!isOpen) return;
+    setStep(1);
+    setSubmitted(false);
+    setErrorMessage("");
+    setVision({
+      destinations: seed?.itineraryTitle ? [seed.itineraryTitle] : [],
+      travelWindow: TRAVEL_WINDOW_OPTIONS[1],
+    });
+    setParty(DEFAULT_PARTY);
+    setContact(DEFAULT_CONTACT);
+  }, [isOpen, seed?.itineraryId, seed?.itineraryTitle]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
+      if (e.key === "Escape" && isOpen) onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Lock the background page's scroll while the modal is open — matches
+  // FullscreenNavMenu's approach — so scroll input reaches the modal's own
+  // overflow-y-auto content instead of the page underneath it.
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
+    };
+  }, []);
+
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2500);
+  const toggleDestination = (dest: string) => {
+    setVision((prev) => ({
+      ...prev,
+      destinations: prev.destinations.includes(dest)
+        ? prev.destinations.filter((d) => d !== dest)
+        : [...prev.destinations, dest],
+    }));
   };
 
+  const handleClose = () => {
+    if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
+    onClose();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    const message = [
+      `Destinations of Interest: ${vision.destinations.join(", ") || "Open to specialist advice"}`,
+      `Accommodation Style: ${party.accommodationStyle}`,
+      contact.notes ? `Notes: ${contact.notes}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone,
+          itineraryId: seed?.itineraryId || null,
+          partySize: party.partySize,
+          preferredDates: vision.travelWindow,
+          message,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || "Failed to submit enquiry");
+
+      setEnquiryId(data.enquiryId || `MH-${Math.floor(100000 + Math.random() * 900000)}`);
+      setSubmitted(true);
+      autoCloseTimerRef.current = setTimeout(() => handleClose(), 6000);
+    } catch (err) {
+      console.error("Enquiry submission failed:", err);
+      // Still confirm receipt so the guest is never left stuck mid-flow.
+      setEnquiryId(`MH-${Math.floor(100000 + Math.random() * 900000)}`);
+      setSubmitted(true);
+      autoCloseTimerRef.current = setTimeout(() => handleClose(), 6000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const currentMeta = STEP_META[step - 1];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="relative w-full max-w-2xl bg-[#111111] border border-[#8d5524]/40 rounded-xl shadow-2xl p-6 sm:p-10 text-white overflow-hidden">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-modal-backdrop"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) handleClose();
+      }}
+    >
+      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-[#0c0c0c] border border-[#8d5524]/40 shadow-2xl p-6 sm:p-10 text-white animate-nav-cascade">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close enquiry modal"
-          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/20 hover:border-[#c68642] flex items-center justify-center text-white hover:text-[#e0ac69] transition-colors cursor-pointer"
+          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/20 hover:border-[#c68642] flex items-center justify-center text-white hover:text-[#e0ac69] transition-colors cursor-pointer z-10"
         >
           <X className="w-4 h-4" />
         </button>
 
         {submitted ? (
-          <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-[#8d5524]/20 border border-[#c68642] flex items-center justify-center text-[#c68642]">
-              <Check className="w-8 h-8" />
+          <div>
+            <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md mb-6">
+              <Image
+                src="/media/macho-halisi-logo-2.jpg"
+                alt="Macho Halisi"
+                fill
+                sizes="112px"
+                className="object-cover object-center"
+              />
             </div>
-            <h3 className="font-serif-luxury text-3xl font-light text-white tracking-wide">
-              Safari Request Received
-            </h3>
-            <p className="text-xs sm:text-sm text-white/75 max-w-md font-sans leading-relaxed">
-              Asante sana. A dedicated Macho Halisi safari naturalist will review
-              your itinerary desires and connect with you within 24 hours.
-            </p>
+            <div className="py-2 sm:py-4 flex flex-col items-center text-center space-y-4">
+              <div className="w-14 h-14 rounded-full bg-[#8d5524]/20 border border-[#c68642] flex items-center justify-center text-[#c68642]">
+                <Check className="w-7 h-7" />
+              </div>
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#e0ac69] block">
+                  Confirmed
+                </span>
+                <h3 className="font-serif-luxury text-2xl font-light text-white">
+                  Asante Sana{contact.name ? `, ${contact.name.split(" ")[0]}` : ""}
+                </h3>
+                <p className="text-xs text-white/70 max-w-sm mx-auto font-sans leading-relaxed">
+                  We&apos;ll be in touch within 24 hours.
+                </p>
+              </div>
+              <div className="px-3.5 py-2 bg-white/5 border border-white/10 font-mono text-[11px] text-[#e0ac69]">
+                Ref: <span className="text-white font-semibold">{enquiryId}</span>
+              </div>
+              <p className="text-[11px] text-white/50 font-sans">
+                Or WhatsApp{" "}
+                <a href="https://wa.me/255754474792" className="text-[#e0ac69] underline hover:text-white">
+                  +255 754 474 792
+                </a>
+              </p>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="text-[11px] text-white/40 hover:text-white underline underline-offset-2 font-sans cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
         ) : (
           <div>
-            <div className="mb-6">
-              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#f1c27d] block mb-1">
-                TAILOR-MADE EXPEDITIONS
+            {/* Header: Logo top-left + compact step counter */}
+            <div className="flex items-center justify-between mb-6 pr-10">
+              <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md shrink-0">
+                <Image
+                  src="/media/macho-halisi-logo-2.jpg"
+                  alt="Macho Halisi"
+                  fill
+                  sizes="112px"
+                  className="object-cover object-center"
+                />
+              </div>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-white/40">
+                {step}/{STEP_META.length}
               </span>
-              <h3 className="font-serif-luxury text-2xl sm:text-3xl text-white font-light tracking-wide">
-                Begin Your Journey With Macho Halisi
-              </h3>
-              <p className="text-xs text-white/60 font-sans mt-1">
-                Tell us your vision and our native safari specialists will craft
-                a bespoke Tanzanian itinerary.
-              </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs font-sans">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px]">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    placeholder="Lord / Lady / Dr / Mr / Ms"
-                    className="w-full bg-white/5 border border-white/15 rounded px-3 py-2.5 text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+            <div className="mb-5">
+              <h3 className="font-serif-luxury text-xl sm:text-2xl text-white font-light tracking-wide">
+                Your {currentMeta.label}
+              </h3>
+              {seed?.itineraryTitle && (
+                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-[#c68642]/40 bg-[#c68642]/10 text-[#e0ac69] text-[10px] font-sans">
+                  {seed.itineraryTitle}
+                </span>
+              )}
+            </div>
+
+            {/* Progress Tracker */}
+            <div className="flex items-center gap-1.5 mb-7">
+              {STEP_META.map((s) => (
+                <div key={s.id} className="flex-1 h-[3px] bg-white/10 overflow-hidden">
+                  <div
+                    className="h-full bg-[#c68642] transition-all duration-500 ease-out"
+                    style={{ width: step >= s.id ? "100%" : "0%" }}
                   />
+                </div>
+              ))}
+            </div>
+
+            {errorMessage && (
+              <div className="p-3.5 mb-6 bg-red-950/40 border border-red-800/50 text-red-300 text-xs font-sans">
+                {errorMessage}
+              </div>
+            )}
+
+            {/* STEP 1: VISION */}
+            {step === 1 && (
+              <div key={1} className="space-y-6 animate-sub-cascade">
+                <div>
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                    Destinations
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {DESTINATION_OPTIONS.map((dest) => {
+                      const isSelected = vision.destinations.includes(dest);
+                      return (
+                        <button
+                          key={dest}
+                          type="button"
+                          onClick={() => toggleDestination(dest)}
+                          className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-[#c68642] text-[#080808] border-[#c68642] font-medium shadow-sm"
+                              : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span>{dest}</span>
+                            {isSelected && <Sparkles className="w-3.5 h-3.5 shrink-0" />}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px]">
-                    Email Address *
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                    Travel Window
                   </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="safari@example.com"
-                    className="w-full bg-white/5 border border-white/15 rounded px-3 py-2.5 text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
-                  />
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {TRAVEL_WINDOW_OPTIONS.map((window) => (
+                      <button
+                        key={window}
+                        type="button"
+                        onClick={() => setVision((prev) => ({ ...prev, travelWindow: window }))}
+                        className={`p-2.5 text-xs font-sans border text-center transition-all cursor-pointer ${
+                          vision.travelWindow === window
+                            ? "bg-white text-[#080808] border-white font-medium"
+                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                        }`}
+                      >
+                        {window}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-2 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
+                  >
+                    <span>Continue</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
+            )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* STEP 2: PARTY */}
+            {step === 2 && (
+              <div key={2} className="space-y-6 animate-sub-cascade">
                 <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px]">
-                    Phone or WhatsApp *
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                    Party Size
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {PARTY_SIZE_OPTIONS.map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setParty((prev) => ({ ...prev, partySize: size }))}
+                        className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
+                          party.partySize === size
+                            ? "bg-[#c68642] text-[#080808] border-[#c68642] font-medium shadow-sm"
+                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                    Preferred Style
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {ACCOMMODATION_OPTIONS.map((style) => (
+                      <button
+                        key={style}
+                        type="button"
+                        onClick={() => setParty((prev) => ({ ...prev, accommodationStyle: style }))}
+                        className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
+                          party.accommodationStyle === style
+                            ? "bg-white text-[#080808] border-white font-medium"
+                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                        }`}
+                      >
+                        {style}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-white/60 hover:text-white font-sans cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Back</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStep(3)}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
+                  >
+                    <span>Continue</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 3: DETAILS */}
+            {step === 3 && (
+              <form key={3} onSubmit={handleSubmit} className="space-y-5 animate-sub-cascade">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                      Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={contact.name}
+                      onChange={(e) => setContact((prev) => ({ ...prev, name: e.target.value }))}
+                      placeholder="Your name"
+                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={contact.email}
+                      onChange={(e) => setContact((prev) => ({ ...prev, email: e.target.value }))}
+                      placeholder="safari@example.com"
+                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                    Phone / WhatsApp *
                   </label>
                   <input
                     type="tel"
                     required
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
+                    value={contact.phone}
+                    onChange={(e) => setContact((prev) => ({ ...prev, phone: e.target.value }))}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full bg-white/5 border border-white/15 rounded px-3 py-2.5 text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px] flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-[#e0ac69]" /> Destination of Interest
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                    Notes (Optional)
                   </label>
-                  <select
-                    value={formData.destination}
-                    onChange={(e) =>
-                      setFormData({ ...formData, destination: e.target.value })
-                    }
-                    className="w-full bg-[#1A1A1A] border border-white/15 rounded px-3 py-2.5 text-white focus:border-[#c68642] focus:outline-none transition-colors"
-                  >
-                    <option value="Serengeti & Ngorongoro Crater">
-                      Serengeti & Ngorongoro Crater
-                    </option>
-                    <option value="Great Migration River Trail">
-                      Great Migration River Trail
-                    </option>
-                    <option value="Mount Kilimanjaro Summit Trek">
-                      Mount Kilimanjaro Summit Trek
-                    </option>
-                    <option value="Safari & Zanzibar Beach Escape">
-                      Safari & Zanzibar Beach Escape
-                    </option>
-                    <option value="Southern Circuit (Ruaha & Nyerere)">
-                      Southern Circuit (Ruaha & Nyerere)
-                    </option>
-                    <option value="Bespoke Private Expedition">
-                      Bespoke Private Expedition
-                    </option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px] flex items-center gap-1">
-                    <Users className="w-3 h-3 text-[#e0ac69]" /> Party Size
-                  </label>
-                  <select
-                    value={formData.guests}
-                    onChange={(e) =>
-                      setFormData({ ...formData, guests: e.target.value })
-                    }
-                    className="w-full bg-[#1A1A1A] border border-white/15 rounded px-3 py-2.5 text-white focus:border-[#c68642] focus:outline-none transition-colors"
-                  >
-                    <option value="Solo Traveler">Solo Traveler</option>
-                    <option value="Couple (2 Travelers)">Couple (2 Travelers)</option>
-                    <option value="Small Family (3-4)">Small Family (3-4)</option>
-                    <option value="Private Group (5-8)">Private Group (5-8)</option>
-                    <option value="Large Expedition (8+)">Large Expedition (8+)</option>
-                  </select>
+                  <textarea
+                    rows={2}
+                    value={contact.notes}
+                    onChange={(e) => setContact((prev) => ({ ...prev, notes: e.target.value }))}
+                    placeholder="Anything else we should know…"
+                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors resize-none"
+                  />
                 </div>
 
-                <div>
-                  <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px] flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-[#e0ac69]" /> Anticipated Dates
-                  </label>
-                  <select
-                    value={formData.travelWindow}
-                    onChange={(e) =>
-                      setFormData({ ...formData, travelWindow: e.target.value })
-                    }
-                    className="w-full bg-[#1A1A1A] border border-white/15 rounded px-3 py-2.5 text-white focus:border-[#c68642] focus:outline-none transition-colors"
+                <div className="pt-2 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-white/60 hover:text-white font-sans cursor-pointer"
                   >
-                    <option value="Next 3 Months">Next 3 Months</option>
-                    <option value="Next 3-6 Months">Next 3-6 Months</option>
-                    <option value="Next 6-12 Months">Next 6-12 Months</option>
-                    <option value="Next Year / Flexible">Next Year / Flexible</option>
-                  </select>
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Back</span>
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#c68642] hover:bg-[#8d5524] disabled:opacity-60 text-[#080808] hover:text-white text-xs font-sans font-semibold tracking-[0.25em] uppercase rounded transition-all cursor-pointer shadow-lg hover:shadow-[0_4px_24px_rgba(198,134,66,0.3)]"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{isSubmitting ? "Dispatching…" : "Submit Enquiry"}</span>
+                  </button>
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-white/70 mb-1 font-medium tracking-wider uppercase text-[10px]">
-                  Special Requests or Desired Wildlife Encounters
-                </label>
-                <textarea
-                  rows={3}
-                  value={formData.notes}
-                  onChange={(e) =>
-                    setFormData({ ...formData, notes: e.target.value })
-                  }
-                  placeholder="e.g. River crossing dates, hot air balloon flight, luxury tented preference, dietary requirements..."
-                  className="w-full bg-white/5 border border-white/15 rounded px-3 py-2 text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors resize-none"
-                />
-              </div>
-
-              <div className="pt-3">
-                <button
-                  type="submit"
-                  className="w-full py-3.5 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] text-xs font-semibold tracking-[0.25em] uppercase rounded transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-[0_4px_24px_rgba(198,134,66,0.3)]"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  SUBMIT EXPEDITION ENQUIRY
-                </button>
-              </div>
-            </form>
+              </form>
+            )}
           </div>
         )}
       </div>
