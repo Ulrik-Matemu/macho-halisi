@@ -330,7 +330,7 @@ export const navigationData: NavCategory[] = [
         tagline: "Genuine Eyes on the Wild",
         description:
           "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
-        href: "/about#story",
+        href: "/about",
         image:
           "/media/about/team/guides-team.jpg",
         badge: "Native Born & Led",
