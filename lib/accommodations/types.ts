@@ -1,4 +1,4 @@
-import { ItineraryStatus, Destination, UserSummary } from "@/lib/itineraries/types";
+import { ItineraryStatus, Destination, UserSummary, GalleryImageStatus } from "@/lib/itineraries/types";
 
 // Accommodations reuse the itinerary publishing lifecycle (see the backend
 // Accommodation model, which uses ItineraryStatus), so the status union is
@@ -35,6 +35,8 @@ export const SERVICE_TIER_LABELS: Record<ServiceTier, string> = {
   LUXURY: "Luxury",
 };
 
+export type { GalleryImageStatus } from "@/lib/itineraries/types";
+
 export interface AccommodationImage {
   id: string;
   url: string;
@@ -42,6 +44,20 @@ export interface AccommodationImage {
   sortOrder: number;
   altText?: string | null;
   createdAt?: string;
+  // See ItineraryImage — same review-gate staging model.
+  status?: GalleryImageStatus;
+  pendingSortOrder?: number | null;
+  pendingAltText?: string | null;
+}
+
+export function effectiveSortOrder(img: AccommodationImage): number {
+  return img.pendingSortOrder ?? img.sortOrder;
+}
+export function effectiveAltText(img: AccommodationImage): string {
+  return img.pendingAltText ?? img.altText ?? "";
+}
+export function hasPendingImageChange(img: AccommodationImage): boolean {
+  return Boolean(img.status && img.status !== "LIVE") || img.pendingSortOrder != null || img.pendingAltText != null;
 }
 
 export interface AccommodationSummary {
@@ -81,6 +97,8 @@ export interface AccommodationDetail {
   createdAt: string;
   updatedAt: string;
   images: AccommodationImage[];
+  heroImageId?: string | null;
+  heroImage?: AccommodationImage | null;
   destination: Destination | null;
   author?: UserSummary;
   editor?: UserSummary;

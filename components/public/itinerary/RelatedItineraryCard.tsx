@@ -16,7 +16,7 @@ interface RelatedItineraryCardProps {
  * lives on a different background and layout.
  */
 export default function RelatedItineraryCard({ itinerary }: RelatedItineraryCardProps) {
-  const cover = itinerary.images[0];
+  const cover = itinerary.heroImage ?? itinerary.images[0];
   const destinationName = itinerary.destinations[0]?.destination.name;
   const price = formatStartingPrice(itinerary.startingPrice);
 

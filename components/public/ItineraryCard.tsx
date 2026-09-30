@@ -23,7 +23,7 @@ interface ItineraryCardProps {
  * always have photography.
  */
 export default function ItineraryCard({ itinerary, priority = false }: ItineraryCardProps) {
-  const cover = itinerary.images[0];
+  const cover = itinerary.heroImage ?? itinerary.images[0];
   const destinationName = itinerary.destinations[0]?.destination.name;
   const price = formatStartingPrice(itinerary.startingPrice);
   const activePeriod = getCurrentOrUpcomingPeriod(itinerary.availabilityPeriods);

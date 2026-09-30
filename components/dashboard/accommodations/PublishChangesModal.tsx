@@ -6,6 +6,8 @@ import {
   AccommodationDetail,
   ACCOMMODATION_TYPE_LABELS,
   SERVICE_TIER_LABELS,
+  effectiveAltText,
+  hasPendingImageChange,
 } from "@/lib/accommodations/types";
 import Dialog from "@/components/dashboard/ui/Dialog";
 import Button from "@/components/dashboard/ui/Button";
@@ -29,6 +31,17 @@ function fmt(value: unknown): string {
   if (value === null || value === undefined || value === "") return "—";
   if (Array.isArray(value)) return value.length ? value.join(", ") : "—";
   return String(value);
+}
+
+/** The hero image id actually in effect — the explicit choice, or the first gallery image as fallback. */
+function resolvedHeroId(acc: AccommodationDetail): string | null {
+  return acc.heroImageId ?? acc.images[0]?.id ?? null;
+}
+
+function heroImageLabel(acc: AccommodationDetail, id: string | null): string {
+  if (!id) return "None";
+  const img = acc.images.find((i) => i.id === id) ?? (acc.heroImage?.id === id ? acc.heroImage : null);
+  return img ? effectiveAltText(img) || "Untitled image" : "Untitled image";
 }
 
 /**
@@ -59,6 +72,32 @@ export default function PublishChangesModal({ live, pending, isAdmin, onPublish,
   const diff: FieldDiff[] = rows
     .map(([label, before, after]) => ({ label, before: fmt(before), after: fmt(after) }))
     .filter((d) => d.before !== d.after);
+
+  // Hero image and gallery changes are staged per-image (see the
+  // /:id/images route handlers), independent of the scalar revision the
+  // rows above come from, so they're compared separately here.
+  const beforeHeroId = resolvedHeroId(live);
+  const afterHeroId = resolvedHeroId(pending);
+  if (beforeHeroId !== afterHeroId) {
+    diff.push({ label: "Hero image", before: heroImageLabel(live, beforeHeroId), after: heroImageLabel(pending, afterHeroId) });
+  }
+
+  const pendingImageChanges = pending.images.filter(hasPendingImageChange);
+  if (pendingImageChanges.length > 0) {
+    const added = pendingImageChanges.filter((i) => i.status === "PENDING_ADD").length;
+    const removed = pendingImageChanges.filter((i) => i.status === "PENDING_DELETE").length;
+    const edited = pendingImageChanges.length - added - removed;
+    const parts = [
+      added > 0 ? `${added} new` : null,
+      removed > 0 ? `${removed} to remove` : null,
+      edited > 0 ? `${edited} reordered/edited` : null,
+    ].filter((p): p is string => p !== null);
+    diff.push({
+      label: "Gallery",
+      before: `${live.images.length} image${live.images.length === 1 ? "" : "s"} live`,
+      after: parts.join(", "),
+    });
+  }
 
   const handlePublish = async () => {
     setPublishing(true);

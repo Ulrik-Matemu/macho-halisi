@@ -97,7 +97,8 @@ export default function AccommodationEditorPage() {
           try {
             const revRes = await fetch(`/api/accommodations/${accommodationId}/revision`);
             const revData = await revRes.json();
-            if (revRes.ok && revData.status === "ok" && revData.revision && revData.preview) {
+            const hasPending = Boolean(revData.revision) || Boolean(revData.hasPendingImages);
+            if (revRes.ok && revData.status === "ok" && hasPending && revData.preview) {
               setFormState(revData.preview);
               setHasPendingChanges(true);
             } else {
@@ -165,6 +166,7 @@ export default function AccommodationEditorPage() {
           priceOnRequest: current.priceOnRequest,
           pricePerNight: current.priceOnRequest ? null : current.pricePerNight ? Number(current.pricePerNight) : null,
           destinationId: current.destinationId ?? null,
+          heroImageId: current.heroImageId || null,
         };
 
         if (current.status === "DRAFT" || current.status === "IN_REVIEW") {
@@ -582,7 +584,10 @@ export default function AccommodationEditorPage() {
                 accommodationId={accommodationId}
                 images={formState.images || []}
                 onImagesChange={(images: AccommodationImage[]) => setFormState((prev) => (prev ? { ...prev, images } : prev))}
+                heroImageId={formState.heroImageId ?? null}
+                onHeroImageChange={(heroImageId) => handleFieldChange({ heroImageId })}
                 isPublished={formState.status === "PUBLISHED"}
+                onPendingChange={() => setHasPendingChanges(true)}
                 disabled={isViewer}
               />
             )}

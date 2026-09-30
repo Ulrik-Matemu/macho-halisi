@@ -35,6 +35,8 @@ export interface PublicItinerarySummary {
   availabilityStatus: AvailabilityStatus;
   publishedAt: string | null;
   updatedAt: string;
+  // The explicit "Set as hero" choice — null falls back to images[0].
+  heroImage: PublicItineraryCoverImage | null;
   images: PublicItineraryCoverImage[];
   destinations: ItineraryDestinationItem[];
   // Full period list, same as PublicItineraryDetail — cards compute a
@@ -63,6 +65,8 @@ export interface PublicItineraryDetail {
   createdAt: string;
   updatedAt: string;
   days: ItineraryDay[];
+  // The explicit "Set as hero" choice — null falls back to images[0].
+  heroImage: PublicItineraryCoverImage | null;
   images: ItineraryImage[];
   destinations: ItineraryDestinationItem[];
   // Full period list — the detail page renders all of them, unlike cards
@@ -120,6 +124,7 @@ export interface PublicAccommodationSummary {
   priceOnRequest: boolean;
   publishedAt: string | null;
   updatedAt: string;
+  heroImage: PublicAccommodationImage | null;
   images: PublicAccommodationImage[];
   destination: Pick<PublicAccommodationDestination, "id" | "name" | "slug"> | null;
 }
@@ -142,6 +147,7 @@ export interface PublicAccommodationDetail {
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  heroImage: PublicAccommodationImage | null;
   images: PublicAccommodationImage[];
   destination: PublicAccommodationDestination | null;
 }

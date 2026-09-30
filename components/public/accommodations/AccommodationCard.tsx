@@ -17,7 +17,7 @@ interface AccommodationCardProps {
  * catalogs read as one system.
  */
 export default function AccommodationCard({ accommodation, priority = false }: AccommodationCardProps) {
-  const cover = accommodation.images[0];
+  const cover = accommodation.heroImage ?? accommodation.images[0];
   const price = formatPricePerNight(accommodation.pricePerNight);
 
   return (

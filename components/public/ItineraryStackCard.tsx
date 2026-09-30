@@ -44,7 +44,7 @@ const DESKTOP_TOP_STEP = 16;
  * image-plus-copy layout is a different shape entirely, not a variant.
  */
 export default function ItineraryStackCard({ itinerary, index, priority = false }: ItineraryStackCardProps) {
-  const cover = itinerary.images[0];
+  const cover = itinerary.heroImage ?? itinerary.images[0];
   const destinationNames = itinerary.destinations.map((d) => d.destination.name).join(" · ");
   const price = formatStartingPrice(itinerary.startingPrice);
   const indexLabel = String(index + 1).padStart(2, "0");

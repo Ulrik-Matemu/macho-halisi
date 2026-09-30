@@ -48,7 +48,7 @@ export async function generateMetadata({
   const description =
     itinerary.overview?.slice(0, 160) ||
     `A ${itinerary.nights ?? ""}-night bespoke Tanzanian safari itinerary by Macho Halisi.`;
-  const coverImage = itinerary.images[0]?.url;
+  const coverImage = (itinerary.heroImage ?? itinerary.images[0])?.url;
   const url = `${getSiteUrl()}/itineraries/${itinerary.slug}`;
 
   return {
@@ -78,8 +78,8 @@ export default async function ItineraryDetailPage({
     notFound();
   }
 
-  const coverImage = itinerary.images[0];
-  const galleryImages = itinerary.images.slice(1);
+  const coverImage = itinerary.heroImage ?? itinerary.images[0];
+  const galleryImages = itinerary.images.filter((img) => img.id !== coverImage?.id);
   const price = formatStartingPrice(itinerary.startingPrice);
   const bestMonths = formatBestMonths(itinerary.availabilityPeriods);
   const accommodationStays = groupAccommodationNights(itinerary.days);

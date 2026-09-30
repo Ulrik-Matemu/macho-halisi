@@ -2,8 +2,8 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { AccommodationImage } from "@/lib/accommodations/types";
-import { ImagePlus, Trash2, ArrowLeft, ArrowRight, Loader2, UploadCloud, Star } from "lucide-react";
+import { AccommodationImage, effectiveAltText, effectiveSortOrder, hasPendingImageChange } from "@/lib/accommodations/types";
+import { ImagePlus, Trash2, ArrowLeft, ArrowRight, Loader2, UploadCloud, Star, RotateCcw } from "lucide-react";
 import Field, { inputClass, inputStyle } from "@/components/dashboard/ui/Field";
 import IconButton from "@/components/dashboard/ui/IconButton";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
@@ -12,7 +12,12 @@ interface GalleryTabProps {
   accommodationId: string;
   images: AccommodationImage[];
   onImagesChange: (images: AccommodationImage[]) => void;
+  /** The accommodation's explicit hero/cover image — null falls back to the first gallery image. */
+  heroImageId: string | null;
+  onHeroImageChange: (heroImageId: string | null) => void;
   isPublished?: boolean;
+  /** Called whenever a gallery action stages a change awaiting publish (only meaningful while isPublished). */
+  onPendingChange?: () => void;
   disabled?: boolean;
 }
 
@@ -21,22 +26,28 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 /**
  * Gallery manager for an accommodation — mirrors the itineraries GalleryTab
- * but targets the /api/accommodations/:id/images endpoints. Images, order
- * and alt text all save immediately, independent of the tabbed autosave,
- * so they are never held for review.
+ * but targets the /api/accommodations/:id/images endpoints.
  */
-export default function GalleryTab({ accommodationId, images = [], onImagesChange, isPublished = false, disabled = false }: GalleryTabProps) {
+export default function GalleryTab({
+  accommodationId,
+  images = [],
+  onImagesChange,
+  heroImageId,
+  onHeroImageChange,
+  isPublished = false,
+  onPendingChange,
+  disabled = false,
+}: GalleryTabProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
-  // Reordering (including "Set as hero") disables the arrows/star briefly
-  // while it round-trips, so a second click can't race the first.
   const [reordering, setReordering] = useState(false);
   const [savingAltId, setSavingAltId] = useState<string | null>(null);
 
-  const sortedImages = [...images].sort((a, b) => a.sortOrder - b.sortOrder);
+  const sortedImages = [...images].sort((a, b) => effectiveSortOrder(a) - effectiveSortOrder(b));
+  const effectiveHeroId = heroImageId ?? sortedImages[0]?.id ?? null;
 
   const handleFiles = async (files: FileList | null) => {
     if (disabled || !files || files.length === 0) return;
@@ -77,7 +88,10 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
         setUploadError(attachData.message || "Failed to attach image to accommodation");
         return;
       }
-      if (attachData.image) onImagesChange([...images, attachData.image]);
+      if (attachData.image) {
+        onImagesChange([...images, attachData.image]);
+        if (isPublished) onPendingChange?.();
+      }
     } catch (err) {
       console.error("Gallery upload error:", err);
       setUploadError("Network error while uploading image");
@@ -98,7 +112,15 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
         setUploadError(data.message || "Failed to delete image");
         return;
       }
-      onImagesChange(images.filter((img) => img.id !== imageId).map((img, idx) => ({ ...img, sortOrder: idx })));
+      if (data.image) {
+        // Staged for removal, or a staged removal undone — the row stays,
+        // only its status changed.
+        onImagesChange(images.map((img) => (img.id === imageId ? data.image : img)));
+        if (isPublished) onPendingChange?.();
+      } else {
+        // Hard-deleted for real (never published, or accommodation not published).
+        onImagesChange(images.filter((img) => img.id !== imageId));
+      }
     } catch (err) {
       console.error("Failed to delete image:", err);
       setUploadError("Network error while removing image");
@@ -108,26 +130,25 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
   };
 
   /**
-   * Persists a full reorder — used by both the move arrows and "Set as
-   * cover" — and applies it optimistically. The gallery's cover image is
-   * simply images[0] by sortOrder (see publicAccommodationDetailSelect on
-   * the backend), so this is also how the cover image is changed; it
-   * saves immediately via PATCH .../images/reorder rather than the tabbed
-   * autosave, matching how upload/delete already behave. On failure the
-   * previous order is restored so the UI never shows an order the backend
-   * didn't actually save.
+   * Persists a full reorder, applied optimistically. Purely a gallery
+   * browsing/display concern — the hero image is the separate, explicit
+   * heroImageId toggle below, independent of position.
    */
-  const applyOrder = async (nextOrder: AccommodationImage[]) => {
-    if (disabled || reordering) return;
+  const moveImage = async (fromIndex: number, toIndex: number) => {
+    if (disabled || reordering || toIndex < 0 || toIndex >= sortedImages.length) return;
+    const list = [...sortedImages];
+    const [item] = list.splice(fromIndex, 1);
+    list.splice(toIndex, 0, item);
+
     const previousOrder = sortedImages;
     setReordering(true);
     setUploadError(null);
-    onImagesChange(nextOrder.map((img, idx) => ({ ...img, sortOrder: idx })));
+    onImagesChange(list.map((img, idx) => ({ ...img, sortOrder: idx })));
     try {
       const res = await fetch(`/api/accommodations/${accommodationId}/images/reorder`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ order: nextOrder.map((img) => img.id) }),
+        body: JSON.stringify({ order: list.map((img) => img.id) }),
       });
       const data = await res.json();
       if (!res.ok || data.status === "error") {
@@ -136,6 +157,7 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
         return;
       }
       if (Array.isArray(data.images)) onImagesChange(data.images);
+      if (data.pendingReview) onPendingChange?.();
     } catch (err) {
       console.error("Failed to save image order:", err);
       setUploadError("Network error while saving the new image order");
@@ -145,26 +167,17 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
     }
   };
 
-  const moveImage = (fromIndex: number, toIndex: number) => {
-    if (toIndex < 0 || toIndex >= sortedImages.length) return;
-    const list = [...sortedImages];
-    const [item] = list.splice(fromIndex, 1);
-    list.splice(toIndex, 0, item);
-    applyOrder(list);
-  };
-
-  const setAsCover = (imageId: string) => {
-    const index = sortedImages.findIndex((img) => img.id === imageId);
-    if (index <= 0) return;
-    const list = [...sortedImages];
-    const [item] = list.splice(index, 1);
-    list.unshift(item);
-    applyOrder(list);
-  };
-
   const updateAltText = (imageId: string, newAlt: string) => {
     if (disabled) return;
-    onImagesChange(images.map((img) => (img.id === imageId ? { ...img, altText: newAlt } : img)));
+    onImagesChange(
+      images.map((img) => {
+        if (img.id !== imageId) return img;
+        // Optimistic local echo of what persistAltText (below) will do —
+        // a LIVE image on a published accommodation stages into pendingAltText
+        // rather than overwriting the live value.
+        return isPublished && img.status === "LIVE" ? { ...img, pendingAltText: newAlt } : { ...img, altText: newAlt };
+      })
+    );
   };
 
   const persistAltText = async (imageId: string, altText: string) => {
@@ -180,7 +193,10 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
       const data = await res.json();
       if (!res.ok || data.status === "error") {
         setUploadError(data.message || "Failed to save alt text");
+        return;
       }
+      if (data.image) onImagesChange(images.map((img) => (img.id === imageId ? data.image : img)));
+      if (data.pendingReview) onPendingChange?.();
     } catch (err) {
       console.error("Failed to save alt text:", err);
       setUploadError("Network error while saving alt text");
@@ -195,11 +211,11 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
         <div>
           <h3 className="dash-subtitle flex items-center gap-2" style={{ color: "var(--dash-text)" }}>
             <ImagePlus className="w-4 h-4" style={{ color: "var(--dash-accent)" }} />
-            Photo gallery
+            Photo gallery & hero visual
           </h3>
           <p className="text-sm mt-0.5" style={{ color: "var(--dash-text-subtle)" }}>
-            Upload high-resolution photography of rooms, grounds, views and dining. The first image — marked
-            &ldquo;Cover&rdquo; below — is used as the cover image on the public site.
+            Upload high-resolution photography of rooms, grounds, views and dining. Click the star on any image to
+            make it the hero — the one shown on the public site.
           </p>
         </div>
         <span className="dash-code text-xs shrink-0" style={{ color: "var(--dash-text-subtle)" }}>
@@ -209,8 +225,9 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
 
       {isPublished && (
         <p className="text-sm" style={{ color: "var(--dash-accent)" }}>
-          Unlike the other tabs, gallery changes save immediately and are visible to visitors right away — they
-          aren&apos;t held for review.
+          This accommodation is published — gallery changes (new photos, removals, reordering, the hero image, alt
+          text) are staged here and only go live once an admin publishes the pending changes, the same as every
+          other field.
         </p>
       )}
 
@@ -276,66 +293,103 @@ export default function GalleryTab({ accommodationId, images = [], onImagesChang
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedImages.map((img, idx) => (
-            <div key={img.id} className="rounded-lg overflow-hidden flex flex-col justify-between" style={{ background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" }}>
-              <div className="relative aspect-[16/10] bg-black/40 overflow-hidden">
-                <Image src={img.url} alt={img.altText || `Property photo ${idx + 1}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover object-center" />
-                {idx === 0 && (
-                  <span className="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-accent-fill)", color: "var(--dash-accent-on-fill)" }}>
-                    <Star className="w-3 h-3" fill="currentColor" />
-                    Cover
+          {sortedImages.map((img, idx) => {
+            const isHero = img.id === effectiveHeroId;
+            const isPendingDelete = img.status === "PENDING_DELETE";
+            const pending = hasPendingImageChange(img);
+            return (
+              <div
+                key={img.id}
+                className="rounded-lg overflow-hidden flex flex-col justify-between"
+                style={{
+                  background: "var(--dash-surface-1)",
+                  border: `1px solid ${isPendingDelete ? "var(--dash-status-danger)" : "var(--dash-border)"}`,
+                  opacity: isPendingDelete ? 0.6 : 1,
+                }}
+              >
+                <div className="relative aspect-[16/10] bg-black/40 overflow-hidden">
+                  <Image src={img.url} alt={effectiveAltText(img) || `Property photo ${idx + 1}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover object-center" />
+                  <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+                    {isHero && (
+                      <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-accent-fill)", color: "var(--dash-accent-on-fill)" }}>
+                        <Star className="w-3 h-3" fill="currentColor" />
+                        Hero
+                      </span>
+                    )}
+                    {isPendingDelete ? (
+                      <span className="px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-status-danger)", color: "var(--dash-accent-on-fill)" }}>
+                        Pending removal
+                      </span>
+                    ) : (
+                      img.status === "PENDING_ADD" && (
+                        <span className="px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-surface-3)", color: "var(--dash-text)" }}>
+                          Pending
+                        </span>
+                      )
+                    )}
+                    {!isPendingDelete && img.status !== "PENDING_ADD" && pending && (
+                      <span className="px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-surface-3)", color: "var(--dash-text)" }}>
+                        Edited
+                      </span>
+                    )}
+                  </div>
+                  <span className="dash-code absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px]" style={{ background: "rgb(0 0 0 / 65%)", color: "var(--dash-text-muted)" }}>
+                    #{idx + 1}
                   </span>
-                )}
-                <span className="dash-code absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px]" style={{ background: "rgb(0 0 0 / 65%)", color: "var(--dash-text-muted)" }}>
-                  #{idx + 1}
-                </span>
-              </div>
+                </div>
 
-              <div className="p-3.5 space-y-3">
-                <Field label="Alt text (accessibility)">
-                  {({ id }) => (
-                    <input
-                      id={id}
-                      type="text"
-                      disabled={disabled}
-                      value={img.altText || ""}
-                      onChange={(e) => updateAltText(img.id, e.target.value)}
-                      onBlur={(e) => persistAltText(img.id, e.target.value)}
-                      placeholder="Describe scene..."
-                      className={`${inputClass} py-1.5`}
-                      style={inputStyle}
-                    />
+                <div className="p-3.5 space-y-3">
+                  <Field label="Alt text (accessibility)">
+                    {({ id }) => (
+                      <input
+                        id={id}
+                        type="text"
+                        disabled={disabled || isPendingDelete}
+                        value={effectiveAltText(img)}
+                        onChange={(e) => updateAltText(img.id, e.target.value)}
+                        onBlur={(e) => persistAltText(img.id, e.target.value)}
+                        placeholder="Describe scene..."
+                        className={`${inputClass} py-1.5`}
+                        style={inputStyle}
+                      />
+                    )}
+                  </Field>
+                  {savingAltId === img.id && (
+                    <p className="text-xs flex items-center gap-1" style={{ color: "var(--dash-text-subtle)" }}>
+                      <Loader2 className="w-3 h-3 animate-spin" /> Saving…
+                    </p>
                   )}
-                </Field>
-                {savingAltId === img.id && (
-                  <p className="text-xs flex items-center gap-1" style={{ color: "var(--dash-text-subtle)" }}>
-                    <Loader2 className="w-3 h-3 animate-spin" /> Saving…
-                  </p>
-                )}
 
-                {!disabled && (
-                  <div className="flex items-center justify-between pt-2" style={{ borderTop: "1px solid var(--dash-border)" }}>
-                    <div className="flex items-center gap-1">
-                      <IconButton label="Move image earlier" disabled={idx === 0 || reordering} onClick={() => moveImage(idx, idx - 1)}>
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                      </IconButton>
-                      <IconButton label="Move image later" disabled={idx === sortedImages.length - 1 || reordering} onClick={() => moveImage(idx, idx + 1)}>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </IconButton>
-                      {idx !== 0 && (
-                        <IconButton label="Set as cover image" tone="warning" disabled={reordering} onClick={() => setAsCover(img.id)}>
-                          <Star className="w-3.5 h-3.5" />
+                  {!disabled && (
+                    <div className="flex items-center justify-between pt-2" style={{ borderTop: "1px solid var(--dash-border)" }}>
+                      <div className="flex items-center gap-1">
+                        <IconButton label="Move image earlier" disabled={idx === 0 || reordering || isPendingDelete} onClick={() => moveImage(idx, idx - 1)}>
+                          <ArrowLeft className="w-3.5 h-3.5" />
+                        </IconButton>
+                        <IconButton label="Move image later" disabled={idx === sortedImages.length - 1 || reordering || isPendingDelete} onClick={() => moveImage(idx, idx + 1)}>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </IconButton>
+                        {!isHero && !isPendingDelete && (
+                          <IconButton label="Set as hero image" tone="warning" onClick={() => onHeroImageChange(img.id)}>
+                            <Star className="w-3.5 h-3.5" />
+                          </IconButton>
+                        )}
+                      </div>
+                      {isPendingDelete ? (
+                        <IconButton label="Undo removal" tone="success" disabled={deletingId === img.id} onClick={() => handleDeleteImage(img.id)}>
+                          {deletingId === img.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RotateCcw className="w-3.5 h-3.5" />}
+                        </IconButton>
+                      ) : (
+                        <IconButton label="Delete image" tone="danger" disabled={deletingId === img.id} onClick={() => handleDeleteImage(img.id)}>
+                          {deletingId === img.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
                         </IconButton>
                       )}
                     </div>
-                    <IconButton label="Delete image" tone="danger" disabled={deletingId === img.id} onClick={() => handleDeleteImage(img.id)}>
-                      {deletingId === img.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                    </IconButton>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

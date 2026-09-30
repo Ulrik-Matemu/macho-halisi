@@ -112,7 +112,8 @@ export default function ItineraryEditorPage() {
           try {
             const revRes = await fetch(`/api/itineraries/${itineraryId}/revision`);
             const revData = await revRes.json();
-            if (revRes.ok && revData.status === "ok" && revData.revision && revData.preview) {
+            const hasPending = Boolean(revData.revision) || Boolean(revData.hasPendingImages);
+            if (revRes.ok && revData.status === "ok" && hasPending && revData.preview) {
               setFormState(revData.preview);
               setHasPendingChanges(true);
             } else {
@@ -186,6 +187,7 @@ export default function ItineraryEditorPage() {
             highlight: Boolean(d.highlight),
           })),
           destinationIds: (current.destinations || []).map((d) => d.destination.id),
+          heroImageId: current.heroImageId || null,
         };
 
         if (current.status === "DRAFT" || current.status === "IN_REVIEW") {
@@ -626,7 +628,10 @@ export default function ItineraryEditorPage() {
                 itineraryId={itineraryId}
                 images={formState.images || []}
                 onImagesChange={(images: ItineraryImage[]) => setFormState((prev) => (prev ? { ...prev, images } : prev))}
+                heroImageId={formState.heroImageId ?? null}
+                onHeroImageChange={(heroImageId) => handleFieldChange({ heroImageId })}
                 isPublished={formState.status === "PUBLISHED"}
+                onPendingChange={() => setHasPendingChanges(true)}
                 disabled={isViewer}
               />
             )}

@@ -1,4 +1,4 @@
-import { ItineraryDetail } from "./types";
+import { ItineraryDetail, ItineraryImage, effectiveAltText, hasPendingImageChange } from "./types";
 
 export interface ItineraryDiffEntry {
   label: string;
@@ -16,6 +16,18 @@ function scalarLabel(value: string | number | boolean | null | undefined): strin
   if (value === null || value === undefined || value === "") return "—";
   if (typeof value === "boolean") return value ? "Yes" : "No";
   return String(value);
+}
+
+/** The hero image id actually in effect — the explicit choice, or the first gallery image as fallback. */
+function resolvedHeroId(itin: ItineraryDetail): string | null {
+  return itin.heroImageId ?? itin.images[0]?.id ?? null;
+}
+
+function heroImageLabel(itin: ItineraryDetail, id: string | null): string {
+  if (!id) return "None";
+  const img: ItineraryImage | null | undefined =
+    itin.images.find((i) => i.id === id) ?? (itin.heroImage?.id === id ? itin.heroImage : null);
+  return img ? effectiveAltText(img) || "Untitled image" : "Untitled image";
 }
 
 /**
@@ -105,6 +117,38 @@ export function buildItineraryDiff(live: ItineraryDetail, pending: ItineraryDeta
       label: "Destinations",
       before: live.destinations.map((d) => d.destination.name).join(", ") || "None",
       after: pending.destinations.map((d) => d.destination.name).join(", ") || "None",
+    });
+  }
+
+  // Hero image — the explicit "Set as hero" choice, a normal staged
+  // scalar field like any other (see Itinerary.heroImageId).
+  const beforeHeroId = resolvedHeroId(live);
+  const afterHeroId = resolvedHeroId(pending);
+  if (beforeHeroId !== afterHeroId) {
+    entries.push({
+      label: "Hero image",
+      before: heroImageLabel(live, beforeHeroId),
+      after: heroImageLabel(pending, afterHeroId),
+    });
+  }
+
+  // Gallery — uploads, removals, reordering and alt-text edits are staged
+  // per-image (see the /:id/images route handlers) rather than as part of
+  // this same scalar revision, so they're summarized separately here.
+  const pendingImageChanges = pending.images.filter(hasPendingImageChange);
+  if (pendingImageChanges.length > 0) {
+    const added = pendingImageChanges.filter((i) => i.status === "PENDING_ADD").length;
+    const removed = pendingImageChanges.filter((i) => i.status === "PENDING_DELETE").length;
+    const edited = pendingImageChanges.length - added - removed;
+    const parts = [
+      added > 0 ? `${added} new` : null,
+      removed > 0 ? `${removed} to remove` : null,
+      edited > 0 ? `${edited} reordered/edited` : null,
+    ].filter((p): p is string => p !== null);
+    entries.push({
+      label: "Gallery",
+      before: `${live.images.length} image${live.images.length === 1 ? "" : "s"} live`,
+      after: parts.join(", "),
     });
   }
 

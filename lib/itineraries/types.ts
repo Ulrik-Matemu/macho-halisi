@@ -29,6 +29,8 @@ export interface ItineraryDay {
   highlight?: boolean;
 }
 
+export type GalleryImageStatus = "LIVE" | "PENDING_ADD" | "PENDING_DELETE";
+
 export interface ItineraryImage {
   id: string;
   url: string;
@@ -36,6 +38,25 @@ export interface ItineraryImage {
   sortOrder: number;
   altText?: string | null;
   createdAt?: string;
+  // Review-gate state for a PUBLISHED itinerary — always "LIVE" for a
+  // DRAFT/IN_REVIEW one, since there's nothing to gate. "PENDING_ADD"
+  // images and pendingSortOrder/pendingAltText edits are visible here (in
+  // the dashboard) but excluded from the public site until an admin
+  // publishes the change.
+  status?: GalleryImageStatus;
+  pendingSortOrder?: number | null;
+  pendingAltText?: string | null;
+}
+
+/** Effective (staged-aware) sortOrder/altText for display in the dashboard. */
+export function effectiveSortOrder(img: ItineraryImage): number {
+  return img.pendingSortOrder ?? img.sortOrder;
+}
+export function effectiveAltText(img: ItineraryImage): string {
+  return img.pendingAltText ?? img.altText ?? "";
+}
+export function hasPendingImageChange(img: ItineraryImage): boolean {
+  return Boolean(img.status && img.status !== "LIVE") || img.pendingSortOrder != null || img.pendingAltText != null;
 }
 
 export interface ItineraryDestinationItem {
@@ -101,6 +122,10 @@ export interface ItineraryDetail {
   updatedAt: string;
   days: ItineraryDay[];
   images: ItineraryImage[];
+  // The public site's explicit cover/hero image — set via the dashboard's
+  // "Set as hero" control, independent of gallery order.
+  heroImageId?: string | null;
+  heroImage?: ItineraryImage | null;
   destinations: ItineraryDestinationItem[];
   availabilityPeriods?: AvailabilityPeriod[];
   author?: UserSummary;

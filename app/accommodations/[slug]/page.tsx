@@ -38,7 +38,7 @@ export async function generateMetadata({
     `${SERVICE_TIER_LABELS[accommodation.serviceTier]} ${ACCOMMODATION_TYPE_LABELS[
       accommodation.type
     ].toLowerCase()} in ${accommodation.locationText}, curated by Macho Halisi.`;
-  const coverImage = accommodation.images[0]?.url;
+  const coverImage = (accommodation.heroImage ?? accommodation.images[0])?.url;
   const url = `${getSiteUrl()}/accommodations/${accommodation.slug}`;
 
   return {
@@ -66,8 +66,8 @@ export default async function AccommodationDetailPage({
     notFound();
   }
 
-  const cover = accommodation.images[0];
-  const gallery = accommodation.images.slice(1);
+  const cover = accommodation.heroImage ?? accommodation.images[0];
+  const gallery = accommodation.images.filter((img) => img.id !== cover?.id);
   const price = formatPricePerNight(accommodation.pricePerNight);
   const hasCoords = accommodation.latitude !== null && accommodation.longitude !== null;
 
