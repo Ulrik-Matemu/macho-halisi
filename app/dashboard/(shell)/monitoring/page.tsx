@@ -93,7 +93,7 @@ function StatusBanner({ uptime }: { uptime: UptimeReport }) {
   if (!uptime.lastCheckAt) {
     level = "unknown";
     title = "No uptime checks recorded yet";
-    detail = "Enable the Uptime workflow in GitHub Actions (see .github/workflows/uptime.yml) to start monitoring.";
+    detail = "Set UPTIME_SITE_URL on the backend (Render) to start the built-in 5-minute checker.";
   } else if (down.length > 0) {
     const critical = down.some((d) => d.target === "SITE" || d.target === "API");
     level = critical ? "critical" : "warning";
@@ -120,8 +120,9 @@ function StatusBanner({ uptime }: { uptime: UptimeReport }) {
       </div>
       {uptime.stale && uptime.lastCheckAt && (
         <InlineMessage tone="error">
-          Monitor silent: no uptime check has arrived for over {uptime.staleAfterMinutes} minutes (last {formatRelative(uptime.lastCheckAt)}). The GitHub Actions
-          workflow may be disabled, paused after 60 days of repo inactivity, or failing to reach the API.
+          Monitor silent: no uptime check has arrived for over {uptime.staleAfterMinutes} minutes (last {formatRelative(uptime.lastCheckAt)}). Check that
+          UPTIME_SITE_URL is set on the backend and that it has been redeployed; the GitHub Actions workflow is only a
+          best-effort backup, since GitHub often delays or skips scheduled runs.
         </InlineMessage>
       )}
     </div>
