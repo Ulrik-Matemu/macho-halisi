@@ -60,22 +60,32 @@ export interface Experience {
   places: ExperiencePlace[];
 }
 
+/**
+ * Resolves a PHOTO entry to an image URL. Local files under /media are
+ * returned untouched (next/image handles their sizing); anything else is
+ * still treated as an Unsplash photo id and gets the CDN transform, so the
+ * handful of keys with no in-house photograph yet keep working.
+ */
 const img = (id: string, w = 1400) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
+  id.startsWith("/")
+    ? id
+    : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
 
 const PHOTO = {
-  plainsVehicle: "1516426122078-c23e76319801",
-  goldenPlains: "1547471080-7cc2caa01a7e",
-  lions: "1575550959106-5a7defe28b56",
+  plainsVehicle: "/media/experiences/game-drive-guests.jpg",
+  goldenPlains: "/media/serengeti/southern-plains.jpg",
+  lions: "/media/serengeti/sere-lion-couple.jpg",
+  // No in-house lodge photography yet.
   lodge: "1566073771259-6a8506099945",
-  elephant: "1549366021-9f761d450615",
-  elephantsDusk: "1564760055775-d63b17a55c44",
-  acacia: "1516026672322-bc52d61a55d5",
-  trail: "1589553416260-f586c8f1514f",
+  elephant: "/media/manyara/elephant.jpg",
+  elephantsDusk: "/media/experiences/elephant-vehicle.jpg",
+  acacia: "/media/serengeti/seronera-valley.jpg",
+  trail: "/media/kilimanjaro/lemosho.jpg",
+  // No in-house giraffe photograph yet.
   giraffe: "1626548307930-deac221f87d9",
-  natron: "1758881534639-709146239bd1",
-  migration: "1547970810-dc1eac8161a7",
-  forest: "1518709268805-4e9042af9f23",
+  natron: "/media/manyara/flamingo.jpg",
+  migration: "/media/great-migration/gm-hero.jpg",
+  forest: "/media/manyara/manyara-hero.jpg",
 };
 
 export const experiences: Experience[] = [

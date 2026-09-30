@@ -49,31 +49,37 @@ export interface JourneyCollection {
  * subject so each journey gets an image that fits it.
  */
 const PHOTOS = {
-  kiliTrail: ["1589553416260-f586c8f1514f", "A trekker on Kilimanjaro's high-altitude mountain trail"],
+  kiliTrail: ["/media/kilimanjaro/lemosho.jpg", "A trekker on Kilimanjaro's high-altitude mountain trail"],
   rainforest: ["1747241118490-818d37b2bdae", "A waterfall cascading through montane rainforest"],
-  highland: ["1783099994045-7243bccf2d5b", "A green highland trail across an open plateau"],
-  plainsVehicle: ["1516426122078-c23e76319801", "A safari vehicle on the Serengeti plains"],
-  goldenPlains: ["1547471080-7cc2caa01a7e", "Golden grassland plains at dusk"],
-  lions: ["1575550959106-5a7defe28b56", "Lions resting in the long grass"],
+  highland: ["/media/kilimanjaro/kili-ariel.jpg", "A green highland trail across an open plateau"],
+  plainsVehicle: ["/media/experiences/game-drive-guests.jpg", "A safari vehicle on the Serengeti plains"],
+  goldenPlains: ["/media/serengeti/southern-plains.jpg", "Golden grassland plains at dusk"],
+  lions: ["/media/serengeti/sere-lion-couple.jpg", "Lions resting in the long grass"],
   lodge: ["1566073771259-6a8506099945", "A luxury safari lodge at dusk"],
-  elephant: ["1549366021-9f761d450615", "An elephant walking through the bush"],
-  elephantsDusk: ["1564760055775-d63b17a55c44", "Elephants beneath the baobabs at dusk"],
-  acacia: ["1516026672322-bc52d61a55d5", "A lone acacia tree on the savannah"],
+  elephant: ["/media/manyara/elephant.jpg", "An elephant walking through the bush"],
+  elephantsDusk: ["/media/experiences/elephant-vehicle.jpg", "Elephants beneath the baobabs at dusk"],
+  acacia: ["/media/serengeti/seronera-valley.jpg", "A lone acacia tree on the savannah"],
   giraffe: ["1549854233-ca0baec6fa74", "A giraffe standing in open grassland"],
   chimp: ["1742328114651-f4dbd710cd5d", "A chimpanzee resting in the forest"],
-  flamingos: ["1559617350-6eee0f8b702a", "Flamingos wading in the pink waters of Lake Natron"],
-  riftRoad: ["1616398534527-312eba971979", "A dirt road crossing the plains near Olduvai Gorge"],
+  flamingos: ["/media/manyara/flamingo.jpg", "Flamingos wading in the pink waters of Lake Natron"],
+  riftRoad: ["/media/ngorongoro/ngoro-ariel.jpg", "A dirt road crossing the plains near Olduvai Gorge"],
   oceanTerrace: ["1586861635167-e5223aadc9fe", "A poolside terrace overlooking the turquoise Indian Ocean"],
   resortPool: ["1571896349842-33c89424de2d", "A private beachfront pool at night"],
-  turquoise: ["1540541338287-41700207dee6", "Aerial view of turquoise coastal waters"],
+  turquoise: ["/media/zanzibar/mnemba-atoll.jpg", "Aerial view of turquoise coastal waters"],
   reef: ["1664552348837-367b555cfaa9", "A snorkeller over coral reefs"],
-  ruins: ["1771787603786-c7b212b9a198", "Historic Swahili stone ruins on the coast"],
+  ruins: ["/media/zanzibar/stone-town.jpg", "Historic Swahili stone ruins on the coast"],
   boats: ["1740824570732-f2a2d2557dd5", "Traditional wooden boats pulled up on the shore"],
 } as const satisfies Record<string, readonly [string, string]>;
 
 function photo(key: keyof typeof PHOTOS, w = 1400): JourneyImage {
   const [id, alt] = PHOTOS[key];
-  return { url: `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`, alt };
+  // Local files under /media are returned untouched (next/image handles
+  // their sizing); anything else is still an Unsplash photo id, so the keys
+  // with no in-house photograph yet keep working.
+  const url = id.startsWith("/")
+    ? id
+    : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
+  return { url, alt };
 }
 
 const J = (

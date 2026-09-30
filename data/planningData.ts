@@ -42,7 +42,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "True luxury is not having more things packed into a day; it is having the right hours given to what moves you.",
     author: "Macho Halisi Head Naturalist",
     image: {
-      url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/about/team/guide-portrait.jpg",
       alt: "Safari specialist conversing with guests overlooking the Serengeti plains",
     },
   },
@@ -57,7 +57,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "The secret of a memorable safari is never chasing animals, but positioning yourself where life unfolds naturally.",
     author: "Senior Expedition Coordinator, Karatu",
     image: {
-      url: "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/serengeti/great-m-1.jpg",
       alt: "Wildebeest migration moving across golden plains during morning light",
     },
   },
@@ -87,7 +87,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "Anyone can point at a lion. A naturalist shows you the drama that began twenty minutes before the pride moved.",
     author: "Lead Safari Guide, Ngorongoro",
     image: {
-      url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/about/team/guide-fleet.jpg",
       alt: "Macho Halisi native safari guide tracking animal spoor in the bush",
     },
   },
@@ -102,7 +102,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "You will never see the logistics. You will only feel the effortless grace of Africa.",
     author: "Operations Director, Macho Halisi",
     image: {
-      url: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/about/fleet/fleet-lineup-rear.jpg",
       alt: "Scenic bush flight landing on a remote safari airstrip in Tanzania",
     },
   },
@@ -141,11 +141,16 @@ export const PLANNING_COMPARISONS: ComparisonDimension[] = [
   },
 ];
 
+// Coordinates are percentages of the blueprint viewport in
+// SafariVehicleBlueprint.tsx, which renders
+// /media/about/fleet/cruiser-three-quarter.jpg at aspect-[16/10] with
+// object-cover. They are tuned to land on the actual part of that vehicle,
+// so re-check them if the blueprint image is ever swapped.
 export const VEHICLE_HOTSPOTS: VehicleHotspot[] = [
   {
     id: "roof",
-    x: 48,
-    y: 18,
+    x: 32,
+    y: 13,
     title: "Photographic Pop-Up Hatch",
     shortDesc: "Full-length 360° elevated viewing hatch",
     fullDesc:
@@ -154,8 +159,8 @@ export const VEHICLE_HOTSPOTS: VehicleHotspot[] = [
   },
   {
     id: "inverter",
-    x: 32,
-    y: 42,
+    x: 46,
+    y: 36,
     title: "On-Board Power Inverter",
     shortDesc: "230V / USB Multi-Socket Inverter System",
     fullDesc:
@@ -164,8 +169,8 @@ export const VEHICLE_HOTSPOTS: VehicleHotspot[] = [
   },
   {
     id: "fridge",
-    x: 65,
-    y: 50,
+    x: 18,
+    y: 46,
     title: "Chilled On-Board Refrigerator",
     shortDesc: "Built-in 40L deep-cooling fridge",
     fullDesc:
@@ -174,8 +179,8 @@ export const VEHICLE_HOTSPOTS: VehicleHotspot[] = [
   },
   {
     id: "suspension",
-    x: 78,
-    y: 72,
+    x: 41,
+    y: 79,
     title: "Heavy-Duty Old Man Emu Suspension",
     shortDesc: "Upgraded shocks & long-travel springs",
     fullDesc:
@@ -184,8 +189,8 @@ export const VEHICLE_HOTSPOTS: VehicleHotspot[] = [
   },
   {
     id: "comms",
-    x: 22,
-    y: 30,
+    x: 82,
+    y: 40,
     title: "Satellite Comms & VHF Long-Range",
     shortDesc: "Direct ranger & air evacuation link",
     fullDesc:

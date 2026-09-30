@@ -3,8 +3,14 @@ import { Quote } from "lucide-react";
 import { founder } from "@/data/aboutData";
 
 /**
- * Founder profile — a square editorial portrait frame alongside the origin
- * narrative and a pull quote. Flat corners per the site convention.
+ * The origin story — a company image alongside the founding narrative and a
+ * pull quote. Flat corners per the site convention.
+ *
+ * Deliberately does NOT caption the image with the founder's name: the photo
+ * is a generic team/fleet shot (see founder.portrait in aboutData.ts) and we
+ * have no confirmed photograph of Dawson Minja, so labelling a face with his
+ * name would misattribute a real person. He is credited on the quote — which
+ * is an attribution of words, not of a likeness — and named in the prose.
  */
 export default function FounderStory() {
   return (
@@ -19,20 +25,21 @@ export default function FounderStory() {
             className="object-cover object-center"
           />
         </div>
-        <div className="mt-5">
-          <p className="font-serif-luxury text-2xl text-[#1E1913]">{founder.name}</p>
-          <p className="text-xs font-sans font-light tracking-[0.15em] uppercase text-[#8A6A33] mt-1">
-            {founder.role}
-          </p>
-          <p className="text-xs font-sans font-light text-[#1E1913]/50 mt-0.5">{founder.location}</p>
-        </div>
+        <p className="mt-3 text-xs font-sans font-light text-[#1E1913]/50 leading-relaxed">
+          Our guides and fleet — {founder.location}
+        </p>
       </div>
 
       <div className="lg:col-span-7 space-y-6">
-        <div className="flex items-start gap-3 border-l-2 border-[#8A6A33] pl-5">
-          <Quote className="w-6 h-6 text-[#C9A46A] shrink-0 -mt-1" />
-          <p className="font-serif-luxury text-xl sm:text-2xl font-light text-[#1E1913] leading-snug italic">
-            {founder.quote}
+        <div className="border-l-2 border-[#8A6A33] pl-5">
+          <div className="flex items-start gap-3">
+            <Quote className="w-6 h-6 text-[#C9A46A] shrink-0 -mt-1" />
+            <p className="font-serif-luxury text-xl sm:text-2xl font-light text-[#1E1913] leading-snug italic">
+              {founder.quote}
+            </p>
+          </div>
+          <p className="mt-3 pl-9 text-xs font-sans font-light tracking-[0.15em] uppercase text-[#8A6A33]">
+            {founder.name} · {founder.role}
           </p>
         </div>
         <div className="space-y-4">

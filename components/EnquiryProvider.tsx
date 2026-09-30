@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics/track";
 
 /**
  * Optional pre-fill data for the enquiry modal — set when a visitor opens
@@ -29,6 +30,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
   const [seed, setSeed] = useState<EnquirySeed | null>(null);
 
   const openEnquiry = useCallback((nextSeed?: EnquirySeed) => {
+    trackEvent("enquiry_open", { seeded: Boolean(nextSeed) });
     setSeed(nextSeed ?? null);
     setIsOpen(true);
   }, []);

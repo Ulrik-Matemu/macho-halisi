@@ -1,18 +1,51 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { AuthUser } from "@/lib/auth/types";
-import { NAV_ITEMS, isNavItemActive } from "@/lib/dashboard/nav";
+import { NAV_ITEMS, NavItem, isNavItemActive } from "@/lib/dashboard/nav";
 import UserMenu from "./UserMenu";
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-function NavLinks({ user, onNavigate }: { user: AuthUser; onNavigate?: () => void }) {
+type BadgeCounts = Partial<Record<NonNullable<NavItem["badge"]>, number>>;
+
+const BADGE_POLL_MS = 60_000;
+
+/** Polls the admin-only counts shown as nav badges (currently: new enquiries). */
+function useBadgeCounts(user: AuthUser): BadgeCounts {
+  const [counts, setCounts] = useState<BadgeCounts>({});
+
+  useEffect(() => {
+    if (user.role !== "ADMIN") return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/enquiries/admin/stats");
+        const data = await res.json();
+        if (!cancelled && res.ok && data.status === "ok") {
+          setCounts({ newEnquiries: data.byStatus?.NEW ?? 0 });
+        }
+      } catch {
+        // A badge is a nicety — ignore transient failures.
+      }
+    };
+    load();
+    const timer = setInterval(load, BADGE_POLL_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [user.role]);
+
+  return counts;
+}
+
+function NavLinks({ user, badges, onNavigate }: { user: AuthUser; badges: BadgeCounts; onNavigate?: () => void }) {
   const pathname = usePathname() || "";
   return (
     <nav aria-label="Dashboard" className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
@@ -35,6 +68,15 @@ function NavLinks({ user, onNavigate }: { user: AuthUser; onNavigate?: () => voi
           >
             <Icon className="w-4 h-4 shrink-0" style={{ color: active ? "var(--dash-accent)" : "currentColor" }} />
             <span>{item.label}</span>
+            {item.badge && (badges[item.badge] ?? 0) > 0 && (
+              <span
+                className="ml-auto dash-code text-[11px] font-medium px-1.5 py-0.5 rounded"
+                style={{ background: "var(--dash-accent-soft)", color: "var(--dash-accent)", border: "1px solid var(--dash-accent-soft-border)" }}
+              >
+                {badges[item.badge]}
+                <span className="sr-only"> new</span>
+              </span>
+            )}
           </Link>
         );
       })}
@@ -70,6 +112,7 @@ interface SidebarProps {
 export default function Sidebar({ user, mobileOpen, onCloseMobile }: SidebarProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
+  const badges = useBadgeCounts(user);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -120,7 +163,7 @@ export default function Sidebar({ user, mobileOpen, onCloseMobile }: SidebarProp
         }}
       >
         <Brand />
-        <NavLinks user={user} />
+        <NavLinks user={user} badges={badges} />
         <div className="p-3 shrink-0" style={{ borderTop: "1px solid var(--dash-border)" }}>
           <UserMenu user={user} />
         </div>
@@ -155,7 +198,7 @@ export default function Sidebar({ user, mobileOpen, onCloseMobile }: SidebarProp
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <NavLinks user={user} onNavigate={onCloseMobile} />
+            <NavLinks user={user} badges={badges} onNavigate={onCloseMobile} />
             <div className="p-3 shrink-0" style={{ borderTop: "1px solid var(--dash-border)" }}>
               <UserMenu user={user} />
             </div>

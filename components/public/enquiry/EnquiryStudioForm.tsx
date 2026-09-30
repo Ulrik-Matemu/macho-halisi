@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Send,
   ArrowRight,
@@ -13,6 +13,8 @@ import {
   Compass,
 } from "lucide-react";
 import EnquirySummaryCard, { EnquirySelectionState } from "./EnquirySummaryCard";
+import { trackEvent } from "@/lib/analytics/track";
+import { enquiryAttribution, formatEnquiryRef } from "@/lib/enquiries/submit";
 
 interface EnquiryStudioFormProps {
   initialDestination?: string;
@@ -24,6 +26,13 @@ export default function EnquiryStudioForm({
   initialItineraryTitle,
 }: EnquiryStudioFormProps) {
   const [step, setStep] = useState(1);
+  // Honeypot — hidden from people, filled in by naive form bots.
+  const [website, setWebsite] = useState("");
+
+  // Funnel analytics: how far visitors get through the studio.
+  useEffect(() => {
+    if (step > 1) trackEvent("enquiry_step", { form: "studio", step });
+  }, [step]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [enquiryId, setEnquiryId] = useState("");
@@ -99,6 +108,8 @@ export default function EnquiryStudioForm({
         partySize: state.partySize,
         preferredDates: `${state.travelWindow} (${state.tripLength})`,
         message: messageContent,
+        website,
+        ...enquiryAttribution("studio"),
       };
 
       const res = await fetch("/api/enquiries", {
@@ -107,15 +118,17 @@ export default function EnquiryStudioForm({
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
-      if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.enquiryId) {
         throw new Error(data.message || "Failed to submit enquiry");
       }
 
-      setEnquiryId(data.enquiryId || `MH-${Math.floor(100000 + Math.random() * 900000)}`);
+      trackEvent("enquiry_submit", { form: "studio" });
+      setEnquiryId(formatEnquiryRef(data.enquiryId));
       setSubmitted(true);
     } catch (err: any) {
       console.error("Submission error:", err);
+      trackEvent("enquiry_error", { form: "studio" });
       setErrorMessage(err.message || "Something went wrong. Please try again or reach out via WhatsApp.");
     } finally {
       setIsSubmitting(false);
@@ -438,6 +451,12 @@ export default function EnquiryStudioForm({
         {/* STEP 4: CONTACT & SUBMIT */}
         {step === 4 && (
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+              <label>
+                Website
+                <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              </label>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">

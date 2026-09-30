@@ -29,11 +29,11 @@ export default function SafariVehicleBlueprint() {
         <div className="lg:col-span-7 relative">
           <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40 border border-white/10">
             <Image
-              src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=85"
-              alt="Macho Halisi custom safari cruiser on the plains"
+              src="/media/about/fleet/cruiser-three-quarter.jpg"
+              alt="A Macho Halisi custom-outfitted Toyota Land Cruiser"
               fill
               sizes="(max-width: 1024px) 100vw, 60vw"
-              className="object-cover object-center opacity-85"
+              className="object-cover object-center opacity-95"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
 

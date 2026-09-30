@@ -1,0 +1,43 @@
+name: Uptime
+
+# Probes the public site and backend every 5 minutes and records results on
+# the backend for the dashboard's Monitoring page. A failed probe fails the
+# run, so GitHub's workflow-failure email acts as the outage alert.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   SITE_URL        e.g. https://macho-halisi.vercel.app
+#   API_URL         the Render backend URL, e.g. https://macho-halisi-api.onrender.com
+#   MONITOR_SECRET  must equal the backend's MONITOR_SECRET env var
+#
+# Note: GitHub may delay scheduled runs by several minutes under load, and
+# disables scheduled workflows after 60 days without repository activity.
+# The Monitoring page flags "monitor silent" when no check arrives for 15
+# minutes, which surfaces both cases.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/uptime-check.sh
+          sparse-checkout-cone-mode: false
+      - name: Probe site and API
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          API_URL: ${{ secrets.API_URL }}
+          MONITOR_SECRET: ${{ secrets.MONITOR_SECRET }}
+        run: bash scripts/uptime-check.sh

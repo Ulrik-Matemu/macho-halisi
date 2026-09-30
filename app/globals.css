@@ -223,6 +223,13 @@ body {
   --dash-status-archived: #8e8378;
   --dash-status-danger: #f28b82;
 
+  /* Chart series — validated as a categorical pair against --dash-surface-1
+     (lightness band, chroma, CVD separation and contrast all pass). Marks
+     only; text next to a series uses the text tokens. */
+  --dash-chart-1: #c28240;
+  --dash-chart-2: #4a90d9;
+  --dash-chart-grid: #2b2520;
+
   --dash-focus-ring: #e0ac69;
   --dash-content: 1240px;
   --dash-topbar-h: 64px;

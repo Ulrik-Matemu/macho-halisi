@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import FullscreenNavMenu from "./FullscreenNavMenu";
 import EnquiryModal from "./EnquiryModal";
 import { EnquiryProvider, useEnquiry } from "./EnquiryProvider";
+import AnalyticsTracker from "./analytics/AnalyticsTracker";
 
 interface NavbarVisibilityContextValue {
   setNavbarVisible: (visible: boolean) => void;
@@ -79,6 +80,8 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
         />
 
         <EnquiryModal isOpen={isEnquiryOpen} onClose={closeEnquiry} seed={enquirySeed} />
+
+        <AnalyticsTracker />
       </main>
     </NavbarVisibilityContext.Provider>
   );

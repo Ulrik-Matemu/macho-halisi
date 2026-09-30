@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { X, Check, Send, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
 import type { EnquirySeed } from "./EnquiryProvider";
+import { trackEvent } from "@/lib/analytics/track";
+import { enquiryAttribution, formatEnquiryRef } from "@/lib/enquiries/submit";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -70,6 +72,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
   const [vision, setVision] = useState(DEFAULT_VISION);
   const [party, setParty] = useState(DEFAULT_PARTY);
   const [contact, setContact] = useState(DEFAULT_CONTACT);
+  // Honeypot — hidden from people, filled in by naive form bots.
+  const [website, setWebsite] = useState("");
 
   const autoCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -87,7 +91,13 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
     });
     setParty(DEFAULT_PARTY);
     setContact(DEFAULT_CONTACT);
+    setWebsite("");
   }, [isOpen, seed?.itineraryId, seed?.itineraryTitle]);
+
+  // Funnel analytics: how far visitors get through the wizard.
+  useEffect(() => {
+    if (isOpen && step > 1) trackEvent("enquiry_step", { form: "modal", step });
+  }, [isOpen, step]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -158,21 +168,29 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           partySize: party.partySize,
           preferredDates: vision.travelWindow,
           message,
+          website,
+          ...enquiryAttribution("modal"),
         }),
       });
 
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.message || "Failed to submit enquiry");
+      if (!res.ok || !data.enquiryId) throw new Error(data.message || "Failed to submit enquiry");
 
-      setEnquiryId(data.enquiryId || `MH-${Math.floor(100000 + Math.random() * 900000)}`);
+      trackEvent("enquiry_submit", { form: "modal" });
+      setEnquiryId(formatEnquiryRef(data.enquiryId));
       setSubmitted(true);
       autoCloseTimerRef.current = setTimeout(() => handleClose(), 6000);
     } catch (err) {
       console.error("Enquiry submission failed:", err);
-      // Still confirm receipt so the guest is never left stuck mid-flow.
-      setEnquiryId(`MH-${Math.floor(100000 + Math.random() * 900000)}`);
-      setSubmitted(true);
-      autoCloseTimerRef.current = setTimeout(() => handleClose(), 6000);
+      // Never show a confirmation for an enquiry that wasn't stored — keep
+      // the guest's input in place so they can retry, and point them at
+      // WhatsApp as the fallback.
+      trackEvent("enquiry_error", { form: "modal" });
+      setErrorMessage(
+        err instanceof Error && err.message && err.message !== "Failed to fetch"
+          ? err.message
+          : "We couldn't send your enquiry just now. Please try again, or message us on WhatsApp at +255 754 474 792."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -425,6 +443,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             {/* STEP 3: DETAILS */}
             {step === 3 && (
               <form key={3} onSubmit={handleSubmit} className="space-y-5 animate-sub-cascade">
+                <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                  <label>
+                    Website
+                    <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+                  </label>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">

@@ -46,9 +46,13 @@ export const aboutHero = {
   title: "Genuine Eyes on the Wild",
   lead:
     "“Macho Halisi” is Swahili for “genuine eyes.” For more than fourteen years we have shown travellers the real Tanzania — not a packaged version of it — through the eyes of the people who were born to this land and have never stopped reading it.",
+  // The full-bleed 70vh hero needs real vertical resolution; the previous
+  // Serengeti panorama was only 611px tall and upscaled badly here. This is
+  // the highest-resolution asset we own (5563x3709) and is authentically
+  // ours — the company's own fleet at golden hour.
   image: {
-    url: "/media/serengeti/macho-serengeti.jpg",
-    alt: "Golden light over the Serengeti plains at dawn",
+    url: "/media/about/fleet/fleet-lineup-golden.jpg",
+    alt: "The Macho Halisi fleet lined up at golden hour",
   },
 };
 
@@ -84,9 +88,14 @@ export const founder: FounderProfile = {
   name: "Dawson Minja",
   role: "Founder & Managing Director",
   location: "Karatu, Tanzania",
+  // Deliberately a generic team image, not a portrait of the founder: we
+  // don't have a confirmed photograph of Dawson Minja, and captioning an
+  // unidentified guide with his name would misattribute a real person. The
+  // founder is named in the prose below (sourced), not pinned to a face —
+  // see FounderStory.tsx, which renders this without a name caption.
   portrait: {
-    url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=85",
-    alt: "Portrait of a Tanzanian safari guide at golden hour",
+    url: "/media/experiences/lion-resting.jpg",
+    alt: "Macho Halisi guides gathered with the fleet in Karatu",
   },
   quote:
     "You arrive as a guest, and you leave as a friend. That has been the promise since the very first drive.",
@@ -147,8 +156,8 @@ export const guidesEthos = {
     },
   ] as GuidePrinciple[],
   image: {
-    url: "/media/about/4X4-Safari-Vehicle-Macho-Halisi2.jpg",
-    alt: "A safari guide scanning the horizon from an open vehicle",
+    url: "/media/about/team/guide-golden-hour.jpg",
+    alt: "A Macho Halisi naturalist guide beside the fleet at golden hour",
   },
 };
 

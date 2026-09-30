@@ -329,7 +329,7 @@ export const SEASONAL_ERAS: SeasonalEra[] = [
     subtitle: "High Drama, River Crossings & Thirst-Driven Crowds",
     monthsSpan: "June through October",
     image: {
-      url: "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/great-migration/gm-hero.jpg",
       alt: "Wildebeest jumping into the Mara River during the great migration",
     },
     narrative:
@@ -353,7 +353,7 @@ export const SEASONAL_ERAS: SeasonalEra[] = [
     subtitle: "New Life, Newborn Calves & Ruthless Big Cat Action",
     monthsSpan: "December through March",
     image: {
-      url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/serengeti/southern-plains.jpg",
       alt: "Lions resting in the golden green grass of the southern Serengeti",
     },
     narrative:
@@ -377,7 +377,7 @@ export const SEASONAL_ERAS: SeasonalEra[] = [
     subtitle: "The Secret Season of Silence, Wildflowers & Low Rates",
     monthsSpan: "April through May",
     image: {
-      url: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1600&q=85",
+      url: "/media/manyara/manyara-hero.jpg",
       alt: "Elephants feeding peacefully in lush green landscape after the rains",
     },
     narrative:

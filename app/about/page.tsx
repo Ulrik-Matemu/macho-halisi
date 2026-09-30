@@ -80,7 +80,7 @@ export default function AboutPage() {
           <section id="founder" className="scroll-mt-28 mt-20 sm:mt-28">
             <ScrollReveal className="mb-10 sm:mb-12">
               <div className="text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-3">
-                The Person Behind the Journeys
+                The People Behind the Journeys
               </div>
               <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-[#1E1913] leading-tight">
                 Founded by native eyes

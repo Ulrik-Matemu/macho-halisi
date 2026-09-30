@@ -32,7 +32,7 @@ export const navigationData: NavCategory[] = [
           "Witness millions of wildebeest and zebras crossing treacherous crocodile-infested waters in Africa's most iconic wildlife sanctuary.",
         href: "/destinations/serengeti",
         image:
-          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/macho-serengeti.jpg",
         badge: "UNESCO World Heritage",
         highlights: ["The Great Migration", "Big Five Encounters", "Endless Savannas"],
       },
@@ -44,7 +44,7 @@ export const navigationData: NavCategory[] = [
           "Descend into an ancient intact volcanic caldera harboring one of the highest densities of predators, elephants, and endangered black rhinos on Earth.",
         href: "/destinations/ngorongoro",
         image:
-          "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
+          "/media/ngorongoro/ngorongoro-hero.jpg",
         badge: "Natural Wonder",
         highlights: ["Black Rhino Haven", "Intact Caldera", "Hippo Pools"],
       },
@@ -68,7 +68,7 @@ export const navigationData: NavCategory[] = [
           "Ascend the world's highest free-standing mountain across five ecological climate zones, culminating at Uhuru Peak's glaciated rim.",
         href: "/destinations/kilimanjaro",
         image:
-          "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
+          "/media/kilimanjaro/kili-ariel.jpg",
         badge: "Highest Peak in Africa",
         highlights: ["Uhuru Peak", "Lemosho & Machame Routes", "Alpine Glaciers"],
       },
@@ -80,7 +80,7 @@ export const navigationData: NavCategory[] = [
           "Unwind along powdery white-sand coastlines, dive pristine coral reefs, and wander the sensory spice-scented alleyways of historic Stone Town.",
         href: "/destinations/zanzibar",
         image:
-          "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
+          "/media/zanzibar/mnemba-atoll.jpg",
         badge: "Tropical Sanctuary",
         highlights: ["Stone Town UNESCO", "Coral Reef Diving", "Private Islands"],
       },
@@ -92,7 +92,7 @@ export const navigationData: NavCategory[] = [
           "Nestled beneath the Great Rift Valley escarpment, a lush groundwater forest brimming with baboons, hippos, and flocks of flamingos.",
         href: "/destinations/manyara",
         image:
-          "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1400&q=85",
+          "/media/manyara/manyara-hero.jpg",
         badge: "Rift Valley Eden",
         highlights: ["Canopy Treetop Walk", "Flamingo Flocks", "Hot Springs"],
       },
@@ -104,7 +104,7 @@ export const navigationData: NavCategory[] = [
           "Venture into raw, remote wilderness unfettered by crowds. River safaris, apex lion prides, and wild dog tracking in Tanzania's untamed south.",
         href: "/destinations/southern-circuit",
         image:
-          "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1400&q=85",
+          "/media/ruaha-selous/ruaha-hero.jpg",
         badge: "Raw Wilderness",
         highlights: ["Boat Safaris", "African Wild Dogs", "Immense Solitude"],
       },
@@ -116,7 +116,7 @@ export const navigationData: NavCategory[] = [
           "Browse every Tanzania destination we cover — national parks, conservation areas, mountains, islands and more — with search and category filters.",
         href: "/destinations",
         image:
-          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/sere-lion.jpg",
         highlights: [],
       },
     ],
@@ -135,7 +135,7 @@ export const navigationData: NavCategory[] = [
           "Follow two million hooves on the move through river crossings, predator ambushes, and calving season in the Ndutu plains.",
         href: "/experiences/great-migration",
         image:
-          "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1400&q=85",
+          "/media/great-migration/gm-hero.jpg",
         badge: "Signature Journey",
         highlights: ["Mara River Crossings", "Predator Action", "Mobile Camps"],
       },
@@ -147,7 +147,7 @@ export const navigationData: NavCategory[] = [
           "Float silently over the awakening plains at sunrise, observing herds from above before enjoying a champagne bush breakfast under an acacia tree.",
         href: "/experiences/balloon-safari",
         image:
-          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/sere-baloon.jpg",
         badge: "Aerial View",
         highlights: ["Sunrise Panorama", "Champagne Bush Breakfast", "Silent Flight"],
       },
@@ -159,7 +159,7 @@ export const navigationData: NavCategory[] = [
           "Step into the bush accompanied by professional armed rangers. Learn ancient tracking techniques, medicinal botany, and the intimacy of wild encounters.",
         href: "/experiences/walking-safaris",
         image:
-          "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=85",
+          "/media/tarangire/tara-river.jpg",
         badge: "Immersive Safari",
         highlights: ["Spoor Tracking", "Armed Expert Guide", "Senses Awakened"],
       },
@@ -171,7 +171,7 @@ export const navigationData: NavCategory[] = [
           "Custom photographic vehicles with 360-degree open hatches, bean bags, low-angle mounts, and private expert guides attuned to optimal lighting.",
         href: "/experiences/photographic-safari",
         image:
-          "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=1400&q=85",
+          "/media/experiences/leopard-photographers.jpg",
         badge: "Pro Photographers",
         highlights: ["Modified Open Vehicles", "Prime Lighting Hours", "Expert Trackers"],
       },
@@ -183,7 +183,7 @@ export const navigationData: NavCategory[] = [
           "Respectful, non-commercial cultural exchanges with Maasai elders and warriors in traditional bomas, celebrating age-old songs and stories.",
         href: "/experiences/cultural-encounters",
         image:
-          "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
+          "/media/ngorongoro/ngoro-maasai.jpg",
         badge: "Cultural Heritage",
         highlights: ["Traditional Bomas", "Elder Storytelling", "Direct Community Support"],
       },
@@ -218,7 +218,7 @@ export const navigationData: NavCategory[] = [
           "Dramatic architectural wonders clinging to the edge of the Ngorongoro caldera with floor-to-ceiling panoramic glass windows and log fires.",
         href: "/accommodations",
         image:
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
+          "/media/ngorongoro/ngoro-ariel.jpg",
         badge: "Caldera Vistas",
         highlights: ["Fireplace Suites", "Private Verandas", "Chilled Wine Cellars"],
       },
@@ -230,7 +230,7 @@ export const navigationData: NavCategory[] = [
           "Private ocean villas featuring plunge pools, private chefs, and direct access to powder sands and turquoise waves.",
         href: "/accommodations",
         image:
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85",
+          "/media/zanzibar/mnemba-atoll.jpg",
         badge: "Coastal Bliss",
         highlights: ["Private Infinity Pools", "Spa & Wellness", "Sunset Dhow Cruises"],
       },
@@ -252,7 +252,7 @@ export const navigationData: NavCategory[] = [
           "Our most-travelled journeys across Tanzania. Every one is private, and every one is a starting point rather than a fixed programme.",
         href: "/journeys/signature-itineraries",
         image:
-          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/southern-plains.jpg",
         badge: "26 Journeys",
         highlights: ["Private Safaris", "North · South · Coast", "Always Tailor-made"],
       },
@@ -264,7 +264,7 @@ export const navigationData: NavCategory[] = [
           "Seven ways up the same mountain, each with its own forest, its own camps and its own summit night. The route matters more than the fitness.",
         href: "/journeys/kilimanjaro-routes",
         image:
-          "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
+          "/media/kilimanjaro/lemosho.jpg",
         badge: "7 Routes",
         highlights: ["Machame & Lemosho", "Northern Circuit", "≈ 95% Success, 8-day"],
       },
@@ -276,7 +276,7 @@ export const navigationData: NavCategory[] = [
           "Every route in the lengths we actually recommend, plus climbs paired with a safari or the coast. Private climbs start any day you choose.",
         href: "/journeys/kilimanjaro-climbing-itineraries",
         image:
-          "https://images.unsplash.com/photo-1783099994045-7243bccf2d5b?auto=format&fit=crop&w=1400&q=85",
+          "/media/kilimanjaro/kili-ariel.jpg",
         badge: "15 Climbs",
         highlights: ["Daily Private Departures", "3 – 4 Crew per Climber", "Park & Rescue Fees Included"],
       },
@@ -288,7 +288,7 @@ export const navigationData: NavCategory[] = [
           "Stone Town alleys, reef lagoons and a slower clock. Take the island on its own or as the soft landing after the mountain or the plains.",
         href: "/journeys/zanzibar-journeys",
         image:
-          "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
+          "/media/zanzibar/stone-town.jpg",
         badge: "10 Journeys",
         highlights: ["Stone Town", "Pemba & Mafia", "Honeymoons"],
       },
@@ -312,7 +312,7 @@ export const navigationData: NavCategory[] = [
           "Browse every published Macho Halisi safari itinerary — day-by-day programs, pricing, and availability, updated as our specialists curate new journeys.",
         href: "/itineraries",
         image:
-          "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/seronera-valley.jpg",
         highlights: [],
       },
     ],
@@ -332,7 +332,7 @@ export const navigationData: NavCategory[] = [
           "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
         href: "/about#story",
         image:
-          "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1400&q=85",
+          "/media/about/team/guides-team.jpg",
         badge: "Native Born & Led",
         highlights: ["100% Tanzanian Owned", "20+ Years Bush Experience", "Bespoke Itineraries"],
       },
@@ -344,7 +344,7 @@ export const navigationData: NavCategory[] = [
           "Our certified guides have spent lifetimes studying animal behavior, bird calls, and tracking signs, transforming every drive into a masterclass.",
         href: "/about#guides",
         image:
-          "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=85",
+          "/media/about/team/guide-golden-hour.jpg",
         badge: "Elite Naturalists",
         highlights: ["Level 3 Certified Guides", "Multi-lingual", "Wildlife Photographers"],
       },
@@ -356,7 +356,7 @@ export const navigationData: NavCategory[] = [
           "Explore our five-stage planning blueprint — discovery dialogue, ecological canvas, intimate canvas sanctuaries, guide pairing, and on-ground concierge.",
         href: "/how-we-plan",
         image:
-          "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
+          "/media/about/fleet/cruiser-three-quarter.jpg",
         badge: "Our Process",
         highlights: ["100% Private Vehicles", "Zero Rigid Packages", "Bespoke Routes"],
       },
@@ -368,7 +368,7 @@ export const navigationData: NavCategory[] = [
           "Month-by-month safari intelligence. Discover Great Migration positions, calving spectacles, dry season river crossings, and green season solitude.",
         href: "/when-to-travel",
         image:
-          "https://images.unsplash.com/photo-1547970810-dc1eac8161a7?auto=format&fit=crop&w=1400&q=85",
+          "/media/serengeti/great-m-1.jpg",
         badge: "Safari Seasons",
         highlights: ["Migration Scrubber", "Climate Patterns", "Wildlife Highlights"],
       },
@@ -380,7 +380,7 @@ export const navigationData: NavCategory[] = [
           "Essential pre-departure field guide for Tanzania — entry visas, health and malaria, 15kg bush luggage limits, and interactive packing assistant.",
         href: "/travel-information",
         image:
-          "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1400&q=85",
+          "/media/about/fleet/fleet-lineup-grass.jpg",
         badge: "Field Guide",
         highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
       },
@@ -392,7 +392,7 @@ export const navigationData: NavCategory[] = [
           "Design your custom Tanzanian journey with native safari specialists. Multi-step consultative planner with transparent pricing and direct director contact.",
         href: "/enquire",
         image:
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
+          "/media/about/team/guide-welcome.jpg",
         badge: "Start Planning",
         highlights: ["24h Specialist Review", "Private 4x4 Cruiser", "Karatu Office Direct"],
       },

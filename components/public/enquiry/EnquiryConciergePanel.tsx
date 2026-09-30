@@ -12,8 +12,8 @@ export default function EnquiryConciergePanel() {
         <div className="flex items-center gap-4 mb-4">
           <div className="relative w-14 h-14 rounded-full overflow-hidden border border-[#8A6A33]/40 bg-[#E7DFD1] shrink-0">
             <Image
-              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=85"
-              alt="Macho Halisi Safari Director"
+              src="/media/about/team/guide-welcome.jpg"
+              alt="A Macho Halisi safari specialist"
               fill
               className="object-cover object-center"
             />

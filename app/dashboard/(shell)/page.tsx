@@ -21,6 +21,7 @@ import { Skeleton } from "@/components/dashboard/ui/Skeleton";
 import EmptyState from "@/components/dashboard/ui/EmptyState";
 import StatusBadge from "@/components/dashboard/ui/StatusBadge";
 import { formatShortDate } from "@/lib/dashboard/format";
+import AdminPulse from "@/components/dashboard/AdminPulse";
 
 const METRICS: { key: "ALL" | ItinerarySummary["status"]; label: string; icon: typeof Compass }[] = [
   { key: "ALL", label: "Total itineraries", icon: Compass },
@@ -104,6 +105,8 @@ export default function DashboardOverviewPage() {
           {error}
         </div>
       )}
+
+      {user.role === "ADMIN" && <AdminPulse />}
 
       {/* Metric tiles — each links to the filtered itineraries list */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
