@@ -162,7 +162,7 @@ export default function EnquiryStudioForm({
         <div className="pt-4 border-t border-white/10 text-xs text-white/60 font-sans">
           Prefer an immediate chat? Reach our Karatu office on WhatsApp at{" "}
           <a
-            href="https://wa.me/255700000000"
+            href="https://wa.me/255754474792"
             className="text-[#E3C99A] underline hover:text-white"
           >
             +255 754 474 792

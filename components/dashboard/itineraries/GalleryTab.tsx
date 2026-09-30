@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { ItineraryImage } from "@/lib/itineraries/types";
-import { ImagePlus, Trash2, ArrowLeft, ArrowRight, Loader2, UploadCloud } from "lucide-react";
+import { ImagePlus, Trash2, ArrowLeft, ArrowRight, Loader2, UploadCloud, Star } from "lucide-react";
 import Field, { inputClass, inputStyle } from "@/components/dashboard/ui/Field";
 import IconButton from "@/components/dashboard/ui/IconButton";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
@@ -25,6 +25,10 @@ export default function GalleryTab({ itineraryId, images = [], onImagesChange, i
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  // Reordering (including "Set as hero") disables the arrows/star briefly
+  // while it round-trips, so a second click can't race the first.
+  const [reordering, setReordering] = useState(false);
+  const [savingAltId, setSavingAltId] = useState<string | null>(null);
 
   const sortedImages = [...images].sort((a, b) => a.sortOrder - b.sortOrder);
 
@@ -97,18 +101,86 @@ export default function GalleryTab({ itineraryId, images = [], onImagesChange, i
     }
   };
 
+  /**
+   * Persists a full reorder — used by both the move arrows and "Set as
+   * hero" — and applies it optimistically. The gallery's hero image is
+   * simply images[0] by sortOrder (see publicItineraryDetailSelect on the
+   * backend), so this is also how the hero image is changed; it saves
+   * immediately via PATCH .../images/reorder rather than the tabbed
+   * autosave, matching how upload/delete already behave. On failure the
+   * previous order is restored so the UI never shows an order the backend
+   * didn't actually save.
+   */
+  const applyOrder = async (nextOrder: ItineraryImage[]) => {
+    if (disabled || reordering) return;
+    const previousOrder = sortedImages;
+    setReordering(true);
+    setUploadError(null);
+    onImagesChange(nextOrder.map((img, idx) => ({ ...img, sortOrder: idx })));
+    try {
+      const res = await fetch(`/api/itineraries/${itineraryId}/images/reorder`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: nextOrder.map((img) => img.id) }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.status === "error") {
+        setUploadError(data.message || "Failed to save the new image order");
+        onImagesChange(previousOrder);
+        return;
+      }
+      if (Array.isArray(data.images)) onImagesChange(data.images);
+    } catch (err) {
+      console.error("Failed to save image order:", err);
+      setUploadError("Network error while saving the new image order");
+      onImagesChange(previousOrder);
+    } finally {
+      setReordering(false);
+    }
+  };
+
   const moveImage = (fromIndex: number, toIndex: number) => {
-    if (disabled) return;
     if (toIndex < 0 || toIndex >= sortedImages.length) return;
     const list = [...sortedImages];
     const [item] = list.splice(fromIndex, 1);
     list.splice(toIndex, 0, item);
-    onImagesChange(list.map((img, idx) => ({ ...img, sortOrder: idx })));
+    applyOrder(list);
+  };
+
+  const setAsHero = (imageId: string) => {
+    const index = sortedImages.findIndex((img) => img.id === imageId);
+    if (index <= 0) return;
+    const list = [...sortedImages];
+    const [item] = list.splice(index, 1);
+    list.unshift(item);
+    applyOrder(list);
   };
 
   const updateAltText = (imageId: string, newAlt: string) => {
     if (disabled) return;
     onImagesChange(images.map((img) => (img.id === imageId ? { ...img, altText: newAlt } : img)));
+  };
+
+  const persistAltText = async (imageId: string, altText: string) => {
+    if (disabled) return;
+    setSavingAltId(imageId);
+    setUploadError(null);
+    try {
+      const res = await fetch(`/api/itineraries/${itineraryId}/images/${imageId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ altText: altText || null }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.status === "error") {
+        setUploadError(data.message || "Failed to save alt text");
+      }
+    } catch (err) {
+      console.error("Failed to save alt text:", err);
+      setUploadError("Network error while saving alt text");
+    } finally {
+      setSavingAltId(null);
+    }
   };
 
   return (
@@ -120,7 +192,8 @@ export default function GalleryTab({ itineraryId, images = [], onImagesChange, i
             Itinerary gallery & hero visuals
           </h3>
           <p className="text-sm mt-0.5" style={{ color: "var(--dash-text-subtle)" }}>
-            Upload high-resolution photography of wildlife, camps, and scenic landscapes for this safari.
+            Upload high-resolution photography of wildlife, camps, and scenic landscapes for this safari. The
+            first image — marked &ldquo;Hero cover&rdquo; below — is used as the hero image on the public site.
           </p>
         </div>
         <span className="dash-code text-xs shrink-0" style={{ color: "var(--dash-text-subtle)" }}>
@@ -202,7 +275,8 @@ export default function GalleryTab({ itineraryId, images = [], onImagesChange, i
               <div className="relative aspect-[16/10] bg-black/40 overflow-hidden">
                 <Image src={img.url} alt={img.altText || `Safari photo ${idx + 1}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover object-center" />
                 {idx === 0 && (
-                  <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-accent-fill)", color: "var(--dash-accent-on-fill)" }}>
+                  <span className="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium" style={{ background: "var(--dash-accent-fill)", color: "var(--dash-accent-on-fill)" }}>
+                    <Star className="w-3 h-3" fill="currentColor" />
                     Hero cover
                   </span>
                 )}
@@ -220,22 +294,33 @@ export default function GalleryTab({ itineraryId, images = [], onImagesChange, i
                       disabled={disabled}
                       value={img.altText || ""}
                       onChange={(e) => updateAltText(img.id, e.target.value)}
+                      onBlur={(e) => persistAltText(img.id, e.target.value)}
                       placeholder="Describe scene..."
                       className={`${inputClass} py-1.5`}
                       style={inputStyle}
                     />
                   )}
                 </Field>
+                {savingAltId === img.id && (
+                  <p className="text-xs flex items-center gap-1" style={{ color: "var(--dash-text-subtle)" }}>
+                    <Loader2 className="w-3 h-3 animate-spin" /> Saving…
+                  </p>
+                )}
 
                 {!disabled && (
                   <div className="flex items-center justify-between pt-2" style={{ borderTop: "1px solid var(--dash-border)" }}>
                     <div className="flex items-center gap-1">
-                      <IconButton label="Move image earlier" disabled={idx === 0} onClick={() => moveImage(idx, idx - 1)}>
+                      <IconButton label="Move image earlier" disabled={idx === 0 || reordering} onClick={() => moveImage(idx, idx - 1)}>
                         <ArrowLeft className="w-3.5 h-3.5" />
                       </IconButton>
-                      <IconButton label="Move image later" disabled={idx === sortedImages.length - 1} onClick={() => moveImage(idx, idx + 1)}>
+                      <IconButton label="Move image later" disabled={idx === sortedImages.length - 1 || reordering} onClick={() => moveImage(idx, idx + 1)}>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </IconButton>
+                      {idx !== 0 && (
+                        <IconButton label="Set as hero image" tone="warning" disabled={reordering} onClick={() => setAsHero(img.id)}>
+                          <Star className="w-3.5 h-3.5" />
+                        </IconButton>
+                      )}
                     </div>
                     <IconButton label="Delete image" tone="danger" disabled={deletingId === img.id} onClick={() => handleDeleteImage(img.id)}>
                       {deletingId === img.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}

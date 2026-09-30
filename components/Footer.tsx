@@ -151,7 +151,7 @@ export default function Footer() {
                     Speak to us
                   </div>
                   <a
-                    href="tel:+255700000000"
+                    href="tel:+255754474792"
                     className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0] hover:text-[#C9A46A] transition-colors"
                   >
                     +255 754 474 792

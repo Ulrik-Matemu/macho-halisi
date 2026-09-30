@@ -94,7 +94,7 @@ export default function EnquiryConciergePanel() {
 
         <div className="space-y-3 font-sans text-xs">
           <a
-            href="https://wa.me/255700000000"
+            href="https://wa.me/255754474792"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 transition-colors"
@@ -107,7 +107,7 @@ export default function EnquiryConciergePanel() {
           </a>
 
           <a
-            href="tel:+255700000000"
+            href="tel:+255754474792"
             className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-[#1E1913] transition-colors"
           >
             <Phone className="w-4 h-4 text-[#8A6A33]" />
