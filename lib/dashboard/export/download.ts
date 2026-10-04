@@ -1,5 +1,5 @@
 import type { jsPDF as JsPDF } from "jspdf";
-import { fileName } from "./brand";
+import { documentName } from "./brand";
 import type { ExportFormat, ReportSpec } from "./types";
 
 export function downloadBlob(blob: Blob, name: string) {
@@ -42,14 +42,15 @@ export function printPdf(doc: JsPDF) {
 export type ExportAction = "download" | "print";
 
 /** Builds the requested file and downloads (or prints) it. Libraries load on demand. */
-export async function runExport(spec: ReportSpec, format: ExportFormat, action: ExportAction = "download", suffix?: string) {
+export async function runExport(spec: ReportSpec, format: ExportFormat, action: ExportAction = "download") {
+  const name = documentName(spec.nameParts, spec.generatedAt);
   if (format === "pdf") {
     const { buildPdf } = await import("./pdf");
     const doc = await buildPdf(spec);
     if (action === "print") printPdf(doc);
-    else downloadBlob(doc.output("blob"), fileName(spec.slug, suffix, "pdf", spec.generatedAt));
+    else downloadBlob(doc.output("blob"), `${name}.pdf`);
     return;
   }
   const { buildWorkbook } = await import("./xlsx");
-  downloadBlob(await buildWorkbook(spec), fileName(spec.slug, suffix, "xlsx", spec.generatedAt));
+  downloadBlob(await buildWorkbook(spec), `${name}.xlsx`);
 }

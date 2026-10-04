@@ -96,7 +96,7 @@ const bulkAction = (ids: string[], action: "delete" | "status", status?: Enquiry
 /** Single-enquiry record as a one-page PDF (download or print). */
 async function exportEnquiry(enquiry: Enquiry, journey: { path: string; createdAt: string }[], action: ExportAction, generatedBy?: string) {
   const { runExport } = await import("@/lib/dashboard/export/download");
-  await runExport(enquiryDetailSpec(enquiry, journey, generatedBy), "pdf", action, formatEnquiryRef(enquiry.id));
+  await runExport(enquiryDetailSpec(enquiry, journey, generatedBy), "pdf", action);
 }
 
 async function exportEnquiryById(id: string, action: ExportAction, generatedBy?: string) {

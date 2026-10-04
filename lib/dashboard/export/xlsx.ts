@@ -1,5 +1,5 @@
 import type { Workbook, Worksheet, Cell as XCell, Font } from "exceljs";
-import { BRAND, EXCEL_NUMFMT, formatValue, loadLogo } from "./brand";
+import { BRAND, EXCEL_NUMFMT, documentName, formatValue, loadLogo } from "./brand";
 import { renderChartImage } from "./chartImage";
 import type { Cell, Column, ReportSpec, Section } from "./types";
 
@@ -27,7 +27,8 @@ export async function buildWorkbook(spec: ReportSpec): Promise<Blob> {
   const wb: Workbook = new ExcelJS.Workbook();
   wb.creator = BRAND.company;
   wb.company = BRAND.company;
-  wb.title = spec.title;
+  wb.title = documentName(spec.nameParts, spec.generatedAt);
+  wb.subject = [spec.title, spec.subtitle, spec.period].filter(Boolean).join(" · ");
   wb.created = spec.generatedAt;
   const logoId = logo ? wb.addImage({ base64: logo.replace(/^data:image\/\w+;base64,/, ""), extension: "jpeg" }) : null;
   const used = new Set<string>();

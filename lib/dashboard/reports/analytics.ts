@@ -2,7 +2,7 @@ import type { AnalyticsOverview, BreakdownDimension, BreakdownRow, RangeKey, Tim
 import { countryName, formatDuration, formatNumber, formatPercent } from "@/lib/dashboard/format";
 import type { Section } from "@/lib/dashboard/export/types";
 import { SHARE_TYPES, TREND_TYPES, type ChartType } from "@/lib/dashboard/useChartType";
-import { applyChartChoice, getJson, pctChange, periodText, type ReportDefinition } from "./common";
+import { applyChartChoice, getJson, pctChange, periodText, rangeName, type ReportDefinition } from "./common";
 
 const TOP_N = 8;
 
@@ -156,7 +156,7 @@ export function analyticsReport(range: RangeKey, generatedBy?: string): ReportDe
       }
 
       return {
-        slug: "analytics",
+        nameParts: ["Analytics Report", rangeName(range)],
         title: "Website Analytics Report",
         subtitle: "Public site traffic",
         period: periodText(range),

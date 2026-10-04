@@ -46,8 +46,12 @@ export type Section =
   | { kind: "text"; id: string; title: string; body: string };
 
 export interface ReportSpec {
-  /** Used in file names, e.g. "analytics". */
-  slug: string;
+  /**
+   * What this file holds, most general first, for its name — e.g.
+   * ["Analytics Report", "Last 7 days"]. The company prefix and a
+   * timestamp are added by `documentName`.
+   */
+  nameParts: string[];
   title: string;
   subtitle?: string;
   /** Human period, e.g. "Last 7 days · 27 Sep – 4 Oct 2026". */

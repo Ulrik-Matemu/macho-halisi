@@ -92,7 +92,26 @@ export const EXCEL_NUMFMT: Partial<Record<ValueFormat, string>> = {
   date: "d mmm yyyy",
 };
 
-export function fileName(slug: string, suffix: string | undefined, ext: string, at = new Date()): string {
-  const day = at.toISOString().slice(0, 10);
-  return ["macho-halisi", slug, suffix, day].filter(Boolean).join("-").replace(/[^a-z0-9-]+/gi, "-").toLowerCase() + `.${ext}`;
+/** One filename segment: ASCII letters/digits joined by hyphens, accents dropped. */
+function namePart(text: string, max = 40): string {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, max)
+    .replace(/-+$/, "");
+}
+
+/**
+ * Descriptive, unique document name without extension, e.g.
+ * "MachoHalisi_Analytics-Report_Last-7-days_2026-10-04_15-32-07".
+ * Used for the downloaded file and as the PDF/workbook title, so a
+ * printed "Save as PDF" lands under the same name. The local timestamp
+ * (to the second) keeps repeated exports from overwriting each other.
+ */
+export function documentName(nameParts: string[], at: Date): string {
+  const p = (n: number) => String(n).padStart(2, "0");
+  const stamp = `${at.getFullYear()}-${p(at.getMonth() + 1)}-${p(at.getDate())}_${p(at.getHours())}-${p(at.getMinutes())}-${p(at.getSeconds())}`;
+  return ["MachoHalisi", ...nameParts.map((x) => namePart(x)), stamp].filter(Boolean).join("_");
 }

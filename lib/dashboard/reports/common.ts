@@ -48,6 +48,8 @@ export async function getJson<T>(url: string): Promise<T> {
 const RANGE_MS: Record<RangeKey, number> = { "24h": 864e5, "7d": 7 * 864e5, "30d": 30 * 864e5, "90d": 90 * 864e5 };
 const RANGE_TEXT: Record<RangeKey, string> = { "24h": "Last 24 hours", "7d": "Last 7 days", "30d": "Last 30 days", "90d": "Last 90 days" };
 
+export const rangeName = (range: RangeKey) => RANGE_TEXT[range];
+
 export function periodText(range: RangeKey, now = new Date()): string {
   const from = new Date(now.getTime() - RANGE_MS[range]);
   const d = (x: Date) => x.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });

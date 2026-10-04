@@ -3,7 +3,7 @@ import type { ErrorsReport, PerformanceReport, SystemReport, UptimeReport, Uptim
 import { formatBytes, formatDuration, formatMs, formatPercent } from "@/lib/dashboard/format";
 import type { Section } from "@/lib/dashboard/export/types";
 import { TREND_TYPES } from "@/lib/dashboard/useChartType";
-import { applyChartChoice, gbDateTime, getJson, periodText, type ReportDefinition } from "./common";
+import { applyChartChoice, gbDateTime, getJson, periodText, rangeName, type ReportDefinition } from "./common";
 
 const TARGET_LABEL: Record<UptimeTarget, string> = { SITE: "Website", PAGE: "Key pages", API: "Backend API", DATABASE: "Database" };
 const TARGET_ORDER: UptimeTarget[] = ["SITE", "PAGE", "API", "DATABASE"];
@@ -226,7 +226,7 @@ export function monitoringReport(range: RangeKey, generatedBy?: string): ReportD
       }
 
       return {
-        slug: "monitoring",
+        nameParts: ["Monitoring Report", rangeName(range)],
         title: "System Monitoring Report",
         subtitle: "Site and API health",
         period: periodText(range),

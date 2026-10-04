@@ -141,7 +141,13 @@ export function enquiryListReport(scope: EnquiryScope, generatedBy?: string): Re
       }
 
       return {
-        slug: "enquiries",
+        nameParts: [
+          "Enquiries Report",
+          ...(scope.ids
+            ? ["Selected"]
+            : [scope.status ? statusLabel(scope.status) : "All statuses", ...(scope.q ? [`Search ${scope.q}`] : [])]),
+          `${data.length} ${data.length === 1 ? "enquiry" : "enquiries"}`,
+        ],
         title: "Enquiries Report",
         subtitle: scope.label,
         period: data.length ? `${gbDateTime(data[data.length - 1].createdAt)} – ${gbDateTime(data[0].createdAt)}` : undefined,
@@ -208,7 +214,7 @@ export function enquiryDetailSpec(enquiry: Enquiry, journey: { path: string; cre
     });
   }
   return {
-    slug: "enquiry",
+    nameParts: ["Enquiry", formatEnquiryRef(enquiry.id), enquiry.name],
     title: "Enquiry Record",
     subtitle: `${formatEnquiryRef(enquiry.id)}  ·  ${enquiry.name}`,
     period: `Received ${gbDateTime(enquiry.createdAt)}`,

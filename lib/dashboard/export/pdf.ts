@@ -1,5 +1,5 @@
 import type { jsPDF as JsPDF } from "jspdf";
-import { BRAND, formatValue, loadLogo } from "./brand";
+import { BRAND, documentName, formatValue, loadLogo } from "./brand";
 import { renderChartImage, type ChartImage } from "./chartImage";
 import type { Column, ReportSpec, Section } from "./types";
 
@@ -271,7 +271,15 @@ function finish(doc: JsPDF, spec: ReportSpec, logo: string | null): JsPDF {
   const pages = doc.getNumberOfPages();
   const generated = spec.generatedAt.toLocaleString("en-GB", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
 
-  doc.setProperties({ title: pdfText(`${BRAND.company} — ${spec.title}`), author: BRAND.company, creator: `${BRAND.company} dashboard`, subject: spec.period ?? spec.title });
+  // The title doubles as the suggested name when the PDF is printed and
+  // saved ("Save as PDF"), so it matches the download name.
+  doc.setProperties({
+    title: documentName(spec.nameParts, spec.generatedAt),
+    author: BRAND.company,
+    creator: `${BRAND.company} dashboard`,
+    subject: pdfText([spec.title, spec.subtitle, spec.period].filter(Boolean).join(" · ")),
+  });
+  doc.viewerPreferences({ DisplayDocTitle: true });
 
   for (let p = 1; p <= pages; p++) {
     doc.setPage(p);
