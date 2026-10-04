@@ -14,6 +14,13 @@ import {
   Trash2,
   Clock,
   MapPin,
+  MoreHorizontal,
+  Download,
+  Printer,
+  FileText,
+  Copy,
+  ChevronDown,
+  X,
 } from "lucide-react";
 import AdminOnly from "@/components/dashboard/AdminOnly";
 import PageHeader from "@/components/dashboard/ui/PageHeader";
@@ -25,7 +32,12 @@ import { InlineMessage } from "@/components/dashboard/ui/Toast";
 import { SkeletonRows, Skeleton } from "@/components/dashboard/ui/Skeleton";
 import EmptyState from "@/components/dashboard/ui/EmptyState";
 import DataTable, { Column } from "@/components/dashboard/ui/DataTable";
+import Menu, { type MenuEntry } from "@/components/dashboard/ui/Menu";
+import ExportDialog from "@/components/dashboard/export/ExportDialog";
 import { Segmented } from "@/components/dashboard/charts/primitives";
+import { useAuth } from "@/lib/dashboard/auth-context";
+import { enquiryDetailSpec, enquiryListReport, type EnquiryScope } from "@/lib/dashboard/reports/enquiries";
+import type { ExportAction } from "@/lib/dashboard/export/download";
 import { ENQUIRY_STATUSES, type Enquiry, type EnquiryStats, type EnquiryStatus } from "@/lib/enquiries/types";
 import { formatEnquiryRef } from "@/lib/enquiries/submit";
 import { countryFlag, countryName, formatDateTime, formatRelative } from "@/lib/dashboard/format";
@@ -41,10 +53,55 @@ function EnquiryStatusBadge({ status }: { status: EnquiryStatus }) {
   return <span className={`dash-badge ${STATUS_BADGE[status]}`}>{ENQUIRY_STATUSES.find((s) => s.key === status)?.label ?? status}</span>;
 }
 
+const STATUS_DOT: Record<EnquiryStatus, string> = {
+  NEW: "var(--dash-status-draft)",
+  IN_PROGRESS: "var(--dash-status-review)",
+  RESPONDED: "var(--dash-status-published)",
+  CLOSED: "var(--dash-status-archived)",
+};
+
+function EnquiryDot({ status }: { status: EnquiryStatus }) {
+  return <span className="w-2 h-2 rounded-full" style={{ background: STATUS_DOT[status] }} />;
+}
+
 type Filter = "ALL" | EnquiryStatus;
 
 function whatsappLink(phone: string): string {
   return `https://wa.me/${phone.replace(/[^\d]/g, "")}`;
+}
+
+/** Backend calls return `{ status: "ok", ... }`; anything else becomes a thrown message. */
+async function send<T = Record<string, unknown>>(url: string, init: RequestInit, fallback: string): Promise<T> {
+  let res: Response;
+  try {
+    res = await fetch(url, init);
+  } catch {
+    throw new Error("Network error while connecting to server.");
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || data.status !== "ok") throw new Error(data.message || fallback);
+  return data as T;
+}
+
+const setStatus = (id: string, status: EnquiryStatus) =>
+  send(`/api/enquiries/admin/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) }, "Failed to update status.");
+
+const bulkAction = (ids: string[], action: "delete" | "status", status?: EnquiryStatus) =>
+  send<{ count: number }>(
+    "/api/enquiries/admin/bulk",
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids, action, status }) },
+    action === "delete" ? "Failed to delete enquiries." : "Failed to update enquiries."
+  );
+
+/** Single-enquiry record as a one-page PDF (download or print). */
+async function exportEnquiry(enquiry: Enquiry, journey: { path: string; createdAt: string }[], action: ExportAction, generatedBy?: string) {
+  const { runExport } = await import("@/lib/dashboard/export/download");
+  await runExport(enquiryDetailSpec(enquiry, journey, generatedBy), "pdf", action, formatEnquiryRef(enquiry.id));
+}
+
+async function exportEnquiryById(id: string, action: ExportAction, generatedBy?: string) {
+  const data = await send<{ enquiry: Enquiry; journey?: { path: string; createdAt: string }[] }>(`/api/enquiries/admin/${id}`, { method: "GET" }, "Failed to load enquiry.");
+  await exportEnquiry(data.enquiry, data.journey ?? [], action, generatedBy);
 }
 
 function EnquiryDetail({
@@ -65,6 +122,21 @@ function EnquiryDetail({
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [exporting, setExporting] = useState<ExportAction | null>(null);
+  const { user } = useAuth();
+
+  const runExport = async (action: ExportAction) => {
+    if (!enquiry) return;
+    setExporting(action);
+    setError(null);
+    try {
+      await exportEnquiry(enquiry, journey, action, user?.email);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Export failed.");
+    } finally {
+      setExporting(null);
+    }
+  };
 
   useEffect(() => {
     // Mounted fresh per enquiry (keyed by id), so there's no stale state to reset.
@@ -169,6 +241,14 @@ function EnquiryDetail({
                 <Button variant="ghost" icon={<Trash2 className="w-4 h-4" />} onClick={() => setConfirmDelete(true)}>
                   Delete
                 </Button>
+                <span className="mr-auto flex items-center">
+                  <IconButton label="Download as PDF" disabled={exporting !== null} onClick={() => runExport("download")}>
+                    <FileText className="w-4 h-4" />
+                  </IconButton>
+                  <IconButton label="Print" disabled={exporting !== null} onClick={() => runExport("print")}>
+                    <Printer className="w-4 h-4" />
+                  </IconButton>
+                </span>
                 <Button variant="ghost" onClick={onClose}>
                   Cancel
                 </Button>
@@ -283,7 +363,10 @@ function EnquiryDetail({
   );
 }
 
+type ConfirmDelete = { ids: string[]; label: string } | null;
+
 function EnquiriesInbox() {
+  const { user } = useAuth();
   const [filter, setFilter] = useState<Filter>("NEW");
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -294,12 +377,24 @@ function EnquiriesInbox() {
   const [nonce, setNonce] = useState(0);
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState<ConfirmDelete>(null);
+  const [busy, setBusy] = useState(false);
+  const [exportScope, setExportScope] = useState<EnquiryScope | null>(null);
 
   // Loading is derived: the current request differs from the last one answered.
   const requestKey = `${page}|${filter}|${debouncedQuery}|${nonce}`;
   const loading = loadedKey !== requestKey;
   const reload = useCallback(() => setNonce((n) => n + 1), []);
+
+  // Selection belongs to one view (page + filter + search); changing the view
+  // drops it without an effect. Only ids still on screen count.
+  const viewKey = `${page}|${filter}|${debouncedQuery}`;
+  const [selection, setSelection] = useState<{ view: string; ids: Set<string> }>({ view: viewKey, ids: new Set() });
+  const selectedIds = selection.view === viewKey ? selection.ids : new Set<string>();
+  const selectedRows = enquiries.filter((e) => selectedIds.has(e.id));
+  const setSelected = (ids: Set<string>) => setSelection({ view: viewKey, ids });
 
   const changeFilter = (next: Filter) => {
     setFilter(next);
@@ -346,6 +441,90 @@ function EnquiriesInbox() {
       cancelled = true;
     };
   }, [page, filter, debouncedQuery, requestKey]);
+
+  /** Runs an action with shared busy/error/notice handling, then refreshes the list. */
+  const act = async (fn: () => Promise<string | void>) => {
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const message = await fn();
+      if (message) setNotice(message);
+      reload();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const plural = (n: number) => `${n} enquir${n === 1 ? "y" : "ies"}`;
+  const statusName = (st: EnquiryStatus) => ENQUIRY_STATUSES.find((x) => x.key === st)?.label ?? st;
+
+  const changeStatus = (ids: string[], status: EnquiryStatus) =>
+    act(async () => {
+      if (ids.length === 1) await setStatus(ids[0], status);
+      else await bulkAction(ids, "status", status);
+      setSelected(new Set());
+      return `${plural(ids.length)} marked as ${statusName(status).toLowerCase()}.`;
+    });
+
+  const confirmDelete = () => {
+    if (!confirm) return;
+    const { ids } = confirm;
+    return act(async () => {
+      await bulkAction(ids, "delete");
+      setConfirm(null);
+      setSelected(new Set());
+      return `${plural(ids.length)} deleted.`;
+    });
+  };
+
+  const exportOne = (e: Enquiry, action: ExportAction) =>
+    act(async () => {
+      await exportEnquiryById(e.id, action, user?.email);
+    });
+
+  const copy = (text: string, what: string) =>
+    act(async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        throw new Error("Couldn't copy — your browser blocked clipboard access.");
+      }
+      return `${what} copied.`;
+    });
+
+  const statusItems = (ids: string[], current?: EnquiryStatus): MenuEntry[] =>
+    ENQUIRY_STATUSES.map((st) => ({
+      label: `Mark as ${st.label.toLowerCase()}`,
+      icon: <EnquiryDot status={st.key} />,
+      disabled: st.key === current,
+      onSelect: () => changeStatus(ids, st.key),
+    }));
+
+  const rowMenu = (e: Enquiry): MenuEntry[] => [
+    { label: "View details", icon: <Eye className="w-4 h-4" />, onSelect: () => setOpenId(e.id) },
+    { kind: "heading", label: "Status" },
+    ...statusItems([e.id], e.status),
+    { kind: "heading", label: "Reply" },
+    { label: "Reply by email", icon: <Mail className="w-4 h-4" />, onSelect: () => window.open(`mailto:${e.email}?subject=${encodeURIComponent(`Your Macho Halisi enquiry ${formatEnquiryRef(e.id)}`)}`, "_self") },
+    { label: "WhatsApp", icon: <MessageCircle className="w-4 h-4" />, onSelect: () => window.open(whatsappLink(e.phone), "_blank", "noopener,noreferrer") },
+    { label: "Call", icon: <Phone className="w-4 h-4" />, onSelect: () => window.open(`tel:${e.phone}`, "_self") },
+    { label: "Copy email", icon: <Copy className="w-4 h-4" />, onSelect: () => copy(e.email, "Email address") },
+    { label: "Copy reference", icon: <Copy className="w-4 h-4" />, hint: formatEnquiryRef(e.id), onSelect: () => copy(formatEnquiryRef(e.id), "Reference") },
+    { kind: "heading", label: "Export" },
+    { label: "Download PDF", icon: <FileText className="w-4 h-4" />, onSelect: () => exportOne(e, "download") },
+    { label: "Print", icon: <Printer className="w-4 h-4" />, onSelect: () => exportOne(e, "print") },
+    { kind: "separator" },
+    { label: "Delete…", icon: <Trash2 className="w-4 h-4" />, danger: true, onSelect: () => setConfirm({ ids: [e.id], label: `the enquiry from ${e.name}` }) },
+  ];
+
+  const viewLabel = () => {
+    const parts = [filter === "ALL" ? "All statuses" : `Status: ${statusName(filter)}`];
+    if (debouncedQuery) parts.push(`search “${debouncedQuery}”`);
+    return parts.join(", ");
+  };
 
   const filterOptions: { key: Filter; label: string }[] = [
     ...ENQUIRY_STATUSES.map((s) => ({ key: s.key as Filter, label: stats ? `${s.label} (${stats.byStatus[s.key]})` : s.label })),
@@ -403,18 +582,42 @@ function EnquiriesInbox() {
       header: "Actions",
       align: "right",
       render: (e) => (
-        <IconButton label={`Open enquiry from ${e.name}`} onClick={() => setOpenId(e.id)}>
-          <Eye className="w-4 h-4" />
-        </IconButton>
+        <span className="inline-flex items-center justify-end">
+          <IconButton label={`Open enquiry from ${e.name}`} onClick={() => setOpenId(e.id)}>
+            <Eye className="w-4 h-4" />
+          </IconButton>
+          <Menu
+            label={`Actions for ${e.name}`}
+            items={rowMenu(e)}
+            renderTrigger={(t) => (
+              <IconButton label={`More actions for ${e.name}`} {...t}>
+                <MoreHorizontal className="w-4 h-4" />
+              </IconButton>
+            )}
+          />
+        </span>
       ),
     },
   ];
+
+  const allState = selectedRows.length === 0 ? "none" : selectedRows.length === enquiries.length ? "all" : "some";
+  const selectedList = selectedRows.map((e) => e.id);
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Enquiries"
         description={stats ? `${stats.last7d} received in the last 7 days. Guests are promised a reply within 24 hours.` : "Trip enquiries submitted through the public site."}
+        actions={
+          <Button
+            variant="secondary"
+            size="sm"
+            icon={<Download className="w-4 h-4" />}
+            onClick={() => setExportScope({ status: filter === "ALL" ? undefined : filter, q: debouncedQuery || undefined, label: viewLabel() })}
+          >
+            Export
+          </Button>
+        }
       />
 
       <div className="flex flex-col lg:flex-row lg:items-center gap-3 justify-between">
@@ -429,6 +632,52 @@ function EnquiriesInbox() {
       </div>
 
       {error && <InlineMessage tone="error">{error}</InlineMessage>}
+      {notice && <InlineMessage tone="success">{notice}</InlineMessage>}
+
+      {selectedRows.length > 0 && (
+        <div
+          role="toolbar"
+          aria-label="Bulk actions"
+          className="flex flex-wrap items-center gap-2 px-4 py-2.5 rounded-lg"
+          style={{ background: "var(--dash-accent-soft)", border: "1px solid var(--dash-accent-soft-border)" }}
+        >
+          <span className="text-sm font-medium mr-2" style={{ color: "var(--dash-text)" }}>
+            {selectedRows.length} selected
+          </span>
+          <Menu
+            label="Set status for selected enquiries"
+            align="start"
+            items={statusItems(selectedList)}
+            renderTrigger={(t) => (
+              <Button variant="secondary" size="sm" disabled={busy} icon={<ChevronDown className="w-4 h-4" />} {...t}>
+                Set status
+              </Button>
+            )}
+          />
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={busy}
+            icon={<Download className="w-4 h-4" />}
+            onClick={() => setExportScope({ ids: selectedList, label: `${plural(selectedList.length)} selected` })}
+          >
+            Export
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={busy}
+            icon={<Trash2 className="w-4 h-4" />}
+            style={{ color: "var(--dash-status-danger)" }}
+            onClick={() => setConfirm({ ids: selectedList, label: plural(selectedList.length) })}
+          >
+            Delete
+          </Button>
+          <Button variant="ghost" size="sm" icon={<X className="w-4 h-4" />} onClick={() => setSelected(new Set())}>
+            Clear
+          </Button>
+        </div>
+      )}
 
       {loading && enquiries.length === 0 ? (
         <SkeletonRows rows={5} label="Loading enquiries" />
@@ -445,33 +694,58 @@ function EnquiriesInbox() {
             columns={columns}
             rows={enquiries}
             rowKey={(e) => e.id}
+            selection={{
+              isSelected: (e) => selectedIds.has(e.id),
+              onToggle: (e, on) => {
+                const next = new Set(selectedIds);
+                if (on) next.add(e.id);
+                else next.delete(e.id);
+                setSelected(next);
+              },
+              state: allState,
+              onToggleAll: (on) => setSelected(on ? new Set(enquiries.map((e) => e.id)) : new Set()),
+              rowLabel: (e) => `Select enquiry from ${e.name}`,
+            }}
             renderCard={(e) => (
-              <button
-                type="button"
-                onClick={() => setOpenId(e.id)}
-                className="dash-focusable w-full text-left p-4 rounded-lg space-y-2"
-                style={{ background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" }}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="text-sm font-medium" style={{ color: "var(--dash-text)" }}>
-                    {e.name}
-                  </span>
-                  <EnquiryStatusBadge status={e.status} />
-                </div>
-                <p className="dash-code text-xs truncate" style={{ color: "var(--dash-text-subtle)" }}>
-                  {e.email}
-                </p>
-                <div className="flex items-center gap-3 text-xs" style={{ color: "var(--dash-text-subtle)" }}>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {formatRelative(e.createdAt)}
-                  </span>
-                  {e.country && (
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" /> {countryFlag(e.country)} {e.country}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(e.id)}
+                  className="dash-focusable w-full text-left p-4 pr-14 rounded-lg space-y-2"
+                  style={{ background: "var(--dash-surface-1)", border: "1px solid var(--dash-border)" }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="text-sm font-medium" style={{ color: "var(--dash-text)" }}>
+                      {e.name}
                     </span>
-                  )}
+                    <EnquiryStatusBadge status={e.status} />
+                  </div>
+                  <p className="dash-code text-xs truncate" style={{ color: "var(--dash-text-subtle)" }}>
+                    {e.email}
+                  </p>
+                  <div className="flex items-center gap-3 text-xs" style={{ color: "var(--dash-text-subtle)" }}>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {formatRelative(e.createdAt)}
+                    </span>
+                    {e.country && (
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3" /> {countryFlag(e.country)} {e.country}
+                      </span>
+                    )}
+                  </div>
+                </button>
+                <div className="absolute top-2 right-2">
+                  <Menu
+                    label={`Actions for ${e.name}`}
+                    items={rowMenu(e)}
+                    renderTrigger={(t) => (
+                      <IconButton label={`More actions for ${e.name}`} {...t}>
+                        <MoreHorizontal className="w-4 h-4" />
+                      </IconButton>
+                    )}
+                  />
                 </div>
-              </button>
+              </div>
             )}
           />
 
@@ -492,6 +766,26 @@ function EnquiriesInbox() {
       )}
 
       {openId && <EnquiryDetail key={openId} enquiryId={openId} onClose={() => setOpenId(null)} onChanged={reload} />}
+
+      <Dialog
+        open={confirm !== null}
+        onClose={() => !busy && setConfirm(null)}
+        title="Delete permanently?"
+        description={confirm ? `This removes ${confirm.label} and cannot be undone.` : undefined}
+        size="sm"
+        footer={
+          <>
+            <Button variant="ghost" disabled={busy} onClick={() => setConfirm(null)}>
+              Keep
+            </Button>
+            <Button variant="danger" loading={busy} onClick={confirmDelete}>
+              Delete{confirm && confirm.ids.length > 1 ? ` ${confirm.ids.length}` : ""}
+            </Button>
+          </>
+        }
+      />
+
+      {exportScope && <ExportDialog report={enquiryListReport(exportScope, user?.email)} onClose={() => setExportScope(null)} />}
     </div>
   );
 }

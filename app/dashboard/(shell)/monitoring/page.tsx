@@ -1,15 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { AlertTriangle, CheckCircle2, CircleHelp, RefreshCw, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, CircleHelp, Download, RefreshCw, XCircle } from "lucide-react";
 import AdminOnly from "@/components/dashboard/AdminOnly";
 import PageHeader from "@/components/dashboard/ui/PageHeader";
 import Button from "@/components/dashboard/ui/Button";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
 import { Skeleton } from "@/components/dashboard/ui/Skeleton";
-import LineChart from "@/components/dashboard/charts/LineChart";
+import TrendChart from "@/components/dashboard/charts/TrendChart";
+import ChartTypeToggle from "@/components/dashboard/charts/ChartTypeToggle";
 import { HEALTH_COLOR, KpiTile, Panel, Segmented, StatusStrip, type HealthLevel } from "@/components/dashboard/charts/primitives";
 import { useReport } from "@/lib/dashboard/useReport";
+import { useAuth } from "@/lib/dashboard/auth-context";
+import { monitoringReport } from "@/lib/dashboard/reports/monitoring";
+import ExportDialog from "@/components/dashboard/export/ExportDialog";
+import { TREND_TYPES, useChartType } from "@/lib/dashboard/useChartType";
 import { RANGE_OPTIONS, type RangeKey } from "@/lib/analytics/types";
 import type {
   ErrorsReport,
@@ -203,15 +208,21 @@ function UptimeTargets({ uptime }: { uptime: UptimeReport }) {
 function ResponseTimes({ uptime }: { uptime: UptimeReport }) {
   const buckets = [...new Set(uptime.latency.map((l) => l.bucket))].sort();
   const valuesFor = (t: UptimeTarget) => buckets.map((b) => uptime.latency.find((l) => l.bucket === b && l.target === t)?.avg_ms ?? null);
+  const [chartType, setChartType] = useChartType("monitoring.response", "line", TREND_TYPES);
 
   return (
-    <Panel title="Response time" subtitle="Average latency measured by the uptime monitor from GitHub's runners.">
+    <Panel
+      title="Response time"
+      subtitle="Average latency measured by the uptime monitor from GitHub's runners."
+      actions={<ChartTypeToggle label="Response time chart type" options={TREND_TYPES} value={chartType} onChange={setChartType} />}
+    >
       {buckets.length === 0 ? (
         <p className="text-sm py-6 text-center" style={{ color: "var(--dash-text-subtle)" }}>
           No checks in this period.
         </p>
       ) : (
-        <LineChart
+        <TrendChart
+          type={chartType}
           ariaLabel="Average response time of the website and backend API over the selected period."
           x={buckets}
           formatX={(x) => bucketLabel(x, uptime.granularity)}
@@ -257,8 +268,13 @@ function Incidents({ uptime }: { uptime: UptimeReport }) {
 
 function ApiPerformance({ perf }: { perf: PerformanceReport }) {
   const t = perf.totals;
+  const [chartType, setChartType] = useChartType("monitoring.latency", "line", TREND_TYPES);
   return (
-    <Panel title="API performance" subtitle="Every backend request, aggregated per minute. p95 is an upper bound from a latency histogram.">
+    <Panel
+      title="API performance"
+      subtitle="Every backend request, aggregated per minute. p95 is an upper bound from a latency histogram."
+      actions={perf.series.length > 0 ? <ChartTypeToggle label="API latency chart type" options={TREND_TYPES} value={chartType} onChange={setChartType} /> : undefined}
+    >
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <KpiTile label="Requests / min" value={t.requestsPerMinute.toFixed(2)} />
         <KpiTile label="Server error rate" value={formatPercent(t.errorRate, 2)} />
@@ -266,7 +282,8 @@ function ApiPerformance({ perf }: { perf: PerformanceReport }) {
         <KpiTile label="p95 latency" value={t.p95UpperMs === null ? "> 1s" : `≤ ${formatMs(t.p95UpperMs)}`} />
       </div>
       {perf.series.length > 0 && (
-        <LineChart
+        <TrendChart
+          type={chartType}
           ariaLabel="Average API latency over the selected period."
           x={perf.series.map((s) => s.bucket)}
           formatX={(x) => bucketLabel(x, perf.granularity)}
@@ -491,6 +508,8 @@ function System({ system }: { system: SystemReport }) {
 
 function MonitoringDashboard() {
   const [range, setRange] = useState<RangeKey>("24h");
+  const { user } = useAuth();
+  const [exporting, setExporting] = useState(false);
   const uptime = useReport<UptimeReport & { status: "ok" }>(`/api/monitoring/uptime?range=${range}`, REFRESH_MS);
   const perf = useReport<PerformanceReport & { status: "ok" }>(`/api/monitoring/performance?range=${range}`, REFRESH_MS);
   const vitals = useReport<WebVitalsReport & { status: "ok" }>(`/api/monitoring/web-vitals?range=${range}`, REFRESH_MS);
@@ -510,6 +529,9 @@ function MonitoringDashboard() {
             <Segmented label="Time range" options={RANGE_OPTIONS} value={range} onChange={setRange} />
             <Button variant="ghost" size="sm" icon={<RefreshCw className="w-4 h-4" />} onClick={reloadAll}>
               Refresh
+            </Button>
+            <Button variant="secondary" size="sm" icon={<Download className="w-4 h-4" />} onClick={() => setExporting(true)}>
+              Export
             </Button>
           </>
         }
@@ -534,6 +556,7 @@ function MonitoringDashboard() {
       {vitals.data ? <WebVitals vitals={vitals.data} /> : vitals.loading && <Skeleton className="h-40 w-full rounded-xl" />}
       {errors.data ? <Errors errors={errors.data} /> : errors.loading && <Skeleton className="h-40 w-full rounded-xl" />}
       {system.data ? <System system={system.data} /> : system.loading && <Skeleton className="h-40 w-full rounded-xl" />}
+      {exporting && <ExportDialog report={monitoringReport(range, user?.email)} onClose={() => setExporting(false)} />}
     </div>
   );
 }

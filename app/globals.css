@@ -228,6 +228,16 @@ body {
      only; text next to a series uses the text tokens. */
   --dash-chart-1: #c28240;
   --dash-chart-2: #4a90d9;
+  /* Slots 3–8 for pies and many-category views, in fixed order (never
+     cycled). The full 8 pass the adjacent-pair checks against
+     --dash-surface-1; "Other" uses --dash-chart-other, a neutral. */
+  --dash-chart-3: #199e70;
+  --dash-chart-4: #9085e9;
+  --dash-chart-5: #c98500;
+  --dash-chart-6: #d55181;
+  --dash-chart-7: #008300;
+  --dash-chart-8: #e66767;
+  --dash-chart-other: #6b6158;
   --dash-chart-grid: #2b2520;
 
   --dash-focus-ring: #e0ac69;

@@ -2,15 +2,21 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { Radio, RefreshCw } from "lucide-react";
+import { Download, Radio, RefreshCw } from "lucide-react";
 import AdminOnly from "@/components/dashboard/AdminOnly";
 import PageHeader from "@/components/dashboard/ui/PageHeader";
 import Button from "@/components/dashboard/ui/Button";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
 import { Skeleton } from "@/components/dashboard/ui/Skeleton";
-import LineChart from "@/components/dashboard/charts/LineChart";
+import TrendChart from "@/components/dashboard/charts/TrendChart";
+import CategoryChart from "@/components/dashboard/charts/CategoryChart";
+import ChartTypeToggle from "@/components/dashboard/charts/ChartTypeToggle";
 import { BarList, KpiTile, Panel, Segmented } from "@/components/dashboard/charts/primitives";
 import { useReport } from "@/lib/dashboard/useReport";
+import { useAuth } from "@/lib/dashboard/auth-context";
+import { analyticsReport } from "@/lib/dashboard/reports/analytics";
+import ExportDialog from "@/components/dashboard/export/ExportDialog";
+import { SHARE_TYPES, TREND_TYPES, useChartType, type ChartType } from "@/lib/dashboard/useChartType";
 import {
   RANGE_OPTIONS,
   type AnalyticsOverview,
@@ -33,6 +39,8 @@ const VisitorMap = dynamic(() => import("@/components/dashboard/charts/VisitorMa
 
 const REALTIME_POLL_MS = 30_000;
 
+const capitalize = (l: string) => l.charAt(0).toUpperCase() + l.slice(1);
+
 function bucketLabel(iso: string, range: RangeKey): string {
   const d = new Date(iso);
   return range === "24h"
@@ -46,38 +54,57 @@ function useBreakdown(range: RangeKey, dimension: BreakdownDimension, limit = 10
 
 /** Panel with its own tab set, each tab one breakdown dimension. */
 function BreakdownPanel({
+  chartId,
+  chartTypes,
   title,
   range,
   tabs,
   renderLabel = (l) => l,
+  textLabel = (l) => l,
   valueHeader,
   secondaryHeader,
 }: {
+  /** Key under which this panel's chart type is remembered (and read by exports). */
+  chartId: string;
+  /** Offer a chart-type switch; omitted for ranked lists, which stay bars. */
+  chartTypes?: ChartType[];
   title: string;
   range: RangeKey;
   tabs: { key: BreakdownDimension; label: string }[];
   renderLabel?: (label: string) => React.ReactNode;
+  textLabel?: (label: string) => string;
   valueHeader?: (dim: BreakdownDimension) => string;
   secondaryHeader?: (dim: BreakdownDimension) => string | undefined;
 }) {
   const [dim, setDim] = useState<BreakdownDimension>(tabs[0].key);
+  const [chosen, setChartType] = useChartType(chartId, "bar", chartTypes);
+  const chartType = chartTypes ? chosen : "bar";
   const { data, loading, error } = useBreakdown(range, dim);
 
   return (
     <Panel
       title={title}
-      actions={tabs.length > 1 ? <Segmented label={`${title} view`} options={tabs} value={dim} onChange={setDim} /> : undefined}
+      actions={
+        tabs.length > 1 ? (
+          <Segmented label={`${title} view`} options={tabs} value={dim} onChange={setDim} />
+        ) : chartTypes ? (
+          <ChartTypeToggle label={`${title} chart type`} options={chartTypes} value={chartType} onChange={setChartType} />
+        ) : undefined
+      }
     >
       {error && <InlineMessage tone="error">{error}</InlineMessage>}
       {loading && !data ? (
         <Skeleton className="h-48 w-full" />
       ) : (
-        <BarList
+        <CategoryChart
+          type={chartType}
+          ariaLabel={`${title}: ${tabs.find((t) => t.key === dim)?.label ?? ""} by ${valueHeader?.(dim)?.toLowerCase() ?? "count"}.`}
           valueHeader={valueHeader?.(dim)}
           secondaryHeader={secondaryHeader?.(dim)}
           rows={(data?.data ?? []).map((r) => ({
             key: r.label,
             label: renderLabel(r.label),
+            text: textLabel(r.label),
             value: r.value,
             secondary: r.secondary !== null && secondaryHeader?.(dim) ? formatNumber(r.secondary) : undefined,
           }))}
@@ -198,12 +225,15 @@ function Realtime() {
 
 function AnalyticsDashboard() {
   const [range, setRange] = useState<RangeKey>("7d");
+  const { user } = useAuth();
+  const [exporting, setExporting] = useState(false);
   const overview = useReport<AnalyticsOverview>(`/api/analytics/overview?range=${range}`);
   const series = useReport<{ data: TimeseriesPoint[] }>(`/api/analytics/timeseries?range=${range}`);
 
   const cur = overview.data?.current;
   const prev = overview.data?.previous;
   const points = series.data?.data ?? [];
+  const [trafficChart, setTrafficChart] = useChartType("analytics.traffic", "line", TREND_TYPES);
 
   const reloadAll = () => {
     overview.reload();
@@ -220,6 +250,9 @@ function AnalyticsDashboard() {
             <Segmented label="Time range" options={RANGE_OPTIONS} value={range} onChange={setRange} />
             <Button variant="ghost" size="sm" icon={<RefreshCw className="w-4 h-4" />} onClick={reloadAll}>
               Refresh
+            </Button>
+            <Button variant="secondary" size="sm" icon={<Download className="w-4 h-4" />} onClick={() => setExporting(true)}>
+              Export
             </Button>
           </>
         }
@@ -244,12 +277,17 @@ function AnalyticsDashboard() {
         )}
       </div>
 
-      <Panel title="Traffic" subtitle={range === "24h" ? "Per hour" : "Per day"}>
+      <Panel
+        title="Traffic"
+        subtitle={range === "24h" ? "Per hour" : "Per day"}
+        actions={<ChartTypeToggle label="Traffic chart type" options={TREND_TYPES} value={trafficChart} onChange={setTrafficChart} />}
+      >
         {series.error && <InlineMessage tone="error">{series.error}</InlineMessage>}
         {series.loading && !series.data ? (
           <Skeleton className="h-[250px] w-full" />
         ) : (
-          <LineChart
+          <TrendChart
+            type={trafficChart}
             ariaLabel={`Unique visitors and pageviews ${range === "24h" ? "per hour over the last 24 hours" : `per day over the last ${range}`}.`}
             x={points.map((p) => p.bucket)}
             formatX={(x) => bucketLabel(x, range)}
@@ -263,6 +301,7 @@ function AnalyticsDashboard() {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <BreakdownPanel
+          chartId="analytics.pages"
           title="Pages"
           range={range}
           tabs={[
@@ -274,6 +313,7 @@ function AnalyticsDashboard() {
           secondaryHeader={(d) => (d === "page" ? "Visitors" : undefined)}
         />
         <BreakdownPanel
+          chartId="analytics.sources"
           title="Sources"
           range={range}
           tabs={[
@@ -288,14 +328,24 @@ function AnalyticsDashboard() {
       <Geography range={range} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <BreakdownPanel title="Devices" range={range} tabs={[{ key: "device", label: "Devices" }]} valueHeader={() => "Visitors"} renderLabel={(l) => l.charAt(0).toUpperCase() + l.slice(1)} />
-        <BreakdownPanel title="Browsers" range={range} tabs={[{ key: "browser", label: "Browsers" }]} valueHeader={() => "Visitors"} />
-        <BreakdownPanel title="Operating systems" range={range} tabs={[{ key: "os", label: "OS" }]} valueHeader={() => "Visitors"} />
+        <BreakdownPanel
+          chartId="analytics.devices"
+          chartTypes={SHARE_TYPES}
+          title="Devices"
+          range={range}
+          tabs={[{ key: "device", label: "Devices" }]}
+          valueHeader={() => "Visitors"}
+          renderLabel={capitalize}
+          textLabel={capitalize}
+        />
+        <BreakdownPanel chartId="analytics.browsers" chartTypes={SHARE_TYPES} title="Browsers" range={range} tabs={[{ key: "browser", label: "Browsers" }]} valueHeader={() => "Visitors"} />
+        <BreakdownPanel chartId="analytics.os" chartTypes={SHARE_TYPES} title="Operating systems" range={range} tabs={[{ key: "os", label: "OS" }]} valueHeader={() => "Visitors"} />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <EnquiryFunnel range={range} enquiries={cur?.enquiries} />
         <BreakdownPanel
+          chartId="analytics.events"
           title="Events"
           range={range}
           tabs={[{ key: "event", label: "Events" }]}
@@ -305,6 +355,7 @@ function AnalyticsDashboard() {
         />
         <Realtime />
       </div>
+      {exporting && <ExportDialog report={analyticsReport(range, user?.email)} onClose={() => setExporting(false)} />}
     </div>
   );
 }
