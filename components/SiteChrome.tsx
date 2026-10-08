@@ -7,6 +7,7 @@ import FullscreenNavMenu from "./FullscreenNavMenu";
 import EnquiryModal from "./EnquiryModal";
 import { EnquiryProvider, useEnquiry } from "./EnquiryProvider";
 import AnalyticsTracker from "./analytics/AnalyticsTracker";
+import WhatsAppButton from "./public/WhatsAppButton";
 
 interface NavbarVisibilityContextValue {
   setNavbarVisible: (visible: boolean) => void;
@@ -54,13 +55,13 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
           keyboard users can jump past the fixed Navbar straight to content. */}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#c68642] focus:text-[#080808] focus:rounded focus:text-xs focus:font-serif-luxury focus:tracking-[0.18em] focus:uppercase"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:bg-safari-ochre focus:text-safari-night focus:rounded focus:text-xs focus:font-serif-luxury focus:tracking-[0.18em] focus:uppercase"
       >
         Skip to content
       </a>
       <main
         id="main"
-        className="min-h-screen bg-[#080808] text-white flex flex-col selection:bg-[#8d5524] selection:text-[#ffdbac]"
+        className="min-h-screen bg-safari-night text-white flex flex-col selection:bg-safari-russet selection:text-safari-champagne"
       >
         <Navbar
           isVisible={isNavbarVisible}
@@ -80,6 +81,8 @@ function SiteChromeInner({ children }: { children?: React.ReactNode }) {
         />
 
         <EnquiryModal isOpen={isEnquiryOpen} onClose={closeEnquiry} seed={enquirySeed} />
+
+        {/* <WhatsAppButton hidden={isEnquiryOpen || isMenuOpen} /> */}
 
         <AnalyticsTracker />
       </main>

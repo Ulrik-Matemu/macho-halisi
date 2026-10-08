@@ -16,14 +16,14 @@ export default function ValuePillars() {
         return (
           <div
             key={pillar.title}
-            className="bg-white/70 border border-[#1E1913]/10 p-6 sm:p-8 shadow-sm flex flex-col gap-4"
+            className="bg-white/70 border border-safari-bark/10 p-6 sm:p-8 shadow-sm flex flex-col gap-4"
           >
-            <span className="w-11 h-11 rounded-full bg-[#8A6A33]/12 border border-[#8A6A33]/25 text-[#8A6A33] flex items-center justify-center shrink-0">
+            <span className="w-11 h-11 rounded-full bg-safari-russet/12 border border-safari-russet/25 text-safari-russet flex items-center justify-center shrink-0">
               <Icon className="w-5 h-5" />
             </span>
             <div>
-              <h3 className="font-serif-luxury text-xl text-[#1E1913] mb-2">{pillar.title}</h3>
-              <p className="font-sans font-light text-sm text-[#1E1913]/70 leading-relaxed">
+              <h3 className="font-serif-luxury text-xl text-safari-bark mb-2">{pillar.title}</h3>
+              <p className="font-sans font-light text-sm text-safari-bark/70 leading-relaxed">
                 {pillar.description}
               </p>
             </div>

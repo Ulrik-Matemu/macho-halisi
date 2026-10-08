@@ -16,7 +16,7 @@ export default function FounderStory() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
       <div className="lg:col-span-5">
-        <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#1E1913]/10 bg-[#E7DFD1] shadow-lg">
+        <div className="relative aspect-[4/5] w-full overflow-hidden border border-safari-bark/10 bg-safari-champagne shadow-lg">
           <Image
             src={founder.portrait.url}
             alt={founder.portrait.alt}
@@ -25,26 +25,26 @@ export default function FounderStory() {
             className="object-cover object-center"
           />
         </div>
-        <p className="mt-3 text-xs font-sans font-light text-[#1E1913]/50 leading-relaxed">
+        <p className="mt-3 text-xs font-sans font-light text-safari-bark/50 leading-relaxed">
           Our guides and fleet — {founder.location}
         </p>
       </div>
 
       <div className="lg:col-span-7 space-y-6">
-        <div className="border-l-2 border-[#8A6A33] pl-5">
+        <div className="border-l-2 border-safari-russet pl-5">
           <div className="flex items-start gap-3">
-            <Quote className="w-6 h-6 text-[#C9A46A] shrink-0 -mt-1" />
-            <p className="font-serif-luxury text-xl sm:text-2xl font-light text-[#1E1913] leading-snug italic">
+            <Quote className="w-6 h-6 text-safari-gold shrink-0 -mt-1" />
+            <p className="font-serif-luxury text-xl sm:text-2xl font-light text-safari-bark leading-snug italic">
               {founder.quote}
             </p>
           </div>
-          <p className="mt-3 pl-9 text-xs font-sans font-light tracking-[0.15em] uppercase text-[#8A6A33]">
+          <p className="mt-3 pl-9 text-xs font-sans font-light tracking-[0.15em] uppercase text-safari-russet">
             {founder.name} · {founder.role}
           </p>
         </div>
         <div className="space-y-4">
           {founder.paragraphs.map((paragraph, idx) => (
-            <p key={idx} className="font-sans font-light text-sm sm:text-base text-[#1E1913]/75 leading-relaxed">
+            <p key={idx} className="font-sans font-light text-sm sm:text-base text-safari-bark/75 leading-relaxed">
               {paragraph}
             </p>
           ))}

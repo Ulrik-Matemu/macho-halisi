@@ -17,8 +17,8 @@ export default function JourneyCollectionTabs({ activeSlug }: { activeSlug: stri
             aria-current={active ? "page" : undefined}
             className={`py-1.5 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase border-b transition-colors duration-300 ${
               active
-                ? "text-[#1E1913] border-[#8A6A33]"
-                : "text-[#1E1913]/55 border-transparent hover:text-[#1E1913]"
+                ? "text-safari-bark border-safari-russet"
+                : "text-safari-bark/55 border-transparent hover:text-safari-bark"
             }`}
           >
             {c.tab}

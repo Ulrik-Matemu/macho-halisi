@@ -42,10 +42,10 @@ export default function ExperienceQuote({ quote, quoteBy, image }: ExperienceQuo
       </div>
       <div className="absolute inset-0 bg-[#120E0A]/[0.42] pointer-events-none" />
       <figure className="absolute inset-0 m-0 flex flex-col items-center justify-center px-6 sm:px-16 text-center pointer-events-none">
-        <blockquote className="m-0 mb-6 max-w-[960px] font-serif-luxury font-light italic text-[clamp(26px,3.4vw,50px)] leading-[1.42] text-[#FBF7F0] text-balance">
+        <blockquote className="m-0 mb-6 max-w-[960px] font-serif-luxury font-light italic text-[clamp(26px,3.4vw,50px)] leading-[1.42] text-safari-cream text-balance">
           &ldquo;{quote}&rdquo;
         </blockquote>
-        <figcaption className="font-sans font-light text-[10.5px] tracking-[0.34em] text-[#E3C99A] uppercase">
+        <figcaption className="font-sans font-light text-[10.5px] tracking-[0.34em] text-safari-sand uppercase">
           {quoteBy}
         </figcaption>
       </figure>

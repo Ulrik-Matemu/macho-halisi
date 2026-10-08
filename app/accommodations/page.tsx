@@ -4,12 +4,19 @@ import SiteChrome from "@/components/SiteChrome";
 import AccommodationsExplorer from "@/components/public/accommodations/AccommodationsExplorer";
 import { getPublishedAccommodations } from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
+import { itemList, JsonLd } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
-  title: "Accommodations | Macho Halisi",
+  title: "Safari Lodges & Tented Camps in Tanzania | Macho Halisi",
   description:
-    "Browse Macho Halisi's curated accommodations across Tanzania — luxury lodges, tented camps, hotels, guesthouses and more, hand-selected by native safari specialists.",
+    "Luxury safari lodges, tented camps, hotels and beach villas across the Serengeti, Ngorongoro, Tarangire and Zanzibar — hand-picked by native Tanzanian guides.",
   alternates: { canonical: `${getSiteUrl()}/accommodations` },
+  openGraph: {
+    title: "Safari Lodges & Tented Camps in Tanzania | Macho Halisi",
+    description: "Hand-picked safari lodges, tented camps and beach villas across Tanzania.",
+    url: `${getSiteUrl()}/accommodations`,
+  },
 };
 
 const PAGE_SIZE = 48;
@@ -19,15 +26,17 @@ export default async function AccommodationsIndexPage() {
 
   return (
     <SiteChrome>
+      <Breadcrumbs visible={false} items={[{ name: "Accommodations", path: "/accommodations" }]} />
+      <JsonLd data={itemList("Safari accommodation in Tanzania", accommodations.map((a) => ({ name: a.name, path: `/accommodations/${a.slug}` })))} />
       <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="mb-10 sm:mb-14 pb-8 border-b border-white/10">
-            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-2">
-              <Hotel className="w-3.5 h-3.5 text-[#c68642]" />
-              <span>Camps · Lodges · Hotels</span>
+            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-gold uppercase mb-2">
+              <Hotel className="w-3.5 h-3.5 text-safari-ochre" />
+              <span>Where you&apos;ll stay</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug">
-              Where You&apos;ll Stay
+              Safari Lodges &amp; Camps in Tanzania
             </h1>
             <p className="text-xs sm:text-sm text-white/60 font-sans mt-3 max-w-2xl leading-relaxed">
               {pagination.total > 0

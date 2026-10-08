@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { X, Check, Send, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
 import type { EnquirySeed } from "./EnquiryProvider";
-import { trackEvent } from "@/lib/analytics/track";
+import { trackContact, trackEvent } from "@/lib/analytics/track";
 import { enquiryAttribution, formatEnquiryRef } from "@/lib/enquiries/submit";
 
 interface EnquiryModalProps {
@@ -205,12 +205,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-[#0c0c0c] border border-[#8d5524]/40 shadow-2xl p-6 sm:p-10 text-white animate-nav-cascade">
+      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-[#0c0c0c] border border-safari-russet/40 shadow-2xl p-6 sm:p-10 text-white animate-nav-cascade">
         {/* Close Button */}
         <button
           onClick={handleClose}
           aria-label="Close enquiry modal"
-          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/20 hover:border-[#c68642] flex items-center justify-center text-white hover:text-[#e0ac69] transition-colors cursor-pointer z-10"
+          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/20 hover:border-safari-ochre flex items-center justify-center text-white hover:text-safari-gold transition-colors cursor-pointer z-10"
         >
           <X className="w-4 h-4" />
         </button>
@@ -227,11 +227,11 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
               />
             </div>
             <div className="py-2 sm:py-4 flex flex-col items-center text-center space-y-4">
-              <div className="w-14 h-14 rounded-full bg-[#8d5524]/20 border border-[#c68642] flex items-center justify-center text-[#c68642]">
+              <div className="w-14 h-14 rounded-full bg-safari-russet/20 border border-safari-ochre flex items-center justify-center text-safari-ochre">
                 <Check className="w-7 h-7" />
               </div>
               <div className="space-y-1.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#e0ac69] block">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-safari-gold block">
                   Confirmed
                 </span>
                 <h3 className="font-serif-luxury text-2xl font-light text-white">
@@ -241,12 +241,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   We&apos;ll be in touch within 24 hours.
                 </p>
               </div>
-              <div className="px-3.5 py-2 bg-white/5 border border-white/10 font-mono text-[11px] text-[#e0ac69]">
+              <div className="px-3.5 py-2 bg-white/5 border border-white/10 font-mono text-[11px] text-safari-gold">
                 Ref: <span className="text-white font-semibold">{enquiryId}</span>
               </div>
               <p className="text-[11px] text-white/50 font-sans">
                 Or WhatsApp{" "}
-                <a href="https://wa.me/255754474792" className="text-[#e0ac69] underline hover:text-white">
+                <a href="https://wa.me/255754474792" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-gold underline hover:text-white">
                   +255 754 474 792
                 </a>
               </p>
@@ -282,7 +282,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 Your {currentMeta.label}
               </h3>
               {seed?.itineraryTitle && (
-                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-[#c68642]/40 bg-[#c68642]/10 text-[#e0ac69] text-[10px] font-sans">
+                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-safari-ochre/40 bg-safari-ochre/10 text-safari-gold text-[10px] font-sans">
                   {seed.itineraryTitle}
                 </span>
               )}
@@ -293,7 +293,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
               {STEP_META.map((s) => (
                 <div key={s.id} className="flex-1 h-[3px] bg-white/10 overflow-hidden">
                   <div
-                    className="h-full bg-[#c68642] transition-all duration-500 ease-out"
+                    className="h-full bg-safari-ochre transition-all duration-500 ease-out"
                     style={{ width: step >= s.id ? "100%" : "0%" }}
                   />
                 </div>
@@ -310,7 +310,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             {step === 1 && (
               <div key={1} className="space-y-6 animate-sub-cascade">
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-2">
                     Destinations
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -323,7 +323,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                           onClick={() => toggleDestination(dest)}
                           className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#c68642] text-[#080808] border-[#c68642] font-medium shadow-sm"
+                              ? "bg-safari-ochre text-safari-night border-safari-ochre font-medium shadow-sm"
                               : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
                           }`}
                         >
@@ -338,7 +338,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-2">
                     Travel Window
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -349,7 +349,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         onClick={() => setVision((prev) => ({ ...prev, travelWindow: window }))}
                         className={`p-2.5 text-xs font-sans border text-center transition-all cursor-pointer ${
                           vision.travelWindow === window
-                            ? "bg-white text-[#080808] border-white font-medium"
+                            ? "bg-white text-safari-night border-white font-medium"
                             : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
                         }`}
                       >
@@ -363,7 +363,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-safari-ochre hover:bg-safari-russet text-safari-night hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
                   >
                     <span>Continue</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -376,7 +376,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             {step === 2 && (
               <div key={2} className="space-y-6 animate-sub-cascade">
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-2">
                     Party Size
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -387,7 +387,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         onClick={() => setParty((prev) => ({ ...prev, partySize: size }))}
                         className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                           party.partySize === size
-                            ? "bg-[#c68642] text-[#080808] border-[#c68642] font-medium shadow-sm"
+                            ? "bg-safari-ochre text-safari-night border-safari-ochre font-medium shadow-sm"
                             : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
                         }`}
                       >
@@ -398,7 +398,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-2">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-2">
                     Preferred Style
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -409,7 +409,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         onClick={() => setParty((prev) => ({ ...prev, accommodationStyle: style }))}
                         className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                           party.accommodationStyle === style
-                            ? "bg-white text-[#080808] border-white font-medium"
+                            ? "bg-white text-safari-night border-white font-medium"
                             : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
                         }`}
                       >
@@ -431,7 +431,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   <button
                     type="button"
                     onClick={() => setStep(3)}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-safari-ochre hover:bg-safari-russet text-safari-night hover:text-white text-xs font-sans font-medium tracking-widest uppercase rounded transition-all cursor-pointer"
                   >
                     <span>Continue</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -451,7 +451,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                       Name *
                     </label>
                     <input
@@ -460,11 +460,11 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                       value={contact.name}
                       onChange={(e) => setContact((prev) => ({ ...prev, name: e.target.value }))}
                       placeholder="Your name"
-                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                       Email *
                     </label>
                     <input
@@ -473,13 +473,13 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                       value={contact.email}
                       onChange={(e) => setContact((prev) => ({ ...prev, email: e.target.value }))}
                       placeholder="safari@example.com"
-                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                     Phone / WhatsApp *
                   </label>
                   <input
@@ -488,12 +488,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     value={contact.phone}
                     onChange={(e) => setContact((prev) => ({ ...prev, phone: e.target.value }))}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors"
+                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-[#8d5524] mb-1.5">
+                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                     Notes (Optional)
                   </label>
                   <textarea
@@ -501,7 +501,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     value={contact.notes}
                     onChange={(e) => setContact((prev) => ({ ...prev, notes: e.target.value }))}
                     placeholder="Anything else we should know…"
-                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#c68642] focus:outline-none transition-colors resize-none"
+                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors resize-none"
                   />
                 </div>
 
@@ -517,7 +517,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#c68642] hover:bg-[#8d5524] disabled:opacity-60 text-[#080808] hover:text-white text-xs font-sans font-semibold tracking-[0.25em] uppercase rounded transition-all cursor-pointer shadow-lg hover:shadow-[0_4px_24px_rgba(198,134,66,0.3)]"
+                    className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-safari-ochre hover:bg-safari-russet disabled:opacity-60 text-safari-night hover:text-white text-xs font-sans font-semibold tracking-[0.25em] uppercase rounded transition-all cursor-pointer shadow-lg hover:shadow-[0_4px_24px_rgba(198,134,66,0.3)]"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>{isSubmitting ? "Dispatching…" : "Submit Enquiry"}</span>

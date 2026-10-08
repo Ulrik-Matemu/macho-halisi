@@ -47,13 +47,13 @@ export default function DestinationsExplorer({ destinations }: DestinationsExplo
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-10">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1E1913]/40" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-safari-bark/40" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search destinations..."
-            className="w-full pl-10 pr-4 py-3 rounded border border-[#1E1913]/15 bg-white font-sans font-light text-sm text-[#1E1913] placeholder:text-[#1E1913]/40 focus:outline-none focus:border-[#C9A46A] transition-colors"
+            className="w-full pl-10 pr-4 py-3 rounded border border-safari-bark/15 bg-white font-sans font-light text-sm text-safari-bark placeholder:text-safari-bark/40 focus:outline-none focus:border-safari-gold transition-colors"
           />
         </div>
 
@@ -66,8 +66,8 @@ export default function DestinationsExplorer({ destinations }: DestinationsExplo
               aria-pressed={category === f.value}
               className={`px-4 py-2 rounded-full font-sans font-light text-xs tracking-[0.08em] uppercase transition-colors cursor-pointer ${
                 category === f.value
-                  ? "bg-[#1E1913] text-[#F6F2EA]"
-                  : "bg-[#1E1913]/[0.05] text-[#1E1913]/70 hover:bg-[#1E1913]/10"
+                  ? "bg-safari-bark text-safari-cream"
+                  : "bg-safari-bark/[0.05] text-safari-bark/70 hover:bg-safari-bark/10"
               }`}
             >
               {f.label}
@@ -77,8 +77,8 @@ export default function DestinationsExplorer({ destinations }: DestinationsExplo
       </div>
 
       {filtered.length === 0 ? (
-        <div className="p-16 text-center border border-dashed border-[#1E1913]/15 rounded-xl">
-          <p className="text-sm text-[#1E1913]/50 font-sans">
+        <div className="p-16 text-center border border-dashed border-safari-bark/15 rounded-xl">
+          <p className="text-sm text-safari-bark/50 font-sans">
             No destinations match &quot;{query}&quot;. Try another search or category.
           </p>
         </div>

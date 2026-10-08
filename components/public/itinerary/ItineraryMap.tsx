@@ -5,10 +5,10 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { ItineraryMapPin } from "@/lib/public/api";
 
-const GOLD = "#C9A46A";
-const GOLD_LIGHT = "#E3C99A";
-const INK = "#1E1913";
-const CREAM = "#F6F2EA";
+const GOLD = "#e0ac69";
+const GOLD_LIGHT = "#f1c27d";
+const INK = "#1e1209";
+const CREAM = "#fff6ea";
 
 const ROUTE_SOURCE_ID = "itinerary-route";
 const ROUTE_LAYER_ID = "itinerary-route-line";

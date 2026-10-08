@@ -179,6 +179,16 @@ export function trackEvent(name: string, metadata?: ClientEvent["metadata"]) {
   enqueue({ type: "EVENT", name, path: window.location.pathname, metadata });
 }
 
+/**
+ * A direct-contact conversion (WhatsApp, phone or email link). These leave
+ * the site, so they're tracked separately from the enquiry forms to give
+ * the dashboard a full picture of how guests reach out.
+ */
+export function trackContact(channel: "whatsapp" | "phone" | "email", placement: string) {
+  trackEvent("contact_click", { channel, placement });
+  flush();
+}
+
 export function trackRaw(event: ClientEvent) {
   enqueue(event);
 }

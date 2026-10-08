@@ -41,19 +41,19 @@ export default function DestinationBestTime({ months }: DestinationBestTimeProps
               onClick={() => setActiveIdx(idx)}
               aria-pressed={isActive}
               className={`group flex flex-col items-center gap-2 pt-3 pb-2 rounded transition-colors cursor-pointer ${
-                isActive ? "bg-[#1E1913]" : "bg-[#1E1913]/[0.05] hover:bg-[#1E1913]/10"
+                isActive ? "bg-safari-bark" : "bg-safari-bark/[0.05] hover:bg-safari-bark/10"
               }`}
             >
-              <div className="h-10 w-2.5 rounded-full bg-[#1E1913]/10 flex items-end overflow-hidden">
+              <div className="h-10 w-2.5 rounded-full bg-safari-bark/10 flex items-end overflow-hidden">
                 <div
                   className={`w-full rounded-full transition-all ${RATING_HEIGHT[entry.rating]} ${
-                    isActive ? "bg-[#E3C99A]" : "bg-[#C9A46A]"
+                    isActive ? "bg-safari-sand" : "bg-safari-gold"
                   }`}
                 />
               </div>
               <span
                 className={`font-sans font-light text-[10px] tracking-[0.1em] uppercase ${
-                  isActive ? "text-[#FBF7F0]" : "text-[#1E1913]/70"
+                  isActive ? "text-safari-cream" : "text-safari-bark/70"
                 }`}
               >
                 {entry.month}
@@ -64,16 +64,16 @@ export default function DestinationBestTime({ months }: DestinationBestTimeProps
       </div>
 
       {active && (
-        <div className="border-t border-[#1E1913]/[0.14] pt-6">
+        <div className="border-t border-safari-bark/[0.14] pt-6">
           <div className="flex items-baseline gap-4 mb-2">
-            <span className="font-serif-luxury font-light text-2xl tracking-[0.04em] text-[#1E1913]">
+            <span className="font-serif-luxury font-light text-2xl tracking-[0.04em] text-safari-bark">
               {active.month}
             </span>
-            <span className="font-sans font-light text-[10px] tracking-[0.25em] text-[#8A6A33] uppercase">
+            <span className="font-sans font-light text-[10px] tracking-[0.25em] text-safari-russet uppercase">
               {RATING_LABEL[active.rating]}
             </span>
           </div>
-          <p className="font-sans font-light text-[15px] leading-[1.9] text-[#1E1913]/72 max-w-xl">
+          <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/72 max-w-xl">
             {active.note}
           </p>
         </div>

@@ -40,6 +40,6 @@ export default function ScrollProgressBar() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 h-[2px] bg-[#8A6A33] z-[60]" ref={barRef} style={{ width: 0 }} />
+    <div className="fixed top-0 left-0 h-[2px] bg-safari-russet z-[60]" ref={barRef} style={{ width: 0 }} />
   );
 }

@@ -32,9 +32,9 @@ export default function TravelInfoStickyNav() {
   };
 
   return (
-    <div className="sticky top-20 z-30 bg-[#F6F2EA]/95 backdrop-blur-md border-y border-[#1E1913]/10 py-3 mb-12">
+    <div className="sticky top-20 z-30 bg-safari-cream/95 backdrop-blur-md border-y border-safari-bark/10 py-3 mb-12">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
-        <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8A6A33] shrink-0 hidden sm:inline-block">
+        <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-safari-russet shrink-0 hidden sm:inline-block">
           Field Guide Index:
         </span>
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -47,8 +47,8 @@ export default function TravelInfoStickyNav() {
                 onClick={() => scrollTo(topic.id)}
                 className={`px-3 py-1.5 rounded text-xs font-sans tracking-wide transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? "bg-[#1E1913] text-[#FBF7F0] font-medium shadow-sm"
-                    : "text-[#1E1913]/70 hover:text-[#1E1913] hover:bg-black/5"
+                    ? "bg-safari-bark text-safari-cream font-medium shadow-sm"
+                    : "text-safari-bark/70 hover:text-safari-bark hover:bg-black/5"
                 }`}
               >
                 {topic.shortTitle}

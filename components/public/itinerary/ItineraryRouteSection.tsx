@@ -69,16 +69,16 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
     <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
       <div className="flex items-end justify-between gap-10 mb-14 flex-wrap">
         <div>
-          <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+          <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
             Day by day
           </div>
-          <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase">
+          <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase">
             The route
           </h2>
         </div>
         <div className="flex items-center gap-6">
           {hasMap && (
-            <div className="flex items-center gap-0.5 rounded-full border border-[#1E1913]/[0.18] p-0.5">
+            <div className="flex items-center gap-0.5 rounded-full border border-safari-bark/[0.18] p-0.5">
               {(["photo", "map"] as const).map((view) => (
                 <button
                   key={view}
@@ -86,8 +86,8 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                   onClick={() => setPanelView(view)}
                   className={`px-3.5 py-1.5 rounded-full font-sans font-light text-[10px] tracking-[0.24em] uppercase transition-colors cursor-pointer ${
                     panelView === view
-                      ? "bg-[#1E1913] text-[#F6F2EA]"
-                      : "text-[#1E1913]/60 hover:text-[#1E1913]"
+                      ? "bg-safari-bark text-safari-cream"
+                      : "text-safari-bark/60 hover:text-safari-bark"
                   }`}
                 >
                   {view === "photo" ? "Photos" : "Map"}
@@ -95,7 +95,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
               ))}
             </div>
           )}
-          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-[#1E1913]/70 uppercase whitespace-nowrap">
+          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase whitespace-nowrap">
             Day {String(activeDayNumber).padStart(2, "0")} of {String(days.length).padStart(2, "0")}
           </span>
         </div>
@@ -104,7 +104,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-12 lg:gap-16 items-start">
         {/* Sticky panel: photo cross-fade or live map */}
         <div className="lg:sticky lg:top-28">
-          <div className="relative w-full aspect-[4/5] rounded overflow-hidden bg-[#E7DFD1]">
+          <div className="relative w-full aspect-[4/5] rounded overflow-hidden bg-safari-champagne">
             {panelView === "map" && hasMap ? (
               <ItineraryMap
                 pins={mapPins}
@@ -134,21 +134,21 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                 );
               })
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-[#E7DFD1] to-[#D8CDB8]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-safari-champagne to-[#D8CDB8]" />
             )}
           </div>
 
           {routeMapUrl && (
             <div className="flex items-center gap-3.5 mt-5">
-              <span className="font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase whitespace-nowrap">
+              <span className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase whitespace-nowrap">
                 Route map
               </span>
-              <span className="flex-1 h-px bg-[#1E1913]/[0.18]" />
+              <span className="flex-1 h-px bg-safari-bark/[0.18]" />
               <a
                 href={routeMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-sans font-light text-[10px] tracking-[0.3em] uppercase text-[#1E1913] hover:text-[#8A6A33] transition-colors whitespace-nowrap"
+                className="font-sans font-light text-[10px] tracking-[0.3em] uppercase text-safari-bark hover:text-safari-russet transition-colors whitespace-nowrap"
               >
                 Open ↗
               </a>
@@ -159,9 +159,9 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
         {/* Day list, with a progress rail tracking scroll position */}
         <div className="flex gap-5">
           <div className="hidden sm:flex flex-col items-center pt-1 w-3 shrink-0">
-            <div className="relative w-px flex-1 bg-[#1E1913]/[0.14]">
+            <div className="relative w-px flex-1 bg-safari-bark/[0.14]">
               <div
-                className="absolute top-0 left-0 w-px bg-[#8A6A33] transition-all duration-300 ease-out"
+                className="absolute top-0 left-0 w-px bg-safari-russet transition-all duration-300 ease-out"
                 style={{ height: `${(activeIndex / Math.max(days.length - 1, 1)) * 100}%` }}
               />
             </div>
@@ -175,14 +175,14 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                 ref={(el) => {
                   dayRefs.current[idx] = el;
                 }}
-                className={`py-7 sm:py-9 scroll-mt-28 ${idx > 0 ? "border-t border-[#1E1913]/[0.14]" : "pt-1"}`}
+                className={`py-7 sm:py-9 scroll-mt-28 ${idx > 0 ? "border-t border-safari-bark/[0.14]" : "pt-1"}`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-sans font-light text-xs tracking-[0.24em] text-[#8A6A33]">
+                  <span className="font-sans font-light text-xs tracking-[0.24em] text-safari-russet">
                     {String(day.dayNumber).padStart(2, "0")}
                   </span>
                   {day.highlight && (
-                    <span className="font-sans font-light text-[9px] tracking-[0.24em] text-[#8A6A33] uppercase border border-[#8A6A33]/40 rounded-full px-2.5 py-1">
+                    <span className="font-sans font-light text-[9px] tracking-[0.24em] text-safari-russet uppercase border border-safari-russet/40 rounded-full px-2.5 py-1">
                       Signature moment
                     </span>
                   )}
@@ -190,7 +190,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
 
                 {day.title && (
                   <h3
-                    className={`font-serif-luxury font-light leading-[1.2] tracking-[0.03em] text-[#1E1913] mb-4 ${
+                    className={`font-serif-luxury font-light leading-[1.2] tracking-[0.03em] text-safari-bark mb-4 ${
                       day.highlight ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl"
                     }`}
                   >
@@ -199,13 +199,13 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                 )}
 
                 {day.description && (
-                  <p className="font-sans font-light text-sm leading-[1.98] text-[#1E1913]/66 mb-5">
+                  <p className="font-sans font-light text-sm leading-[1.98] text-safari-bark/66 mb-5">
                     {day.description}
                   </p>
                 )}
 
                 {(day.accommodation || day.activities.length > 0) && (
-                  <div className="flex gap-x-7 gap-y-2 flex-wrap font-sans font-light text-[11px] tracking-[0.18em] text-[#1E1913]/70 uppercase">
+                  <div className="flex gap-x-7 gap-y-2 flex-wrap font-sans font-light text-[11px] tracking-[0.18em] text-safari-bark/70 uppercase">
                     {day.accommodation && <span>{day.accommodation}</span>}
                     {day.activities.map((activity, actIdx) => (
                       <span key={actIdx}>{activity}</span>

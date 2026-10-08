@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/public/ScrollReveal";
 import EnquiryStudioForm from "@/components/public/enquiry/EnquiryStudioForm";
 import EnquiryConciergePanel from "@/components/public/enquiry/EnquiryConciergePanel";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Begin Your Safari Expedition | Macho Halisi Safari Enquiry",
@@ -35,19 +36,20 @@ export default async function EnquiryPage({ searchParams }: EnquiryPageProps) {
 
   return (
     <SiteChrome>
+      <Breadcrumbs visible={false} items={[{ name: "Enquire", path: "/enquire" }]} />
       <SmoothScroll />
-      <div className="bg-[#F6F2EA] text-[#1E1913] pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-cream text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Header */}
-          <ScrollReveal className="mb-12 pb-8 border-b border-[#1E1913]/10">
-            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#C9A46A]" />
+          <ScrollReveal className="mb-12 pb-8 border-b border-safari-bark/10">
+            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-safari-gold" />
               <span>Tailor-Made Safari Studio</span>
             </div>
-            <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-[#1E1913] tracking-[0.02em] leading-tight">
+            <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-safari-bark tracking-[0.02em] leading-tight">
               Begin Your Journey
             </h1>
-            <p className="font-sans font-light text-sm sm:text-base text-[#1E1913]/70 mt-3 max-w-2xl leading-relaxed">
+            <p className="font-sans font-light text-sm sm:text-base text-safari-bark/70 mt-3 max-w-2xl leading-relaxed">
               Share your wilderness aspirations. Our native safari directors will draft a bespoke
               day-by-day blueprint calibrated to the real movements of Tanzania&apos;s wildlife.
             </p>

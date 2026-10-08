@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/public/SmoothScroll";
 import LegalPageShell from "@/components/public/legal/LegalPageShell";
 import { PRIVACY_POLICY } from "@/data/legalData";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Macho Halisi Safaris",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <SiteChrome>
+      <Breadcrumbs visible={false} items={[{ name: "Privacy policy", path: "/privacy" }]} />
       <SmoothScroll />
       <LegalPageShell document={PRIVACY_POLICY} />
     </SiteChrome>

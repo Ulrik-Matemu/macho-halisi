@@ -44,7 +44,7 @@ export default function DestinationChapterScroll({
 
   const imagePanel = (
     <div className="lg:sticky lg:top-24">
-      <div className="relative w-full h-[420px] sm:h-[560px] lg:h-[calc(100vh-200px)] lg:min-h-[360px] lg:max-h-[760px] overflow-hidden bg-[#E7DFD1]">
+      <div className="relative w-full h-[420px] sm:h-[560px] lg:h-[calc(100vh-200px)] lg:min-h-[360px] lg:max-h-[760px] overflow-hidden bg-safari-champagne">
         {chapters.map((chapter, idx) => (
           <div
             key={chapter.title}
@@ -60,7 +60,7 @@ export default function DestinationChapterScroll({
             />
           </div>
         ))}
-        <div className="absolute left-6 bottom-5 font-sans font-light text-[10.5px] tracking-[0.3em] text-[#FBF7F0] uppercase [text-shadow:0_1px_12px_rgba(18,14,10,0.7)]">
+        <div className="absolute left-6 bottom-5 font-sans font-light text-[10.5px] tracking-[0.3em] text-safari-cream uppercase [text-shadow:0_1px_12px_rgba(18,11,6,0.7)]">
           {chapters[active]?.title}
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function DestinationChapterScroll({
           <span
             key={chapter.title}
             className="flex-1 h-[2px] transition-colors duration-500"
-            style={{ background: active === idx ? "#8A6A33" : "rgba(30,25,19,0.16)" }}
+            style={{ background: active === idx ? "#8d5524" : "rgba(30,18,9,0.16)" }}
           />
         ))}
       </div>
@@ -86,13 +86,13 @@ export default function DestinationChapterScroll({
           }}
           className="min-h-[60vh] lg:min-h-[78vh] flex flex-col justify-center py-10"
         >
-          <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-5">
+          <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-5">
             {eyebrow} · {String(idx + 1)}
           </div>
-          <h3 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.14] tracking-[0.03em] text-[#1E1913] mb-5">
+          <h3 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.14] tracking-[0.03em] text-safari-bark mb-5">
             {chapter.title}
           </h3>
-          <p className="font-sans font-light text-[15.5px] leading-[2.05] text-[#1E1913]/68 max-w-[520px]">
+          <p className="font-sans font-light text-[15.5px] leading-[2.05] text-safari-bark/68 max-w-[520px]">
             {chapter.text}
           </p>
         </div>

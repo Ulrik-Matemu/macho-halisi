@@ -9,6 +9,8 @@ import JourneyPlanCta from "@/components/public/journeys/JourneyPlanCta";
 import JourneyOtherCollections from "@/components/public/journeys/JourneyOtherCollections";
 import { getAllJourneyCollectionSlugs, getJourneyCollectionBySlug } from "@/data/journeys";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
+import { JsonLd, orgRef } from "@/lib/seo/jsonLd";
 
 interface JourneyCollectionPageParams {
   collection: string;
@@ -31,18 +33,21 @@ export async function generateMetadata({
   const collection = getJourneyCollectionBySlug(slug);
 
   if (!collection) {
-    return { title: "Journeys Not Found | Macho Halisi" };
+    return { title: "Journeys Not Found | Macho Halisi", robots: { index: false } };
   }
 
   const title = `${collection.line1} ${collection.line2}`;
   const url = `${getSiteUrl()}/journeys/${collection.slug}`;
 
+  const fullTitle = `${title}${/tanzania|zanzibar|kilimanjaro/i.test(title) ? "" : " in Tanzania"} | Macho Halisi`;
+
   return {
-    title: `${title} | Macho Halisi`,
+    title: fullTitle,
     description: collection.seoDescription,
     alternates: { canonical: url },
+    twitter: { card: "summary_large_image", title: fullTitle, description: collection.seoDescription, images: [collection.heroImage.url] },
     openGraph: {
-      title,
+      title: fullTitle,
       description: collection.seoDescription,
       url,
       images: [{ url: collection.heroImage.url }],
@@ -78,8 +83,9 @@ export default async function JourneyCollectionPage({
         "@type": "TouristTrip",
         name: item.name,
         description: item.sub,
+        provider: orgRef(),
         ...(item.price != null && {
-          offers: { "@type": "Offer", price: item.price, priceCurrency: "USD" },
+          offers: { "@type": "Offer", price: item.price, priceCurrency: "USD", seller: orgRef() },
         }),
       },
     })),
@@ -87,12 +93,13 @@ export default async function JourneyCollectionPage({
 
   return (
     <SiteChrome>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd data={jsonLd} />
+      <Breadcrumbs
+        visible={false}
+        items={[{ name: `${collection.line1} ${collection.line2}`, path: `/journeys/${collection.slug}` }]}
       />
 
-      <div className="bg-[#F6F2EA] text-[#1E1913]">
+      <div className="bg-safari-cream text-safari-bark">
         <ScrollProgressBar />
         <JourneyCollectionTabs activeSlug={collection.slug} />
         <JourneyCollectionHero

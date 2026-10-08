@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Dashboard | Macho Halisi",
   description: "Internal operations and management dashboard for Macho Halisi",
+  // Staff-only: keep it out of search results even if a URL leaks.
+  robots: { index: false, follow: false },
 };
 
 // Thin wrapper only — chrome (sidebar/topbar/auth) lives in

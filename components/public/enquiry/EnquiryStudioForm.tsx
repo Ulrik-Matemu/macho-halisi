@@ -137,13 +137,13 @@ export default function EnquiryStudioForm({
 
   if (submitted) {
     return (
-      <div className="bg-[#1E1913] text-[#FBF7F0] p-8 sm:p-14 border border-[#8A6A33]/40 shadow-2xl text-center space-y-6">
-        <div className="w-16 h-16 rounded-full bg-[#8A6A33]/20 border border-[#E3C99A] text-[#E3C99A] flex items-center justify-center mx-auto">
+      <div className="bg-safari-bark text-safari-cream p-8 sm:p-14 border border-safari-russet/40 shadow-2xl text-center space-y-6">
+        <div className="w-16 h-16 rounded-full bg-safari-russet/20 border border-safari-sand text-safari-sand flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
         <div className="space-y-2">
-          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#E3C99A] block">
+          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-safari-sand block">
             Expedition Request Confirmed
           </span>
           <h3 className="font-serif-luxury text-3xl sm:text-4xl text-white font-light">
@@ -155,7 +155,7 @@ export default function EnquiryStudioForm({
           </p>
         </div>
 
-        <div className="p-4 bg-white/5 border border-white/10 max-w-md mx-auto font-mono text-xs text-[#E3C99A]">
+        <div className="p-4 bg-white/5 border border-white/10 max-w-md mx-auto font-mono text-xs text-safari-sand">
           Reference ID: <span className="text-white font-bold">{enquiryId}</span>
         </div>
 
@@ -163,7 +163,7 @@ export default function EnquiryStudioForm({
           Prefer an immediate chat? Reach our Karatu office on WhatsApp at{" "}
           <a
             href="https://wa.me/255754474792"
-            className="text-[#E3C99A] underline hover:text-white"
+            className="text-safari-sand underline hover:text-white"
           >
             +255 754 474 792
           </a>
@@ -176,21 +176,21 @@ export default function EnquiryStudioForm({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       {/* Form Steps Column */}
-      <div className="lg:col-span-8 bg-white/80 border border-[#1E1913]/10 p-6 sm:p-10 shadow-sm">
+      <div className="lg:col-span-8 bg-white/80 border border-safari-bark/10 p-6 sm:p-10 shadow-sm">
         {/* Step Progress Tracker */}
-        <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#1E1913]/10">
+        <div className="flex items-center justify-between pb-6 mb-8 border-b border-safari-bark/10">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-[#1E1913] text-white flex items-center justify-center font-mono text-xs">
+            <span className="w-6 h-6 rounded-full bg-safari-bark text-white flex items-center justify-center font-mono text-xs">
               {step}
             </span>
-            <span className="font-serif-luxury text-lg text-[#1E1913]">
+            <span className="font-serif-luxury text-lg text-safari-bark">
               {step === 1 && "Destinations & Wildlife Vision"}
               {step === 2 && "Dates, Rhythm & Companions"}
               {step === 3 && "Accommodations & Style"}
               {step === 4 && "Contact & Direct Channels"}
             </span>
           </div>
-          <span className="font-mono text-xs text-[#8A6A33]">Step {step} of 4</span>
+          <span className="font-mono text-xs text-safari-russet">Step {step} of 4</span>
         </div>
 
         {errorMessage && (
@@ -202,7 +202,7 @@ export default function EnquiryStudioForm({
         {/* STEP 1: DESTINATIONS */}
         {step === 1 && (
           <div className="space-y-6">
-            <p className="text-sm text-[#1E1913]/70 font-sans">
+            <p className="text-sm text-safari-bark/70 font-sans">
               Select the ecosystems that inspire you. You may select several, or leave open for our
               specialist recommendations.
             </p>
@@ -227,13 +227,13 @@ export default function EnquiryStudioForm({
                     onClick={() => toggleDestination(dest)}
                     className={`p-3.5 text-left text-xs font-sans border transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-[#1E1913] text-[#FBF7F0] border-[#1E1913] shadow-sm font-medium"
-                        : "bg-white/60 hover:bg-white text-[#1E1913] border-[#1E1913]/15"
+                        ? "bg-safari-bark text-safari-cream border-safari-bark shadow-sm font-medium"
+                        : "bg-white/60 hover:bg-white text-safari-bark border-safari-bark/15"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span>{dest}</span>
-                      {isSelected && <Sparkles className="w-3.5 h-3.5 text-[#E3C99A]" />}
+                      {isSelected && <Sparkles className="w-3.5 h-3.5 text-safari-sand" />}
                     </div>
                   </button>
                 );
@@ -244,7 +244,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1E1913] hover:bg-[#8A6A33] text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-safari-bark hover:bg-safari-russet text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
               >
                 <span>Continue to Rhythm & Timing</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -258,7 +258,7 @@ export default function EnquiryStudioForm({
           <div className="space-y-6">
             {/* Travel Window */}
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-2">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-2">
                 Anticipated Travel Window
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -270,8 +270,8 @@ export default function EnquiryStudioForm({
                       onClick={() => setState({ ...state, travelWindow: window })}
                       className={`p-3 text-xs font-sans border text-center transition-all cursor-pointer ${
                         state.travelWindow === window
-                          ? "bg-[#1E1913] text-white border-[#1E1913] font-medium"
-                          : "bg-white/60 text-[#1E1913] border-[#1E1913]/15"
+                          ? "bg-safari-bark text-white border-safari-bark font-medium"
+                          : "bg-white/60 text-safari-bark border-safari-bark/15"
                       }`}
                     >
                       {window}
@@ -283,7 +283,7 @@ export default function EnquiryStudioForm({
 
             {/* Estimated Trip Duration */}
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-2">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-2">
                 Estimated Safari Length
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -294,8 +294,8 @@ export default function EnquiryStudioForm({
                     onClick={() => setState({ ...state, tripLength: len })}
                     className={`p-3 text-xs font-sans border text-center transition-all cursor-pointer ${
                       state.tripLength === len
-                        ? "bg-[#1E1913] text-white border-[#1E1913] font-medium"
-                        : "bg-white/60 text-[#1E1913] border-[#1E1913]/15"
+                        ? "bg-safari-bark text-white border-safari-bark font-medium"
+                        : "bg-white/60 text-safari-bark border-safari-bark/15"
                     }`}
                   >
                     {len}
@@ -306,7 +306,7 @@ export default function EnquiryStudioForm({
 
             {/* Party Size */}
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-2">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-2">
                 Party Composition
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -323,8 +323,8 @@ export default function EnquiryStudioForm({
                     onClick={() => setState({ ...state, partySize: party })}
                     className={`p-3 text-xs font-sans border text-left transition-all cursor-pointer ${
                       state.partySize === party
-                        ? "bg-[#1E1913] text-white border-[#1E1913] font-medium"
-                        : "bg-white/60 text-[#1E1913] border-[#1E1913]/15"
+                        ? "bg-safari-bark text-white border-safari-bark font-medium"
+                        : "bg-white/60 text-safari-bark border-safari-bark/15"
                     }`}
                   >
                     {party}
@@ -337,7 +337,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-[#1E1913]/70 hover:text-[#1E1913] font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -345,7 +345,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1E1913] hover:bg-[#8A6A33] text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-safari-bark hover:bg-safari-russet text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
               >
                 <span>Continue to Style & Tastes</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -358,7 +358,7 @@ export default function EnquiryStudioForm({
         {step === 3 && (
           <div className="space-y-6">
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-2">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-2">
                 Preferred Lodging Character
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -382,8 +382,8 @@ export default function EnquiryStudioForm({
                     onClick={() => setState({ ...state, accommodationStyle: style.name })}
                     className={`p-4 text-left border transition-all cursor-pointer ${
                       state.accommodationStyle === style.name
-                        ? "bg-[#1E1913] text-[#FBF7F0] border-[#1E1913] shadow-md"
-                        : "bg-white/60 hover:bg-white text-[#1E1913] border-[#1E1913]/15"
+                        ? "bg-safari-bark text-safari-cream border-safari-bark shadow-md"
+                        : "bg-white/60 hover:bg-white text-safari-bark border-safari-bark/15"
                     }`}
                   >
                     <div className="font-serif-luxury text-sm font-medium mb-1">{style.name}</div>
@@ -394,7 +394,7 @@ export default function EnquiryStudioForm({
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-2">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-2">
                 Special Desires & Experiences
               </label>
               <div className="flex flex-wrap gap-2">
@@ -416,8 +416,8 @@ export default function EnquiryStudioForm({
                       onClick={() => toggleInterest(interest)}
                       className={`px-3.5 py-2 rounded text-xs font-sans border transition-all cursor-pointer ${
                         isSelected
-                          ? "bg-[#8A6A33] text-white border-[#8A6A33]"
-                          : "bg-white/60 text-[#1E1913] border-[#1E1913]/15 hover:bg-white"
+                          ? "bg-safari-russet text-white border-safari-russet"
+                          : "bg-white/60 text-safari-bark border-safari-bark/15 hover:bg-white"
                       }`}
                     >
                       {interest}
@@ -431,7 +431,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-[#1E1913]/70 hover:text-[#1E1913] font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -439,7 +439,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(4)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1E1913] hover:bg-[#8A6A33] text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-safari-bark hover:bg-safari-russet text-white text-xs font-sans tracking-widest uppercase rounded transition-colors cursor-pointer"
               >
                 <span>Final Step: Contact Details</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -459,7 +459,7 @@ export default function EnquiryStudioForm({
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">
+                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Full Name *
                 </label>
                 <input
@@ -468,12 +468,12 @@ export default function EnquiryStudioForm({
                   value={contactData.name}
                   onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
                   placeholder="e.g. Lord / Dr / Eleanor Vance"
-                  className="w-full bg-white border border-[#1E1913]/15 px-3.5 py-2.5 text-sm text-[#1E1913] placeholder-[#1E1913]/30 focus:border-[#8A6A33] focus:outline-none"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">
+                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Email Address *
                 </label>
                 <input
@@ -482,14 +482,14 @@ export default function EnquiryStudioForm({
                   value={contactData.email}
                   onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
                   placeholder="e.g. eleanor@example.com"
-                  className="w-full bg-white border border-[#1E1913]/15 px-3.5 py-2.5 text-sm text-[#1E1913] placeholder-[#1E1913]/30 focus:border-[#8A6A33] focus:outline-none"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">
+                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Phone or WhatsApp *
                 </label>
                 <input
@@ -498,12 +498,12 @@ export default function EnquiryStudioForm({
                   value={contactData.phone}
                   onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
                   placeholder="e.g. +1 (555) 234-5678"
-                  className="w-full bg-white border border-[#1E1913]/15 px-3.5 py-2.5 text-sm text-[#1E1913] placeholder-[#1E1913]/30 focus:border-[#8A6A33] focus:outline-none"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">
+                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Preferred Contact Channel
                 </label>
                 <select
@@ -511,7 +511,7 @@ export default function EnquiryStudioForm({
                   onChange={(e) =>
                     setContactData({ ...contactData, preferredChannel: e.target.value })
                   }
-                  className="w-full bg-white border border-[#1E1913]/15 px-3.5 py-2.5 text-sm text-[#1E1913] focus:border-[#8A6A33] focus:outline-none"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark focus:border-safari-russet focus:outline-none"
                 >
                   <option value="WhatsApp">WhatsApp Message</option>
                   <option value="Email">Detailed Email</option>
@@ -521,7 +521,7 @@ export default function EnquiryStudioForm({
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#8A6A33] mb-1">
+              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                 Special Requests or Notes (Optional)
               </label>
               <textarea
@@ -529,15 +529,15 @@ export default function EnquiryStudioForm({
                 value={contactData.notes}
                 onChange={(e) => setContactData({ ...contactData, notes: e.target.value })}
                 placeholder="Specific wildlife desires, dietary requirements, flight schedule, or celebrations..."
-                className="w-full bg-white border border-[#1E1913]/15 p-3 text-sm text-[#1E1913] placeholder-[#1E1913]/30 focus:border-[#8A6A33] focus:outline-none resize-none"
+                className="w-full bg-white border border-safari-bark/15 p-3 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none resize-none"
               />
             </div>
 
-            <div className="pt-4 flex items-center justify-between border-t border-[#1E1913]/10">
+            <div className="pt-4 flex items-center justify-between border-t border-safari-bark/10">
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-[#1E1913]/70 hover:text-[#1E1913] font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -546,7 +546,7 @@ export default function EnquiryStudioForm({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#8A6A33] hover:bg-[#A37E3E] disabled:opacity-60 text-white text-xs font-sans tracking-widest uppercase rounded shadow-lg transition-all cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-safari-russet hover:bg-safari-russet disabled:opacity-60 text-white text-xs font-sans tracking-widest uppercase rounded shadow-lg transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 <span>{isSubmitting ? "Dispatching to Karatu…" : "Submit Expedition Blueprint"}</span>

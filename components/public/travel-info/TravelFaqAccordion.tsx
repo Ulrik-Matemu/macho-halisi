@@ -21,14 +21,14 @@ export default function TravelFaqAccordion() {
   return (
     <section id="faqs" className="py-16 sm:py-24">
       <div className="mb-10 text-center max-w-2xl mx-auto">
-        <div className="flex items-center justify-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-2">
-          <HelpCircle className="w-3.5 h-3.5 text-[#C9A46A]" />
+        <div className="flex items-center justify-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
+          <HelpCircle className="w-3.5 h-3.5 text-safari-gold" />
           <span>Clarity in the Details</span>
         </div>
-        <h2 className="font-serif-luxury text-3xl sm:text-4xl font-light text-[#1E1913]">
+        <h2 className="font-serif-luxury text-3xl sm:text-4xl font-light text-safari-bark">
           Frequently Asked Questions
         </h2>
-        <p className="text-sm text-[#1E1913]/70 font-sans mt-2">
+        <p className="text-sm text-safari-bark/70 font-sans mt-2">
           Everything you need to know about visas, health, money, electrical outlets, and park rules.
         </p>
       </div>
@@ -36,13 +36,13 @@ export default function TravelFaqAccordion() {
       {/* Search Bar & Filters */}
       <div className="max-w-3xl mx-auto mb-8 space-y-4">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1E1913]/40" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-safari-bark/40" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search questions (e.g. 'visas', 'yellow fever', 'tipping', 'drones')..."
-            className="w-full bg-white border border-[#1E1913]/15 pl-11 pr-4 py-3 text-sm text-[#1E1913] placeholder-[#1E1913]/40 focus:border-[#8A6A33] focus:outline-none transition-colors shadow-sm"
+            className="w-full bg-white border border-safari-bark/15 pl-11 pr-4 py-3 text-sm text-safari-bark placeholder-safari-bark/40 focus:border-safari-russet focus:outline-none transition-colors shadow-sm"
           />
         </div>
 
@@ -61,8 +61,8 @@ export default function TravelFaqAccordion() {
               onClick={() => setSelectedCategory(cat.key)}
               className={`px-3 py-1.5 rounded text-xs font-sans whitespace-nowrap cursor-pointer transition-colors ${
                 selectedCategory === cat.key
-                  ? "bg-[#1E1913] text-[#FBF7F0] font-medium"
-                  : "bg-white/60 hover:bg-white text-[#1E1913]/70 border border-[#1E1913]/10"
+                  ? "bg-safari-bark text-safari-cream font-medium"
+                  : "bg-white/60 hover:bg-white text-safari-bark/70 border border-safari-bark/10"
               }`}
             >
               {cat.label}
@@ -74,7 +74,7 @@ export default function TravelFaqAccordion() {
       {/* FAQ Accordion List */}
       <div className="max-w-3xl mx-auto space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="p-8 text-center bg-white/50 border border-dashed border-[#1E1913]/20 text-sm text-[#1E1913]/60">
+          <div className="p-8 text-center bg-white/50 border border-dashed border-safari-bark/20 text-sm text-safari-bark/60">
             No questions matched your search query. Please contact our safari directors directly.
           </div>
         ) : (
@@ -83,28 +83,38 @@ export default function TravelFaqAccordion() {
             return (
               <div
                 key={faq.question}
-                className="bg-white/80 border border-[#1E1913]/10 overflow-hidden transition-all shadow-sm"
+                className="bg-white/80 border border-safari-bark/10 overflow-hidden transition-all shadow-sm"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
+                  aria-expanded={isOpen}
                   className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-black/[0.02]"
                 >
-                  <span className="font-serif-luxury text-base sm:text-lg text-[#1E1913] font-normal leading-snug">
+                  <span className="font-serif-luxury text-base sm:text-lg text-safari-bark font-normal leading-snug">
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-[#8A6A33] shrink-0 transition-transform duration-300 ${
+                    className={`w-4 h-4 text-safari-russet shrink-0 transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
 
-                {isOpen && (
-                  <div className="px-5 pb-5 text-sm sm:text-[14.5px] font-sans font-light text-[#1E1913]/75 leading-relaxed border-t border-[#1E1913]/5 pt-4">
-                    {faq.answer}
+                {/* Always in the HTML so search engines and AI read every
+                    answer; collapsed visually with the same grid-rows
+                    pattern as DestinationFaq. */}
+                <div
+                  className={`grid transition-all duration-300 ease-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-5 pb-5 text-sm sm:text-[14.5px] font-sans font-light text-safari-bark/75 leading-relaxed border-t border-safari-bark/5 pt-4">
+                      {faq.answer}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })

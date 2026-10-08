@@ -3,14 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import { Phone, Mail, Clock, MessageSquare, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { trackContact } from "@/lib/analytics/track";
 
 export default function EnquiryConciergePanel() {
   return (
     <div className="space-y-8">
       {/* Specialist Director Card */}
-      <div className="bg-white/80 border border-[#1E1913]/10 p-6 sm:p-8 shadow-sm">
+      <div className="bg-white/80 border border-safari-bark/10 p-6 sm:p-8 shadow-sm">
         <div className="flex items-center gap-4 mb-4">
-          <div className="relative w-14 h-14 rounded-full overflow-hidden border border-[#8A6A33]/40 bg-[#E7DFD1] shrink-0">
+          <div className="relative w-14 h-14 rounded-full overflow-hidden border border-safari-russet/40 bg-safari-champagne shrink-0">
             <Image
               src="/media/about/team/guide-welcome.jpg"
               alt="A Macho Halisi safari specialist"
@@ -19,31 +20,31 @@ export default function EnquiryConciergePanel() {
             />
           </div>
           <div>
-            <div className="font-serif-luxury text-lg text-[#1E1913]">
+            <div className="font-serif-luxury text-lg text-safari-bark">
               Elibariki M.
             </div>
-            <div className="font-sans text-xs text-[#8A6A33] uppercase tracking-wider">
+            <div className="font-sans text-xs text-safari-russet uppercase tracking-wider">
               Head of Safari Planning · Karatu, Tanzania
             </div>
           </div>
         </div>
 
-        <p className="font-serif-luxury italic text-sm text-[#1E1913]/80 leading-relaxed border-t border-[#1E1913]/10 pt-4">
+        <p className="font-serif-luxury italic text-sm text-safari-bark/80 leading-relaxed border-t border-safari-bark/10 pt-4">
           &ldquo;When you enquire with Macho Halisi, you are not writing to a robotic call center. You are
           speaking directly to native Tanzanian naturalists who were born in these landscapes.&rdquo;
         </p>
       </div>
 
       {/* What Happens Next Timeline */}
-      <div className="bg-[#1E1913] text-[#FBF7F0] p-6 sm:p-8 border border-[#8A6A33]/30 shadow-lg space-y-6">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#E3C99A]">
+      <div className="bg-safari-bark text-safari-cream p-6 sm:p-8 border border-safari-russet/30 shadow-lg space-y-6">
+        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-safari-sand">
           <Clock className="w-3.5 h-3.5" />
           <span>What Happens After You Inquire</span>
         </div>
 
         <div className="space-y-5 text-xs font-sans">
           <div className="flex items-start gap-3">
-            <span className="w-6 h-6 rounded-full bg-[#8A6A33] text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
+            <span className="w-6 h-6 rounded-full bg-safari-russet text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
               1
             </span>
             <div>
@@ -57,7 +58,7 @@ export default function EnquiryConciergePanel() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-6 h-6 rounded-full bg-[#8A6A33] text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
+            <span className="w-6 h-6 rounded-full bg-safari-russet text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
               2
             </span>
             <div>
@@ -71,7 +72,7 @@ export default function EnquiryConciergePanel() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-6 h-6 rounded-full bg-[#8A6A33] text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
+            <span className="w-6 h-6 rounded-full bg-safari-russet text-white flex items-center justify-center font-mono font-bold shrink-0 mt-0.5">
               3
             </span>
             <div>
@@ -87,14 +88,15 @@ export default function EnquiryConciergePanel() {
       </div>
 
       {/* Direct Contact Options */}
-      <div className="bg-white/70 border border-[#1E1913]/10 p-6 space-y-4">
-        <div className="font-mono text-xs text-[#8A6A33] uppercase tracking-wider">
+      <div className="bg-white/70 border border-safari-bark/10 p-6 space-y-4">
+        <div className="font-mono text-xs text-safari-russet uppercase tracking-wider">
           Direct Specialist Concierge:
         </div>
 
         <div className="space-y-3 font-sans text-xs">
           <a
             href="https://wa.me/255754474792"
+            onClick={() => trackContact("whatsapp", "enquire-page")}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 transition-colors"
@@ -108,23 +110,25 @@ export default function EnquiryConciergePanel() {
 
           <a
             href="tel:+255754474792"
-            className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-[#1E1913] transition-colors"
+            onClick={() => trackContact("phone", "enquire-page")}
+            className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-safari-bark transition-colors"
           >
-            <Phone className="w-4 h-4 text-[#8A6A33]" />
+            <Phone className="w-4 h-4 text-safari-russet" />
             <div>
               <div className="font-medium">Direct Karatu Office</div>
-              <div className="text-[11px] text-[#1E1913]/70">Mon – Sat · 08:00 – 18:00 EAT</div>
+              <div className="text-[11px] text-safari-bark/70">Mon – Sat · 08:00 – 18:00 EAT</div>
             </div>
           </a>
 
           <a
             href="mailto:info@machohalisi.com"
-            className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-[#1E1913] transition-colors"
+            onClick={() => trackContact("email", "enquire-page")}
+            className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-safari-bark transition-colors"
           >
-            <Mail className="w-4 h-4 text-[#8A6A33]" />
+            <Mail className="w-4 h-4 text-safari-russet" />
             <div>
               <div className="font-medium">Email the Directors</div>
-              <div className="text-[11px] text-[#1E1913]/70">info@machohalisi.com</div>
+              <div className="text-[11px] text-safari-bark/70">info@machohalisi.com</div>
             </div>
           </a>
         </div>

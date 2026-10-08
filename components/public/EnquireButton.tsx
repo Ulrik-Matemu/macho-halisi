@@ -36,7 +36,7 @@ export default function EnquireButton({
       onClick={() => openEnquiry({ itineraryId, itineraryTitle })}
       className={
         className ??
-        "inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-black font-serif-luxury font-medium text-xs tracking-[0.18em] uppercase rounded transition-all shadow-lg shadow-[#c68642]/20 cursor-pointer"
+        "inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-safari-ochre hover:bg-safari-russet text-safari-night hover:text-black font-serif-luxury font-medium text-xs tracking-[0.18em] uppercase rounded transition-all shadow-lg shadow-safari-ochre/20 cursor-pointer"
       }
     >
       {showIcon && <Send className="w-3.5 h-3.5" />}

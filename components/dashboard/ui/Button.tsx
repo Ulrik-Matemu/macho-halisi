@@ -24,8 +24,8 @@ const SIZE_CLASS: Record<Size, string> = {
 
 /**
  * Enforces the fixed accent fill/on-fill contrast pair everywhere instead
- * of the previous ad-hoc mix (`text-[#ffdbac]` on gold measured 2.32:1;
- * `text-[#080808]` on the same gold, used elsewhere, measured 6.57:1) —
+ * of the previous ad-hoc mix (`text-safari-champagne` on gold measured 2.32:1;
+ * `text-safari-night` on the same gold, used elsewhere, measured 6.57:1) —
  * this component only ever emits the passing pair.
  */
 export default function Button({

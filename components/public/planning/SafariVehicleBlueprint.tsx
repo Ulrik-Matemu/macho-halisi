@@ -11,20 +11,20 @@ export default function SafariVehicleBlueprint() {
   return (
     <section className="py-20 sm:py-28">
       <div className="mb-12">
-        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-2">
-          <Crosshair className="w-3.5 h-3.5 text-[#C9A46A]" />
+        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
+          <Crosshair className="w-3.5 h-3.5 text-safari-gold" />
           <span>Field Hardware</span>
         </div>
-        <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-[#1E1913] tracking-[0.04em] leading-tight">
+        <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           The Anatomy of a Macho Halisi 4x4
         </h2>
-        <p className="text-sm sm:text-[15px] text-[#1E1913]/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
           Our custom-stretched Toyota Land Cruisers are designed specifically for long optical lenses,
           maximum passenger suspension comfort, and absolute bush reliability.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#1E1913] text-[#FBF7F0] p-6 sm:p-10 lg:p-12 shadow-xl border border-[#8A6A33]/30">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-safari-bark text-safari-cream p-6 sm:p-10 lg:p-12 shadow-xl border border-safari-russet/30">
         {/* Interactive Hotspot Viewport */}
         <div className="lg:col-span-7 relative">
           <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40 border border-white/10">
@@ -54,14 +54,14 @@ export default function SafariVehicleBlueprint() {
                   <span className="relative flex h-7 w-7 items-center justify-center">
                     <span
                       className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                        isSelected ? "bg-[#E3C99A]" : "bg-white"
+                        isSelected ? "bg-safari-sand" : "bg-white"
                       }`}
                     />
                     <span
                       className={`relative inline-flex rounded-full h-4 w-4 items-center justify-center border text-[9px] font-mono font-bold ${
                         isSelected
-                          ? "bg-[#8A6A33] border-[#E3C99A] text-white"
-                          : "bg-[#1E1913] border-white/60 text-[#E3C99A]"
+                          ? "bg-safari-russet border-safari-sand text-white"
+                          : "bg-safari-bark border-white/60 text-safari-sand"
                       }`}
                     >
                       •
@@ -71,7 +71,7 @@ export default function SafariVehicleBlueprint() {
               );
             })}
 
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-[#E3C99A] uppercase tracking-wider bg-black/60 backdrop-blur-sm px-3.5 py-2 rounded border border-white/10">
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-safari-sand uppercase tracking-wider bg-black/60 backdrop-blur-sm px-3.5 py-2 rounded border border-white/10">
               <span>Interactive Blueprint Mode</span>
               <span className="text-white/60">Tap any radar pin</span>
             </div>
@@ -86,7 +86,7 @@ export default function SafariVehicleBlueprint() {
                 onClick={() => setSelectedHotspot(h)}
                 className={`text-[11px] font-sans px-3 py-1.5 rounded transition-all cursor-pointer ${
                   h.id === selectedHotspot.id
-                    ? "bg-[#8A6A33] text-white font-medium"
+                    ? "bg-safari-russet text-white font-medium"
                     : "bg-white/10 text-white/70 hover:bg-white/15"
                 }`}
               >
@@ -98,7 +98,7 @@ export default function SafariVehicleBlueprint() {
 
         {/* Selected Hotspot Detail Panel */}
         <div className="lg:col-span-5 space-y-5 bg-white/5 border border-white/10 p-6 sm:p-8">
-          <div className="inline-block px-2.5 py-1 bg-[#8A6A33]/20 border border-[#E3C99A]/40 rounded text-[10px] font-mono uppercase tracking-widest text-[#E3C99A]">
+          <div className="inline-block px-2.5 py-1 bg-safari-russet/20 border border-safari-sand/40 rounded text-[10px] font-mono uppercase tracking-widest text-safari-sand">
             {selectedHotspot.badge}
           </div>
 
@@ -106,7 +106,7 @@ export default function SafariVehicleBlueprint() {
             {selectedHotspot.title}
           </h3>
 
-          <div className="font-sans text-xs sm:text-sm text-[#E3C99A] tracking-wider uppercase">
+          <div className="font-sans text-xs sm:text-sm text-safari-sand tracking-wider uppercase">
             {selectedHotspot.shortDesc}
           </div>
 
@@ -116,13 +116,13 @@ export default function SafariVehicleBlueprint() {
 
           <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-4 text-xs font-sans text-white/60">
             <div>
-              <span className="block text-[#E3C99A] uppercase text-[10px] font-mono">
+              <span className="block text-safari-sand uppercase text-[10px] font-mono">
                 Guarantee
               </span>
               100% Window Seat for every guest
             </div>
             <div>
-              <span className="block text-[#E3C99A] uppercase text-[10px] font-mono">
+              <span className="block text-safari-sand uppercase text-[10px] font-mono">
                 Power
               </span>
               Dual inverter onboard 230V

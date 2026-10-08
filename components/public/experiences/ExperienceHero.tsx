@@ -82,7 +82,7 @@ export default function ExperienceHero({
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 sm:px-12">
         <div
           className={`absolute top-28 sm:top-32 left-6 right-6 sm:left-12 sm:right-12 flex justify-between font-sans font-light text-[10px] sm:text-[10.5px] tracking-[0.32em] uppercase ${
-            onPhoto ? "text-[#FBF7F0]" : "text-[#1E1913]"
+            onPhoto ? "text-safari-cream" : "text-safari-bark"
           }`}
         >
           <span>Macho Halisi</span>
@@ -95,7 +95,7 @@ export default function ExperienceHero({
         >
           <div
             className={`font-sans font-light text-[11px] tracking-[0.46em] uppercase mb-7 ${
-              onPhoto ? "text-[#E3C99A]" : "text-[#8A6A33]"
+              onPhoto ? "text-safari-sand" : "text-safari-russet"
             }`}
           >
             {badge}
@@ -106,7 +106,7 @@ export default function ExperienceHero({
               <Heading
                 aria-hidden={onPhoto || undefined}
                 className={`m-0 font-serif-luxury font-light text-[clamp(44px,9vw,150px)] leading-[0.94] tracking-[0.01em] ${
-                  onPhoto ? "text-[#FBF7F0]" : "text-[#1E1913]"
+                  onPhoto ? "text-safari-cream" : "text-safari-bark"
                 }`}
               >
                 {line1}
@@ -121,7 +121,7 @@ export default function ExperienceHero({
           })()}
           <p
             className={`mt-8 mx-auto max-w-[520px] font-sans font-light text-[11px] sm:text-xs tracking-[0.34em] uppercase ${
-              onPhoto ? "text-[#FBF7F0]/90" : "text-[#1E1913]/72"
+              onPhoto ? "text-safari-cream/90" : "text-safari-bark/72"
             }`}
             aria-hidden={onPhoto || undefined}
           >
@@ -139,7 +139,7 @@ export default function ExperienceHero({
       data-exp-hero
       className="relative h-[100svh] scrub:h-[230vh]"
     >
-      <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#F6F2EA]">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-safari-cream">
         {layer("cream")}
 
         <div

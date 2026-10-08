@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import Link from "next/link";
-import { useEnquiry } from "./EnquiryProvider";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface HeroProps {
@@ -10,8 +8,8 @@ interface HeroProps {
 }
 
 const HERO_VIDEOS = [
-  { id: "landscape", src: "/media/hero-vids/elephant.mp4", duration: 24.6 },
-  { id: "lion", src: "/media/hero-vids/lion.mp4", duration: 12.8 },
+  { id: "cheetah", src: "/media/hero-vids/cheetah-2.mp4" },
+  { id: "lion", src: "/media/hero-vids/lion.mp4" },
 ];
 
 const HERO_POSTER = "/media/hero-vids/elephant-poster.webp";
@@ -27,7 +25,6 @@ export default function Hero({ onVideoReady }: HeroProps) {
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const videoRefA = useRef<HTMLVideoElement | null>(null);
   const videoRefB = useRef<HTMLVideoElement | null>(null);
-  const { openEnquiry } = useEnquiry();
   const reducedMotion = useReducedMotion();
 
   const [activeLayer, setActiveLayer] = useState<"A" | "B">("A");
@@ -211,7 +208,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
   return (
     <section
       ref={heroSectionRef}
-      className="relative w-full h-[220vh] bg-[#050505] select-none"
+      className="relative w-full h-[220vh] bg-safari-night select-none"
     >
       {/* Sticky Viewport: Keeps Background Video & Layout Continuous */}
       <div
@@ -285,7 +282,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
             filter: stage1FilterValue,
             pointerEvents: scrollProgress > 0.25 ? "none" : "auto",
           }}
-          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(4.5rem,20dvh,12rem)] sm:pb-16 lg:pb-20 flex flex-col items-start text-left transition-all duration-150"
+          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(2rem,8dvh,6rem)] sm:pb-6 lg:pb-8 flex flex-col items-start text-left transition-all duration-150"
         >
           {/* Pre-title Tagline */}
           <div
@@ -294,7 +291,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
             }`}
           >
             <span
-              className={`h-[1px] bg-[#e0ac69]/60 transition-all duration-900 transition-luxury delay-300 ${
+              className={`h-[1px] bg-safari-gold/60 transition-all duration-900 transition-luxury delay-300 ${
                 isEntered ? "w-54 sm:w-98" : "w-0"
               }`}
             />
@@ -334,15 +331,15 @@ export default function Hero({ onVideoReady }: HeroProps) {
           }}
           className="absolute inset-0 z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
-          <div className="max-w-2xl border-r-2 border-[#c68642]/75 pr-6 sm:pr-8 py-2">
+          <div className="max-w-2xl border-r-2 border-safari-ochre/75 pr-6 sm:pr-8 py-2">
             <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
-              MACHO HALISI - SAFARI AND TOUR OPERATOR TANZANIA
+              Private safaris led by native Tanzanian guides
             </h2>
-            <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-[#f1c27d] mt-2 mb-4 sm:mb-5">
+            <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-safari-sand mt-2 mb-4 sm:mb-5">
               – YOUR EYES ON TANZANIA –
             </p>
             <p className="text-xs sm:text-sm md:text-base text-white/90 font-sans font-light leading-relaxed mb-3 drop-shadow">
-              Macho Halisi <span className="font-serif-italic text-[#ffdbac]">(true eyes in Swahili)</span> is a long term provider of safaris in Tanzania. Locally owned and operated, we are native Tanzanians who are proud of our country and love to share our knowledge and passion for safari with you. A safari with Macho Halisi will be the trip of a lifetime, forging memories and experiences that will change you forever.
+              Macho Halisi <span className="font-serif-italic text-safari-champagne">(true eyes in Swahili)</span> is a long term provider of safaris in Tanzania. Locally owned and operated, we are native Tanzanians who are proud of our country and love to share our knowledge and passion for safari with you. A safari with Macho Halisi will be the trip of a lifetime, forging memories and experiences that will change you forever.
             </p>
             <p className="text-xs sm:text-sm md:text-base text-white/80 font-sans font-light leading-relaxed drop-shadow">
               We look forward to showing you the interesting cultures, stunning landscapes and masses of wildlife that make our home, Tanzania, such an alluring destination.

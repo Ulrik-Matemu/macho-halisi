@@ -55,12 +55,12 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
 
   return (
     <article
-      className="sticky top-[var(--stack-top-mobile)] lg:top-[var(--stack-top-desktop)] bg-[#F6F2EA] rounded overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:items-stretch lg:min-h-[460px]"
+      className="sticky top-[var(--stack-top-mobile)] lg:top-[var(--stack-top-desktop)] bg-safari-cream rounded overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:items-stretch lg:min-h-[460px]"
       style={
         {
           "--stack-top-mobile": `${mobileTop}px`,
           "--stack-top-desktop": `${desktopTop}px`,
-          boxShadow: "0 -2px 0 rgba(30,25,19,.06), 0 -24px 48px rgba(30,25,19,.1)",
+          boxShadow: "0 -2px 0 rgba(30,18,9,.06), 0 -24px 48px rgba(30,18,9,.1)",
         } as React.CSSProperties
       }
     >
@@ -85,7 +85,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         )}
 
         {itinerary.availabilityStatus !== "AVAILABLE" && (
-          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-sm text-[10px] font-sans tracking-wider uppercase font-semibold bg-[#1E1913]/85 text-[#F6F2EA]">
+          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-sm text-[10px] font-sans tracking-wider uppercase font-semibold bg-safari-bark/85 text-safari-cream">
             {itinerary.availabilityStatus === "LIMITED" ? "Limited Availability" : "Fully Booked"}
           </span>
         )}
@@ -95,22 +95,22 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
           now that the image bleeds edge-to-edge instead. */}
       <div className="min-w-0 px-5 pt-6 pb-5 sm:px-6 sm:pt-8 sm:pb-6 lg:pl-11 lg:pr-[30px] lg:py-[30px]">
         <div className="flex items-baseline gap-4 mb-3 sm:mb-4 lg:mb-5">
-          <span className="font-sans font-light text-xs tracking-[0.2em] text-[#8A6A33]">
+          <span className="font-sans font-light text-xs tracking-[0.2em] text-safari-russet">
             {indexLabel}
           </span>
           {destinationNames && (
-            <span className="font-sans font-light text-[10.5px] tracking-[0.34em] text-[#8A6A33] uppercase truncate">
+            <span className="font-sans font-light text-[10.5px] tracking-[0.34em] text-safari-russet uppercase truncate">
               {destinationNames}
             </span>
           )}
         </div>
 
-        <h3 className="font-serif-luxury font-light text-2xl sm:text-3xl lg:text-4xl leading-[1.14] tracking-[0.04em] text-[#1E1913] mb-3 sm:mb-4 lg:mb-[18px]">
+        <h3 className="font-serif-luxury font-light text-2xl sm:text-3xl lg:text-4xl leading-[1.14] tracking-[0.04em] text-safari-bark mb-3 sm:mb-4 lg:mb-[18px]">
           {itinerary.title}
         </h3>
 
         {itinerary.overview && (
-          <p className="font-sans font-light text-sm leading-[1.92] text-[#1E1913]/62 max-w-[450px] mb-4 sm:mb-6 lg:mb-[26px] line-clamp-2 lg:line-clamp-3">
+          <p className="font-sans font-light text-sm leading-[1.92] text-safari-bark/62 max-w-[450px] mb-4 sm:mb-6 lg:mb-[26px] line-clamp-2 lg:line-clamp-3">
             {itinerary.overview}
           </p>
         )}
@@ -118,27 +118,27 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         <div className="flex items-center gap-8 sm:gap-10 lg:gap-12 mb-3 sm:mb-4">
           {itinerary.nights !== null && (
             <div>
-              <div className="font-sans font-light text-[10px] tracking-[0.28em] text-[#1E1913]/70 uppercase mb-2">
+              <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/70 uppercase mb-2">
                 Duration
               </div>
-              <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-[#1E1913]">
+              <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-safari-bark">
                 {itinerary.nights + 1} Days / {itinerary.nights} Nights
               </div>
             </div>
           )}
           <div>
-            <div className="font-sans font-light text-[10px] tracking-[0.28em] text-[#1E1913]/70 uppercase mb-2">
+            <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/70 uppercase mb-2">
               {itinerary.priceOnRequest ? "Pricing" : "From"}
             </div>
-            <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-[#8A6A33]">
+            <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-safari-russet">
               {itinerary.priceOnRequest ? "Price on request" : price ? `$${price} pp` : "—"}
             </div>
           </div>
         </div>
 
         {activePeriod && (
-          <div className="hidden sm:flex items-center gap-1.5 font-sans font-light text-xs text-[#1E1913]/70">
-            <CalendarRange className="w-3.5 h-3.5 text-[#8A6A33]" />
+          <div className="hidden sm:flex items-center gap-1.5 font-sans font-light text-xs text-safari-bark/70">
+            <CalendarRange className="w-3.5 h-3.5 text-safari-russet" />
             <span>{formatAvailabilityPeriodLabel(activePeriod)}</span>
           </div>
         )}
@@ -149,11 +149,11 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
             itineraryTitle={itinerary.title}
             label="Plan this trip"
             showIcon={false}
-            className="inline-flex items-center justify-center font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] transition-colors px-6 sm:px-8 py-3.5 sm:py-4 rounded whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center justify-center font-sans font-light text-[11px] tracking-[0.3em] uppercase text-safari-cream bg-safari-bark hover:bg-safari-russet transition-colors px-6 sm:px-8 py-3.5 sm:py-4 rounded whitespace-nowrap cursor-pointer"
           />
           <Link
             href={`/itineraries/${itinerary.slug}`}
-            className="group inline-flex items-center gap-2 font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#1E1913] hover:text-[#8A6A33] transition-colors whitespace-nowrap"
+            className="group inline-flex items-center gap-2 font-sans font-light text-[11px] tracking-[0.3em] uppercase text-safari-bark hover:text-safari-russet transition-colors whitespace-nowrap"
           >
             <span>View itinerary</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

@@ -49,10 +49,10 @@ export default function ExperienceMoreList({ items }: ExperienceMoreListProps) {
         place(false);
       }}
     >
-      <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-10">
+      <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-10">
         More safari experiences
       </div>
-      <div className="border-t border-[#1E1913]/16">
+      <div className="border-t border-safari-bark/16">
         {items.map((item, i) => (
           <Link
             key={item.slug}
@@ -62,13 +62,13 @@ export default function ExperienceMoreList({ items }: ExperienceMoreListProps) {
               place(true);
             }}
             onMouseLeave={() => setHovered(null)}
-            className="grid grid-cols-[48px_minmax(0,1fr)_24px] sm:grid-cols-[64px_minmax(0,1fr)_minmax(0,320px)_30px] gap-x-5 sm:gap-x-7 gap-y-2 items-baseline py-7 sm:py-[34px] border-b border-[#1E1913]/12 text-[#1E1913] hover:text-[#8A6A33] transition-colors"
+            className="grid grid-cols-[48px_minmax(0,1fr)_24px] sm:grid-cols-[64px_minmax(0,1fr)_minmax(0,320px)_30px] gap-x-5 sm:gap-x-7 gap-y-2 items-baseline py-7 sm:py-[34px] border-b border-safari-bark/12 text-safari-bark hover:text-safari-russet transition-colors"
           >
-            <span className="font-sans font-light text-xs tracking-[0.24em] text-[#8A6A33]">{item.num}</span>
+            <span className="font-sans font-light text-xs tracking-[0.24em] text-safari-russet">{item.num}</span>
             <span className="font-serif-luxury font-light text-[clamp(26px,3.4vw,48px)] leading-[1.08] tracking-[0.02em]">
               {item.line1} <em>{item.line2}</em>
             </span>
-            <span className="col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto font-sans font-light text-[10.5px] sm:text-[11px] tracking-[0.24em] text-[#1E1913]/70 uppercase">
+            <span className="col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto font-sans font-light text-[10.5px] sm:text-[11px] tracking-[0.24em] text-safari-bark/70 uppercase">
               {item.tagline}
             </span>
             <span aria-hidden className="col-start-3 row-start-1 sm:col-start-auto sm:row-start-auto font-sans font-light text-lg text-right">
@@ -81,7 +81,7 @@ export default function ExperienceMoreList({ items }: ExperienceMoreListProps) {
       <div
         ref={previewRef}
         aria-hidden
-        className="hidden [@media(hover:hover)]:block fixed left-0 top-0 w-[280px] h-[360px] overflow-hidden pointer-events-none z-30 bg-[#E7DFD1] transition-[opacity,transform] duration-[350ms,500ms] ease-[ease,cubic-bezier(.22,.7,.3,1)]"
+        className="hidden [@media(hover:hover)]:block fixed left-0 top-0 w-[280px] h-[360px] overflow-hidden pointer-events-none z-30 bg-safari-champagne transition-[opacity,transform] duration-[350ms,500ms] ease-[ease,cubic-bezier(.22,.7,.3,1)]"
         style={{ opacity: hovered !== null ? 1 : 0, transform: "translate3d(0,0,0) scale(0.92)" }}
       >
         {items.map((item, i) => (

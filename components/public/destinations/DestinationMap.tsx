@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const INK = "#1E1913";
-const CREAM = "#F6F2EA";
-const GOLD_LIGHT = "#E3C99A";
+const INK = "#1e1209";
+const CREAM = "#fff6ea";
+const GOLD_LIGHT = "#f1c27d";
 
 interface DestinationMapProps {
   lat: number;

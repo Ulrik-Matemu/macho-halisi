@@ -43,7 +43,7 @@ export default async function OpengraphImage() {
           height: "100%",
           display: "flex",
           position: "relative",
-          backgroundColor: "#050505",
+          backgroundColor: "#120b06",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- Satori

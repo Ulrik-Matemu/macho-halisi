@@ -65,20 +65,20 @@ export default function ItineraryReadingBar({
   return (
     <>
       <div
-        className="fixed top-0 left-0 h-[2px] bg-[#8A6A33] z-[60] pointer-events-none"
+        className="fixed top-0 left-0 h-[2px] bg-safari-russet z-[60] pointer-events-none"
         style={{ width: `${progress * 100}%` }}
       />
 
       <div
-        className={`fixed top-0 left-0 right-0 z-40 bg-[#F6F2EA]/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-10 px-4 sm:px-12 py-4 transition-opacity duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-40 bg-safari-cream/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-10 px-4 sm:px-12 py-4 transition-opacity duration-500 ${
           pastHero ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="flex items-baseline gap-3 sm:gap-5 min-w-0">
-          <span className="font-serif-luxury font-light text-base tracking-[0.16em] uppercase text-[#1E1913] whitespace-nowrap">
+          <span className="font-serif-luxury font-light text-base tracking-[0.16em] uppercase text-safari-bark whitespace-nowrap">
             Macho Halisi
           </span>
-          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-[#1E1913]/70 truncate">
+          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/70 truncate">
             {title}
             {durationLabel ? ` · ${durationLabel}` : ""}
           </span>
@@ -86,7 +86,7 @@ export default function ItineraryReadingBar({
 
         <div className="flex items-center gap-4 sm:gap-7 shrink-0">
           {priceLabel && (
-            <span className="hidden sm:block font-serif-luxury font-light text-base tracking-[0.06em] text-[#8A6A33] whitespace-nowrap">
+            <span className="hidden sm:block font-serif-luxury font-light text-base tracking-[0.06em] text-safari-russet whitespace-nowrap">
               {priceLabel}
             </span>
           )}
@@ -95,7 +95,7 @@ export default function ItineraryReadingBar({
             itineraryTitle={title}
             label="Enquire Now"
             showIcon={false}
-            className="inline-flex items-center justify-center font-sans font-light text-[10px] sm:text-[10.5px] tracking-[0.3em] uppercase text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] transition-colors px-5 sm:px-7 py-3 sm:py-3.5 rounded whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center justify-center font-sans font-light text-[10px] sm:text-[10.5px] tracking-[0.3em] uppercase text-safari-cream bg-safari-bark hover:bg-safari-russet transition-colors px-5 sm:px-7 py-3 sm:py-3.5 rounded whitespace-nowrap cursor-pointer"
           />
         </div>
       </div>

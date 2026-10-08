@@ -13,14 +13,14 @@ export default function WildlifeInterestFilter() {
   return (
     <section className="py-20 sm:py-28">
       <div className="mb-12">
-        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-2">
-          <Eye className="w-3.5 h-3.5 text-[#C9A46A]" />
+        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
+          <Eye className="w-3.5 h-3.5 text-safari-gold" />
           <span>Intent-Driven Planning</span>
         </div>
-        <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-[#1E1913] tracking-[0.04em] leading-tight">
+        <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           What Do You Yearn to See?
         </h2>
-        <p className="text-sm sm:text-[15px] text-[#1E1913]/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
           Select your bucket-list wildlife encounter to discover which months provide the highest
           probability of witnessing it in person.
         </p>
@@ -37,8 +37,8 @@ export default function WildlifeInterestFilter() {
               onClick={() => setSelectedId(spec.id)}
               className={`px-4 py-2.5 rounded text-xs sm:text-sm font-sans transition-all duration-300 border cursor-pointer ${
                 isSelected
-                  ? "bg-[#1E1913] text-[#FBF7F0] border-[#1E1913] shadow-md scale-105"
-                  : "bg-white/70 hover:bg-white text-[#1E1913] border-[#1E1913]/10 hover:border-[#8A6A33]/40"
+                  ? "bg-safari-bark text-safari-cream border-safari-bark shadow-md scale-105"
+                  : "bg-white/70 hover:bg-white text-safari-bark border-safari-bark/10 hover:border-safari-russet/40"
               }`}
             >
               {spec.title}
@@ -48,10 +48,10 @@ export default function WildlifeInterestFilter() {
       </div>
 
       {/* Selected Spectacle Detail Card */}
-      <div className="bg-[#1E1913] text-[#FBF7F0] p-6 sm:p-10 lg:p-12 shadow-xl border border-[#8A6A33]/30">
+      <div className="bg-safari-bark text-safari-cream p-6 sm:p-10 lg:p-12 shadow-xl border border-safari-russet/30">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-5">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#E3C99A] uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-mono text-safari-sand uppercase tracking-widest">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Wildlife Focus</span>
             </div>
@@ -60,7 +60,7 @@ export default function WildlifeInterestFilter() {
               {current.title}
             </h3>
 
-            <p className="font-serif-luxury italic text-base sm:text-lg text-[#E3C99A]">
+            <p className="font-serif-luxury italic text-base sm:text-lg text-safari-sand">
               &ldquo;{current.tagline}&rdquo;
             </p>
 
@@ -71,7 +71,7 @@ export default function WildlifeInterestFilter() {
             <div className="flex items-center gap-4 flex-wrap pt-2">
               <Link
                 href={`/destinations/${current.parkSlug}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8A6A33] hover:bg-[#A37E3E] text-white text-xs font-sans tracking-widest uppercase rounded transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-safari-russet hover:bg-safari-russet text-white text-xs font-sans tracking-widest uppercase rounded transition-colors"
               >
                 <span>Explore {current.primaryPark}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -88,7 +88,7 @@ export default function WildlifeInterestFilter() {
 
           {/* Prime Months Grid */}
           <div className="lg:col-span-4 bg-white/5 border border-white/10 p-6 space-y-4">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#E3C99A] uppercase tracking-wider">
+            <div className="flex items-center gap-2 font-mono text-xs text-safari-sand uppercase tracking-wider">
               <Calendar className="w-4 h-4" />
               <span>Optimal Travel Window</span>
             </div>
@@ -114,7 +114,7 @@ export default function WildlifeInterestFilter() {
                     key={m}
                     className={`py-2 text-center rounded text-xs font-mono transition-colors ${
                       isPrime
-                        ? "bg-[#8A6A33] text-white font-bold shadow"
+                        ? "bg-safari-russet text-white font-bold shadow"
                         : "bg-white/5 text-white/30"
                     }`}
                   >

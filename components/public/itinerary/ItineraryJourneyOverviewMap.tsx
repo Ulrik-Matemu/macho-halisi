@@ -25,14 +25,14 @@ export default function ItineraryJourneyOverviewMap({ pins }: ItineraryJourneyOv
   return (
     <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
       <div className="mb-10">
-        <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+        <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
           The journey
         </div>
-        <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase">
+        <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase">
           Where you&apos;ll go
         </h2>
       </div>
-      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded overflow-hidden border border-[#1E1913]/[0.12]">
+      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded overflow-hidden border border-safari-bark/[0.12]">
         <ItineraryMap pins={pins} onPinClick={scrollToDay} className="absolute inset-0" />
       </div>
     </section>

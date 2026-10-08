@@ -18,13 +18,13 @@ interface EnquirySummaryCardProps {
 
 export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
   return (
-    <div className="bg-[#1E1913] text-[#FBF7F0] p-6 sm:p-7 border border-[#8A6A33]/40 shadow-xl space-y-5">
+    <div className="bg-safari-bark text-safari-cream p-6 sm:p-7 border border-safari-russet/40 shadow-xl space-y-5">
       <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-[#E3C99A]" />
+          <Sparkles className="w-3.5 h-3.5 text-safari-sand" />
           <span className="font-serif-luxury text-base text-white">Your Safari Vision</span>
         </div>
-        <span className="text-[10px] font-mono text-[#E3C99A] uppercase tracking-widest">
+        <span className="text-[10px] font-mono text-safari-sand uppercase tracking-widest">
           Live Blueprint
         </span>
       </div>
@@ -33,7 +33,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
         {/* Destinations */}
         <div>
           <div className="text-[10px] font-mono text-white/50 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-            <Compass className="w-3 h-3 text-[#E3C99A]" />
+            <Compass className="w-3 h-3 text-safari-sand" />
             <span>Destinations Selected:</span>
           </div>
           {state.destinations.length === 0 ? (
@@ -56,7 +56,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-white/10">
           <div>
             <div className="text-[10px] font-mono text-white/50 uppercase tracking-wider mb-1 flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-[#E3C99A]" />
+              <Calendar className="w-3 h-3 text-safari-sand" />
               <span>Timing & Length:</span>
             </div>
             <div className="text-white font-medium">
@@ -69,7 +69,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
 
           <div>
             <div className="text-[10px] font-mono text-white/50 uppercase tracking-wider mb-1 flex items-center gap-1">
-              <Users className="w-3 h-3 text-[#E3C99A]" />
+              <Users className="w-3 h-3 text-safari-sand" />
               <span>Party Size:</span>
             </div>
             <div className="text-white font-medium">
@@ -81,7 +81,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
         {/* Accommodation Style */}
         <div className="pt-2 border-t border-white/10">
           <div className="text-[10px] font-mono text-white/50 uppercase tracking-wider mb-1 flex items-center gap-1">
-            <Home className="w-3 h-3 text-[#E3C99A]" />
+            <Home className="w-3 h-3 text-safari-sand" />
             <span>Accommodations:</span>
           </div>
           <div className="text-white font-medium">
@@ -99,7 +99,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
               {state.specialInterests.map((interest) => (
                 <span
                   key={interest}
-                  className="px-2 py-0.5 bg-[#8A6A33]/30 text-[#E3C99A] rounded text-[10px]"
+                  className="px-2 py-0.5 bg-safari-russet/30 text-safari-sand rounded text-[10px]"
                 >
                   {interest}
                 </span>

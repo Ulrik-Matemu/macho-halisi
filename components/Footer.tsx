@@ -5,6 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEnquiry } from "@/components/EnquiryProvider";
 import ScrollReveal from "@/components/public/ScrollReveal";
+import { SITE } from "@/lib/site";
+import { trackContact } from "@/lib/analytics/track";
+
+/** "https://www.instagram.com/x" → "Instagram" */
+const profileLabel = (url: string) => {
+  const host = new URL(url).hostname.replace(/^www\./, "").split(".")[0];
+  return host.charAt(0).toUpperCase() + host.slice(1);
+};
 
 interface FooterLink {
   label: string;
@@ -21,7 +29,7 @@ interface FooterLink {
 function FooterLinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
   return (
     <div>
-      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/66 uppercase mb-6">
+      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-6">
         {title}
       </div>
       <div className="flex flex-col gap-3.5 font-sans font-light text-[14.5px]">
@@ -31,7 +39,7 @@ function FooterLinkColumn({ title, links }: { title: string; links: FooterLink[]
               key={link.label}
               type="button"
               onClick={link.onClick}
-              className="text-left text-[#FBF7F0]/82 hover:text-[#C9A46A] transition-colors cursor-pointer"
+              className="text-left text-safari-cream/82 hover:text-safari-gold transition-colors cursor-pointer"
             >
               {link.label}
             </button>
@@ -39,7 +47,7 @@ function FooterLinkColumn({ title, links }: { title: string; links: FooterLink[]
             <Link
               key={link.label}
               href={link.href ?? "#"}
-              className="text-[#FBF7F0]/82 hover:text-[#C9A46A] transition-colors"
+              className="text-safari-cream/82 hover:text-safari-gold transition-colors"
             >
               {link.label}
             </Link>
@@ -87,20 +95,20 @@ export default function Footer() {
       {/* Closing CTA — reveals in a slow, deliberate cascade as it scrolls
           into view: eyebrow, then the headline, then the supporting line,
           then the two actions, each settling a beat after the last. */}
-      <section className="bg-[#F6F2EA] text-[#1E1913] px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
+      <section className="bg-safari-cream text-safari-bark px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal size="lift">
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-6">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-6">
               Not sure where to begin?
             </div>
           </ScrollReveal>
           <ScrollReveal delayMs={120}>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.16] tracking-[0.08em] text-[#1E1913] max-w-3xl mx-auto mb-8 text-balance">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.16] tracking-[0.08em] text-safari-bark max-w-3xl mx-auto mb-8 text-balance">
               Tell us how you like to travel. We will draw the route around you.
             </h2>
           </ScrollReveal>
           <ScrollReveal delayMs={240} size="lift">
-            <p className="font-sans font-light text-[15px] leading-[2] text-[#1E1913]/66 max-w-lg mx-auto mb-10">
+            <p className="font-sans font-light text-[15px] leading-[2] text-safari-bark/66 max-w-lg mx-auto mb-10">
               Every Macho Halisi journey is built by hand, privately guided, and quietly obsessive
               about the details.
             </p>
@@ -110,13 +118,13 @@ export default function Footer() {
               <button
                 type="button"
                 onClick={() => openEnquiry()}
-                className="font-sans font-light text-[11px] tracking-[0.3em] text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] uppercase px-10 py-[18px] rounded-sm transition-colors cursor-pointer"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-cream bg-safari-bark hover:bg-safari-russet uppercase px-10 py-[18px] rounded-sm transition-colors cursor-pointer"
               >
                 Start planning
               </button>
               <Link
                 href="/itineraries"
-                className="font-sans font-light text-[11px] tracking-[0.3em] text-[#1E1913] hover:text-[#8A6A33] uppercase py-[18px] transition-colors"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase py-[18px] transition-colors"
               >
                 Browse itineraries →
               </Link>
@@ -125,13 +133,13 @@ export default function Footer() {
         </div>
       </section>
 
-      <footer className="bg-[#181410] text-[#F6F2EA]">
+      <footer className="bg-safari-bark text-safari-cream">
         <div className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-20 sm:pt-24 lg:pt-[104px]">
           {/* Brand + newsletter */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-14 lg:gap-24 items-start pb-16 sm:pb-20">
             <ScrollReveal>
               <Link href="/" className="inline-block mb-8 transition-opacity hover:opacity-80">
-                <div className="relative h-16 sm:h-20 aspect-[180/94] rounded overflow-hidden border border-[#FBF7F0]/20 shadow-md">
+                <div className="relative h-16 sm:h-20 aspect-[180/94] rounded overflow-hidden border border-safari-cream/20 shadow-md">
                   <Image
                     src="/media/macho-halisi-logo-2.jpg"
                     alt="Macho Halisi"
@@ -141,47 +149,49 @@ export default function Footer() {
                   />
                 </div>
               </Link>
-              <p className="font-sans font-light text-[15px] leading-[2] text-[#FBF7F0]/66 max-w-md mb-10">
+              <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/66 max-w-md mb-10">
                 Private, native-guided safaris across Tanzania — the Serengeti and the Crater,
                 Kilimanjaro, the wild south and the Zanzibar coast.
               </p>
               <div className="flex gap-14 flex-wrap">
                 <div>
-                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/66 uppercase mb-3">
+                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">
                     Speak to us
                   </div>
                   <a
-                    href="tel:+255754474792"
-                    className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0] hover:text-[#C9A46A] transition-colors"
+                    href={`tel:${SITE.phoneE164}`}
+                    onClick={() => trackContact("phone", "footer")}
+                    className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream hover:text-safari-gold transition-colors"
                   >
-                    +255 754 474 792
+                    {SITE.phone}
                   </a>
                 </div>
                 <div>
-                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/66 uppercase mb-3">
+                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">
                     Write to us
                   </div>
                   <a
-                    href="mailto:info@machohalisi.com"
-                    className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0] hover:text-[#C9A46A] transition-colors"
+                    href={`mailto:${SITE.email}`}
+                    onClick={() => trackContact("email", "footer")}
+                    className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream hover:text-safari-gold transition-colors"
                   >
-                    info@machohalisi.com
+                    {SITE.email}
                   </a>
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delayMs={140}>
-              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#C9A46A] uppercase mb-4">
+              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-gold uppercase mb-4">
                 The quiet letter
               </div>
-              <p className="font-sans font-light text-sm leading-[1.95] text-[#FBF7F0]/62 mb-6">
+              <p className="font-sans font-light text-sm leading-[1.95] text-safari-cream/62 mb-6">
                 Four notes a year — where the herds are, which camps are worth the detour, and
                 nothing else.
               </p>
               <form
                 onSubmit={handleSubscribe}
-                className="flex items-center gap-4 border-b border-[#FBF7F0]/[0.28] pb-3.5"
+                className="flex items-center gap-4 border-b border-safari-cream/[0.28] pb-3.5"
               >
                 <input
                   type="email"
@@ -190,12 +200,12 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
                   disabled={subscribeState !== "idle"}
-                  className="flex-1 min-w-0 bg-transparent border-none outline-none font-sans font-light text-[15px] text-[#FBF7F0] placeholder-[#FBF7F0]/40 py-1 disabled:opacity-60"
+                  className="flex-1 min-w-0 bg-transparent border-none outline-none font-sans font-light text-[15px] text-safari-cream placeholder-safari-cream/40 py-1 disabled:opacity-60"
                 />
                 <button
                   type="submit"
                   disabled={subscribeState !== "idle"}
-                  className="font-sans font-light text-[10.5px] tracking-[0.3em] text-[#C9A46A] hover:text-[#FBF7F0] uppercase whitespace-nowrap transition-colors cursor-pointer disabled:opacity-60"
+                  className="font-sans font-light text-[10.5px] tracking-[0.3em] text-safari-gold hover:text-safari-cream uppercase whitespace-nowrap transition-colors cursor-pointer disabled:opacity-60"
                 >
                   {subscribeState === "done"
                     ? "Subscribed"
@@ -208,7 +218,7 @@ export default function Footer() {
           </div>
 
           {/* Link columns — a left-to-right wave, each ~70ms after the last */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-12 sm:gap-14 py-16 sm:py-[66px] border-t border-[#FBF7F0]/[0.14]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-12 sm:gap-14 py-16 sm:py-[66px] border-t border-safari-cream/[0.14]">
             <ScrollReveal delayMs={0} size="lift">
               <FooterLinkColumn
                 title="Itineraries"
@@ -217,7 +227,7 @@ export default function Footer() {
                   { label: "Roof of Africa", href: "/journeys/kilimanjaro-routes" },
                   { label: "The Southern Circuit", href: "/journeys/signature-itineraries#the-southern-circuit" },
                   { label: "Spice Coast & Sands", href: "/journeys/zanzibar-journeys#spice-coast-sands" },
-                  { label: "All journeys →", href: "/journeys" },
+                  { label: "All journeys →", href: "/journeys/signature-itineraries" },
                 ]}
               />
             </ScrollReveal>
@@ -238,6 +248,7 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Travel with us"
                 links={[
+                  { label: "Safari experiences", href: "/experiences" },
                   { label: "How we plan", href: "/how-we-plan" },
                   { label: "When to travel", href: "/when-to-travel" },
                   { label: "Accommodation", href: "/accommodations" },
@@ -252,17 +263,16 @@ export default function Footer() {
                 links={[
                   { label: "Our story", href: "/about" },
                   { label: "The guides", href: "/about#guides" },
-                  { label: "Conservation", href: "/impact" },
-                  { label: "Journal", href: "#" },
+                  { label: "Conservation", href: "/about#impact" },
                   { label: "Contact", href: "/enquire" },
                 ]}
               />
             </ScrollReveal>
             <ScrollReveal delayMs={280} size="lift">
-              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/66 uppercase mb-6">
+              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-6">
                 Office
               </div>
-              <div className="font-sans font-light text-sm leading-[1.95] text-[#FBF7F0]/72">
+              <div className="font-sans font-light text-sm leading-[1.95] text-safari-cream/72">
                 Karatu
                 <br />
                 Arusha, Tanzania
@@ -275,46 +285,35 @@ export default function Footer() {
 
           {/* Bottom bar — the last thing to settle, a beat after the columns above it */}
           <ScrollReveal delayMs={120} size="lift">
-            <div className="flex items-center justify-between gap-9 flex-wrap py-8 sm:py-[42px] border-t border-[#FBF7F0]/[0.14]">
+            <div className="flex items-center justify-between gap-9 flex-wrap py-8 sm:py-[42px] border-t border-safari-cream/[0.14]">
               <div className="flex gap-7 flex-wrap font-sans font-light text-[10.5px] tracking-[0.22em] uppercase">
-                <span className="text-[#FBF7F0]/55">© {new Date().getFullYear()} Macho Halisi Safaris</span>
-                <Link href="/privacy" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
+                <span className="text-safari-cream/55">© {new Date().getFullYear()} Macho Halisi Safaris</span>
+                <Link href="/privacy" className="text-safari-cream/55 hover:text-safari-gold transition-colors">
                   Privacy
                 </Link>
-                <Link href="/terms" className="text-[#FBF7F0]/55 hover:text-[#C9A46A] transition-colors">
+                <Link href="/terms" className="text-safari-cream/55 hover:text-safari-gold transition-colors">
                   Terms
                 </Link>
-dc                 <span className="text-[#FBF7F0]/55">TALA licensed</span>
+                <span className="text-safari-cream/55">TALA licensed</span>
               </div>
               <div className="flex items-center gap-7 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FBF7F0]/70 hover:text-[#C9A46A] transition-colors"
-                >
-                  Instagram
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FBF7F0]/70 hover:text-[#C9A46A] transition-colors"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FBF7F0]/70 hover:text-[#C9A46A] transition-colors"
-                >
-                  YouTube
-                </a>
+                {/* Real profiles only (SITE.sameAs) — links to bare instagram.com etc.
+                    looked broken to guests and told search engines nothing. */}
+                {SITE.sameAs.map((url) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="text-safari-cream/70 hover:text-safari-gold transition-colors"
+                  >
+                    {profileLabel(url)}
+                  </a>
+                ))}
                 <button
                   type="button"
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="flex items-center gap-2 text-[#C9A46A] hover:text-[#FBF7F0] transition-colors cursor-pointer"
+                  className="flex items-center gap-2 text-safari-gold hover:text-safari-cream transition-colors cursor-pointer"
                 >
                   Top ↑
                 </button>

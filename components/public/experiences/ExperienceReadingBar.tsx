@@ -79,12 +79,12 @@ export default function ExperienceReadingBar({ short, planElementId }: Experienc
     <>
       <div
         ref={progressRef}
-        className="fixed top-0 left-0 h-[2px] bg-[#8A6A33] z-[60] pointer-events-none"
+        className="fixed top-0 left-0 h-[2px] bg-safari-russet z-[60] pointer-events-none"
         style={{ width: 0 }}
       />
 
       <div
-        className={`fixed top-0 left-0 right-0 z-40 bg-[#F6F2EA]/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-8 px-4 sm:px-12 py-4 transition-[opacity,transform] duration-[450ms] ease-out ${
+        className={`fixed top-0 left-0 right-0 z-40 bg-safari-cream/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-8 px-4 sm:px-12 py-4 transition-[opacity,transform] duration-[450ms] ease-out ${
           pastHero
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-3 pointer-events-none"
@@ -92,10 +92,10 @@ export default function ExperienceReadingBar({ short, planElementId }: Experienc
         aria-hidden={!pastHero}
       >
         <div className="flex items-baseline gap-3 sm:gap-5 min-w-0">
-          <span className="font-serif-luxury font-light text-base sm:text-lg tracking-[0.16em] uppercase text-[#1E1913] whitespace-nowrap">
+          <span className="font-serif-luxury font-light text-base sm:text-lg tracking-[0.16em] uppercase text-safari-bark whitespace-nowrap">
             Macho Halisi
           </span>
-          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-[#1E1913]/70 truncate">
+          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/70 truncate">
             Safari Experiences · {short}
           </span>
         </div>
@@ -103,7 +103,7 @@ export default function ExperienceReadingBar({ short, planElementId }: Experienc
           type="button"
           onClick={scrollToPlan}
           tabIndex={pastHero ? 0 : -1}
-          className="shrink-0 inline-flex items-center justify-center font-sans font-light text-[10px] sm:text-[10.5px] tracking-[0.3em] uppercase text-[#F6F2EA] bg-[#1E1913] hover:bg-[#8A6A33] transition-colors px-5 sm:px-7 py-3 sm:py-3.5 rounded-[2px] whitespace-nowrap cursor-pointer"
+          className="shrink-0 inline-flex items-center justify-center font-sans font-light text-[10px] sm:text-[10.5px] tracking-[0.3em] uppercase text-safari-cream bg-safari-bark hover:bg-safari-russet transition-colors px-5 sm:px-7 py-3 sm:py-3.5 rounded-[2px] whitespace-nowrap cursor-pointer"
         >
           Plan this experience
         </button>

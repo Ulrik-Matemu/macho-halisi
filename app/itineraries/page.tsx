@@ -4,12 +4,19 @@ import SiteChrome from "@/components/SiteChrome";
 import ItineraryCard from "@/components/public/ItineraryCard";
 import { getPublishedItineraries } from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
+import { itemList, JsonLd } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
-  title: "Safari Itineraries | Macho Halisi",
+  title: "Tanzania Safari Itineraries & Tour Packages | Macho Halisi",
   description:
-    "Browse Macho Halisi's published luxury Tanzanian safari itineraries — bespoke journeys across the Serengeti, Ngorongoro Crater, Kilimanjaro, and Zanzibar.",
+    "Private Tanzania safari itineraries with prices and day-by-day routes: Serengeti migration, Ngorongoro Crater, Kilimanjaro and Zanzibar. Tailored by native guides.",
   alternates: { canonical: `${getSiteUrl()}/itineraries` },
+  openGraph: {
+    title: "Tanzania Safari Itineraries & Tour Packages | Macho Halisi",
+    description: "Private Tanzania safari itineraries with prices and day-by-day routes, tailored by native guides.",
+    url: `${getSiteUrl()}/itineraries`,
+  },
 };
 
 const PAGE_SIZE = 24;
@@ -19,15 +26,17 @@ export default async function ItinerariesIndexPage() {
 
   return (
     <SiteChrome>
+      <Breadcrumbs visible={false} items={[{ name: "Itineraries", path: "/itineraries" }]} />
+      <JsonLd data={itemList("Tanzania safari itineraries", itineraries.map((i) => ({ name: i.title, path: `/itineraries/${i.slug}` })))} />
       <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="mb-10 sm:mb-14 pb-8 border-b border-white/10">
-            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#e0ac69] uppercase mb-2">
-              <Compass className="w-3.5 h-3.5 text-[#c68642]" />
+            <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-gold uppercase mb-2">
+              <Compass className="w-3.5 h-3.5 text-safari-ochre" />
               <span>Safari Expeditions</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug">
-              All Safari Itineraries
+              Tanzania Safari Itineraries
             </h1>
             <p className="text-xs sm:text-sm text-white/60 font-sans mt-3 max-w-2xl leading-relaxed">
               {pagination.total > 0

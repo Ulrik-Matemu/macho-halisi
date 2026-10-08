@@ -5,16 +5,16 @@ import { Check, X, Plane, AlertTriangle } from "lucide-react";
 
 export default function LuggageVisualizer() {
   return (
-    <section id="luggage" className="py-16 sm:py-24 border-b border-[#1E1913]/10">
+    <section id="luggage" className="py-16 sm:py-24 border-b border-safari-bark/10">
       <div className="mb-10">
-        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#8A6A33] uppercase mb-2">
-          <Plane className="w-3.5 h-3.5 text-[#C9A46A]" />
+        <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
+          <Plane className="w-3.5 h-3.5 text-safari-gold" />
           <span>Aviation Regulations</span>
         </div>
-        <h2 className="font-serif-luxury text-3xl sm:text-4xl font-light text-[#1E1913]">
+        <h2 className="font-serif-luxury text-3xl sm:text-4xl font-light text-safari-bark">
           Bush Flight Luggage Rules (15 kg / 33 lbs)
         </h2>
-        <p className="text-sm text-[#1E1913]/70 font-sans mt-2 max-w-2xl leading-relaxed">
+        <p className="text-sm text-safari-bark/70 font-sans mt-2 max-w-2xl leading-relaxed">
           Why your safari bag must be soft-sided without rigid internal frames or wheels, and how to pack
           effortlessly within internal aviation constraints.
         </p>
@@ -22,7 +22,7 @@ export default function LuggageVisualizer() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* Approved Soft Duffel Card */}
-        <div className="bg-[#1E1913] text-[#FBF7F0] p-6 sm:p-8 border border-[#8A6A33]/40 shadow-lg flex flex-col justify-between">
+        <div className="bg-safari-bark text-safari-cream p-6 sm:p-8 border border-safari-russet/40 shadow-lg flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
               <div className="flex items-center gap-2">
@@ -45,38 +45,38 @@ export default function LuggageVisualizer() {
               </p>
 
               <div className="p-4 bg-white/5 border border-white/10 space-y-2">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-[#E3C99A]">
+                <div className="font-mono text-[11px] uppercase tracking-wider text-safari-sand">
                   Specification Standards:
                 </div>
                 <ul className="space-y-1.5 text-xs text-white/70">
                   <li className="flex items-center gap-2">
-                    <span className="text-[#E3C99A]">•</span> Max dimensions: 60 x 35 x 30 cm (24 x 14 x 12 in)
+                    <span className="text-safari-sand">•</span> Max dimensions: 60 x 35 x 30 cm (24 x 14 x 12 in)
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-[#E3C99A]">•</span> Max total weight: 15 kg (33 lbs) incl. hand luggage
+                    <span className="text-safari-sand">•</span> Max total weight: 15 kg (33 lbs) incl. hand luggage
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-[#E3C99A]">•</span> Material: Heavy canvas, cordura, or soft ballistic nylon
+                    <span className="text-safari-sand">•</span> Material: Heavy canvas, cordura, or soft ballistic nylon
                   </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-white/10 text-xs text-[#E3C99A] font-mono">
+          <div className="mt-6 pt-4 border-t border-white/10 text-xs text-safari-sand font-mono">
             Complimentary laundry service is provided daily at all Macho Halisi luxury camps.
           </div>
         </div>
 
         {/* Prohibited Hard Suitcase Card */}
-        <div className="bg-[#EAE4D7]/70 border border-[#1E1913]/15 p-6 sm:p-8 flex flex-col justify-between">
+        <div className="bg-[#EAE4D7]/70 border border-safari-bark/15 p-6 sm:p-8 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-4 border-b border-[#1E1913]/10 mb-6">
+            <div className="flex items-center justify-between pb-4 border-b border-safari-bark/10 mb-6">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                   <X className="w-4 h-4 stroke-[3]" />
                 </div>
-                <div className="font-serif-luxury text-lg text-[#1E1913]">
+                <div className="font-serif-luxury text-lg text-safari-bark">
                   Prohibited: Hard-Shell Suitcases
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function LuggageVisualizer() {
               </span>
             </div>
 
-            <div className="space-y-4 text-xs sm:text-sm text-[#1E1913]/80 font-sans font-light">
+            <div className="space-y-4 text-xs sm:text-sm text-safari-bark/80 font-sans font-light">
               <p className="leading-relaxed">
                 Rigid hardshell suitcases (including Rimowa, Samsonite hardside, and rigid-framed
                 roller bags) physically cannot pass through the narrow access doors of bush aircraft pods.
@@ -105,7 +105,7 @@ export default function LuggageVisualizer() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[#1E1913]/10 text-xs text-[#8A6A33] font-sans">
+          <div className="mt-6 pt-4 border-t border-safari-bark/10 text-xs text-safari-russet font-sans">
             Need an extra freight seat for professional camera gear? We can charter extra payload capacity.
           </div>
         </div>

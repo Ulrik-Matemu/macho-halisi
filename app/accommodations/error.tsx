@@ -16,7 +16,7 @@ export default function AccommodationsError({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-[#080808]">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-safari-night">
       <div className="max-w-md p-8 bg-[#111] border border-red-900/40 rounded-xl space-y-4">
         <AlertCircle className="w-10 h-10 text-red-400 mx-auto" />
         <p className="text-sm text-red-200">
@@ -26,7 +26,7 @@ export default function AccommodationsError({
           <button
             type="button"
             onClick={() => reset()}
-            className="px-5 py-2.5 bg-[#c68642] text-[#080808] text-xs font-sans uppercase tracking-wider rounded font-medium cursor-pointer"
+            className="px-5 py-2.5 bg-safari-ochre text-safari-night text-xs font-sans uppercase tracking-wider rounded font-medium cursor-pointer"
           >
             Try Again
           </button>

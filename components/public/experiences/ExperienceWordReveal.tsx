@@ -42,10 +42,10 @@ export default function ExperienceWordReveal({ eyebrow, text, children }: Experi
 
   return (
     <section ref={sectionRef} className="max-w-[1160px] mx-auto px-6 sm:px-16 pt-24 sm:pt-36">
-      <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-8">
+      <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-8">
         {eyebrow}
       </div>
-      <p className="m-0 font-serif-luxury font-light text-[clamp(26px,3.5vw,52px)] leading-[1.36] tracking-[0.005em] text-[#1E1913] text-pretty">
+      <p className="m-0 font-serif-luxury font-light text-[clamp(26px,3.5vw,52px)] leading-[1.36] tracking-[0.005em] text-safari-bark text-pretty">
         {words.map((word, i) => (
           <span
             key={i}

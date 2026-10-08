@@ -7,7 +7,7 @@ import { Compass } from "lucide-react";
 // land: a branded page instead of Next's stark default.
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-[#080808]">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-safari-night">
       <div className="max-w-md space-y-5">
         <Compass className="w-12 h-12 text-white/20 mx-auto" />
         <h1 className="font-serif-luxury text-2xl sm:text-3xl text-white font-light tracking-wide">
@@ -19,7 +19,7 @@ export default function NotFound() {
         <div className="flex items-center justify-center gap-3 pt-1">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#080808] hover:text-black font-serif-luxury text-xs tracking-[0.18em] uppercase font-medium rounded transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-safari-ochre hover:bg-safari-russet text-safari-night hover:text-black font-serif-luxury text-xs tracking-[0.18em] uppercase font-medium rounded transition-colors"
           >
             Return Home
           </Link>

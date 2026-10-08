@@ -44,8 +44,8 @@ export default function AccommodationsExplorer({ accommodations }: Accommodation
   const chipClass = (active: boolean) =>
     `px-3.5 py-1.5 rounded-full text-xs font-sans tracking-wider uppercase transition-colors shrink-0 border ${
       active
-        ? "bg-[#c68642] text-[#080808] border-[#c68642]"
-        : "bg-white/[0.03] text-white/60 border-white/10 hover:border-[#c68642]/60 hover:text-white"
+        ? "bg-safari-ochre text-safari-night border-safari-ochre"
+        : "bg-white/[0.03] text-white/60 border-white/10 hover:border-safari-ochre/60 hover:text-white"
     }`;
 
   return (

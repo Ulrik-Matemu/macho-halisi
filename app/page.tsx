@@ -5,10 +5,13 @@ import Hero from "@/components/Hero";
 import FeaturedItineraries, { FeaturedItinerariesSkeleton } from "@/components/public/FeaturedItineraries";
 import SmoothScroll from "@/components/public/SmoothScroll";
 import { getSiteUrl } from "@/lib/site";
+import HomeGuide from "@/components/public/home/HomeGuide";
 
-const TITLE = "Macho Halisi | Luxury Tanzanian Safaris & Wilderness Journeys";
+
+
+const TITLE = "Private Tanzania Safaris by Local Guides | Macho Halisi";
 const DESCRIPTION =
-  "Bespoke, locally-owned and guided safaris across the Serengeti, Ngorongoro Crater, Kilimanjaro, and Zanzibar. Plan a journey through Tanzania with native safari specialists.";
+  "100% Tanzanian-owned safari company: private, tailor-made safaris to the Serengeti, Ngorongoro, Kilimanjaro and Zanzibar with native guides. Reply within 24h.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -48,6 +51,10 @@ export default function Home() {
       <Hero />
       <Suspense fallback={<FeaturedItinerariesSkeleton />}>
         <FeaturedItineraries />
+      </Suspense>
+      {/* Streams in after the featured journeys; still part of the HTML crawlers receive. */}
+      <Suspense fallback={null}>
+        {/* <HomeGuide /> */}
       </Suspense>
     </SiteChrome>
   );

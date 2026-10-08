@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/public/SmoothScroll";
 import LegalPageShell from "@/components/public/legal/LegalPageShell";
 import { TERMS_AND_CONDITIONS } from "@/data/legalData";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Terms & Booking Conditions | Macho Halisi Safaris",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <SiteChrome>
+      <Breadcrumbs visible={false} items={[{ name: "Terms & booking conditions", path: "/terms" }]} />
       <SmoothScroll />
       <LegalPageShell document={TERMS_AND_CONDITIONS} />
     </SiteChrome>

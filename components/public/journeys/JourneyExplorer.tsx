@@ -21,10 +21,10 @@ const formatPrice = (p: number | null) => (p == null ? "On request" : `$${p.toLo
 
 const chip = (active: boolean) =>
   `border-b transition-colors duration-300 cursor-pointer ${
-    active ? "text-[#1E1913] border-[#8A6A33]" : "text-[#1E1913]/55 border-transparent hover:text-[#1E1913]"
+    active ? "text-safari-bark border-safari-russet" : "text-safari-bark/55 border-transparent hover:text-safari-bark"
   }`;
 
-const LABEL = "font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase";
+const LABEL = "font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase";
 
 interface Row extends Journey {
   /** Position in the collection's recommended order, 0-based. */
@@ -193,7 +193,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
     <section ref={sectionRef} className="mt-20 sm:mt-[110px]">
       <div
         ref={barRef}
-        className="sticky top-0 z-40 bg-[rgba(246,242,234,.94)] backdrop-blur-[10px] border-b border-[#1E1913]/[0.12]"
+        className="sticky top-0 z-40 bg-[rgba(246,242,234,.94)] backdrop-blur-[10px] border-b border-safari-bark/[0.12]"
       >
         <div className="max-w-[1340px] mx-auto px-6 sm:px-16 py-[18px] flex flex-wrap items-center justify-between gap-x-7 gap-y-3">
           <div className="flex flex-wrap items-center gap-x-[34px] gap-y-3">
@@ -216,7 +216,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                 </button>
               ))}
             </div>
-            <span className="hidden sm:block w-px h-[18px] bg-[#1E1913]/[0.18]" />
+            <span className="hidden sm:block w-px h-[18px] bg-safari-bark/[0.18]" />
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span className={LABEL}>{facetLabel}</span>
               {["all", ...facets].map((k) => (
@@ -247,11 +247,11 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                   setPage(1);
                 })
               }
-              className="py-[5px] font-sans font-light text-[10.5px] tracking-[0.26em] uppercase text-[#1E1913] cursor-pointer"
+              className="py-[5px] font-sans font-light text-[10.5px] tracking-[0.26em] uppercase text-safari-bark cursor-pointer"
             >
-              Sort · <span className="text-[#8A6A33]">{SORTS[sort]}</span>
+              Sort · <span className="text-safari-russet">{SORTS[sort]}</span>
             </button>
-            <span className="w-px h-[18px] bg-[#1E1913]/[0.18]" />
+            <span className="w-px h-[18px] bg-safari-bark/[0.18]" />
             <div className="flex gap-4">
               {(["index", "gallery"] as const).map((v) => (
                 <button
@@ -271,14 +271,14 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
 
       <div ref={listRef} className="max-w-[1340px] mx-auto px-6 sm:px-16 pt-11">
         <div className="flex items-baseline justify-between gap-6 mb-[26px]">
-          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-[#1E1913]/70 uppercase">
+          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase">
             {rows.length ? `Showing ${pad(from)} – ${pad(to)} of ${pad(rows.length)} journeys` : "No journeys"}
           </span>
           {filtered && (
             <button
               type="button"
               onClick={clear}
-              className="font-sans font-light text-[10.5px] tracking-[0.26em] text-[#8A6A33] uppercase cursor-pointer hover:text-[#1E1913] transition-colors"
+              className="font-sans font-light text-[10.5px] tracking-[0.26em] text-safari-russet uppercase cursor-pointer hover:text-safari-bark transition-colors"
             >
               Clear filters ×
             </button>
@@ -286,14 +286,14 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
         </div>
 
         {rows.length === 0 && (
-          <div className="py-[110px] text-center border-t border-[#1E1913]/[0.16]">
-            <p className="m-0 mb-[22px] font-serif-luxury font-light italic text-[32px] text-[#1E1913]">
+          <div className="py-[110px] text-center border-t border-safari-bark/[0.16]">
+            <p className="m-0 mb-[22px] font-serif-luxury font-light italic text-[32px] text-safari-bark">
               Nothing quite matches that.
             </p>
             <button
               type="button"
               onClick={clear}
-              className="font-sans font-light text-[11px] tracking-[0.3em] text-[#8A6A33] uppercase cursor-pointer hover:text-[#1E1913] transition-colors"
+              className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-russet uppercase cursor-pointer hover:text-safari-bark transition-colors"
             >
               Show all journeys
             </button>
@@ -302,7 +302,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
 
         {view === "index" && rows.length > 0 && (
           <div>
-            <div className="hidden md:grid grid-cols-[56px_minmax(0,1fr)_minmax(0,1.25fr)_150px_24px] gap-9 items-end pb-3.5 border-b border-[#1E1913]/20">
+            <div className="hidden md:grid grid-cols-[56px_minmax(0,1fr)_minmax(0,1.25fr)_150px_24px] gap-9 items-end pb-3.5 border-b border-safari-bark/20">
               <span className={LABEL}>No.</span>
               <span className={LABEL}>Journey</span>
               <div className="relative h-[30px]">
@@ -310,7 +310,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                 {ticks.map((d) => (
                   <span
                     key={d}
-                    className="absolute bottom-0 -translate-x-1/2 font-sans font-light text-[10px] text-[#1E1913]/60"
+                    className="absolute bottom-0 -translate-x-1/2 font-sans font-light text-[10px] text-safari-bark/60"
                     style={{ left: `${((d / axisMax) * 100).toFixed(2)}%` }}
                   >
                     {d}
@@ -330,38 +330,38 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                   id={toSlug(r.name)}
                   row={r}
                   onEnquire={() => openEnquiry()}
-                  className="grid grid-cols-[40px_minmax(0,1fr)_auto] md:grid-cols-[56px_minmax(0,1fr)_minmax(0,1.25fr)_150px_24px] gap-x-5 gap-y-5 md:gap-9 items-center py-7 md:py-[34px] border-b border-[#1E1913]/[0.12] text-[#1E1913] hover:bg-[rgba(201,164,106,.07)] transition-colors scroll-mt-36"
+                  className="grid grid-cols-[40px_minmax(0,1fr)_auto] md:grid-cols-[56px_minmax(0,1fr)_minmax(0,1.25fr)_150px_24px] gap-x-5 gap-y-5 md:gap-9 items-center py-7 md:py-[34px] border-b border-safari-bark/[0.12] text-safari-bark hover:bg-[rgba(224,172,105,.07)] transition-colors scroll-mt-36"
                 >
-                  <span className="self-start md:self-center pt-2 md:pt-0 font-sans font-light text-xs tracking-[0.22em] text-[#8A6A33]">
+                  <span className="self-start md:self-center pt-2 md:pt-0 font-sans font-light text-xs tracking-[0.22em] text-safari-russet">
                     {pad(r.i + 1)}
                   </span>
                   <div className="min-w-0">
                     <div className="font-serif-luxury font-light text-[clamp(24px,2.3vw,32px)] leading-[1.14] tracking-[0.03em] mb-2">
                       {r.name}
                     </div>
-                    <div className="font-sans font-light text-[13px] leading-[1.7] text-[#1E1913]/66">{r.sub}</div>
+                    <div className="font-sans font-light text-[13px] leading-[1.7] text-safari-bark/66">{r.sub}</div>
                   </div>
                   <div className="relative min-w-0 max-md:col-start-2 max-md:col-span-2 max-md:row-start-2">
                     <div className="relative h-3.5">
-                      <span className="absolute left-0 right-0 top-1.5 h-px bg-[#1E1913]/[0.12]" />
+                      <span className="absolute left-0 right-0 top-1.5 h-px bg-safari-bark/[0.12]" />
                       <span
-                        className="absolute left-0 top-[5px] h-[3px] bg-[#8A6A33] motion-safe:transition-[width] motion-safe:duration-1000 motion-safe:ease-[cubic-bezier(.22,.7,.3,1)]"
+                        className="absolute left-0 top-[5px] h-[3px] bg-safari-russet motion-safe:transition-[width] motion-safe:duration-1000 motion-safe:ease-[cubic-bezier(.22,.7,.3,1)]"
                         style={{ width: barW, transitionDelay: delay }}
                       />
                       <span
-                        className="absolute top-0.5 w-[9px] h-[9px] rounded-full bg-[#1E1913] -translate-x-1/2 motion-safe:transition-[left] motion-safe:duration-1000 motion-safe:ease-[cubic-bezier(.22,.7,.3,1)]"
+                        className="absolute top-0.5 w-[9px] h-[9px] rounded-full bg-safari-bark -translate-x-1/2 motion-safe:transition-[left] motion-safe:duration-1000 motion-safe:ease-[cubic-bezier(.22,.7,.3,1)]"
                         style={{ left: barW, transitionDelay: delay }}
                       />
                     </div>
-                    <div className="flex gap-5 mt-3 font-sans font-light text-[10.5px] tracking-[0.2em] text-[#1E1913]/70 uppercase">
-                      <span className="text-[#1E1913]">{lengthLabel(r.length)}</span>
+                    <div className="flex gap-5 mt-3 font-sans font-light text-[10.5px] tracking-[0.2em] text-safari-bark/70 uppercase">
+                      <span className="text-safari-bark">{lengthLabel(r.length)}</span>
                       <span>{r.facet}</span>
                     </div>
                   </div>
-                  <span className="self-start md:self-center max-md:col-start-3 max-md:row-start-1 font-serif-luxury font-light text-lg md:text-[21px] tracking-[0.04em] text-[#8A6A33] text-right whitespace-nowrap">
+                  <span className="self-start md:self-center max-md:col-start-3 max-md:row-start-1 font-serif-luxury font-light text-lg md:text-[21px] tracking-[0.04em] text-safari-russet text-right whitespace-nowrap">
                     {formatPrice(r.price)}
                   </span>
-                  <span className="hidden md:block font-sans font-light text-base text-[#8A6A33] text-right">→</span>
+                  <span className="hidden md:block font-sans font-light text-base text-safari-russet text-right">→</span>
                 </JourneyLink>
               );
             })}
@@ -376,24 +376,24 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                 id={toSlug(r.name)}
                 row={r}
                 onEnquire={() => openEnquiry()}
-                className={`block text-[#1E1913] group scroll-mt-36 ${["", "sm:mt-14", "sm:mt-[22px]"][k % 3]}`}
+                className={`block text-safari-bark group scroll-mt-36 ${["", "sm:mt-14", "sm:mt-[22px]"][k % 3]}`}
               >
                 <div className="relative aspect-[4/5] overflow-hidden mb-[22px]">
                   <ExperienceMaskImage image={r.image} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" />
-                  <span className="absolute top-[18px] left-[18px] font-sans font-light text-[11px] tracking-[0.22em] text-[#FBF7F0] [text-shadow:0_1px_10px_rgba(18,14,10,.6)] pointer-events-none">
+                  <span className="absolute top-[18px] left-[18px] font-sans font-light text-[11px] tracking-[0.22em] text-safari-cream [text-shadow:0_1px_10px_rgba(18,11,6,.6)] pointer-events-none">
                     {pad(r.i + 1)}
                   </span>
                 </div>
-                <div className="flex gap-[18px] font-sans font-light text-[10.5px] tracking-[0.24em] text-[#8A6A33] uppercase mb-3">
+                <div className="flex gap-[18px] font-sans font-light text-[10.5px] tracking-[0.24em] text-safari-russet uppercase mb-3">
                   <span>{lengthLabel(r.length)}</span>
                   <span>{r.facet}</span>
                 </div>
-                <div className="font-serif-luxury font-light text-[28px] leading-[1.14] tracking-[0.03em] mb-2.5 group-hover:text-[#8A6A33] transition-colors">
+                <div className="font-serif-luxury font-light text-[28px] leading-[1.14] tracking-[0.03em] mb-2.5 group-hover:text-safari-russet transition-colors">
                   {r.name}
                 </div>
-                <div className="font-sans font-light text-[13.5px] leading-[1.8] text-[#1E1913]/66 mb-4">{r.sub}</div>
-                <div className="flex items-baseline justify-between pt-3.5 border-t border-[#1E1913]/[0.14]">
-                  <span className="font-serif-luxury font-light text-xl text-[#8A6A33]">{formatPrice(r.price)}</span>
+                <div className="font-sans font-light text-[13.5px] leading-[1.8] text-safari-bark/66 mb-4">{r.sub}</div>
+                <div className="flex items-baseline justify-between pt-3.5 border-t border-safari-bark/[0.14]">
+                  <span className="font-serif-luxury font-light text-xl text-safari-russet">{formatPrice(r.price)}</span>
                   <span className="font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">View →</span>
                 </div>
               </JourneyLink>
@@ -402,12 +402,12 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
         )}
 
         {pagesN > 1 && (
-          <div className="flex items-center justify-between gap-6 mt-16 pt-7 border-t border-[#1E1913]/[0.14]">
+          <div className="flex items-center justify-between gap-6 mt-16 pt-7 border-t border-safari-bark/[0.14]">
             <button
               type="button"
               disabled={current === 1}
               onClick={() => goToPage(current - 1)}
-              className="py-2 font-sans font-light text-[10.5px] tracking-[0.3em] uppercase text-[#1E1913] disabled:text-[#1E1913]/30 cursor-pointer disabled:cursor-default"
+              className="py-2 font-sans font-light text-[10.5px] tracking-[0.3em] uppercase text-safari-bark disabled:text-safari-bark/30 cursor-pointer disabled:cursor-default"
             >
               ← Previous
             </button>
@@ -428,7 +428,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
               type="button"
               disabled={current === pagesN}
               onClick={() => goToPage(current + 1)}
-              className="py-2 font-sans font-light text-[10.5px] tracking-[0.3em] uppercase text-[#1E1913] disabled:text-[#1E1913]/30 cursor-pointer disabled:cursor-default"
+              className="py-2 font-sans font-light text-[10.5px] tracking-[0.3em] uppercase text-safari-bark disabled:text-safari-bark/30 cursor-pointer disabled:cursor-default"
             >
               Next →
             </button>

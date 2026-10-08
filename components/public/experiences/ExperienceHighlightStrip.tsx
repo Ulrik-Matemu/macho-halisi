@@ -57,15 +57,15 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
           className="flex flex-col gap-16 px-6 sm:px-16 max-w-[1240px] mx-auto scrub:max-w-none scrub:mx-0 scrub:flex-row scrub:items-center scrub:gap-[72px] scrub:w-max scrub:will-change-transform"
         >
           <div className="scrub:w-[min(34vw,440px)] flex-none">
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-5">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-5">
               What sets it apart
             </div>
-            <h2 className="m-0 mb-7 font-serif-luxury font-light text-[clamp(36px,4.6vw,66px)] leading-[1.02] tracking-[0.02em] text-[#1E1913]">
+            <h2 className="m-0 mb-7 font-serif-luxury font-light text-[clamp(36px,4.6vw,66px)] leading-[1.02] tracking-[0.02em] text-safari-bark">
               Three things you
               <br />
               <em>will not forget</em>
             </h2>
-            <p className="hidden scrub:block m-0 font-sans font-light text-[15px] leading-[2] text-[#1E1913]/68 max-w-[360px]">
+            <p className="hidden scrub:block m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/68 max-w-[360px]">
               Keep scrolling — the page moves sideways through each one.
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
               key={h.title}
               className="flex-none grid grid-cols-1 gap-8 sm:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] sm:gap-12 sm:items-end scrub:w-[min(66vw,900px)]"
             >
-              <div className="relative h-[52vh] sm:h-[min(62vh,560px)] overflow-hidden bg-[#E7DFD1]">
+              <div className="relative h-[52vh] sm:h-[min(62vh,560px)] overflow-hidden bg-safari-champagne">
                 <Image
                   src={h.image.url}
                   alt={h.image.alt}
@@ -85,13 +85,13 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
                 />
               </div>
               <div className="sm:pb-2.5">
-                <div className="font-serif-luxury font-light text-[clamp(56px,6vw,96px)] leading-none text-[#C9A46A] mb-5">
+                <div className="font-serif-luxury font-light text-[clamp(56px,6vw,96px)] leading-none text-safari-gold mb-5">
                   {pad(i + 1)}
                 </div>
-                <h3 className="m-0 mb-4 font-serif-luxury font-light text-[clamp(26px,2.5vw,36px)] leading-[1.16] tracking-[0.03em] text-[#1E1913]">
+                <h3 className="m-0 mb-4 font-serif-luxury font-light text-[clamp(26px,2.5vw,36px)] leading-[1.16] tracking-[0.03em] text-safari-bark">
                   {h.title}
                 </h3>
-                <p className="m-0 font-sans font-light text-[15px] leading-[2] text-[#1E1913]/68">{h.text}</p>
+                <p className="m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/68">{h.text}</p>
               </div>
             </article>
           ))}
@@ -100,12 +100,12 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
         <div className="hidden scrub:flex absolute left-16 right-16 bottom-11 items-center gap-6" aria-hidden>
           <span
             ref={counterRef}
-            className="font-sans font-light text-[11px] tracking-[0.3em] text-[#1E1913] whitespace-nowrap"
+            className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark whitespace-nowrap"
           >
             {`01 / ${pad(n)}`}
           </span>
-          <span className="flex-1 h-px bg-[#1E1913]/16 relative">
-            <span ref={barRef} className="absolute left-0 top-0 h-px bg-[#8A6A33]" style={{ width: 0 }} />
+          <span className="flex-1 h-px bg-safari-bark/16 relative">
+            <span ref={barRef} className="absolute left-0 top-0 h-px bg-safari-russet" style={{ width: 0 }} />
           </span>
         </div>
       </div>

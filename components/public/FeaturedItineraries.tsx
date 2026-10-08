@@ -28,15 +28,15 @@ function SectionShell({ children }: { children: React.ReactNode }) {
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12 mb-12 lg:mb-11">
           <div>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-[18px]">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-[18px]">
               Featured Itineraries
             </div>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-[46px] leading-[1.08] tracking-[0.16em] text-[#1E1913] uppercase">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-[46px] leading-[1.08] tracking-[0.16em] text-safari-bark uppercase">
               Journeys of a Lifetime
             </h2>
           </div>
 
-          <p className="font-sans font-light text-sm leading-[1.9] text-[#1E1913]/62 max-w-[360px] lg:text-right">
+          <p className="font-sans font-light text-sm leading-[1.9] text-safari-bark/62 max-w-[360px] lg:text-right">
             Four signature routes, one continuous scroll. Each card settles into place before the next
             rises over it.
           </p>
@@ -71,9 +71,9 @@ export default async function FeaturedItineraries() {
   if (itineraries.length === 0) {
     return (
       <SectionShell>
-        <div className="py-16 sm:py-20 text-center border border-dashed border-[#1E1913]/15 rounded-xl">
-          <Compass className="w-10 h-10 text-[#1E1913]/25 mx-auto mb-4" />
-          <p className="font-sans text-sm text-[#1E1913]/55 max-w-md mx-auto">
+        <div className="py-16 sm:py-20 text-center border border-dashed border-safari-bark/15 rounded-xl">
+          <Compass className="w-10 h-10 text-safari-bark/25 mx-auto mb-4" />
+          <p className="font-sans text-sm text-safari-bark/55 max-w-md mx-auto">
             {degraded
               ? "Our journeys are just a moment behind — please refresh in a bit."
               : "Our safari specialists are currently curating new journeys — check back soon."}
@@ -91,13 +91,13 @@ export default async function FeaturedItineraries() {
         ))}
       </div>
 
-      <div className="relative z-10 bg-[#EFE9DE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-8 sm:py-10 border-t border-[#1E1913]/[0.12]">
-        <span className="font-sans font-light text-[11px] tracking-[0.28em] text-[#1E1913]/70 uppercase">
+      <div className="relative z-10 bg-[#EFE9DE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-8 sm:py-10 border-t border-safari-bark/[0.12]">
+        <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase">
           {itineraries.length} of {pagination.total} itinerar{pagination.total === 1 ? "y" : "ies"} in view
         </span>
         <Link
           href="/itineraries"
-          className="font-sans font-light text-[11px] tracking-[0.3em] text-[#1E1913] hover:text-[#8A6A33] uppercase transition-colors"
+          className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase transition-colors"
         >
           View All Journeys
         </Link>
@@ -119,14 +119,14 @@ export function FeaturedItinerariesSkeleton() {
         {Array.from({ length: 2 }).map((_, idx) => (
           <div
             key={idx}
-            className="rounded lg:min-h-[460px] bg-[#1E1913]/5 animate-pulse grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)]"
+            className="rounded lg:min-h-[460px] bg-safari-bark/5 animate-pulse grid grid-cols-1 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)]"
           >
-            <div className="aspect-[16/9] sm:aspect-[4/3] lg:aspect-auto bg-[#1E1913]/5" />
+            <div className="aspect-[16/9] sm:aspect-[4/3] lg:aspect-auto bg-safari-bark/5" />
             <div className="p-6 sm:p-10 space-y-4">
-              <div className="h-3 w-1/3 bg-[#1E1913]/10 rounded" />
-              <div className="h-6 w-2/3 bg-[#1E1913]/10 rounded" />
-              <div className="h-3 w-full bg-[#1E1913]/10 rounded" />
-              <div className="h-3 w-4/5 bg-[#1E1913]/10 rounded" />
+              <div className="h-3 w-1/3 bg-safari-bark/10 rounded" />
+              <div className="h-6 w-2/3 bg-safari-bark/10 rounded" />
+              <div className="h-3 w-full bg-safari-bark/10 rounded" />
+              <div className="h-3 w-4/5 bg-safari-bark/10 rounded" />
             </div>
           </div>
         ))}

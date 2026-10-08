@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
   // (deploy-cadence changes, not per-request) to cache for a day with
   // revalidation, instead of the framework's default of re-fetching on
   // every repeat visit.
+  // Permanent (308) so search engines pass link equity to the target;
+  // a page-level redirect() would only send a temporary 307.
+  async redirects() {
+    return [
+      { source: "/journeys", destination: "/journeys/signature-itineraries", permanent: true },
+      { source: "/impact", destination: "/about#impact", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

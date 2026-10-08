@@ -151,9 +151,9 @@ export default function FullscreenNavMenu({
       // `inert` (React 19) removes it from both tab order and hit-testing
       // in one attribute, without touching the curtain transition itself.
       inert={!isOpen}
-      className={`fixed inset-0 z-50 bg-[#050505] text-white flex flex-col select-none transition-curtain ${
+      className={`fixed inset-0 z-50 bg-safari-night text-white flex flex-col select-none transition-curtain ${
         isOpen ? "curtain-open pointer-events-auto" : "curtain-closed pointer-events-none"
-      } border-b border-[#c68642]/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
+      } border-b border-safari-ochre/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
       onMouseLeave={() => scheduleReset(200)}
     >
       {/* Inner Content Layer: Fades in after curtain unfurls, dissolves upward during curtain retraction */}
@@ -167,7 +167,7 @@ export default function FullscreenNavMenu({
         {/* Top Bar with Staggered Header Descent */}
         <header
           onMouseEnter={cancelResetTimer}
-          className="border-b border-white/10 bg-[#050505] py-5 sm:py-6"
+          className="border-b border-white/10 bg-safari-night py-5 sm:py-6"
         >
           <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
             {/* Left: Brand Logo (matching Navbar) */}
@@ -176,7 +176,7 @@ export default function FullscreenNavMenu({
               onClick={handleClose}
               className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
             >
-              <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
+              <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
                 <Image
                   src="/media/macho-halisi-logo-2.jpg"
                   alt="Macho Halisi Logo"
@@ -201,7 +201,7 @@ export default function FullscreenNavMenu({
                   placeholder="Search destinations..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white/5 border border-white/15 rounded-sm md:h-10 pl-9 pr-4 py-1.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-[#c68642] transition-colors"
+                  className="w-full bg-white/5 border border-white/15 rounded-sm md:h-10 pl-9 pr-4 py-1.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-safari-ochre transition-colors"
                 />
               </div>
 
@@ -211,7 +211,7 @@ export default function FullscreenNavMenu({
                   handleClose();
                   onOpenEnquiry();
                 }}
-                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-[#c68642] hover:bg-[#8d5524] text-[#ffdbac] font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
+                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-safari-ochre hover:bg-safari-russet text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
               >
                 ENQUIRE
               </button>
@@ -220,8 +220,8 @@ export default function FullscreenNavMenu({
                 aria-label="Close menu"
                 className="group flex items-center gap-2.5 sm:gap-3 text-white focus:outline-none cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center transition-all duration-300 group-hover:border-[#c68642] group-hover:scale-105 group-hover:bg-[#8d5524]/20">
-                  <X className="w-4 h-4 text-white group-hover:text-[#e0ac69] transition-colors" />
+                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center transition-all duration-300 group-hover:border-safari-ochre group-hover:scale-105 group-hover:bg-safari-russet/20">
+                  <X className="w-4 h-4 text-white group-hover:text-safari-gold transition-colors" />
                 </div>
               </button>
             </div>
@@ -233,7 +233,7 @@ export default function FullscreenNavMenu({
           {/* If user is actively searching */}
           {isSearching ? (
             <div className="max-w-[1400px] mx-auto p-6 sm:p-12">
-              <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-[#e0ac69] mb-6">
+              <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-safari-gold mb-6">
                 Found {searchResults.length} destination(s) for &quot;{searchQuery}&quot;
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -255,17 +255,17 @@ export default function FullscreenNavMenu({
                       handleClose();
                     }}
                     style={{ animationDelay: `${idx * 40}ms` }}
-                    className="p-5 border border-white/10 hover:border-[#c68642] transition-all duration-300 rounded bg-white/[0.02] cursor-pointer group flex flex-col justify-between animate-nav-cascade hover:-translate-y-1 hover:shadow-xl"
+                    className="p-5 border border-white/10 hover:border-safari-ochre transition-all duration-300 rounded bg-white/[0.02] cursor-pointer group flex flex-col justify-between animate-nav-cascade hover:-translate-y-1 hover:shadow-xl"
                   >
                     <div>
-                      <span className="text-[10px] tracking-[0.25em] text-[#e0ac69] uppercase block mb-1">
+                      <span className="text-[10px] tracking-[0.25em] text-safari-gold uppercase block mb-1">
                         {categoryTitle}
                       </span>
-                      <h4 className="font-serif-luxury text-xl font-normal text-white group-hover:text-[#ffdbac] transition-colors tracking-wide">
+                      <h4 className="font-serif-luxury text-xl font-normal text-white group-hover:text-safari-champagne transition-colors tracking-wide">
                         {item.title}
                       </h4>
                       {item.tagline && (
-                        <p className="font-serif-italic text-xs text-[#e0ac69]/80 mt-1">
+                        <p className="font-serif-italic text-xs text-safari-gold/80 mt-1">
                           {item.tagline}
                         </p>
                       )}
@@ -273,7 +273,7 @@ export default function FullscreenNavMenu({
                         {item.description}
                       </p>
                     </div>
-                    <div className="mt-4 flex items-center gap-2 text-xs text-[#e0ac69]">
+                    <div className="mt-4 flex items-center gap-2 text-xs text-safari-gold">
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
                     </div>
@@ -312,8 +312,8 @@ export default function FullscreenNavMenu({
                         }}
                         className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-300 animate-nav-cascade ${
                           isHovered
-                            ? "border-[#c68642] text-white"
-                            : "border-white/10 text-white/60 hover:text-[#ffdbac] hover:border-white/20"
+                            ? "border-safari-ochre text-white"
+                            : "border-white/10 text-white/60 hover:text-safari-champagne hover:border-white/20"
                         }`}
                       >
                         <span className="font-serif-luxury text-sm sm:text-base lg:text-lg tracking-[0.14em] uppercase font-light transition-transform duration-300 group-hover:translate-x-2">
@@ -321,7 +321,7 @@ export default function FullscreenNavMenu({
                         </span>
                         {/* Orange Arrow on active/hovered state with smooth slide-in */}
                         <ArrowRight
-                          className={`w-4 h-4 text-[#e0ac69] transition-all duration-300 ${
+                          className={`w-4 h-4 text-safari-gold transition-all duration-300 ${
                             isHovered
                               ? "opacity-100 translate-x-0"
                               : "opacity-0 -translate-x-3 group-hover:opacity-40 group-hover:-translate-x-1"
@@ -348,7 +348,7 @@ export default function FullscreenNavMenu({
                         setHoveredCategoryId(null);
                         setHoveredSubItem(null);
                       }}
-                      className="flex items-center gap-2 text-xs text-[#e0ac69] uppercase tracking-widest py-2"
+                      className="flex items-center gap-2 text-xs text-safari-gold uppercase tracking-widest py-2"
                     >
                       ← Back to Menu
                     </button>
@@ -368,8 +368,8 @@ export default function FullscreenNavMenu({
                             onClick={handleClose}
                             className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-200 animate-sub-cascade ${
                               isSubHovered
-                                ? "border-[#c68642] text-white"
-                                : "border-white/10 text-white/60 hover:text-[#ffdbac] hover:border-white/20"
+                                ? "border-safari-ochre text-white"
+                                : "border-white/10 text-white/60 hover:text-safari-champagne hover:border-white/20"
                             }`}
                           >
                             <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light transition-transform duration-200 group-hover:translate-x-2">
@@ -377,7 +377,7 @@ export default function FullscreenNavMenu({
                             </span>
                             {/* Indicator Pip on Hover */}
                             <div
-                              className={`w-1.5 h-1.5 rounded-full bg-[#e0ac69] transition-all duration-200 ${
+                              className={`w-1.5 h-1.5 rounded-full bg-safari-gold transition-all duration-200 ${
                                 isSubHovered
                                   ? "opacity-100 scale-100"
                                   : "opacity-0 scale-50"
@@ -408,7 +408,7 @@ export default function FullscreenNavMenu({
                 <div className="lg:hidden p-4 bg-black/60 backdrop-blur-md z-40">
                   <button
                     onClick={() => setMobileStep("subItems")}
-                    className="flex items-center gap-2 text-xs text-[#e0ac69] uppercase tracking-widest py-1"
+                    className="flex items-center gap-2 text-xs text-safari-gold uppercase tracking-widest py-1"
                   >
                     ← Back to {activeCategory?.title || "List"}
                   </button>
@@ -416,10 +416,10 @@ export default function FullscreenNavMenu({
 
                 {/* Persistent Brand Crown - Stuck at the top of it all across destinations */}
                 <div className="absolute top-8 sm:top-12 inset-x-0 z-30 flex flex-col items-center justify-center text-center pointer-events-none select-none">
-                  <span className="font-serif-luxury font-light text-xs sm:text-sm tracking-[0.42em] uppercase text-[#ffdbac] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+                  <span className="font-serif-luxury font-light text-xs sm:text-sm tracking-[0.42em] uppercase text-safari-champagne drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
                     MACHO HALISI
                   </span>
-                  <span className="h-[1px] w-8 sm:w-10 bg-[#e0ac69]/60 mt-2" />
+                  <span className="h-[1px] w-8 sm:w-10 bg-safari-gold/60 mt-2" />
                 </div>
 
                 {/* Render right column content ONLY if a sub-item in the middle is hovered */}
@@ -445,7 +445,7 @@ export default function FullscreenNavMenu({
 
                     {/* Sole Text Element: Destination Name */}
                     <div className="relative z-20 flex flex-col items-center justify-center max-w-lg px-6 text-center">
-                      <h3 className="font-serif-luxury font-light text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-[#ffdbac] transition-colors duration-300 tracking-[0.16em] uppercase leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+                      <h3 className="font-serif-luxury font-light text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-safari-champagne transition-colors duration-300 tracking-[0.16em] uppercase leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
                         {hoveredSubItem.title}
                       </h3>
                     </div>

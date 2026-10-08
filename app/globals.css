@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080808;
+  --background: #120b06;
   --foreground: #f4f4f0;
   --safari-russet: #8d5524;
   --safari-ochre: #c68642;
   --safari-gold: #e0ac69;
   --safari-sand: #f1c27d;
   --safari-champagne: #ffdbac;
+  --safari-bark: #1e1209;
+  --safari-cream: #fff6ea;
+  --safari-night: #120b06;
 }
 
 @theme inline {
@@ -18,6 +21,9 @@
   --color-safari-gold: var(--safari-gold);
   --color-safari-sand: var(--safari-sand);
   --color-safari-champagne: var(--safari-champagne);
+  --color-safari-bark: var(--safari-bark);
+  --color-safari-cream: var(--safari-cream);
+  --color-safari-night: var(--safari-night);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
   --font-serif: var(--font-serif-luxury), "Source Serif 4", Georgia, serif;

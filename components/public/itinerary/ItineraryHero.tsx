@@ -76,7 +76,7 @@ export default function ItineraryHero({
             className="object-cover object-center"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#3a2f22] to-[#181410]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#3a2f22] to-safari-bark" />
         )}
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/80" />
@@ -84,41 +84,41 @@ export default function ItineraryHero({
       <div className="absolute inset-x-0 bottom-0 px-6 sm:px-16 pb-14 sm:pb-16">
         <div className="max-w-[1240px] mx-auto">
           {destinationNames.length > 0 && (
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#E3C99A] uppercase mb-5">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-sand uppercase mb-5">
               {destinationNames.join(" · ")}
             </div>
           )}
-          <h1 className="font-serif-luxury font-light text-2xl md:text-3xl leading-[1.02] tracking-[0.08em] sm:tracking-[0.1em] text-[#FBF7F0] uppercase mb-7 max-w-5xl">
+          <h1 className="font-serif-luxury font-light text-2xl md:text-3xl leading-[1.02] tracking-[0.08em] sm:tracking-[0.1em] text-safari-cream uppercase mb-7 max-w-5xl">
             {title}
           </h1>
 
           <div className="flex flex-wrap gap-x-10 gap-y-6 items-baseline">
             {nights !== null && (
               <div>
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/75 uppercase mb-2">
                   Duration
                 </div>
-                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
+                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream">
                   {nights + 1} Days / {nights} Nights
                 </div>
               </div>
             )}
             {(priceOnRequest || price) && (
               <div>
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/75 uppercase mb-2">
                   From
                 </div>
-                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#E3C99A]">
+                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-sand">
                   {priceOnRequest ? "On Request" : `$${price} pp`}
                 </div>
               </div>
             )}
             {bestMonths && (
               <div>
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#FBF7F0]/75 uppercase mb-2">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/75 uppercase mb-2">
                   Best months
                 </div>
-                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-[#FBF7F0]">
+                <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream">
                   {bestMonths}
                 </div>
               </div>

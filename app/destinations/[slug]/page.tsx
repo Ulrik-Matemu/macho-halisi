@@ -16,6 +16,11 @@ import PlanTripButton from "@/components/public/destinations/PlanTripButton";
 import { destinations, getDestinationBySlug, getAllDestinationSlugs } from "@/data/destinations";
 import { getDestinationPageData, parseWildlifeEntry } from "@/data/destination-derived";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
+import RelatedItineraryCard from "@/components/public/itinerary/RelatedItineraryCard";
+import { getPublishedItineraries } from "@/lib/public/api";
+import { faqPage, JsonLd, orgRef } from "@/lib/seo/jsonLd";
+import { guideForDestination } from "@/lib/seo/links";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -40,21 +45,25 @@ export async function generateMetadata({
   const destination = getDestinationBySlug(slug);
 
   if (!destination) {
-    return { title: "Destination Not Found | Macho Halisi" };
+    return { title: "Destination Not Found | Macho Halisi", robots: { index: false } };
   }
 
   const url = `${getSiteUrl()}/destinations/${destination.slug}`;
+  // "Serengeti National Park Safari Guide & Best Time to Visit" — what
+  // people search alongside a park name.
+  const title = `${destination.name} Safari Guide & Best Time to Visit | Macho Halisi`;
 
   return {
-    title: `${destination.name} | Macho Halisi`,
+    title,
     description: destination.seoDescription,
     alternates: { canonical: url },
     openGraph: {
-      title: destination.name,
+      title,
       description: destination.seoDescription,
       url,
-      images: [{ url: destination.heroImage }],
+      images: [{ url: destination.heroImage, alt: destination.heroImageAlt }],
     },
+    twitter: { card: "summary_large_image", title, description: destination.seoDescription, images: [destination.heroImage] },
   };
 }
 
@@ -79,15 +88,24 @@ export default async function DestinationDetailPage({
   const siteUrl = getSiteUrl();
   const url = `${siteUrl}/destinations/${destination.slug}`;
 
+  // Published safaris that stop here — real routes to send this page's
+  // readers (and link equity) to.
+  const { data: allItineraries } = await getPublishedItineraries({ limit: 100 });
+  const visiting = allItineraries
+    .filter((it) => it.destinations.some((d) => guideForDestination(d.destination)?.slug === destination.slug))
+    .slice(0, 3);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "TouristAttraction",
+        "@id": `${url}#place`,
         name: destination.name,
         description: destination.seoDescription,
         url,
-        image: destination.heroImage,
+        image: destination.heroImage.startsWith("http") ? destination.heroImage : `${siteUrl}${destination.heroImage}`,
+        provider: orgRef(),
         touristType: "Safari & wildlife tourism",
         geo: {
           "@type": "GeoCoordinates",
@@ -100,25 +118,15 @@ export default async function DestinationDetailPage({
           addressCountry: "TZ",
         },
       },
-      {
-        "@type": "FAQPage",
-        mainEntity: destination.faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: { "@type": "Answer", text: faq.answer },
-        })),
-      },
+      ...(destination.faqs.length ? [faqPage(destination.faqs)] : []),
     ],
   };
 
   return (
     <SiteChrome>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
-      <div className="bg-[#F6F2EA] text-[#1E1913]">
+      <div className="bg-safari-cream text-safari-bark">
         <ScrollProgressBar />
         <DestinationHero
           image={destination.heroImage}
@@ -130,17 +138,25 @@ export default async function DestinationDetailPage({
           counter={`${pad(destinations.indexOf(destination) + 1)} / ${pad(destinations.length)}`}
         />
 
+        <Breadcrumbs
+          className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-10"
+          items={[
+            { name: "Destinations", path: "/destinations" },
+            { name: destination.name, path: `/destinations/${destination.slug}` },
+          ]}
+        />
+
         {/* Overview + quick facts */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-12 lg:gap-20 items-start">
             <ScrollReveal>
-              <p className="font-serif-luxury font-light text-2xl sm:text-3xl leading-[1.62] text-[#1E1913] mb-8 text-balance">
+              <p className="font-serif-luxury font-light text-2xl sm:text-3xl leading-[1.62] text-safari-bark mb-8 text-balance">
                 {destination.leadParagraph}
               </p>
               {destination.bodyParagraphs.map((para, idx) => (
                 <p
                   key={idx}
-                  className="font-sans font-light text-[15.5px] leading-[2] text-[#1E1913]/66 max-w-[620px] mb-5 last:mb-0"
+                  className="font-sans font-light text-[15.5px] leading-[2] text-safari-bark/66 max-w-[620px] mb-5 last:mb-0"
                 >
                   {para}
                 </p>
@@ -148,16 +164,16 @@ export default async function DestinationDetailPage({
             </ScrollReveal>
 
             <ScrollReveal delayMs={120} size="lift">
-              <aside className="border-t border-[#1E1913]/[0.16] pt-7 flex flex-col gap-7">
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase mb-1">
+              <aside className="border-t border-safari-bark/[0.16] pt-7 flex flex-col gap-7">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-1">
                   Quick facts
                 </div>
                 {destination.quickFacts.map((fact) => (
                   <div key={fact.label} className="flex items-baseline justify-between gap-4">
-                    <span className="font-sans font-light text-[13px] text-[#1E1913]/60 uppercase tracking-[0.05em]">
+                    <span className="font-sans font-light text-[13px] text-safari-bark/60 uppercase tracking-[0.05em]">
                       {fact.label}
                     </span>
-                    <span className="font-serif-luxury font-light text-base text-[#1E1913] text-right">
+                    <span className="font-serif-luxury font-light text-base text-safari-bark text-right">
                       {fact.value}
                     </span>
                   </div>
@@ -170,10 +186,10 @@ export default async function DestinationDetailPage({
         {/* Map */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <ScrollReveal>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
               Location
             </div>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase mb-8">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase mb-8">
               Where it is
             </h2>
           </ScrollReveal>
@@ -183,7 +199,7 @@ export default async function DestinationDetailPage({
               lng={destination.location.lng}
               zoom={destination.location.zoom}
               label={destination.name}
-              className="relative w-full h-[420px] rounded overflow-hidden border border-[#1E1913]/10"
+              className="relative w-full h-[420px] rounded overflow-hidden border border-safari-bark/10"
             />
           </ScrollReveal>
         </section>
@@ -191,10 +207,10 @@ export default async function DestinationDetailPage({
         {/* Highlights */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <ScrollReveal>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
               Why visit
             </div>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase mb-12">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase mb-12">
               Highlights
             </h2>
           </ScrollReveal>
@@ -202,14 +218,14 @@ export default async function DestinationDetailPage({
             {destination.highlights.map((highlight, idx) => (
               <ScrollReveal key={highlight.title} delayMs={idx * 60} size="lift">
                 <div className="flex gap-5">
-                  <span className="font-serif-luxury font-light text-2xl text-[#C9A46A] shrink-0">
+                  <span className="font-serif-luxury font-light text-2xl text-safari-gold shrink-0">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-serif-luxury font-light text-xl tracking-[0.02em] text-[#1E1913] mb-2">
+                    <h3 className="font-serif-luxury font-light text-xl tracking-[0.02em] text-safari-bark mb-2">
                       {highlight.title}
                     </h3>
-                    <p className="font-sans font-light text-[15px] leading-[1.8] text-[#1E1913]/66">
+                    <p className="font-sans font-light text-[15px] leading-[1.8] text-safari-bark/66">
                       {highlight.description}
                     </p>
                   </div>
@@ -247,10 +263,10 @@ export default async function DestinationDetailPage({
         {/* Best time to visit */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <ScrollReveal>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
               Seasons
             </div>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase mb-10">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase mb-10">
               Best time to visit
             </h2>
           </ScrollReveal>
@@ -263,10 +279,10 @@ export default async function DestinationDetailPage({
         {/* {destination.gallery.length > 0 && (
           <section className="pt-28 sm:pt-40">
             <ScrollReveal className="max-w-[1240px] mx-auto px-6 sm:px-16 mb-10">
-              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
                 Gallery
               </div>
-              <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase">
+              <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase">
                 {destination.name}, in pictures
               </h2>
             </ScrollReveal>
@@ -308,10 +324,10 @@ export default async function DestinationDetailPage({
         {/* FAQ */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <ScrollReveal>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
               Good to know
             </div>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-[#1E1913] uppercase mb-10">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.14em] text-safari-bark uppercase mb-10">
               Frequently asked questions
             </h2>
           </ScrollReveal>
@@ -320,31 +336,52 @@ export default async function DestinationDetailPage({
           </ScrollReveal>
         </section>
 
+        {visiting.length > 0 && (
+          <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
+            <div className="flex items-end justify-between gap-10 mb-11 flex-wrap">
+              <h2 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.1] tracking-[0.14em] text-safari-bark uppercase">
+                Safaris visiting {destination.name}
+              </h2>
+              <Link
+                href="/itineraries"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase transition-colors whitespace-nowrap"
+              >
+                All itineraries →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
+              {visiting.map((it) => (
+                <RelatedItineraryCard key={it.id} itinerary={it} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* CTA */}
-        <section className="mt-28 sm:mt-40 bg-[#181410] text-[#F6F2EA]">
+        <section className="mt-28 sm:mt-40 bg-safari-bark text-safari-cream">
           <div className="max-w-[1240px] mx-auto px-6 sm:px-16 py-20 sm:py-28">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-16 items-start">
               <div>
-                <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#C9A46A] uppercase mb-5">
+                <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-gold uppercase mb-5">
                   Plan your visit
                 </div>
-                <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-[#FBF7F0] uppercase mb-6">
+                <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-safari-cream uppercase mb-6">
                   Visit {destination.name}
                 </h2>
-                <p className="font-sans font-light text-[15px] leading-[2] text-[#FBF7F0]/72 max-w-md mb-8">
+                <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/72 max-w-md mb-8">
                   Tell us roughly when you would like to travel and our safari specialists will
                   come back within 24 hours with a bespoke itinerary built around {destination.name}.
                 </p>
                 <Link
                   href="/itineraries"
-                  className="font-sans font-light text-[11px] tracking-[0.3em] text-[#C9A46A] hover:text-[#F6F2EA] uppercase transition-colors"
+                  className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-gold hover:text-safari-cream uppercase transition-colors"
                 >
                   See safaris featuring {destination.name} →
                 </Link>
               </div>
 
               <div className="sm:pt-16">
-                <PlanTripButton />
+                <PlanTripButton interest={`${destination.name} safari`} />
               </div>
             </div>
           </div>
@@ -354,12 +391,12 @@ export default async function DestinationDetailPage({
         {related.length > 0 && (
           <section className="max-w-[1240px] mx-auto px-6 sm:px-16 py-24 sm:py-32">
             <ScrollReveal className="flex items-end justify-between gap-10 mb-11 flex-wrap">
-              <h2 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.1] tracking-[0.14em] text-[#1E1913] uppercase">
+              <h2 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.1] tracking-[0.14em] text-safari-bark uppercase">
                 You may also like
               </h2>
               <Link
                 href="/destinations"
-                className="font-sans font-light text-[11px] tracking-[0.3em] text-[#1E1913] hover:text-[#8A6A33] uppercase transition-colors whitespace-nowrap"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase transition-colors whitespace-nowrap"
               >
                 All destinations →
               </Link>

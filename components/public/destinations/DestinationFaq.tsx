@@ -13,7 +13,7 @@ export default function DestinationFaq({ faqs }: DestinationFaqProps) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col divide-y divide-[#1E1913]/[0.12] border-t border-b border-[#1E1913]/[0.12]">
+    <div className="flex flex-col divide-y divide-safari-bark/[0.12] border-t border-b border-safari-bark/[0.12]">
       {faqs.map((faq, idx) => {
         const isOpen = openIdx === idx;
         return (
@@ -24,11 +24,11 @@ export default function DestinationFaq({ faqs }: DestinationFaqProps) {
               aria-expanded={isOpen}
               className="w-full flex items-start justify-between gap-6 py-6 text-left cursor-pointer group"
             >
-              <span className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.02em] text-[#1E1913] group-hover:text-[#8A6A33] transition-colors">
+              <span className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.02em] text-safari-bark group-hover:text-safari-russet transition-colors">
                 {faq.question}
               </span>
               <Plus
-                className={`w-4 h-4 shrink-0 mt-1.5 text-[#8A6A33] transition-transform duration-300 ${
+                className={`w-4 h-4 shrink-0 mt-1.5 text-safari-russet transition-transform duration-300 ${
                   isOpen ? "rotate-45" : ""
                 }`}
               />
@@ -39,7 +39,7 @@ export default function DestinationFaq({ faqs }: DestinationFaqProps) {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="font-sans font-light text-[15px] leading-[1.9] text-[#1E1913]/72 pb-6 max-w-2xl">
+                <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/72 pb-6 max-w-2xl">
                   {faq.answer}
                 </p>
               </div>

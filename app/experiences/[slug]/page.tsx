@@ -14,6 +14,8 @@ import ExperienceMaskImage from "@/components/public/experiences/ExperienceMaskI
 import ExperienceMoreList from "@/components/public/experiences/ExperienceMoreList";
 import { experiences, getAllExperienceSlugs, getExperienceBySlug } from "@/data/experiences";
 import { getSiteUrl } from "@/lib/site";
+import Breadcrumbs from "@/components/public/Breadcrumbs";
+import { JsonLd, orgRef } from "@/lib/seo/jsonLd";
 
 interface ExperiencePageParams {
   slug: string;
@@ -41,22 +43,26 @@ export async function generateMetadata({
   const experience = getExperienceBySlug(slug);
 
   if (!experience) {
-    return { title: "Experience Not Found | Macho Halisi" };
+    return { title: "Experience Not Found | Macho Halisi", robots: { index: false } };
   }
 
   const url = `${getSiteUrl()}/experiences/${experience.slug}`;
-  const title = `${experience.line1} ${experience.line2}`;
+  // "Great Migration Expeditions in Tanzania"; lines that already name a
+  // place ("…over the Serengeti") don't need the suffix.
+  const name = `${experience.line1} ${experience.line2}`;
+  const title = `${name}${/tanzania|serengeti|zanzibar|kilimanjaro|ngorongoro/i.test(name) ? "" : " in Tanzania"} | Macho Halisi`;
 
   return {
-    title: `${title} | Safari Experiences | Macho Halisi`,
+    title,
     description: experience.seoDescription,
     alternates: { canonical: url },
     openGraph: {
       title,
       description: experience.seoDescription,
       url,
-      images: [{ url: experience.heroImage }],
+      images: [{ url: experience.heroImage, alt: experience.heroImageAlt }],
     },
+    twitter: { card: "summary_large_image", title, description: experience.seoDescription, images: [experience.heroImage] },
   };
 }
 
@@ -101,7 +107,7 @@ export default async function ExperienceDetailPage({
     url,
     image: experience.heroImage,
     touristType: "Safari & wildlife tourism",
-    provider: { "@type": "TravelAgency", name: "Macho Halisi", url: siteUrl },
+    provider: orgRef(),
     itinerary: {
       "@type": "ItemList",
       itemListElement: experience.places.map((place, i) => ({
@@ -118,13 +124,10 @@ export default async function ExperienceDetailPage({
 
   return (
     <SiteChrome>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <SmoothScroll />
 
-      <div className="bg-[#F6F2EA] text-[#1E1913]">
+      <div className="bg-safari-cream text-safari-bark">
         <ExperienceReadingBar short={experience.short} planElementId="plan" />
 
         <ExperienceHero
@@ -137,14 +140,22 @@ export default async function ExperienceDetailPage({
           counter={`${pad(index + 1)} / ${pad(experiences.length)}`}
         />
 
+        <Breadcrumbs
+          className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-10"
+          items={[
+            { name: "Experiences", path: "/experiences" },
+            { name: experience.short, path: `/experiences/${experience.slug}` },
+          ]}
+        />
+
         <ExperienceWordReveal eyebrow="The experience" text={experience.description}>
-          <dl className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-7 mt-16 sm:mt-24 pt-7 border-t border-[#1E1913]/[0.18]">
+          <dl className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-7 mt-16 sm:mt-24 pt-7 border-t border-safari-bark/[0.18]">
             {experience.glance.map((g) => (
               <div key={g.label}>
-                <dt className="font-sans font-light text-[10px] tracking-[0.3em] text-[#1E1913]/70 uppercase mb-2.5">
+                <dt className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-2.5">
                   {g.label}
                 </dt>
-                <dd className="m-0 font-serif-luxury font-light text-[19px] sm:text-[21px] leading-[1.35] tracking-[0.04em] text-[#1E1913]">
+                <dd className="m-0 font-serif-luxury font-light text-[19px] sm:text-[21px] leading-[1.35] tracking-[0.04em] text-safari-bark">
                   {g.value}
                 </dd>
               </div>
@@ -162,16 +173,16 @@ export default async function ExperienceDetailPage({
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-36">
           <div className="flex items-end justify-between gap-10 mb-12 flex-wrap">
             <div>
-              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#8A6A33] uppercase mb-4">
+              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4">
                 Where it happens
               </div>
-              <h2 className="m-0 font-serif-luxury font-light text-[clamp(34px,4vw,52px)] leading-[1.06] tracking-[0.14em] uppercase text-[#1E1913]">
+              <h2 className="m-0 font-serif-luxury font-light text-[clamp(34px,4vw,52px)] leading-[1.06] tracking-[0.14em] uppercase text-safari-bark">
                 Destinations
               </h2>
             </div>
             <Link
               href="/destinations"
-              className="font-sans font-light text-[11px] tracking-[0.3em] uppercase text-[#8A6A33] hover:text-[#1E1913] transition-colors whitespace-nowrap"
+              className="font-sans font-light text-[11px] tracking-[0.3em] uppercase text-safari-russet hover:text-safari-bark transition-colors whitespace-nowrap"
             >
               All destinations →
             </Link>
@@ -183,17 +194,17 @@ export default async function ExperienceDetailPage({
                 href={`/destinations/${place.destinationSlug}`}
                 className={`group block text-inherit ${PLACE_OFFSETS[i % PLACE_OFFSETS.length]}`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden mb-5 bg-[#E7DFD1]">
+                <div className="relative aspect-[4/5] overflow-hidden mb-5 bg-safari-champagne">
                   <ExperienceMaskImage image={place.image} sizes="(max-width: 640px) 100vw, 33vw" />
                 </div>
-                <div className="font-sans font-light text-[10.5px] tracking-[0.3em] text-[#8A6A33] uppercase mb-2.5">
+                <div className="font-sans font-light text-[10.5px] tracking-[0.3em] text-safari-russet uppercase mb-2.5">
                   {place.type}
                 </div>
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-serif-luxury font-light text-[27px] tracking-[0.04em] text-[#1E1913] group-hover:text-[#8A6A33] transition-colors">
+                  <span className="font-serif-luxury font-light text-[27px] tracking-[0.04em] text-safari-bark group-hover:text-safari-russet transition-colors">
                     {place.name}
                   </span>
-                  <span aria-hidden className="font-sans font-light text-base text-[#8A6A33] transition-transform group-hover:translate-x-1">
+                  <span aria-hidden className="font-sans font-light text-base text-safari-russet transition-transform group-hover:translate-x-1">
                     →
                   </span>
                 </div>
@@ -203,28 +214,28 @@ export default async function ExperienceDetailPage({
         </section>
 
         {/* Plan this experience */}
-        <section id="plan" className="mt-28 sm:mt-36 bg-[#181410] text-[#F6F2EA] scroll-mt-16">
+        <section id="plan" className="mt-28 sm:mt-36 bg-safari-bark text-safari-cream scroll-mt-16">
           <div className="max-w-[1240px] mx-auto px-6 sm:px-16 py-20 sm:py-28 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
             <div>
-              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-[#C9A46A] uppercase mb-5">
+              <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-gold uppercase mb-5">
                 Plan this experience
               </div>
-              <h2 className="m-0 font-serif-luxury font-light text-[clamp(40px,5vw,72px)] leading-none tracking-[0.02em] text-[#FBF7F0]">
+              <h2 className="m-0 font-serif-luxury font-light text-[clamp(40px,5vw,72px)] leading-none tracking-[0.02em] text-safari-cream">
                 {experience.line1}
                 <br />
-                <em className="text-[#E3C99A]">{experience.line2}</em>
+                <em className="text-safari-sand">{experience.line2}</em>
               </h2>
             </div>
             <div>
-              <p className="m-0 mb-9 font-sans font-light text-[15.5px] leading-[2] text-[#FBF7F0]/72 max-w-[460px]">
+              <p className="m-0 mb-9 font-sans font-light text-[15.5px] leading-[2] text-safari-cream/72 max-w-[460px]">
                 Take it on its own or fold it into a longer journey. Tell us your dates — we reply within 24
                 hours with availability and a firm price.
               </p>
               <div className="flex gap-7 flex-wrap items-center">
-                <PlanTripButton label="Enquire now" />
+                <PlanTripButton label="Enquire now" interest={experience.short} />
                 <Link
                   href="/itineraries"
-                  className="font-sans font-light text-[11px] tracking-[0.3em] text-[#FBF7F0] hover:text-[#C9A46A] uppercase transition-colors"
+                  className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-cream hover:text-safari-gold uppercase transition-colors"
                 >
                   Itineraries with this →
                 </Link>

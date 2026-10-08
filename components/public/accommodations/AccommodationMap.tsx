@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const GOLD = "#C9A46A";
+const GOLD = "#e0ac69";
 
 interface AccommodationMapProps {
   latitude: number;
@@ -53,8 +53,8 @@ export default function AccommodationMap({ latitude, longitude, label, className
     el.style.height = "18px";
     el.style.borderRadius = "50%";
     el.style.background = GOLD;
-    el.style.border = "3px solid #1E1913";
-    el.style.boxShadow = "0 0 0 2px rgba(201,164,106,0.5)";
+    el.style.border = "3px solid #1e1209";
+    el.style.boxShadow = "0 0 0 2px rgba(224,172,105,0.5)";
 
     new mapboxgl.Marker({ element: el })
       .setLngLat([longitude, latitude])

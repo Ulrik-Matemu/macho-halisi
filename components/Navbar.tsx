@@ -90,7 +90,7 @@ export default function Navbar({
           : "opacity-0 -translate-y-6 pointer-events-none"
       } ${
         isScrolled
-          ? "bg-[#080808]/90 backdrop-blur-md py-3 border-b border-white/10 shadow-2xl"
+          ? "bg-safari-night/90 backdrop-blur-md py-3 border-b border-white/10 shadow-2xl"
           : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 sm:py-6"
       }`}
     >
@@ -100,7 +100,7 @@ export default function Navbar({
           href="/"
           className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
         >
-          <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-[#c68642]/60">
+          <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
             <Image
               src="/media/macho-halisi-logo-2.jpg"
               alt="Macho Halisi Logo"
@@ -120,7 +120,7 @@ export default function Navbar({
           <button
             onClick={onOpenSearch || onOpenMenu}
             aria-label="Search"
-            className="p-2 text-white/80 hover:text-[#e0ac69] transition-colors rounded-full hover:bg-white/5 cursor-pointer"
+            className="p-2 text-white/80 hover:text-safari-gold transition-colors rounded-full hover:bg-white/5 cursor-pointer"
           >
             <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
           </button>
@@ -128,7 +128,7 @@ export default function Navbar({
           {/* Enquire CTA Button */}
           <button
             onClick={onOpenEnquiry}
-            className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-[#c68642] hover:bg-[#c68642] text-white hover:text-[#ffdbac] font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
+            className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-safari-ochre hover:bg-safari-ochre text-white hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
           >
             ENQUIRE
           </button>
@@ -138,9 +138,9 @@ export default function Navbar({
             className="group flex items-center gap-3 text-white rounded cursor-pointer"
           >
             <div className="w-10 h-10 flex flex-col justify-center gap-2.5 transition-all duration-300 group-hover:scale-105">
-              <span className="w-10 h-[2px] bg-white transition-all duration-400 group-hover:bg-[#c68642] group-hover:w-12" />
-              <span className="w-8 h-[2px] bg-white transition-all duration-400 group-hover:bg-[#c68642] group-hover:w-10" />
-              <span className="w-6 h-[2px] bg-white transition-all duration-400 group-hover:bg-[#c68642] group-hover:w-8" />
+              <span className="w-10 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-12" />
+              <span className="w-8 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-10" />
+              <span className="w-6 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-8" />
             </div>
           </button>
 

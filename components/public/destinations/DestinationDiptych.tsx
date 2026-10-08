@@ -44,7 +44,7 @@ export default function DestinationDiptych({ left, right, caption }: Destination
             />
           </div>
         </ScrollReveal>
-        <p className="font-sans font-light text-[13px] leading-[1.9] text-[#1E1913]/70 max-w-[360px]">
+        <p className="font-sans font-light text-[13px] leading-[1.9] text-safari-bark/70 max-w-[360px]">
           {caption}
         </p>
       </div>

@@ -22,8 +22,8 @@ export default function AboutHero() {
 
       <div className="absolute inset-x-0 bottom-0">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pb-12 sm:pb-16">
-          <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-[#E3C99A] uppercase mb-3">
-            <Eye className="w-3.5 h-3.5 text-[#C9A46A]" />
+          <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-sand uppercase mb-3">
+            <Eye className="w-3.5 h-3.5 text-safari-gold" />
             <span>{aboutHero.eyebrow}</span>
           </div>
           <h1 className="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl font-light text-white tracking-[0.02em] leading-tight max-w-4xl">
