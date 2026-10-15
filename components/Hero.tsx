@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useEnquiry } from "@/components/EnquiryProvider";
 
 interface HeroProps {
   onVideoReady?: () => void;
@@ -21,7 +24,11 @@ const HERO_POSTER = "/media/hero-vids/elephant-poster.webp";
 const HERO_LQIP =
   "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQBACdASoYAA4APrVInkmnJCKhMAgA4BaJYwC7ACHcGmnyMREwcsD0MAD+VdqWFu+sPam+vwrsI+q/YdgBPPuUq7s2u8APD5ofozZBzysZTjCaSc9RRRt/5PjNH0EjGLbdllPyHe41LmBnUsRQW5kf6zDAAA==";
 
+/** Minimum time each phase stays on screen before the next can start (ms). */
+const PHASE_DWELL_MS = 900;
+
 export default function Hero({ onVideoReady }: HeroProps) {
+  const { openEnquiry } = useEnquiry();
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const videoRefA = useRef<HTMLVideoElement | null>(null);
   const videoRefB = useRef<HTMLVideoElement | null>(null);
@@ -41,6 +48,17 @@ export default function Hero({ onVideoReady }: HeroProps) {
   // Lenis's per-frame scroll events don't re-render this tree on every
   // pixel of movement — only when the rounded progress actually changes.
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // The first-screen story plays as three discrete PHASES rather than
+  // tracking scroll position 1:1 — a half-faded line while the visitor
+  // pauses to read is the awkward feeling this avoids.
+  //   0 = title alone, 1 = title + offer/CTAs, 2 = the story panel.
+  // Scroll only *selects* a phase (with hysteresis, so hovering at a
+  // threshold can't flicker); the phase itself plays as a timed, eased
+  // transition. A short dwell between steps means a hard flick still
+  // lands on every phase in turn instead of skipping the offer entirely.
+  const [phase, setPhase] = useState<0 | 1 | 2>(0);
+  const phaseLockedUntilRef = useRef(0);
 
   useEffect(() => {
     let ticking = false;
@@ -174,10 +192,29 @@ export default function Hero({ onVideoReady }: HeroProps) {
     }
   };
 
-  // Stage 1 Interpolations (Bottom Left): Fades up and dissolves out on initial scroll
-  const stage1Opacity = Math.max(0, 1 - scrollProgress * 3.2);
-  const stage1TranslateY = -scrollProgress * 65;
-  const stage1Blur = scrollProgress * 10;
+  // Which phase the current scroll position asks for. Advance and retreat
+  // thresholds differ (hysteresis): 0.05 / 0.03 for the offer, 0.30 / 0.26
+  // for the story.
+  let targetPhase: 0 | 1 | 2 = phase;
+  if (phase === 0 && scrollProgress >= 0.05) targetPhase = 1;
+  if (phase <= 1 && scrollProgress >= 0.3) targetPhase = 2;
+  if (phase === 1 && scrollProgress < 0.03) targetPhase = 0;
+  if (phase === 2 && scrollProgress < 0.26) targetPhase = scrollProgress < 0.03 ? 0 : 1;
+
+  useEffect(() => {
+    if (targetPhase === phase) return;
+    // One step at a time, no sooner than PHASE_DWELL_MS after the last
+    // change, so each phase gets to be read.
+    const wait = reducedMotion ? 0 : Math.max(0, phaseLockedUntilRef.current - Date.now());
+    const timer = setTimeout(() => {
+      phaseLockedUntilRef.current = Date.now() + PHASE_DWELL_MS;
+      setPhase((cur) => (cur === targetPhase ? cur : ((cur + Math.sign(targetPhase - cur)) as 0 | 1 | 2)));
+    }, wait);
+    return () => clearTimeout(timer);
+  }, [targetPhase, phase, reducedMotion]);
+
+  const offerOn = reducedMotion || phase >= 1;
+  const stage1Out = phase >= 2;
 
   // Stage 2 Interpolations (Bottom Right): Rises up into position on scroll,
   // holds at full visibility for a wide plateau, then fades back out with
@@ -191,19 +228,14 @@ export default function Hero({ onVideoReady }: HeroProps) {
   // curve only arrived at 0.65 and started leaving at 0.85, a 0.20 window
   // that read as a blip easy to scroll straight through rather than an
   // intentional reveal.
-  const stage2T = Math.min(1, Math.max(0, (scrollProgress - 0.1) / 0.28));
   const stage2FadeOutT = Math.min(1, Math.max(0, (scrollProgress - 0.65) / 0.13));
-  const stage2Opacity = stage2T * (1 - stage2FadeOutT);
-  const stage2TranslateY = (1 - stage2T) * 40 - stage2FadeOutT * 24;
-  const stage2Blur = (1 - stage2T) * 8 + stage2FadeOutT * 6;
+  const stage2Opacity = 1 - stage2FadeOutT;
+  const stage2TranslateY = -stage2FadeOutT * 24;
+  const stage2Blur = stage2FadeOutT * 6;
 
   // Scroll-linked opacity is driven by the user's own scroll input, not a
   // vestibular trigger, so it stays for reduced-motion users. Parallax
   // translation and blur are exactly that trigger, so both are neutralized.
-  const stage1TransformValue = reducedMotion ? "none" : `translateY(${stage1TranslateY}px)`;
-  const stage1FilterValue = reducedMotion ? "none" : `blur(${stage1Blur}px)`;
-  const stage2TransformValue = reducedMotion ? "none" : `translateY(${stage2TranslateY}px)`;
-  const stage2FilterValue = reducedMotion ? "none" : `blur(${stage2Blur}px)`;
 
   return (
     <section
@@ -274,15 +306,16 @@ export default function Hero({ onVideoReady }: HeroProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/50 z-20 pointer-events-none" />
         </div>
 
-        {/* STAGE 1: Left-Corner Aligned Brand Mark (Fades upward on scroll) */}
+        {/* STAGE 1: Left-Corner Aligned Brand Mark + offer (phases 0-1). Leaves
+            as a timed transition when phase 2 begins. */}
         <div
           style={{
-            opacity: stage1Opacity,
-            transform: stage1TransformValue,
-            filter: stage1FilterValue,
-            pointerEvents: scrollProgress > 0.25 ? "none" : "auto",
+            opacity: stage1Out ? 0 : 1,
+            transform: reducedMotion ? "none" : stage1Out ? "translateY(-28px)" : "translateY(0)",
+            filter: reducedMotion ? "none" : stage1Out ? "blur(8px)" : "blur(0)",
+            pointerEvents: stage1Out ? "none" : "auto",
           }}
-          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(2rem,8dvh,6rem)] sm:pb-6 lg:pb-8 flex flex-col items-start text-left transition-all duration-150"
+          className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(2rem,8dvh,6rem)] sm:pb-6 lg:pb-8 flex flex-col items-start text-left transition-[opacity,transform,filter] duration-1000 transition-luxury motion-reduce:transition-none"
         >
           {/* Pre-title Tagline */}
           <div
@@ -308,11 +341,60 @@ export default function Hero({ onVideoReady }: HeroProps) {
             MACHO HALISI
           </h1>
 
-          {/* Primary/secondary CTAs — the only calls to action above the
-              fold besides the Navbar's ENQUIRE, which auto-hides on scroll.
-              Inherit the same fade/guard as the rest of Stage 1 via the
-              parent's inline style and pointerEvents above. */}
-         
+          {/* Phase 1 — the offer. The title above lands alone on load. On
+              the visitor's first deliberate scroll this unfolds beneath it
+              (grid row 0fr -> 1fr, so the title glides up to make room
+              rather than jumping), a gold hairline draws, then the line and
+              the calls to action rise in one after the other. */}
+          <div
+            className="grid w-full transition-[grid-template-rows] duration-1200 transition-luxury motion-reduce:transition-none"
+            style={{ gridTemplateRows: offerOn ? "1fr" : "0fr" }}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className="pt-6 sm:pt-8 pb-1">
+                <span
+                  aria-hidden="true"
+                  className="block h-px bg-safari-gold/70 w-24 sm:w-40 origin-left transition-[transform,opacity] duration-1200 delay-200 transition-luxury motion-reduce:transition-none"
+                  style={{ transform: `scaleX(${offerOn ? 1 : 0})`, opacity: offerOn ? 1 : 0 }}
+                />
+                <p
+                  className="mt-5 max-w-xl font-sans font-light text-sm sm:text-lg text-white/90 tracking-[0.04em] leading-relaxed drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] transition-[opacity,transform] duration-1000 delay-400 transition-luxury motion-reduce:transition-none"
+                  style={{ opacity: offerOn ? 1 : 0, transform: `translateY(${offerOn ? 0 : 12}px)` }}
+                >
+                  Private Tanzania safaris, led by local Tanzanian guides.
+                </p>
+                <div
+                  className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4 transition-[opacity,transform] duration-1000 delay-700 transition-luxury motion-reduce:transition-none"
+                  style={{
+                    opacity: offerOn ? 1 : 0,
+                    transform: `translateY(${offerOn ? 0 : 12}px)`,
+                    pointerEvents: offerOn && !stage1Out ? "auto" : "none",
+                  }}
+                >
+                  <button
+                    type="button"
+                    tabIndex={offerOn ? 0 : -1}
+                    onClick={() => openEnquiry()}
+                    className="group inline-flex items-center gap-3 px-6 py-3 border border-safari-gold/70 hover:border-safari-gold hover:bg-safari-gold/15 text-white font-serif-luxury text-xs sm:text-[13px] tracking-[0.28em] uppercase rounded transition-colors cursor-pointer"
+                  >
+                    Enquire
+                    <ArrowRight className="w-3.5 h-3.5 text-safari-gold transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
+                  </button>
+                  <Link
+                    href="/itineraries"
+                    tabIndex={offerOn ? 0 : -1}
+                    className="group relative py-2 text-white/85 hover:text-safari-gold font-serif-luxury text-xs sm:text-[13px] tracking-[0.28em] uppercase transition-colors"
+                  >
+                    View Itineraries
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-safari-gold transition-transform duration-500 group-hover:scale-x-100"
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Scroll cue — the hero is a 220vh scroll story; without this, a
@@ -321,15 +403,27 @@ export default function Hero({ onVideoReady }: HeroProps) {
             the instant scrolling starts rather than lingering. */}
        
 
-        {/* STAGE 2: Right-Corner Aligned Narrative Storytelling (Reveals on scroll) */}
+        {/* STAGE 2 (phase 2): the story. Outer layer = timed phase entrance
+            (fade + rise + de-blur, starting a beat after Stage 1 leaves);
+            inner layer = scroll-linked exit, so the panel is gone before
+            the Featured Itineraries curtain slides over the sticky video. */}
+        <div
+          style={{
+            opacity: phase >= 2 ? 1 : 0,
+            transform: reducedMotion ? "none" : phase >= 2 ? "translateY(0)" : "translateY(36px)",
+            filter: reducedMotion ? "none" : phase >= 2 ? "blur(0)" : "blur(8px)",
+            pointerEvents: phase >= 2 && stage2FadeOutT < 1 ? "auto" : "none",
+            transitionDelay: phase >= 2 ? "350ms" : "0ms",
+          }}
+          className="absolute inset-0 z-30 transition-[opacity,transform,filter] duration-1200 transition-luxury motion-reduce:transition-none"
+        >
         <div
           style={{
             opacity: stage2Opacity,
-            transform: stage2TransformValue,
-            filter: stage2FilterValue,
-            pointerEvents: scrollProgress > 0.3 && stage2FadeOutT < 1 ? "auto" : "none",
+            transform: reducedMotion ? "none" : `translateY(${stage2TranslateY}px)`,
+            filter: reducedMotion ? "none" : `blur(${stage2Blur}px)`,
           }}
-          className="absolute inset-0 z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
+          className="absolute inset-0 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
           <div className="max-w-2xl border-r-2 border-safari-ochre/75 pr-6 sm:pr-8 py-2">
             <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
@@ -345,6 +439,24 @@ export default function Hero({ onVideoReady }: HeroProps) {
               We look forward to showing you the interesting cultures, stunning landscapes and masses of wildlife that make our home, Tanzania, such an alluring destination.
             </p>
           </div>
+        </div>
+        </div>
+
+        {/* Phase indicator — three hairlines so the visitor can feel where
+            they are in the first-screen story. Decorative. */}
+        <div
+          aria-hidden="true"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 transition-opacity duration-700"
+          style={{ opacity: scrollProgress < 0.7 ? 1 : 0 }}
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`block w-px transition-[height,background-color] duration-700 transition-luxury ${
+                phase === i ? "h-9 bg-safari-gold" : "h-4 bg-white/30"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

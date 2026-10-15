@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Compass } from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
 import ItineraryCard from "@/components/public/ItineraryCard";
@@ -10,11 +11,11 @@ import { itemList, JsonLd } from "@/lib/seo/jsonLd";
 export const metadata: Metadata = {
   title: "Tanzania Safari Itineraries & Tour Packages | Macho Halisi",
   description:
-    "Private Tanzania safari itineraries with prices and day-by-day routes: Serengeti migration, Ngorongoro Crater, Kilimanjaro and Zanzibar. Tailored by native guides.",
+    "Private Tanzania safari itineraries from 7 to 15 days with day-by-day routes and lodges: Serengeti, Ngorongoro Crater, Kilimanjaro and Zanzibar. Tailored by native guides.",
   alternates: { canonical: `${getSiteUrl()}/itineraries` },
   openGraph: {
     title: "Tanzania Safari Itineraries & Tour Packages | Macho Halisi",
-    description: "Private Tanzania safari itineraries with prices and day-by-day routes, tailored by native guides.",
+    description: "Private Tanzania safari itineraries from 7 to 15 days with day-by-day routes, tailored by native guides.",
     url: `${getSiteUrl()}/itineraries`,
   },
 };
@@ -41,16 +42,19 @@ export default async function ItinerariesIndexPage() {
             <p className="text-xs sm:text-sm text-white/60 font-sans mt-3 max-w-2xl leading-relaxed">
               {pagination.total > 0
                 ? `${pagination.total} bespoke ${pagination.total === 1 ? "journey" : "journeys"} across Tanzania, curated by native safari specialists.`
-                : "Our safari specialists are currently curating new journeys — check back soon."}
+                : "Tell us how you like to travel and we will design a private Tanzania safari around you."}
             </p>
           </div>
 
           {itineraries.length === 0 ? (
             <div className="p-16 text-center border border-dashed border-white/10 rounded-xl bg-[#0d0d0d]">
               <Compass className="w-12 h-12 text-white/20 mx-auto mb-4" />
-              <p className="text-sm text-white/50 font-sans">
-                No published itineraries yet. Please check back soon.
+              <p className="text-sm text-white/60 font-sans mb-6">
+                Tell us when you want to travel and we will send you our itineraries.
               </p>
+              <Link href="/enquire" className="inline-block text-xs tracking-[0.3em] uppercase text-safari-gold border border-safari-gold/40 hover:border-safari-gold px-6 py-3 rounded">
+                ENQUIRE
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

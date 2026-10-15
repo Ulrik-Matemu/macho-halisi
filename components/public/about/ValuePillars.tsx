@@ -1,8 +1,8 @@
-import { Eye, Compass, Truck, HeartHandshake, type LucideIcon } from "lucide-react";
-import { whyBookPillars } from "@/data/aboutData";
+import { Eye, Compass, Truck, HeartHandshake, ShieldCheck, Leaf, type LucideIcon } from "lucide-react";
+import { whyBookPillars, whyBookPillarsExtra } from "@/data/aboutData";
 
 // Maps the icon names stored in aboutData to their lucide components.
-const ICONS: Record<string, LucideIcon> = { Eye, Compass, Truck, HeartHandshake };
+const ICONS: Record<string, LucideIcon> = { Eye, Compass, Truck, HeartHandshake, ShieldCheck, Leaf };
 
 /**
  * "Why book with us" value pillars. Square cards; the icon sits in a
@@ -11,7 +11,7 @@ const ICONS: Record<string, LucideIcon> = { Eye, Compass, Truck, HeartHandshake 
 export default function ValuePillars() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-      {whyBookPillars.map((pillar) => {
+      {[...whyBookPillars, ...whyBookPillarsExtra].map((pillar) => {
         const Icon = ICONS[pillar.icon] ?? Compass;
         return (
           <div

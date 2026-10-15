@@ -239,23 +239,11 @@ export const navigationData: NavCategory[] = [
   {
     id: "journeys",
     title: "BESPOKE JOURNEYS",
-    // Mirrors the five collections in data/journeys.ts (not imported here —
+    // Mirrors the collections in data/journeys.ts (not imported here —
     // this file ships in the client bundle via FullscreenNavMenu).
-    href: "/journeys",
-    featuredDefaultId: "signature-itineraries",
+    href: "/itineraries",
+    featuredDefaultId: "view-all-journeys",
     subItems: [
-      {
-        id: "signature-itineraries",
-        title: "SIGNATURE ITINERARIES",
-        tagline: "Safari · Mountain · Coast",
-        description:
-          "Our most-travelled journeys across Tanzania. Every one is private, and every one is a starting point rather than a fixed programme.",
-        href: "/journeys/signature-itineraries",
-        image:
-          "/media/serengeti/southern-plains.jpg",
-        badge: "26 Journeys",
-        highlights: ["Private Safaris", "North · South · Coast", "Always Tailor-made"],
-      },
       {
         id: "kilimanjaro-routes",
         title: "KILIMANJARO ROUTES",
@@ -306,10 +294,10 @@ export const navigationData: NavCategory[] = [
       },
       {
         id: "view-all-journeys",
-        title: "VIEW ALL SAFARI ITINERARIES",
-        tagline: "The Complete, Live Itinerary Catalog",
+        title: "SAFARI ITINERARIES",
+        tagline: "7 · 9 · 10 · 12 · 15 Days",
         description:
-          "Browse every published Macho Halisi safari itinerary — day-by-day programs, pricing, and availability, updated as our specialists curate new journeys.",
+          "Browse our 7, 9, 10, 12 and 15-day Macho Halisi itineraries — full day-by-day programmes with lodges and meal plans. Enquire and we tailor any of them to you.",
         href: "/itineraries",
         image:
           "/media/serengeti/seronera-valley.jpg",

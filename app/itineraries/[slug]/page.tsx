@@ -107,7 +107,7 @@ export default async function ItineraryDetailPage({
   const durationLabelCompact =
     itinerary.nights !== null ? `${itinerary.nights + 1}D / ${itinerary.nights}N` : null;
   const priceLabel = itinerary.priceOnRequest
-    ? "Price on request"
+    ? "Enquire for pricing"
     : price
     ? `From $${price} pp`
     : "";

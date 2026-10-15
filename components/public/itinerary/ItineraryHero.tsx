@@ -109,7 +109,7 @@ export default function ItineraryHero({
                   From
                 </div>
                 <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-sand">
-                  {priceOnRequest ? "On Request" : `$${price} pp`}
+                  {priceOnRequest ? "Enquire" : `$${price} pp`}
                 </div>
               </div>
             )}

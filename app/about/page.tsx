@@ -8,19 +8,19 @@ import AboutStatsBand from "@/components/public/about/AboutStatsBand";
 import FounderStory from "@/components/public/about/FounderStory";
 import ValuePillars from "@/components/public/about/ValuePillars";
 import GuidesEthos from "@/components/public/about/GuidesEthos";
-import { aboutStory, conservation, aboutCta } from "@/data/aboutData";
+import { aboutStory, conservation, aboutCta, mission } from "@/data/aboutData";
 import { getSiteUrl } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "About Us — 100% Tanzanian-Owned Safari Company | Macho Halisi",
   description:
-    "Macho Halisi is a 100% Tanzanian-owned safari company founded by Dawson Minja. For 14+ years we have crafted bespoke journeys across the Serengeti, Kilimanjaro and Zanzibar, led by native master-naturalist guides.",
+    "Macho Halisi is a 100% Tanzanian-owned safari company founded by Dawson Minja. For 17+ years we have crafted bespoke journeys across the Serengeti, Kilimanjaro and Zanzibar, led by native master-naturalist guides.",
   alternates: { canonical: `${getSiteUrl()}/about` },
   openGraph: {
     title: "About Us — 100% Tanzanian-Owned Safari Company | Macho Halisi",
     description:
-      "A 100% Tanzanian-owned safari company crafting bespoke journeys for over fourteen years, led by native naturalist guides.",
+      "A 100% Tanzanian-owned safari company crafting bespoke journeys for over seventeen years, led by native naturalist guides.",
     url: `${getSiteUrl()}/about`,
     siteName: "Macho Halisi",
   },
@@ -75,6 +75,28 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal size="lift">
               <FounderStory />
+            </ScrollReveal>
+          </section>
+
+          {/* Mission & values */}
+          <section id="mission" className="scroll-mt-28 mt-20 sm:mt-28">
+            <ScrollReveal className="mb-10 sm:mb-12 max-w-3xl">
+              <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
+                {mission.eyebrow}
+              </div>
+              <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight">
+                {mission.statement}
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal size="lift">
+              <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                {mission.values.map((v) => (
+                  <div key={v.title} className="bg-white/70 border border-safari-bark/10 p-6 shadow-sm">
+                    <dt className="font-serif-luxury text-lg text-safari-bark mb-2">{v.title}</dt>
+                    <dd className="font-sans font-light text-sm text-safari-bark/70 leading-relaxed">{v.description}</dd>
+                  </div>
+                ))}
+              </dl>
             </ScrollReveal>
           </section>
 

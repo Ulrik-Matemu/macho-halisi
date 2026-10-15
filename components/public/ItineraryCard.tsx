@@ -81,7 +81,7 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
               </span>
             )}
             {itinerary.priceOnRequest ? (
-              <span className="text-safari-sand">On Request</span>
+              <span className="text-safari-sand">Enquire</span>
             ) : price ? (
               <span className="flex items-center gap-0.5">
                 <DollarSign className="w-3 h-3 text-safari-ochre" />

@@ -91,9 +91,14 @@ const J = (
   image: JourneyImage
 ): Journey => ({ name, sub, length, facet, price, image });
 
-export const DEFAULT_COLLECTION_SLUG = "signature-itineraries";
+export const DEFAULT_COLLECTION_SLUG = "kilimanjaro-routes";
 
-export const journeyCollections: JourneyCollection[] = [
+// The client has not supplied pricing, so every journey shows "Enquire"
+// instead of the placeholder prices from the original design. Safari
+// itineraries live only at /itineraries (the published catalog); the old
+// "Signature Itineraries" collection of invented trips was removed.
+// TODO(client): restore prices here once confirmed.
+const collections: JourneyCollection[] = [
   {
     slug: "kilimanjaro-routes",
     tab: "Kilimanjaro Routes",
@@ -216,54 +221,12 @@ export const journeyCollections: JourneyCollection[] = [
       J("Private Chef Spice Dinner", "Spice farm visit and a candlelit dinner at the farmhouse", 6, "Culinary", 290, photo("resortPool")),
     ],
   },
-  {
-    slug: "signature-itineraries",
-    tab: "Signature Itineraries",
-    line1: "Signature",
-    line2: "Itineraries",
-    eyebrow: "Safari · Mountain · Coast",
-    unit: "days",
-    facetLabel: "Style",
-    caption: "Morning drive · Central Serengeti",
-    lead: "Our most-travelled journeys across Tanzania. Every one is private, and every one is a starting point rather than a fixed programme.",
-    facts: [
-      { label: "Regions", value: "North · South · Coast" },
-      { label: "Private", value: "Every journey" },
-      { label: "Tailor-made", value: "Always" },
-    ],
-    heroImage: photo("plainsVehicle", 2200),
-    seoDescription:
-      "Macho Halisi's signature Tanzania itineraries — private safaris, Kilimanjaro climbs and Zanzibar extensions across the north, south and coast, each tailor-made from a proven starting point.",
-    items: [
-      J("The Great Migration", "Serengeti and Ngorongoro, following the herds", 8, "Safari", 6450, photo("goldenPlains")),
-      J("Roof of Africa", "Lemosho route, eight days to Uhuru Peak", 9, "Adventure", 4200, photo("kiliTrail")),
-      J("The Southern Circuit", "Ruaha and Nyerere by light aircraft", 10, "Safari", null, photo("elephantsDusk")),
-      J("Spice Coast & Sands", "Stone Town and the north-east coast", 7, "Safari & Beach", 3180, photo("oceanTerrace")),
-      J("Tarangire & Manyara", "Elephant country and the Rift escarpment", 5, "Safari", 2740, photo("elephant")),
-      J("Honeymoon in the Wild", "Serengeti camps and a private island finale", 11, "Honeymoon", null, photo("lodge")),
-      J("Culture & Coffee Trails", "Arusha, Karatu and the highland farms", 4, "Family", 1690, photo("highland")),
-      J("Migration River Crossings", "Northern Serengeti, July to October", 6, "Safari", 5900, photo("plainsVehicle")),
-      J("Northern Circuit Classic", "Tarangire, Crater and Serengeti", 7, "Safari", 4380, photo("acacia")),
-      J("Calving Season Ndutu", "February on the southern short-grass plains", 6, "Safari", 5280, photo("goldenPlains")),
-      J("Safari & Summit", "Five days on the plains, eight on the mountain", 14, "Adventure", 9850, photo("kiliTrail")),
-      J("Family Safari Adventure", "Short drives, pools and child-friendly camps", 8, "Family", 5640, photo("giraffe")),
-      J("Chimpanzees of Mahale", "Lake Tanganyika and the Mahale forests", 7, "Adventure", null, photo("chimp")),
-      J("Selous to Sands", "Nyerere boat safaris, then Zanzibar", 9, "Safari & Beach", 5120, photo("turquoise")),
-      J("Lake Natron & Ol Doinyo", "Flamingos and a night climb of the volcano", 5, "Adventure", 2960, photo("flamingos")),
-      J("Walking the Wild South", "Walking and fly-camping in Ruaha", 8, "Adventure", 6280, photo("elephantsDusk")),
-      J("The Grand Tanzania", "North, south and coast in one long journey", 16, "Safari & Beach", null, photo("acacia")),
-      J("Photographic Serengeti", "Custom vehicles and golden-hour timing", 9, "Safari", 8900, photo("lions")),
-      J("Crater & Coast", "Ngorongoro, then a week on the beach", 9, "Safari & Beach", 4860, photo("resortPool")),
-      J("Short Serengeti Escape", "Three nights by air from Arusha", 4, "Safari", 3240, photo("plainsVehicle")),
-      J("Honeymoon Crater & Mnemba", "Crater lodge and a private atoll", 8, "Honeymoon", null, photo("lodge")),
-      J("Multi-generational Tanzania", "Private houses, flexible pace, all ages", 10, "Family", 7420, photo("giraffe")),
-      J("Kilimanjaro & Zanzibar", "Summit, then the Indian Ocean", 12, "Adventure", 6120, photo("reef")),
-      J("Mahale & Katavi", "Remote west — chimps and buffalo herds", 10, "Adventure", null, photo("chimp")),
-      J("Rift Valley Lakes", "Manyara, Eyasi and Natron by road", 6, "Family", 2880, photo("riftRoad")),
-      J("Serengeti Balloon & Crater", "A dawn flight and a day inside the Crater", 6, "Safari", 4150, photo("lions")),
-    ],
-  },
 ];
+
+export const journeyCollections: JourneyCollection[] = collections.map((c) => ({
+  ...c,
+  items: c.items.map((j) => ({ ...j, price: null })),
+}));
 
 export function getJourneyCollectionBySlug(slug: string): JourneyCollection | undefined {
   return journeyCollections.find((c) => c.slug === slug);

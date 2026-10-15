@@ -131,7 +131,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
               {itinerary.priceOnRequest ? "Pricing" : "From"}
             </div>
             <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-safari-russet">
-              {itinerary.priceOnRequest ? "Price on request" : price ? `$${price} pp` : "—"}
+              {itinerary.priceOnRequest ? "Enquire" : price ? `$${price} pp` : "—"}
             </div>
           </div>
         </div>

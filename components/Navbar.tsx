@@ -130,7 +130,8 @@ export default function Navbar({
             onClick={onOpenEnquiry}
             className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-safari-ochre hover:bg-safari-ochre text-white hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
           >
-            ENQUIRE
+            <span className="sm:hidden">ENQUIRE</span>
+            <span className="hidden sm:inline">ENQUIRE</span>
           </button>
           <button
             onClick={onOpenMenu}

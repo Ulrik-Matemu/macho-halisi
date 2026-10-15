@@ -23,7 +23,8 @@ const nextConfig: NextConfig = {
   // a page-level redirect() would only send a temporary 307.
   async redirects() {
     return [
-      { source: "/journeys", destination: "/journeys/signature-itineraries", permanent: true },
+      { source: "/journeys", destination: "/itineraries", permanent: true },
+      { source: "/journeys/signature-itineraries", destination: "/itineraries", permanent: true },
       { source: "/impact", destination: "/about#impact", permanent: true },
     ];
   },

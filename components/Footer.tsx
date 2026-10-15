@@ -223,11 +223,11 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Itineraries"
                 links={[
-                  { label: "The Great Migration", href: "/journeys/signature-itineraries#the-great-migration" },
-                  { label: "Roof of Africa", href: "/journeys/kilimanjaro-routes" },
-                  { label: "The Southern Circuit", href: "/journeys/signature-itineraries#the-southern-circuit" },
-                  { label: "Spice Coast & Sands", href: "/journeys/zanzibar-journeys#spice-coast-sands" },
-                  { label: "All journeys →", href: "/journeys/signature-itineraries" },
+                  { label: "7-Day Northern Circuit", href: "/itineraries/7-day-northern-circuit-safari" },
+                  { label: "10-Day Serengeti & Natron", href: "/itineraries/10-day-serengeti-lake-eyasi-lake-natron-safari" },
+                  { label: "12-Day Kilimanjaro & Natron", href: "/itineraries/12-day-kilimanjaro-marangu-climb-and-lake-natron" },
+                  { label: "15-Day Safari & Zanzibar", href: "/itineraries/15-day-northern-safari-cultural-tours-and-zanzibar" },
+                  { label: "All itineraries →", href: "/itineraries" },
                 ]}
               />
             </ScrollReveal>

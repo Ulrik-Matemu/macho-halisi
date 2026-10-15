@@ -52,7 +52,7 @@ export default async function HomeGuide() {
     {
       question: "How many days do I need for a safari in Tanzania?",
       // Durations from the site's own journey collections (data/journeys.ts).
-      answer: `Our signature Great Migration safari through the Serengeti and Ngorongoro Crater runs 8 days. Kilimanjaro climbs take 5 to 10 days — we recommend 8 days on the Lemosho route for the best summit success — and Zanzibar stays run from a long weekend to 9 days.${
+      answer: `Our safari itineraries run 7 to 15 days. Kilimanjaro climbs take 5 to 10 days — we recommend 8 days on the Lemosho route for the best summit success — and Zanzibar stays run from a long weekend to 9 days.${
         lengths.length ? ` Our published itineraries run from ${Math.min(...lengths)} to ${Math.max(...lengths)} days.` : ""
       }`,
     },

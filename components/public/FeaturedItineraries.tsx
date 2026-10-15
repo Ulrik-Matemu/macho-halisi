@@ -37,8 +37,8 @@ function SectionShell({ children }: { children: React.ReactNode }) {
           </div>
 
           <p className="font-sans font-light text-sm leading-[1.9] text-safari-bark/62 max-w-[360px] lg:text-right">
-            Four signature routes, one continuous scroll. Each card settles into place before the next
-            rises over it.
+            Real day-by-day programmes from 7 to 15 days, each one a starting point. Enquire and we
+            tailor it to your dates, pace and budget.
           </p>
         </div>
 
@@ -73,11 +73,19 @@ export default async function FeaturedItineraries() {
       <SectionShell>
         <div className="py-16 sm:py-20 text-center border border-dashed border-safari-bark/15 rounded-xl">
           <Compass className="w-10 h-10 text-safari-bark/25 mx-auto mb-4" />
-          <p className="font-sans text-sm text-safari-bark/55 max-w-md mx-auto">
+          {/* Never tell a visitor to "refresh" or "check back": if the
+              backend is slow or empty, hand them a working next step. */}
+          <p className="font-sans text-sm text-safari-bark/65 max-w-md mx-auto mb-6">
             {degraded
-              ? "Our journeys are just a moment behind — please refresh in a bit."
-              : "Our safari specialists are currently curating new journeys — check back soon."}
+              ? "Tell us when you want to travel and we'll send you our 7, 9, 10, 12 and 15-day itineraries."
+              : "Tell us how you like to travel and we'll design your private Tanzania safari."}
           </p>
+          <Link
+            href="/enquire"
+            className="inline-block font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase border border-safari-bark/30 hover:border-safari-russet px-6 py-3 rounded transition-colors"
+          >
+            ENQUIRE
+          </Link>
         </div>
       </SectionShell>
     );
