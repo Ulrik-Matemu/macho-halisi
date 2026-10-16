@@ -200,12 +200,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-modal-backdrop"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-safari-tan/80 backdrop-blur-md animate-modal-backdrop"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-safari-tan border border-safari-russet/40 shadow-2xl p-6 sm:p-10 text-safari-night animate-nav-cascade">
+      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-safari-cream border border-safari-russet/40 shadow-2xl p-6 sm:p-10 text-safari-night animate-nav-cascade">
         {/* Close Button */}
         <button
           onClick={handleClose}
@@ -219,7 +219,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           <div>
             <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md mb-6">
               <Image
-                src="/media/macho-halisi-logo-2.jpg"
+                src="/media/new-macho-halisi-logo.jpg"
                 alt="Macho Halisi"
                 fill
                 sizes="112px"
@@ -265,7 +265,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             <div className="flex items-center justify-between mb-6 pr-10">
               <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md shrink-0">
                 <Image
-                  src="/media/macho-halisi-logo-2.jpg"
+                  src="/media/new-macho-halisi-logo.jpg"
                   alt="Macho Halisi"
                   fill
                   sizes="112px"

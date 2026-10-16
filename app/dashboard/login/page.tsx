@@ -40,7 +40,7 @@ function LoginContent() {
       <div className="flex flex-col items-center text-center mb-8">
         <Link href="/" className="mb-4 inline-block">
           <div className="relative h-12 aspect-[180/94] rounded overflow-hidden" style={{ border: "1px solid var(--dash-border-strong)" }}>
-            <Image src="/media/macho-halisi-logo-2.jpg" alt="Macho Halisi Logo" fill priority className="object-cover object-center" />
+            <Image src="/media/new-macho-halisi-logo.jpg" alt="Macho Halisi Logo" fill priority className="object-cover object-center" />
           </div>
         </Link>
         <span className="dash-title" style={{ color: "var(--dash-text)" }}>

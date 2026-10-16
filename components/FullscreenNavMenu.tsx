@@ -178,7 +178,7 @@ export default function FullscreenNavMenu({
             >
               <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-safari-night/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
                 <Image
-                  src="/media/macho-halisi-logo-2.jpg"
+                  src="/media/new-macho-halisi-logo.jpg"
                   alt="Macho Halisi Logo"
                   fill
                   priority

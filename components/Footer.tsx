@@ -141,7 +141,7 @@ export default function Footer() {
               <Link href="/" className="inline-block mb-8 transition-opacity hover:opacity-80">
                 <div className="relative h-16 sm:h-20 aspect-[180/94] rounded overflow-hidden border border-safari-cream/20 shadow-md">
                   <Image
-                    src="/media/macho-halisi-logo-2.jpg"
+                    src="/media/new-macho-halisi-logo.jpg"
                     alt="Macho Halisi"
                     fill
                     sizes="160px"

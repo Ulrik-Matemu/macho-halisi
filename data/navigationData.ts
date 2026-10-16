@@ -19,6 +19,86 @@ export interface NavCategory {
 
 export const navigationData: NavCategory[] = [
   {
+    id: "about",
+    title: "ABOUT MACHO HALISI",
+    href: "/about",
+    featuredDefaultId: "our-story",
+    subItems: [
+      {
+        id: "our-story",
+        title: "THE MACHO HALISI PHILOSOPHY",
+        tagline: "Genuine Eyes on the Wild",
+        description:
+          "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
+        href: "/about",
+        image:
+          "/media/about/team/guides-team.jpg",
+        badge: "Native Born & Led",
+        highlights: ["100% Tanzanian Owned", "20+ Years Bush Experience", "Bespoke Itineraries"],
+      },
+      {
+        id: "our-guides",
+        title: "MASTER NATURALIST GUIDES",
+        tagline: "The Soul of Every Expedition",
+        description:
+          "Our certified guides have spent lifetimes studying animal behavior, bird calls, and tracking signs, transforming every drive into a masterclass.",
+        href: "/about#guides",
+        image:
+          "/media/about/team/guide-golden-hour.jpg",
+        badge: "Elite Naturalists",
+        highlights: ["Level 3 Certified Guides", "Multi-lingual", "Wildlife Photographers"],
+      },
+      {
+        id: "how-we-plan",
+        title: "HOW WE PLAN SAFARIS",
+        tagline: "Bespoke Safari Architecture",
+        description:
+          "Explore our five-stage planning blueprint — discovery dialogue, ecological canvas, intimate canvas sanctuaries, guide pairing, and on-ground concierge.",
+        href: "/how-we-plan",
+        image:
+          "/media/about/fleet/cruiser-three-quarter.jpg",
+        badge: "Our Process",
+        highlights: ["100% Private Vehicles", "Zero Rigid Packages", "Bespoke Routes"],
+      },
+      {
+        id: "when-to-travel",
+        title: "WHEN TO TRAVEL",
+        tagline: "12 Months in the Wild",
+        description:
+          "Month-by-month safari intelligence. Discover Great Migration positions, calving spectacles, dry season river crossings, and green season solitude.",
+        href: "/when-to-travel",
+        image:
+          "/media/serengeti/great-m-1.jpg",
+        badge: "Safari Seasons",
+        highlights: ["Migration Scrubber", "Climate Patterns", "Wildlife Highlights"],
+      },
+      {
+        id: "travel-information",
+        title: "TRAVEL INFORMATION",
+        tagline: "Visas, Packing & Bush Logistics",
+        description:
+          "Essential pre-departure field guide for Tanzania — entry visas, health and malaria, 15kg bush luggage limits, and interactive packing assistant.",
+        href: "/travel-information",
+        image:
+          "/media/about/fleet/fleet-lineup-grass.jpg",
+        badge: "Field Guide",
+        highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
+      },
+      {
+        id: "enquire-studio",
+        title: "TAILOR-MADE EXPEDITION STUDIO",
+        tagline: "Begin Your Bespoke Consultation",
+        description:
+          "Design your custom Tanzanian journey with native safari specialists. Multi-step consultative planner with transparent pricing and direct director contact.",
+        href: "/enquire",
+        image:
+          "/media/about/team/guide-welcome.jpg",
+        badge: "Start Planning",
+        highlights: ["24h Specialist Review", "Private 4x4 Cruiser", "Karatu Office Direct"],
+      },
+    ],
+  },
+  {
     id: "destinations",
     title: "DESTINATIONS",
     href: "/destinations",
@@ -190,53 +270,6 @@ export const navigationData: NavCategory[] = [
     ],
   },
   {
-    id: "camps-lodges",
-    title: "CAMPS & LODGES",
-    // Points at the live, database-backed accommodations catalog. The
-    // sub-items below are curated marketing entries that all funnel into
-    // the same filterable /accommodations page.
-    href: "/accommodations",
-    featuredDefaultId: "luxury-tented",
-    subItems: [
-      {
-        id: "luxury-tented",
-        title: "PRIVATE LUXURY TENTED CAMPS",
-        tagline: "Under Canvas with Five-Star Luxury",
-        description:
-          "Handcrafted canvas suites with en-suite copper bathtubs, private viewing decks, and lanterns lit under the southern cross.",
-        href: "/accommodations",
-        image:
-          "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
-        badge: "Exclusive Wilderness",
-        highlights: ["Fine Dining in Bush", "Butler Service", "Solar-Powered"],
-      },
-      {
-        id: "crater-lodges",
-        title: "CRATER RIM PANORAMA LODGES",
-        tagline: "Perched Above the Volcanic Clouds",
-        description:
-          "Dramatic architectural wonders clinging to the edge of the Ngorongoro caldera with floor-to-ceiling panoramic glass windows and log fires.",
-        href: "/accommodations",
-        image:
-          "/media/ngorongoro/ngoro-ariel.jpg",
-        badge: "Caldera Vistas",
-        highlights: ["Fireplace Suites", "Private Verandas", "Chilled Wine Cellars"],
-      },
-      {
-        id: "beach-villas",
-        title: "ZANZIBAR BEACHFRONT VILLAS",
-        tagline: "Barefoot Elegance on the Swahili Coast",
-        description:
-          "Private ocean villas featuring plunge pools, private chefs, and direct access to powder sands and turquoise waves.",
-        href: "/accommodations",
-        image:
-          "/media/zanzibar/mnemba-atoll.jpg",
-        badge: "Coastal Bliss",
-        highlights: ["Private Infinity Pools", "Spa & Wellness", "Sunset Dhow Cruises"],
-      },
-    ],
-  },
-  {
     id: "journeys",
     title: "BESPOKE JOURNEYS",
     // Mirrors the collections in data/journeys.ts (not imported here —
@@ -305,84 +338,50 @@ export const navigationData: NavCategory[] = [
       },
     ],
   },
-  
   {
-    id: "about",
-    title: "ABOUT MACHO HALISI",
-    href: "/about",
-    featuredDefaultId: "our-story",
+    id: "camps-lodges",
+    title: "CAMPS & LODGES",
+    // Points at the live, database-backed accommodations catalog. The
+    // sub-items below are curated marketing entries that all funnel into
+    // the same filterable /accommodations page.
+    href: "/accommodations",
+    featuredDefaultId: "luxury-tented",
     subItems: [
       {
-        id: "our-story",
-        title: "THE MACHO HALISI PHILOSOPHY",
-        tagline: "Genuine Eyes on the Wild",
+        id: "luxury-tented",
+        title: "PRIVATE LUXURY TENTED CAMPS",
+        tagline: "Under Canvas with Five-Star Luxury",
         description:
-          "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
-        href: "/about",
+          "Handcrafted canvas suites with en-suite copper bathtubs, private viewing decks, and lanterns lit under the southern cross.",
+        href: "/accommodations",
         image:
-          "/media/about/team/guides-team.jpg",
-        badge: "Native Born & Led",
-        highlights: ["100% Tanzanian Owned", "20+ Years Bush Experience", "Bespoke Itineraries"],
+          "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
+        badge: "Exclusive Wilderness",
+        highlights: ["Fine Dining in Bush", "Butler Service", "Solar-Powered"],
       },
       {
-        id: "our-guides",
-        title: "MASTER NATURALIST GUIDES",
-        tagline: "The Soul of Every Expedition",
+        id: "crater-lodges",
+        title: "CRATER RIM PANORAMA LODGES",
+        tagline: "Perched Above the Volcanic Clouds",
         description:
-          "Our certified guides have spent lifetimes studying animal behavior, bird calls, and tracking signs, transforming every drive into a masterclass.",
-        href: "/about#guides",
+          "Dramatic architectural wonders clinging to the edge of the Ngorongoro caldera with floor-to-ceiling panoramic glass windows and log fires.",
+        href: "/accommodations",
         image:
-          "/media/about/team/guide-golden-hour.jpg",
-        badge: "Elite Naturalists",
-        highlights: ["Level 3 Certified Guides", "Multi-lingual", "Wildlife Photographers"],
+          "/media/ngorongoro/ngoro-ariel.jpg",
+        badge: "Caldera Vistas",
+        highlights: ["Fireplace Suites", "Private Verandas", "Chilled Wine Cellars"],
       },
       {
-        id: "how-we-plan",
-        title: "HOW WE PLAN SAFARIS",
-        tagline: "Bespoke Safari Architecture",
+        id: "beach-villas",
+        title: "ZANZIBAR BEACHFRONT VILLAS",
+        tagline: "Barefoot Elegance on the Swahili Coast",
         description:
-          "Explore our five-stage planning blueprint — discovery dialogue, ecological canvas, intimate canvas sanctuaries, guide pairing, and on-ground concierge.",
-        href: "/how-we-plan",
+          "Private ocean villas featuring plunge pools, private chefs, and direct access to powder sands and turquoise waves.",
+        href: "/accommodations",
         image:
-          "/media/about/fleet/cruiser-three-quarter.jpg",
-        badge: "Our Process",
-        highlights: ["100% Private Vehicles", "Zero Rigid Packages", "Bespoke Routes"],
-      },
-      {
-        id: "when-to-travel",
-        title: "WHEN TO TRAVEL",
-        tagline: "12 Months in the Wild",
-        description:
-          "Month-by-month safari intelligence. Discover Great Migration positions, calving spectacles, dry season river crossings, and green season solitude.",
-        href: "/when-to-travel",
-        image:
-          "/media/serengeti/great-m-1.jpg",
-        badge: "Safari Seasons",
-        highlights: ["Migration Scrubber", "Climate Patterns", "Wildlife Highlights"],
-      },
-      {
-        id: "travel-information",
-        title: "TRAVEL INFORMATION",
-        tagline: "Visas, Packing & Bush Logistics",
-        description:
-          "Essential pre-departure field guide for Tanzania — entry visas, health and malaria, 15kg bush luggage limits, and interactive packing assistant.",
-        href: "/travel-information",
-        image:
-          "/media/about/fleet/fleet-lineup-grass.jpg",
-        badge: "Field Guide",
-        highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
-      },
-      {
-        id: "enquire-studio",
-        title: "TAILOR-MADE EXPEDITION STUDIO",
-        tagline: "Begin Your Bespoke Consultation",
-        description:
-          "Design your custom Tanzanian journey with native safari specialists. Multi-step consultative planner with transparent pricing and direct director contact.",
-        href: "/enquire",
-        image:
-          "/media/about/team/guide-welcome.jpg",
-        badge: "Start Planning",
-        highlights: ["24h Specialist Review", "Private 4x4 Cruiser", "Karatu Office Direct"],
+          "/media/zanzibar/mnemba-atoll.jpg",
+        badge: "Coastal Bliss",
+        highlights: ["Private Infinity Pools", "Spa & Wellness", "Sunset Dhow Cruises"],
       },
     ],
   },
