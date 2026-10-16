@@ -4,12 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
 
 interface NavbarProps {
   onOpenMenu: () => void;
   onOpenEnquiry: () => void;
-  onOpenSearch?: () => void;
   isVisible?: boolean;
   scrollThreshold?: number;
 }
@@ -17,7 +15,6 @@ interface NavbarProps {
 export default function Navbar({
   onOpenMenu,
   onOpenEnquiry,
-  onOpenSearch,
   isVisible = true,
   scrollThreshold = Number.POSITIVE_INFINITY,
 }: NavbarProps) {
@@ -120,7 +117,7 @@ export default function Navbar({
           : `bg-safari-tan/95 backdrop-blur-md border-b border-safari-night/15 shadow-lg ${isScrolled ? "py-3" : "py-5 sm:py-6"}`
       }`}
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+      <div className="w-full pl-3 pr-4 sm:pl-5 sm:pr-8 lg:pl-6 lg:pr-12 flex items-center justify-between">
         {/* Left: Brand Logo (without accompanying text) */}
         <Link
           href="/"
@@ -138,19 +135,10 @@ export default function Navbar({
           </div>
         </Link>
 
-        {/* Right: Hamburger Menu, Search & Enquiry CTA */}
+        {/* Right: Hamburger Menu & Enquiry CTA */}
         <div className="flex items-center gap-4 sm:gap-6">
           {/* Hamburger Menu Trigger */}
           
-          {/* Search Button */}
-          <button
-            onClick={onOpenSearch || onOpenMenu}
-            aria-label="Search"
-            className={`p-2 ${overHero ? "text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-safari-gold" : "text-safari-night hover:text-safari-russet"} transition-colors rounded-full cursor-pointer`}
-          >
-            <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
-          </button>
-
           {/* Enquire CTA Button */}
           <button
             onClick={onOpenEnquiry}

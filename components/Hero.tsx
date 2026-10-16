@@ -315,16 +315,16 @@ export default function Hero({ onVideoReady }: HeroProps) {
           className="absolute inset-0 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
           <div className="max-w-2xl border-r-2 border-safari-ochre/75 pr-6 sm:pr-8 py-2">
-            <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-white tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+            <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-[#d0b783] tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
               Private safaris led by native Tanzanian guides
             </h2>
-            <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-safari-sand mt-2 mb-4 sm:mb-5">
+            <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-white mt-2 mb-4 sm:mb-5">
               – YOUR EYES ON TANZANIA –
             </p>
-            <p className="text-xs sm:text-sm md:text-base text-white/90 font-sans font-light leading-relaxed mb-3 drop-shadow">
-              Macho Halisi <span className="font-serif-italic text-safari-champagne">(true eyes in Swahili)</span> is a long term provider of safaris in Tanzania. Locally owned and operated, we are native Tanzanians who are proud of our country and love to share our knowledge and passion for safari with you. A safari with Macho Halisi will be the trip of a lifetime, forging memories and experiences that will change you forever.
+            <p className="text-xs sm:text-sm md:text-base text-[#d0b783] font-sans font-light leading-relaxed mb-3 drop-shadow">
+              Macho Halisi <span className="font-serif-italic text-white">(true eyes in Swahili)</span> is a long term provider of safaris in Tanzania. Locally owned and operated, we are native Tanzanians who are proud of our country and love to share our knowledge and passion for safari with you. A safari with Macho Halisi will be the trip of a lifetime, forging memories and experiences that will change you forever.
             </p>
-            <p className="text-xs sm:text-sm md:text-base text-white/80 font-sans font-light leading-relaxed drop-shadow">
+            <p className="text-xs sm:text-sm md:text-base text-[#d0b783] font-sans font-light leading-relaxed drop-shadow">
               We look forward to showing you the interesting cultures, stunning landscapes and masses of wildlife that make our home, Tanzania, such an alluring destination.
             </p>
           </div>
