@@ -1,10 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import { useEnquiry } from "@/components/EnquiryProvider";
 
 interface HeroProps {
   onVideoReady?: () => void;
@@ -27,7 +24,6 @@ const HERO_LQIP =
 const PHASE_DWELL_MS = 900;
 
 export default function Hero({ onVideoReady }: HeroProps) {
-  const { openEnquiry } = useEnquiry();
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reducedMotion = useReducedMotion();
@@ -252,35 +248,6 @@ export default function Hero({ onVideoReady }: HeroProps) {
                 >
                   Private Tanzania safaris, led by local Tanzanian guides.
                 </p>
-                <div
-                  className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4 transition-[opacity,transform] duration-1000 delay-700 transition-luxury motion-reduce:transition-none"
-                  style={{
-                    opacity: offerOn ? 1 : 0,
-                    transform: `translateY(${offerOn ? 0 : 12}px)`,
-                    pointerEvents: offerOn && !stage1Out ? "auto" : "none",
-                  }}
-                >
-                  <button
-                    type="button"
-                    tabIndex={offerOn ? 0 : -1}
-                    onClick={() => openEnquiry()}
-                    className="group inline-flex items-center gap-3 px-6 py-3 border border-safari-gold/70 hover:border-safari-gold hover:bg-safari-gold/15 text-white font-serif-luxury text-xs sm:text-[13px] tracking-[0.28em] uppercase rounded transition-colors cursor-pointer"
-                  >
-                    Enquire
-                    <ArrowRight className="w-3.5 h-3.5 text-safari-gold transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
-                  </button>
-                  <Link
-                    href="/itineraries"
-                    tabIndex={offerOn ? 0 : -1}
-                    className="group relative py-2 text-white/85 hover:text-safari-gold font-serif-luxury text-xs sm:text-[13px] tracking-[0.28em] uppercase transition-colors"
-                  >
-                    View Itineraries
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-safari-gold transition-transform duration-500 group-hover:scale-x-100"
-                    />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
