@@ -205,19 +205,19 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-[#0c0c0c] border border-safari-russet/40 shadow-2xl p-6 sm:p-10 text-white animate-nav-cascade">
+      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar bg-safari-tan border border-safari-russet/40 shadow-2xl p-6 sm:p-10 text-safari-night animate-nav-cascade">
         {/* Close Button */}
         <button
           onClick={handleClose}
           aria-label="Close enquiry modal"
-          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/20 hover:border-safari-ochre flex items-center justify-center text-white hover:text-safari-gold transition-colors cursor-pointer z-10"
+          className="absolute top-5 right-5 w-9 h-9 rounded-full border border-safari-night/35 hover:border-safari-ochre flex items-center justify-center text-safari-night hover:text-safari-russet transition-colors cursor-pointer z-10"
         >
           <X className="w-4 h-4" />
         </button>
 
         {submitted ? (
           <div>
-            <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md mb-6">
+            <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md mb-6">
               <Image
                 src="/media/macho-halisi-logo-2.jpg"
                 alt="Macho Halisi"
@@ -231,29 +231,29 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 <Check className="w-7 h-7" />
               </div>
               <div className="space-y-1.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-safari-gold block">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-safari-russet block">
                   Confirmed
                 </span>
-                <h3 className="font-serif-luxury text-2xl font-light text-white">
+                <h3 className="font-serif-luxury text-2xl font-light text-safari-night">
                   Asante Sana{contact.name ? `, ${contact.name.split(" ")[0]}` : ""}
                 </h3>
-                <p className="text-xs text-white/70 max-w-sm mx-auto font-sans leading-relaxed">
+                <p className="text-xs text-safari-night/85 max-w-sm mx-auto font-sans leading-relaxed">
                   We&apos;ll be in touch within 24 hours.
                 </p>
               </div>
-              <div className="px-3.5 py-2 bg-white/5 border border-white/10 font-mono text-[11px] text-safari-gold">
-                Ref: <span className="text-white font-semibold">{enquiryId}</span>
+              <div className="px-3.5 py-2 bg-safari-night/5 border border-safari-night/20 font-mono text-[11px] text-safari-russet">
+                Ref: <span className="text-safari-night font-semibold">{enquiryId}</span>
               </div>
-              <p className="text-[11px] text-white/50 font-sans">
+              <p className="text-[11px] text-safari-night/70 font-sans">
                 Or WhatsApp{" "}
-                <a href="https://wa.me/255754474792" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-gold underline hover:text-white">
+                <a href="https://wa.me/255754474792" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-russet underline hover:text-safari-night">
                   +255 754 474 792
                 </a>
               </p>
               <button
                 type="button"
                 onClick={handleClose}
-                className="text-[11px] text-white/40 hover:text-white underline underline-offset-2 font-sans cursor-pointer"
+                className="text-[11px] text-safari-night/65 hover:text-safari-night underline underline-offset-2 font-sans cursor-pointer"
               >
                 Close
               </button>
@@ -263,7 +263,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           <div>
             {/* Header: Logo top-left + compact step counter */}
             <div className="flex items-center justify-between mb-6 pr-10">
-              <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md shrink-0">
+              <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md shrink-0">
                 <Image
                   src="/media/macho-halisi-logo-2.jpg"
                   alt="Macho Halisi"
@@ -272,17 +272,17 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   className="object-cover object-center"
                 />
               </div>
-              <span className="font-mono text-[10px] tracking-[0.2em] text-white/40">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-safari-night/65">
                 {step}/{STEP_META.length}
               </span>
             </div>
 
             <div className="mb-5">
-              <h3 className="font-serif-luxury text-xl sm:text-2xl text-white font-light tracking-wide">
+              <h3 className="font-serif-luxury text-xl sm:text-2xl text-safari-night font-light tracking-wide">
                 Your {currentMeta.label}
               </h3>
               {seed?.itineraryTitle && (
-                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-safari-ochre/40 bg-safari-ochre/10 text-safari-gold text-[10px] font-sans">
+                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-safari-ochre/40 bg-safari-ochre/10 text-safari-russet text-[10px] font-sans">
                   {seed.itineraryTitle}
                 </span>
               )}
@@ -291,7 +291,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             {/* Progress Tracker */}
             <div className="flex items-center gap-1.5 mb-7">
               {STEP_META.map((s) => (
-                <div key={s.id} className="flex-1 h-[3px] bg-white/10 overflow-hidden">
+                <div key={s.id} className="flex-1 h-[3px] bg-safari-night/15 overflow-hidden">
                   <div
                     className="h-full bg-safari-ochre transition-all duration-500 ease-out"
                     style={{ width: step >= s.id ? "100%" : "0%" }}
@@ -301,7 +301,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             </div>
 
             {errorMessage && (
-              <div className="p-3.5 mb-6 bg-red-950/40 border border-red-800/50 text-red-300 text-xs font-sans">
+              <div className="p-3.5 mb-6 bg-red-100/70 border border-red-700/40 text-red-900 text-xs font-sans">
                 {errorMessage}
               </div>
             )}
@@ -324,7 +324,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                           className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                             isSelected
                               ? "bg-safari-ochre text-safari-night border-safari-ochre font-medium shadow-sm"
-                              : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                              : "bg-safari-night/5 text-safari-night/85 border-safari-night/30 hover:border-safari-night/45 hover:text-safari-night"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2">
@@ -349,8 +349,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         onClick={() => setVision((prev) => ({ ...prev, travelWindow: window }))}
                         className={`p-2.5 text-xs font-sans border text-center transition-all cursor-pointer ${
                           vision.travelWindow === window
-                            ? "bg-white text-safari-night border-white font-medium"
-                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                            ? "bg-safari-night text-safari-cream border-safari-night font-medium"
+                            : "bg-safari-night/5 text-safari-night/85 border-safari-night/30 hover:border-safari-night/45 hover:text-safari-night"
                         }`}
                       >
                         {window}
@@ -388,7 +388,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                           party.partySize === size
                             ? "bg-safari-ochre text-safari-night border-safari-ochre font-medium shadow-sm"
-                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                            : "bg-safari-night/5 text-safari-night/85 border-safari-night/30 hover:border-safari-night/45 hover:text-safari-night"
                         }`}
                       >
                         {size}
@@ -409,8 +409,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                         onClick={() => setParty((prev) => ({ ...prev, accommodationStyle: style }))}
                         className={`p-3 text-left text-xs font-sans border transition-all cursor-pointer ${
                           party.accommodationStyle === style
-                            ? "bg-white text-safari-night border-white font-medium"
-                            : "bg-white/5 text-white/70 border-white/15 hover:border-white/30 hover:text-white"
+                            ? "bg-safari-night text-safari-cream border-safari-night font-medium"
+                            : "bg-safari-night/5 text-safari-night/85 border-safari-night/30 hover:border-safari-night/45 hover:text-safari-night"
                         }`}
                       >
                         {style}
@@ -423,7 +423,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-white/60 hover:text-white font-sans cursor-pointer"
+                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-safari-night/80 hover:text-safari-night font-sans cursor-pointer"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
@@ -460,7 +460,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                       value={contact.name}
                       onChange={(e) => setContact((prev) => ({ ...prev, name: e.target.value }))}
                       placeholder="Your name"
-                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
+                      className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
@@ -473,7 +473,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                       value={contact.email}
                       onChange={(e) => setContact((prev) => ({ ...prev, email: e.target.value }))}
                       placeholder="safari@example.com"
-                      className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
+                      className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -488,7 +488,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     value={contact.phone}
                     onChange={(e) => setContact((prev) => ({ ...prev, phone: e.target.value }))}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors"
+                    className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -501,7 +501,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     value={contact.notes}
                     onChange={(e) => setContact((prev) => ({ ...prev, notes: e.target.value }))}
                     placeholder="Anything else we should know…"
-                    className="w-full bg-white/5 border border-white/15 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:border-safari-ochre focus:outline-none transition-colors resize-none"
+                    className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors resize-none"
                   />
                 </div>
 
@@ -509,7 +509,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-white/60 hover:text-white font-sans cursor-pointer"
+                    className="inline-flex items-center gap-2 px-2 py-2.5 text-xs text-safari-night/80 hover:text-safari-night font-sans cursor-pointer"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
