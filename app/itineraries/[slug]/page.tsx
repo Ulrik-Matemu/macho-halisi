@@ -140,7 +140,7 @@ export default async function ItineraryDetailPage({
         heroElementId={HERO_ELEMENT_ID}
       />
 
-      <div className="bg-safari-cream text-safari-bark">
+      <div className="bg-safari-tan text-safari-bark">
         {/* Hero */}
         <ItineraryHero
           elementId={HERO_ELEMENT_ID}

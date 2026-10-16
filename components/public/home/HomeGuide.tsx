@@ -67,7 +67,7 @@ export default async function HomeGuide() {
   ];
 
   return (
-    <div className="relative z-10 bg-[#EFE9DE] text-safari-bark">
+    <div className="relative z-10 bg-safari-tan text-safari-bark">
       <JsonLd data={faqPage(faqs)} />
 
       {/* Intro — the answer-first summary AI assistants quote */}

@@ -24,7 +24,7 @@ function SectionShell({ children }: { children: React.ReactNode }) {
     // there is nothing to show: the negative top margin is what covers
     // Hero's sticky release, so an absent section would drop Hero straight
     // onto the Footer and visibly break the page.
-    <section className="relative z-10 bg-[#EFE9DE] -mt-[110px] sm:-mt-[150px] lg:-mt-[190px] rounded shadow-[0_-60px_110px_-45px_rgba(0,0,0,0.55)] pt-16 sm:pt-20 lg:pt-[76px]">
+    <section className="relative z-10 bg-safari-tan -mt-[110px] sm:-mt-[150px] lg:-mt-[190px] rounded shadow-[0_-60px_110px_-45px_rgba(0,0,0,0.55)] pt-16 sm:pt-20 lg:pt-[76px]">
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12 mb-12 lg:mb-11">
           <div>
@@ -99,7 +99,7 @@ export default async function FeaturedItineraries() {
         ))}
       </div>
 
-      <div className="relative z-10 bg-[#EFE9DE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-8 sm:py-10 border-t border-safari-bark/[0.12]">
+      <div className="relative z-10 bg-safari-tan flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-8 sm:py-10 border-t border-safari-bark/[0.12]">
         <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase">
           {itineraries.length} of {pagination.total} itinerar{pagination.total === 1 ? "y" : "ies"} in view
         </span>

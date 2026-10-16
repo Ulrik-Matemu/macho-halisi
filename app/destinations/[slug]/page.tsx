@@ -126,7 +126,7 @@ export default async function DestinationDetailPage({
     <SiteChrome>
       <JsonLd data={jsonLd} />
 
-      <div className="bg-safari-cream text-safari-bark">
+      <div className="bg-safari-tan text-safari-bark">
         <ScrollProgressBar />
         <DestinationHero
           image={destination.heroImage}

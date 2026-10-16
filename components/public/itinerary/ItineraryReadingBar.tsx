@@ -70,7 +70,7 @@ export default function ItineraryReadingBar({
       />
 
       <div
-        className={`fixed top-0 left-0 right-0 z-40 bg-safari-cream/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-10 px-4 sm:px-12 py-4 transition-opacity duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-40 bg-safari-tan/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-10 px-4 sm:px-12 py-4 transition-opacity duration-500 ${
           pastHero ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >

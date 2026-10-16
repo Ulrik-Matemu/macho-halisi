@@ -30,7 +30,7 @@ export default function WhenToTravelPage() {
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "When to travel", path: "/when-to-travel" }]} />
       <SmoothScroll />
-      <div className="bg-safari-cream text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Header */}
           <ScrollReveal className="mb-12 sm:mb-16 pb-10 border-b border-safari-bark/10">

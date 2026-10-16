@@ -32,7 +32,7 @@ export default function TravelInfoStickyNav() {
   };
 
   return (
-    <div className="sticky top-20 z-30 bg-safari-cream/95 backdrop-blur-md border-y border-safari-bark/10 py-3 mb-12">
+    <div className="sticky top-20 z-30 bg-safari-tan/95 backdrop-blur-md border-y border-safari-bark/10 py-3 mb-12">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
         <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-safari-russet shrink-0 hidden sm:inline-block">
           Field Guide Index:

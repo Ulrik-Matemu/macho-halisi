@@ -54,7 +54,7 @@ export default function LegalPageShell({ document }: LegalPageShellProps) {
         style={{ width: `${readingProgress}%` }}
       />
 
-      <div className="bg-safari-cream text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Header */}
           <div className="pb-10 mb-12 border-b border-safari-bark/10">

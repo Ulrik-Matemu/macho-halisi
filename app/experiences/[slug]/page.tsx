@@ -127,7 +127,7 @@ export default async function ExperienceDetailPage({
       <JsonLd data={jsonLd} />
       <SmoothScroll />
 
-      <div className="bg-safari-cream text-safari-bark">
+      <div className="bg-safari-tan text-safari-bark">
         <ExperienceReadingBar short={experience.short} planElementId="plan" />
 
         <ExperienceHero

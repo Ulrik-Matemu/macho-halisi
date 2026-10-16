@@ -11,6 +11,7 @@
   --safari-bark: #1e1209;
   --safari-cream: #fff6ea;
   --safari-night: #120b06;
+  --safari-tan: #d2af7e;
 }
 
 @theme inline {
@@ -24,6 +25,7 @@
   --color-safari-bark: var(--safari-bark);
   --color-safari-cream: var(--safari-cream);
   --color-safari-night: var(--safari-night);
+  --color-safari-tan: var(--safari-tan);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
   --font-serif: var(--font-serif-luxury), "Source Serif 4", Georgia, serif;

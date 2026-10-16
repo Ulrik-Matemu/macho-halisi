@@ -35,7 +35,7 @@ export default function AboutPage() {
 
       <AboutHero />
 
-      <div className="bg-safari-cream text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
+      <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Story chapters */}
           <section id="story" className="scroll-mt-28 max-w-3xl">

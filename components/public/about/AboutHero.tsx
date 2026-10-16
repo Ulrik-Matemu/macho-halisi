@@ -9,7 +9,7 @@ import { aboutHero } from "@/data/aboutData";
  */
 export default function AboutHero() {
   return (
-    <section className="relative h-[70vh] min-h-[460px] w-full bg-black">
+    <section data-navbar-hero className="relative h-[70vh] min-h-[460px] w-full bg-black">
       <Image
         src={aboutHero.image.url}
         alt={aboutHero.image.alt}

@@ -84,7 +84,7 @@ export default function ExperienceReadingBar({ short, planElementId }: Experienc
       />
 
       <div
-        className={`fixed top-0 left-0 right-0 z-40 bg-safari-cream/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-8 px-4 sm:px-12 py-4 transition-[opacity,transform] duration-[450ms] ease-out ${
+        className={`fixed top-0 left-0 right-0 z-40 bg-safari-tan/95 backdrop-blur-md flex items-center justify-between gap-6 sm:gap-8 px-4 sm:px-12 py-4 transition-[opacity,transform] duration-[450ms] ease-out ${
           pastHero
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-3 pointer-events-none"

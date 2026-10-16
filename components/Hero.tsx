@@ -207,9 +207,8 @@ export default function Hero({ onVideoReady }: HeroProps) {
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
-          {/* Cinematic dark overlays to balance both left & right typography */}
-          <div className="absolute inset-0 bg-black/5 z-20 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/50 z-20 pointer-events-none" />
+          {/* Bottom-only scrim for the type; the top of the footage stays untouched */}
+          <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-20 pointer-events-none" />
         </div>
 
         {/* STAGE 1: Left-Corner Aligned Brand Mark + offer (phases 0-1). Leaves
@@ -223,28 +222,17 @@ export default function Hero({ onVideoReady }: HeroProps) {
           }}
           className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(2rem,8dvh,6rem)] sm:pb-6 lg:pb-8 flex flex-col items-start text-left transition-[opacity,transform,filter] duration-1000 transition-luxury motion-reduce:transition-none"
         >
-          {/* Pre-title Tagline */}
-          <div
-            className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 transition-all duration-900 transition-luxury delay-300 ${
-              isEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <span
-              className={`h-[1px] bg-safari-gold/60 transition-all duration-900 transition-luxury delay-300 ${
-                isEntered ? "w-54 sm:w-98" : "w-0"
-              }`}
-            />
-          </div>
-
-          {/* Monumental Left-Aligned Editorial Brand Title */}
+          {/* Brand title: two stacked lines, Helvetica Bold, bottom-left */}
           <h1
-            className={`font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white tracking-[0.14em] sm:tracking-[0.18em] uppercase drop-shadow-[0_4px_40px_rgba(0,0,0,0.85)] leading-[0.95] transition-all duration-1100 transition-luxury delay-700 ${
+            className={`font-bold uppercase text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.04em] leading-[0.92] drop-shadow-[0_4px_40px_rgba(0,0,0,0.6)] transition-all duration-1100 transition-luxury delay-700 ${
               isEntered
                 ? "opacity-100 translate-y-0 blur-0"
                 : "opacity-0 translate-y-6 blur-[8px]"
             }`}
+            style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
           >
-            MACHO HALISI
+            <span className="block">Macho</span>
+            <span className="block">Halisi</span>
           </h1>
 
           {/* Phase 1 — the offer. The title above lands alone on load. On
@@ -257,14 +245,9 @@ export default function Hero({ onVideoReady }: HeroProps) {
             style={{ gridTemplateRows: offerOn ? "1fr" : "0fr" }}
           >
             <div className="min-h-0 overflow-hidden">
-              <div className="pt-6 sm:pt-8 pb-1">
-                <span
-                  aria-hidden="true"
-                  className="block h-px bg-safari-gold/70 w-24 sm:w-40 origin-left transition-[transform,opacity] duration-1200 delay-200 transition-luxury motion-reduce:transition-none"
-                  style={{ transform: `scaleX(${offerOn ? 1 : 0})`, opacity: offerOn ? 1 : 0 }}
-                />
+              <div className="pt-5 sm:pt-6 pb-1">
                 <p
-                  className="mt-5 max-w-xl font-sans font-light text-sm sm:text-lg text-white/90 tracking-[0.04em] leading-relaxed drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] transition-[opacity,transform] duration-1000 delay-400 transition-luxury motion-reduce:transition-none"
+                  className="max-w-xl font-sans font-light text-sm sm:text-lg text-white/90 tracking-[0.04em] leading-relaxed drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] transition-[opacity,transform] duration-1000 delay-400 transition-luxury motion-reduce:transition-none"
                   style={{ opacity: offerOn ? 1 : 0, transform: `translateY(${offerOn ? 0 : 12}px)` }}
                 >
                   Private Tanzania safaris, led by local Tanzanian guides.
@@ -346,23 +329,6 @@ export default function Hero({ onVideoReady }: HeroProps) {
             </p>
           </div>
         </div>
-        </div>
-
-        {/* Phase indicator — three hairlines so the visitor can feel where
-            they are in the first-screen story. Decorative. */}
-        <div
-          aria-hidden="true"
-          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 transition-opacity duration-700"
-          style={{ opacity: scrollProgress < 0.7 ? 1 : 0 }}
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className={`block w-px transition-[height,background-color] duration-700 transition-luxury ${
-                phase === i ? "h-9 bg-safari-gold" : "h-4 bg-white/30"
-              }`}
-            />
-          ))}
         </div>
       </div>
     </section>

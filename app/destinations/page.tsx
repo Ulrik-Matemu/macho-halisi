@@ -18,7 +18,7 @@ export default function DestinationsIndexPage() {
   return (
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "Destinations", path: "/destinations" }]} />
-      <div className="bg-safari-cream text-safari-bark pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28 min-h-screen">
+      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <ScrollReveal className="mb-10 sm:mb-14 pb-8 border-b border-safari-bark/10">
             <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">

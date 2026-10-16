@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 
 interface NavbarProps {
@@ -21,6 +22,7 @@ export default function Navbar({
   scrollThreshold = Number.POSITIVE_INFINITY,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (scrollThreshold === Number.POSITIVE_INFINITY) {
@@ -35,6 +37,30 @@ export default function Navbar({
   }, [scrollThreshold]);
 
   const isScrolled = scrollThreshold !== Number.POSITIVE_INFINITY && scrolled;
+  // Only the unscrolled homepage floats over the hero footage (light text, no
+  // bar). Everywhere else the bar is solid tan with dark text.
+  // Other pages: transparent while a full-bleed hero (marked
+  // data-navbar-hero) is still behind the bar, solid tan once it scrolls away.
+  const [overPageHero, setOverPageHero] = useState(false);
+  useEffect(() => {
+    if (pathname === "/") return;
+    const BAR_HEIGHT = 90;
+    const check = () => {
+      const hero = document.querySelector("[data-navbar-hero]");
+      const rect = hero?.getBoundingClientRect();
+      const over = !!rect && rect.top <= 0 && rect.bottom > BAR_HEIGHT;
+      setOverPageHero((prev) => (prev === over ? prev : over));
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+      setOverPageHero(false);
+    };
+  }, [pathname]);
+  const overHero = pathname === "/" ? !isScrolled : overPageHero;
 
   // Auto-hide on scroll direction: down hides it, any upward movement
   // reveals it immediately — composes with (never overrides) `isVisible`,
@@ -89,9 +115,9 @@ export default function Navbar({
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-6 pointer-events-none"
       } ${
-        isScrolled
-          ? "bg-safari-night/90 backdrop-blur-md py-3 border-b border-white/10 shadow-2xl"
-          : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 sm:py-6"
+        overHero
+          ? "bg-transparent py-5 sm:py-6"
+          : `bg-safari-tan/95 backdrop-blur-md border-b border-safari-night/15 shadow-lg ${isScrolled ? "py-3" : "py-5 sm:py-6"}`
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
@@ -100,7 +126,7 @@ export default function Navbar({
           href="/"
           className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
         >
-          <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-white/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
+          <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-safari-night/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
             <Image
               src="/media/macho-halisi-logo-2.jpg"
               alt="Macho Halisi Logo"
@@ -120,7 +146,7 @@ export default function Navbar({
           <button
             onClick={onOpenSearch || onOpenMenu}
             aria-label="Search"
-            className="p-2 text-white/80 hover:text-safari-gold transition-colors rounded-full hover:bg-white/5 cursor-pointer"
+            className={`p-2 ${overHero ? "text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-safari-gold" : "text-safari-night hover:text-safari-russet"} transition-colors rounded-full cursor-pointer`}
           >
             <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
           </button>
@@ -128,7 +154,7 @@ export default function Navbar({
           {/* Enquire CTA Button */}
           <button
             onClick={onOpenEnquiry}
-            className="relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/40 hover:border-safari-ochre hover:bg-safari-ochre text-white hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer"
+            className={`relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border ${overHero ? "border-white/60 text-white" : "border-safari-night/60 text-safari-night"} hover:border-safari-night hover:bg-safari-night hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer`}
           >
             <span className="sm:hidden">ENQUIRE</span>
             <span className="hidden sm:inline">ENQUIRE</span>
@@ -136,12 +162,12 @@ export default function Navbar({
           <button
             onClick={onOpenMenu}
             aria-label="Open Navigation Menu"
-            className="group flex items-center gap-3 text-white rounded cursor-pointer"
+            className={`group flex items-center gap-3 ${overHero ? "text-white" : "text-safari-night"} rounded cursor-pointer`}
           >
             <div className="w-10 h-10 flex flex-col justify-center gap-2.5 transition-all duration-300 group-hover:scale-105">
-              <span className="w-10 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-12" />
-              <span className="w-8 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-10" />
-              <span className="w-6 h-[2px] bg-white transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-8" />
+              <span className={`w-10 h-[2px] ${overHero ? "bg-white" : "bg-safari-night"} transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-12`} />
+              <span className={`w-8 h-[2px] ${overHero ? "bg-white" : "bg-safari-night"} transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-10`} />
+              <span className={`w-6 h-[2px] ${overHero ? "bg-white" : "bg-safari-night"} transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-8`} />
             </div>
           </button>
 

@@ -137,9 +137,10 @@ export default function ExperienceHero({
     <section
       ref={sectionRef}
       data-exp-hero
+      data-navbar-hero
       className="relative h-[100svh] scrub:h-[230vh]"
     >
-      <div className="sticky top-0 h-[100svh] overflow-hidden bg-safari-cream">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-safari-tan">
         {layer("cream")}
 
         <div

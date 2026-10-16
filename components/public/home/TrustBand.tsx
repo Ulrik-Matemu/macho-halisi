@@ -12,7 +12,7 @@ import { guestReviews, guideProfiles, safetyPoints, trustFacts, vehiclePhotos } 
  */
 export default function TrustBand() {
   return (
-    <section className="relative z-10 bg-[#EFE9DE] text-safari-bark pb-20 sm:pb-28">
+    <section className="relative z-10 bg-safari-tan text-safari-bark pb-20 sm:pb-28">
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <dl className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-12 sm:py-16 border-t border-safari-bark/[0.12]">
           {trustFacts.map((f) => (

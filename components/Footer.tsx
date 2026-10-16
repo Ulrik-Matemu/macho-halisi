@@ -95,7 +95,7 @@ export default function Footer() {
       {/* Closing CTA — reveals in a slow, deliberate cascade as it scrolls
           into view: eyebrow, then the headline, then the supporting line,
           then the two actions, each settling a beat after the last. */}
-      <section className="bg-safari-cream text-safari-bark px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
+      <section className="bg-safari-tan text-safari-bark px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal size="lift">
             <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-6">

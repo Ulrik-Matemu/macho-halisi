@@ -269,7 +269,7 @@ export default function FullscreenNavMenu({
                           {item.tagline}
                         </p>
                       )}
-                      <p className="text-xs text-safari-night/60 line-clamp-2 mt-2 font-sans leading-relaxed">
+                      <p className="text-xs text-safari-night/85 line-clamp-2 mt-2 font-sans leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -312,8 +312,8 @@ export default function FullscreenNavMenu({
                         }}
                         className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-300 animate-nav-cascade ${
                           isHovered
-                            ? "border-safari-ochre text-safari-night"
-                            : "border-safari-night/15 text-safari-night/60 hover:text-safari-russet hover:border-safari-night/30"
+                            ? "border-safari-ochre text-safari-russet"
+                            : "border-safari-night/25 text-safari-night hover:text-safari-russet hover:border-safari-ochre"
                         }`}
                       >
                         <span className="font-serif-luxury text-sm sm:text-base lg:text-lg tracking-[0.14em] uppercase font-light transition-transform duration-300 group-hover:translate-x-2">
@@ -368,8 +368,8 @@ export default function FullscreenNavMenu({
                             onClick={handleClose}
                             className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-200 animate-sub-cascade ${
                               isSubHovered
-                                ? "border-safari-ochre text-safari-night"
-                                : "border-safari-night/15 text-safari-night/60 hover:text-safari-russet hover:border-safari-night/30"
+                                ? "border-safari-ochre text-safari-russet"
+                                : "border-safari-night/25 text-safari-night hover:text-safari-russet hover:border-safari-ochre"
                             }`}
                           >
                             <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light transition-transform duration-200 group-hover:translate-x-2">

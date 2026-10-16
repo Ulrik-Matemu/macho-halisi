@@ -64,7 +64,7 @@ export default function ItineraryHero({
   }, []);
 
   return (
-    <section id={elementId} className="relative h-[88vh] min-h-[620px] overflow-hidden">
+    <section data-navbar-hero id={elementId} className="relative h-[88vh] min-h-[620px] overflow-hidden">
       <div ref={imageWrapRef} className="absolute inset-0 will-change-transform">
         {coverImage ? (
           <Image
