@@ -151,7 +151,7 @@ export default function FullscreenNavMenu({
       // `inert` (React 19) removes it from both tab order and hit-testing
       // in one attribute, without touching the curtain transition itself.
       inert={!isOpen}
-      className={`fixed inset-0 z-50 bg-[#d2af7e] text-safari-night flex flex-col select-none transition-curtain ${
+      className={`fixed inset-0 z-50 bg-[#d0b783] text-safari-night flex flex-col select-none transition-curtain ${
         isOpen ? "curtain-open pointer-events-auto" : "curtain-closed pointer-events-none"
       } border-b border-safari-ochre/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
       onMouseLeave={() => scheduleReset(200)}
@@ -167,7 +167,7 @@ export default function FullscreenNavMenu({
         {/* Top Bar with Staggered Header Descent */}
         <header
           onMouseEnter={cancelResetTimer}
-          className="border-b border-safari-night/15 bg-[#d2af7e] py-5 sm:py-6"
+          className="border-b border-safari-night/15 bg-[#d0b783] py-5 sm:py-6"
         >
           <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
             {/* Left: Brand Logo (matching Navbar) */}
