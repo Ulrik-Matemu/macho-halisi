@@ -10,19 +10,18 @@ interface HeroProps {
   onVideoReady?: () => void;
 }
 
-const HERO_VIDEOS = [
-  { id: "cheetah", src: "/media/hero-vids/cheetah-2.mp4" },
-  { id: "lion", src: "/media/hero-vids/lion.mp4" },
-];
+const HERO_VIDEO = "/media/hero-vids/new-cheetah-vid.mp4";
 
-const HERO_POSTER = "/media/hero-vids/elephant-poster.webp";
+// First frame of HERO_VIDEO, so the poster hands off to playback with no
+// visible jump.
+const HERO_POSTER = "/media/hero-vids/new-cheetah-poster.webp";
 
 // 24px-wide extract of the poster frame, upscaled — already soft enough to
 // read as a blurred placeholder with no CSS filter needed. Paints with the
 // HTML (0 requests) so there is never a black rectangle before the poster
 // or video arrives, even on a throttled connection.
 const HERO_LQIP =
-  "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQBACdASoYAA4APrVInkmnJCKhMAgA4BaJYwC7ACHcGmnyMREwcsD0MAD+VdqWFu+sPam+vwrsI+q/YdgBPPuUq7s2u8APD5ofozZBzysZTjCaSc9RRRt/5PjNH0EjGLbdllPyHe41LmBnUsRQW5kf6zDAAA==";
+  "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoYAA4APtFUo0uoJKMhsAgBABoJZwAAPv0ShnsPvcA4eO1kAP6l+GXgUjQZBXAUiPfO4cexClAqE+tXwkYBRuzfeMAZW+WMfOH7h2kD9t1SOCM0l7AxteOaZ9sOBBAZEuioVo+NEotZGpJ2u17N+8AD9GU/chpwAAA=";
 
 /** Minimum time each phase stays on screen before the next can start (ms). */
 const PHASE_DWELL_MS = 900;
@@ -30,16 +29,9 @@ const PHASE_DWELL_MS = 900;
 export default function Hero({ onVideoReady }: HeroProps) {
   const { openEnquiry } = useEnquiry();
   const heroSectionRef = useRef<HTMLElement | null>(null);
-  const videoRefA = useRef<HTMLVideoElement | null>(null);
-  const videoRefB = useRef<HTMLVideoElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const reducedMotion = useReducedMotion();
 
-  const [activeLayer, setActiveLayer] = useState<"A" | "B">("A");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [layerASrc, setLayerASrc] = useState(HERO_VIDEOS[0].src);
-  const [layerBSrc, setLayerBSrc] = useState(HERO_VIDEOS[1].src);
-
-  const isTransitioningRef = useRef(false);
   const [isEntered, setIsEntered] = useState(false);
   const hasNotifiedReadyRef = useRef(false);
 
@@ -102,95 +94,34 @@ export default function Hero({ onVideoReady }: HeroProps) {
 
   // Initial video setup & autoplay handling. Skipped entirely under
   // prefers-reduced-motion: the video stays paused on its poster frame
-  // (set below) rather than a hard cross-fade loop nobody asked for.
+  // rather than looping motion nobody asked for.
   useEffect(() => {
-    const videoA = videoRefA.current;
-    if (!videoA || reducedMotion) return;
+    const video = videoRef.current;
+    if (!video || reducedMotion) return;
 
-    videoA.defaultMuted = true;
-    videoA.muted = true;
+    video.defaultMuted = true;
+    video.muted = true;
 
-    const playVideo = () => {
-      const playPromise = videoA.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn("Autoplay deferred, waiting for user gesture:", err);
-          const handleInteraction = () => {
-            const currentActive = activeLayer === "A" ? videoRefA.current : videoRefB.current;
-            currentActive?.play().catch(() => {});
-            window.removeEventListener("click", handleInteraction);
-            window.removeEventListener("touchstart", handleInteraction);
-            window.removeEventListener("scroll", handleInteraction);
-          };
-          window.addEventListener("click", handleInteraction, { once: true });
-          window.addEventListener("touchstart", handleInteraction, { once: true });
-          window.addEventListener("scroll", handleInteraction, { once: true });
-        });
-      }
-    };
-
-    if (videoA.readyState >= 3) {
+    if (video.readyState >= 3) {
       notifyVideoReady();
     }
 
-    playVideo();
-  }, [notifyVideoReady, activeLayer, reducedMotion]);
-
-  // Handle transition trigger between players
-  const triggerTransition = useCallback(() => {
-    if (isTransitioningRef.current) return;
-    isTransitioningRef.current = true;
-
-    const nextIndex = (currentIndex + 1) % HERO_VIDEOS.length;
-    const targetLayer = activeLayer === "A" ? "B" : "A";
-    const targetVideo = targetLayer === "A" ? videoRefA.current : videoRefB.current;
-    const currentVideo = activeLayer === "A" ? videoRefA.current : videoRefB.current;
-
-    if (targetVideo) {
-      targetVideo.currentTime = 0;
-      targetVideo.defaultMuted = true;
-      targetVideo.muted = true;
-      const playPromise = targetVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => console.warn("Video play error:", err));
-      }
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn("Autoplay deferred, waiting for user gesture:", err);
+        const handleInteraction = () => {
+          video.play().catch(() => {});
+          window.removeEventListener("click", handleInteraction);
+          window.removeEventListener("touchstart", handleInteraction);
+          window.removeEventListener("scroll", handleInteraction);
+        };
+        window.addEventListener("click", handleInteraction, { once: true });
+        window.addEventListener("touchstart", handleInteraction, { once: true });
+        window.addEventListener("scroll", handleInteraction, { once: true });
+      });
     }
-
-    // Switch active layer to initiate smooth CSS cross-dissolve
-    setActiveLayer(targetLayer);
-    setCurrentIndex(nextIndex);
-
-    // After 1500ms cross-fade completes, pause previous layer and preload next-next video
-    setTimeout(() => {
-      if (currentVideo) {
-        currentVideo.pause();
-      }
-      const futureIndex = (nextIndex + 1) % HERO_VIDEOS.length;
-      if (targetLayer === "B") {
-        setLayerASrc(HERO_VIDEOS[futureIndex].src);
-      } else {
-        setLayerBSrc(HERO_VIDEOS[futureIndex].src);
-      }
-      isTransitioningRef.current = false;
-    }, 1550);
-  }, [activeLayer, currentIndex]);
-
-  const handleTimeUpdate = (layer: "A" | "B") => {
-    if (reducedMotion || layer !== activeLayer || isTransitioningRef.current) return;
-    const currentVideo = layer === "A" ? videoRefA.current : videoRefB.current;
-    if (!currentVideo || !currentVideo.duration) return;
-
-    const timeLeft = currentVideo.duration - currentVideo.currentTime;
-    if (timeLeft <= 1.5 && timeLeft > 0) {
-      triggerTransition();
-    }
-  };
-
-  const handleEnded = (layer: "A" | "B") => {
-    if (!reducedMotion && layer === activeLayer && !isTransitioningRef.current) {
-      triggerTransition();
-    }
-  };
+  }, [notifyVideoReady, reducedMotion]);
 
   // Which phase the current scroll position asks for. Advance and retreat
   // thresholds differ (hysteresis): 0.05 / 0.03 for the offer, 0.30 / 0.26
@@ -247,20 +178,20 @@ export default function Hero({ onVideoReady }: HeroProps) {
         className="sticky top-0 h-dvh w-full overflow-hidden flex flex-col justify-end"
         style={{ backgroundImage: `url(${HERO_LQIP})`, backgroundSize: "cover", backgroundPosition: "center" }}
       >
-        {/* Background Dual-Video Player with Cross-Fade Transitions */}
+        {/* Background video — carries the poster frame, so a paused/loading
+            state (including reduced-motion, which never calls .play())
+            always shows a real graded still instead of black. */}
         <div
           className={`absolute inset-0 w-full h-full z-0 overflow-hidden transition-all duration-1000 transition-luxury ${
             isEntered ? "opacity-100 scale-100" : "opacity-0 scale-[1.04]"
           }`}
         >
-          {/* Video Layer A — carries the poster frame, so a paused/loading
-              state (including reduced-motion, which never calls .play())
-              always shows a real graded still instead of black. */}
           <video
-            ref={videoRefA}
-            src={layerASrc}
+            ref={videoRef}
+            src={HERO_VIDEO}
             poster={HERO_POSTER}
             autoPlay={!reducedMotion}
+            loop
             muted
             playsInline
             preload="auto"
@@ -273,32 +204,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
             aria-hidden="true"
             onLoadedData={notifyVideoReady}
             onCanPlayThrough={notifyVideoReady}
-            onTimeUpdate={() => handleTimeUpdate("A")}
-            onEnded={() => handleEnded("A")}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-1500 ease-in-out ${
-              activeLayer === "A"
-                ? "opacity-100 scale-100 z-10"
-                : "opacity-0 scale-[1.02] z-0 pointer-events-none"
-            }`}
-          />
-
-          {/* Video Layer B — no poster: it would flash the wrong still
-              under the cross-fade, and this layer is opacity-0 until it
-              plays anyway. */}
-          <video
-            ref={videoRefB}
-            src={layerBSrc}
-            muted
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            onTimeUpdate={() => handleTimeUpdate("B")}
-            onEnded={() => handleEnded("B")}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-1500 ease-in-out ${
-              activeLayer === "B"
-                ? "opacity-100 scale-100 z-10"
-                : "opacity-0 scale-[1.02] z-0 pointer-events-none"
-            }`}
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
           {/* Cinematic dark overlays to balance both left & right typography */}
