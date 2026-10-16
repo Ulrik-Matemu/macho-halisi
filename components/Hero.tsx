@@ -224,7 +224,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
         >
           {/* Brand title: two stacked lines, Helvetica Bold, bottom-left */}
           <h1
-            className={`font-bold uppercase text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.04em] leading-[0.92] drop-shadow-[0_4px_40px_rgba(0,0,0,0.6)] transition-all duration-1100 transition-luxury delay-700 ${
+            className={`font-bold uppercase text-[#d0b783] text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.04em] leading-[0.92] drop-shadow-[0_4px_40px_rgba(0,0,0,0.6)] transition-all duration-1100 transition-luxury delay-700 ${
               isEntered
                 ? "opacity-100 translate-y-0 blur-0"
                 : "opacity-0 translate-y-6 blur-[8px]"
