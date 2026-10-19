@@ -38,7 +38,7 @@ import { Segmented } from "@/components/dashboard/charts/primitives";
 import { useAuth } from "@/lib/dashboard/auth-context";
 import { enquiryDetailSpec, enquiryListReport, type EnquiryScope } from "@/lib/dashboard/reports/enquiries";
 import type { ExportAction } from "@/lib/dashboard/export/download";
-import { ENQUIRY_STATUSES, type Enquiry, type EnquiryStats, type EnquiryStatus } from "@/lib/enquiries/types";
+import { EMAIL_STATUS_LABELS, ENQUIRY_STATUSES, type EmailStatus, type Enquiry, type EnquiryStats, type EnquiryStatus } from "@/lib/enquiries/types";
 import { formatEnquiryRef } from "@/lib/enquiries/submit";
 import { countryFlag, countryName, formatDateTime, formatRelative } from "@/lib/dashboard/format";
 
@@ -52,6 +52,20 @@ const STATUS_BADGE: Record<EnquiryStatus, string> = {
 function EnquiryStatusBadge({ status }: { status: EnquiryStatus }) {
   return <span className={`dash-badge ${STATUS_BADGE[status]}`}>{ENQUIRY_STATUSES.find((s) => s.key === status)?.label ?? status}</span>;
 }
+
+const EMAIL_BADGE: Record<EmailStatus, string> = {
+  PENDING: "dash-badge--review",
+  SENT: "dash-badge--published",
+  FAILED: "dash-badge--draft",
+  SKIPPED: "dash-badge--archived",
+};
+
+function EmailStatusBadge({ status }: { status: EmailStatus }) {
+  return <span className={`dash-badge ${EMAIL_BADGE[status]}`}>{EMAIL_STATUS_LABELS[status]}</span>;
+}
+
+const resendEmail = (id: string) =>
+  send<{ enquiry: Enquiry }>(`/api/enquiries/admin/${id}/resend-email`, { method: "POST" }, "Failed to resend email.");
 
 const STATUS_DOT: Record<EnquiryStatus, string> = {
   NEW: "var(--dash-status-draft)",
@@ -123,6 +137,7 @@ function EnquiryDetail({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [exporting, setExporting] = useState<ExportAction | null>(null);
+  const [resending, setResending] = useState(false);
   const { user } = useAuth();
 
   const runExport = async (action: ExportAction) => {
@@ -315,6 +330,44 @@ function EnquiryDetail({
             </div>
           )}
 
+          <div className="space-y-1">
+            <h3 className="dash-label" style={{ color: "var(--dash-text-subtle)" }}>
+              Staff alert email
+            </h3>
+            <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: "var(--dash-text-muted)" }}>
+              <EmailStatusBadge status={enquiry.emailStatus} />
+              <span>
+                {enquiry.emailSentAt ? `Delivered to the mail server ${formatDateTime(enquiry.emailSentAt)}` : "Not delivered yet"}
+                {enquiry.emailAttempts > 0 && ` · ${enquiry.emailAttempts} attempt${enquiry.emailAttempts === 1 ? "" : "s"}`}
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                loading={resending}
+                onClick={async () => {
+                  setResending(true);
+                  setError(null);
+                  try {
+                    const data = await resendEmail(enquiry.id);
+                    setEnquiry(data.enquiry);
+                    onChanged();
+                  } catch (err) {
+                    setError(err instanceof Error ? err.message : "Failed to resend email.");
+                  } finally {
+                    setResending(false);
+                  }
+                }}
+              >
+                {enquiry.emailStatus === "SENT" ? "Send again" : "Resend email"}
+              </Button>
+            </div>
+            {enquiry.emailError && (
+              <p className="dash-code text-xs break-words" style={{ color: "var(--dash-status-danger)" }}>
+                {enquiry.emailError}
+              </p>
+            )}
+          </div>
+
           {journey.length > 0 && (
             <div className="space-y-1">
               <h3 className="dash-label" style={{ color: "var(--dash-text-subtle)" }}>
@@ -396,6 +449,8 @@ function EnquiriesInbox() {
   const selectedRows = enquiries.filter((e) => selectedIds.has(e.id));
   const setSelected = (ids: Set<string>) => setSelection({ view: viewKey, ids });
 
+  const [failedOnly, setFailedOnly] = useState(false);
+
   const changeFilter = (next: Filter) => {
     setFilter(next);
     setPage(1);
@@ -414,6 +469,7 @@ function EnquiriesInbox() {
     const params = new URLSearchParams({ page: String(page), limit: "20" });
     if (filter !== "ALL") params.set("status", filter);
     if (debouncedQuery) params.set("q", debouncedQuery);
+    if (failedOnly) params.set("email", "FAILED");
 
     (async () => {
       let nextError: string | null = null;
@@ -440,7 +496,7 @@ function EnquiriesInbox() {
     return () => {
       cancelled = true;
     };
-  }, [page, filter, debouncedQuery, requestKey]);
+  }, [page, filter, debouncedQuery, failedOnly, requestKey]);
 
   /** Runs an action with shared busy/error/notice handling, then refreshes the list. */
   const act = async (fn: () => Promise<string | void>) => {
@@ -578,6 +634,15 @@ function EnquiriesInbox() {
     },
     { key: "status", header: "Status", render: (e) => <EnquiryStatusBadge status={e.status} /> },
     {
+      key: "email",
+      header: "Email alert",
+      render: (e) => (
+        <span title={e.emailError ?? undefined}>
+          <EmailStatusBadge status={e.emailStatus} />
+        </span>
+      ),
+    },
+    {
       key: "actions",
       header: "Actions",
       align: "right",
@@ -631,6 +696,21 @@ function EnquiriesInbox() {
         </label>
       </div>
 
+      {((stats?.emailByStatus?.FAILED ?? 0) > 0 || failedOnly) && (
+        <InlineMessage tone="error">
+          {stats?.emailByStatus?.FAILED ?? 0} enquiry alert email{stats?.emailByStatus?.FAILED === 1 ? "" : "s"} failed to send.{" "}
+          <button
+            type="button"
+            className="underline"
+            onClick={() => {
+              setFailedOnly((v) => !v);
+              setPage(1);
+            }}
+          >
+            {failedOnly ? "Show all enquiries" : "Show only these"}
+          </button>
+        </InlineMessage>
+      )}
       {error && <InlineMessage tone="error">{error}</InlineMessage>}
       {notice && <InlineMessage tone="success">{notice}</InlineMessage>}
 

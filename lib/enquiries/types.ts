@@ -7,6 +7,15 @@ export const ENQUIRY_STATUSES: { key: EnquiryStatus; label: string }[] = [
   { key: "CLOSED", label: "Closed" },
 ];
 
+export type EmailStatus = "PENDING" | "SENT" | "FAILED" | "SKIPPED";
+
+export const EMAIL_STATUS_LABELS: Record<EmailStatus, string> = {
+  PENDING: "Sending",
+  SENT: "Sent",
+  FAILED: "Failed",
+  SKIPPED: "Not sent",
+};
+
 export interface Enquiry {
   id: string;
   name: string;
@@ -25,6 +34,10 @@ export interface Enquiry {
   sessionId: string | null;
   staffNotes: string | null;
   respondedAt: string | null;
+  emailStatus: EmailStatus;
+  emailAttempts: number;
+  emailSentAt: string | null;
+  emailError: string | null;
   createdAt: string;
   updatedAt: string;
   itinerary: { id: string; title: string; slug: string } | null;
@@ -33,6 +46,7 @@ export interface Enquiry {
 
 export interface EnquiryStats {
   byStatus: Record<EnquiryStatus, number>;
+  emailByStatus: Record<EmailStatus, number>;
   total: number;
   last7d: number;
 }

@@ -445,8 +445,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
               <form key={3} onSubmit={handleSubmit} className="space-y-5 animate-sub-cascade">
                 <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
                   <label>
-                    Website
-                    <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+                    Leave this field empty
+                    <input type="text" name="hp_field" tabIndex={-1} autoComplete="off" data-lpignore="true" data-1p-ignore value={website} onChange={(e) => setWebsite(e.target.value)} />
                   </label>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
