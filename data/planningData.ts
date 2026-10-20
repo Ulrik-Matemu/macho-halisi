@@ -42,8 +42,8 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "True luxury is not having more things packed into a day; it is having the right hours given to what moves you.",
     author: "Macho Halisi Head Naturalist",
     image: {
-      url: "/media/about/team/guide-portrait.jpg",
-      alt: "Safari specialists with extended experience in bespoke service",
+      url: "/media/about/new-photo.png",
+      alt: "Wild African leopard peering through a tree on the savanna",
     },
   },
   {
@@ -72,7 +72,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "When you sleep under canvas, your ears never stop listening to the heartbeat of the bush.",
     author: "Wilderness Lodging Director",
     image: {
-      url: "/media/accomodations/simba-768x511.jpg",
+      url: "/media/accomodations/63bf7866.avif",
       alt: "Serengeti Simba Lodge in the Serengeti lit by warm lanterns at twilight",
     },
   },
