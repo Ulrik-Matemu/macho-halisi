@@ -31,8 +31,8 @@ export const SITE = {
   founder: "Dawson Minja",
   foundingLocation: "Karatu, Tanzania",
   phone: "+255 789 718 505",
-  phoneE164: "+255754474792",
-  whatsapp: "255754474792",
+  phoneE164: "+255789718505",
+  whatsapp: "255789718505",
   email: "info@machohalisi.com",
   address: { locality: "Karatu", region: "Arusha", country: "TZ", countryName: "Tanzania" },
   /** Typical reply time promised to guests. */

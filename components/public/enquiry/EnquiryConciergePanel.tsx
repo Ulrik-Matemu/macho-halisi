@@ -95,7 +95,7 @@ export default function EnquiryConciergePanel() {
 
         <div className="space-y-3 font-sans text-xs">
           <a
-            href="https://wa.me/255754474792"
+            href="https://wa.me/255789718505"
             onClick={() => trackContact("whatsapp", "enquire-page")}
             target="_blank"
             rel="noopener noreferrer"
@@ -109,7 +109,7 @@ export default function EnquiryConciergePanel() {
           </a>
 
           <a
-            href="tel:+255754474792"
+            href="tel:+255789718505"
             onClick={() => trackContact("phone", "enquire-page")}
             className="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 text-safari-bark transition-colors"
           >

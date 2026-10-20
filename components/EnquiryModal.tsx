@@ -246,7 +246,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
               </div>
               <p className="text-[11px] text-safari-night/70 font-sans">
                 Or WhatsApp{" "}
-                <a href="https://wa.me/255754474792" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-russet underline hover:text-safari-night">
+                <a href="https://wa.me/255789718505" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-russet underline hover:text-safari-night">
                   +255 789 718 505
                 </a>
               </p>
