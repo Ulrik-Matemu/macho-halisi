@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, DollarSign, MapPin, Star } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import type { PublicAccommodationSummary } from "@/lib/public/types";
-import { formatPricePerNight } from "@/lib/public/api";
 import { ACCOMMODATION_TYPE_LABELS, SERVICE_TIER_LABELS } from "@/lib/accommodations/types";
 
 interface AccommodationCardProps {
@@ -18,7 +17,6 @@ interface AccommodationCardProps {
  */
 export default function AccommodationCard({ accommodation, priority = false }: AccommodationCardProps) {
   const cover = accommodation.heroImage ?? accommodation.images[0];
-  const price = formatPricePerNight(accommodation.pricePerNight);
 
   return (
     <Link
@@ -44,12 +42,6 @@ export default function AccommodationCard({ accommodation, priority = false }: A
           {ACCOMMODATION_TYPE_LABELS[accommodation.type]}
         </span>
 
-        {accommodation.starRating !== null && (
-          <span className="absolute top-3 right-3 flex items-center gap-0.5 px-2 py-0.5 rounded text-[10px] font-sans font-semibold bg-black/70 backdrop-blur-md border border-white/15 text-safari-sand">
-            {accommodation.starRating}
-            <Star className="w-2.5 h-2.5 fill-current" />
-          </span>
-        )}
       </div>
 
       <div className="p-5 flex flex-col justify-between flex-1">
@@ -66,18 +58,7 @@ export default function AccommodationCard({ accommodation, priority = false }: A
           </p>
         </div>
 
-        <div className="mt-4 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-3 text-white/50 font-sans font-light">
-            {accommodation.priceOnRequest ? (
-              <span className="text-safari-sand">On Request</span>
-            ) : price ? (
-              <span className="flex items-center gap-0.5">
-                <DollarSign className="w-3 h-3 text-safari-ochre" />
-                {price}
-                <span className="text-white/40">/night</span>
-              </span>
-            ) : null}
-          </div>
+        <div className="mt-4 flex items-center justify-end text-xs">
           <span className="flex items-center gap-1.5 text-safari-gold shrink-0">
             <span>View</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />

@@ -209,7 +209,6 @@ const LODGING_TYPE: Record<AccommodationType, string> = {
 export function lodging(acc: PublicAccommodationDetail): Json {
   const url = abs(`/accommodations/${acc.slug}`);
   const images = [acc.heroImage, ...acc.images].filter(Boolean).map((img) => img!.url);
-  const nightly = acc.priceOnRequest ? null : toNumber(acc.pricePerNight);
   return {
     "@context": "https://schema.org",
     "@type": LODGING_TYPE[acc.type],
@@ -222,11 +221,9 @@ export function lodging(acc: PublicAccommodationDetail): Json {
     ...(acc.latitude !== null && acc.longitude !== null
       ? { geo: { "@type": "GeoCoordinates", latitude: acc.latitude, longitude: acc.longitude } }
       : {}),
-    ...(acc.starRating ? { starRating: { "@type": "Rating", ratingValue: acc.starRating } } : {}),
     ...(acc.amenities.length
       ? { amenityFeature: acc.amenities.map((a) => ({ "@type": "LocationFeatureSpecification", name: a, value: true })) }
       : {}),
-    ...(nightly !== null ? { priceRange: `From US$${nightly.toLocaleString("en-US")} per night` } : {}),
     ...(acc.destination ? { containedInPlace: { "@type": "TouristDestination", name: acc.destination.name } } : {}),
   };
 }
