@@ -78,6 +78,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
             fill
             priority={priority}
             sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={85}
             className="object-cover object-center"
           />
         ) : (

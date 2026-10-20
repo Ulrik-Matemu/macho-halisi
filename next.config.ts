@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
+    // Next 16 only serves allowlisted qualities; 85 is used by the itinerary
+    // cards (visibly cleaner than the default 75 on large cover photos).
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: "https",

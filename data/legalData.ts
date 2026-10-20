@@ -71,7 +71,6 @@ export const PRIVACY_POLICY: LegalDocument = {
         "Booking and confirming boutique tented camps, rim lodges, and private beach villas in your name.",
         "Procuring official government park entry permits, crater descent permits, and conservation fees.",
         "Issuing domestic air charter e-tickets with licensed bush flight operators.",
-        "Enrolling you in the AMREF Flying Doctors remote emergency airlift evacuation roster.",
         "Communicating itinerary revisions, weather updates, and pre-departure field advisories.",
       ],
     },
@@ -84,7 +83,6 @@ export const PRIVACY_POLICY: LegalDocument = {
         "Government Conservation Bodies: TANAPA, NCAA, and TAWA as required by Tanzanian law.",
         "Aviation & Bush Air Carriers: Coastal Aviation, Auric Air, and Safari Air Link for domestic flight ticketing.",
         "Sanctuary & Lodge Operators: Exclusively to verify room bookings and convey dietary/medical notes.",
-        "Medical Evacuation Providers: AMREF Flying Doctors for emergency coverage registration.",
         "We never share or transfer your data to advertisers, aggregators, or external commercial networks.",
       ],
     },
@@ -118,7 +116,7 @@ export const PRIVACY_POLICY: LegalDocument = {
         "Macho Halisi Safaris Ltd.",
         "Attn: Data Protection Office",
         "Karatu, Arusha Region, United Republic of Tanzania",
-        "Email: privacy@machohalisi.com | Phone: +255 754 474 792",
+        "Email: privacy@machohalisi.com | Phone: +255 789 718 505",
       ],
     },
   ],
@@ -141,11 +139,7 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
       description:
         "Final safari balance is payable 60 days before your expedition commences, after which park permits are drawn and finalized.",
     },
-    {
-      title: "AMREF Flying Doctors Included",
-      description:
-        "Emergency wilderness medical air evacuation is included for every remote safari passenger traveling with Macho Halisi.",
-    },
+   
     {
       title: "Mandatory Personal Insurance",
       description:
@@ -193,15 +187,6 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
       content: [
         "While Macho Halisi utilizes the finest certified native naturalists to maximize wildlife encounters, the movements of wild animals, river crossings, and weather patterns cannot be guaranteed. Nature operates on its own terms.",
         "Macho Halisi reserves the right to alter routes, camp allocations, or flight routings if necessitated by severe weather, unpassable river conditions, flight carrier schedule changes, or safety advisories. Any necessary substitute arrangements will match or exceed the standard of the original booking.",
-      ],
-    },
-    {
-      id: "insurance-health",
-      title: "5. Travel Insurance & Medical Evacuation",
-      shortTitle: "5. Insurance & Health",
-      content: [
-        "AMREF Flying Doctors: All remote safari travelers are automatically enrolled in AMREF Flying Doctors emergency medical evacuation coverage. This provides emergency air ambulance evacuation from remote bush airstrips to a modern hospital in Nairobi or Dar es Salaam.",
-        "Comprehensive Personal Policy: AMREF coverage does not replace personal medical and trip cancellation insurance. All guests are contractually required to secure comprehensive international travel insurance covering medical expenses, baggage loss, emergency repatriation, and trip cancellation.",
       ],
     },
     {

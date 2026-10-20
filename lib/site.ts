@@ -30,7 +30,7 @@ export const SITE = {
     "Macho Halisi (\"true eyes\" in Swahili) is a 100% Tanzanian-owned safari company, founded by Dawson Minja and crafting bespoke journeys for more than 17 years and operating a fleet of 20 custom-built safari vehicles. Native Tanzanian guides plan and lead private safaris across the Serengeti, Ngorongoro Crater, Tarangire, Lake Manyara, Ruaha, Nyerere, Mount Kilimanjaro and Zanzibar.",
   founder: "Dawson Minja",
   foundingLocation: "Karatu, Tanzania",
-  phone: "+255 754 474 792",
+  phone: "+255 789 718 505",
   phoneE164: "+255754474792",
   whatsapp: "255754474792",
   email: "info@machohalisi.com",

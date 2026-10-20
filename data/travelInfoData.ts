@@ -237,10 +237,4 @@ export const TRAVEL_FAQS: TravelFaq[] = [
       "No. Recreational drones are strictly prohibited in all Tanzanian National Parks (TANAPA), Ngorongoro Conservation Area (NCAA), and game reserves. Flying unauthorized drones carries severe penalties, confiscation, and heavy fines. Filming permits for commercial documentaries require complex advance clearance through the Tanzania Film Board, Ministry of Defense, and TANAPA.",
     category: "etiquette",
   },
-  {
-    question: "Is emergency medical evacuation included?",
-    answer:
-      "Yes. Every Macho Halisi guest traveling on our remote safaris is automatically enrolled in AMREF Flying Doctors emergency medical evacuation coverage. In the unlikely event of a medical emergency in remote wilderness, an air ambulance aircraft with emergency medical doctors will airlift you directly to Nairobi or Dar es Salaam for tertiary care. You should also maintain comprehensive personal travel insurance covering international medical repatriation.",
-    category: "health",
-  },
 ];

@@ -166,6 +166,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
 
   return (
     <section
+      data-navbar-hero
       ref={heroSectionRef}
       className="relative w-full h-[220vh] bg-safari-night select-none"
     >

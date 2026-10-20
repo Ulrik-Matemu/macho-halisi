@@ -63,9 +63,7 @@ export default function LuggageVisualizer() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-white/10 text-xs text-safari-sand font-mono">
-            Complimentary laundry service is provided daily at all Macho Halisi luxury camps.
-          </div>
+         
         </div>
 
         {/* Prohibited Hard Suitcase Card */}

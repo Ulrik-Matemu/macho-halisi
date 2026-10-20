@@ -43,7 +43,7 @@ export const PLANNING_STAGES: PlanningStage[] = [
     author: "Macho Halisi Head Naturalist",
     image: {
       url: "/media/about/team/guide-portrait.jpg",
-      alt: "Safari specialist conversing with guests overlooking the Serengeti plains",
+      alt: "Safari specialists with extended experience in bespoke service",
     },
   },
   {
@@ -67,13 +67,13 @@ export const PLANNING_STAGES: PlanningStage[] = [
     headline: "Intimate camps where the wilderness stays outside your canvas.",
     lead: "We partner exclusively with low-impact, owner-managed sanctuaries and tented reserves.",
     description:
-      "Mass safari lodges with hundreds of rooms erode the romance of the African night. We place our travelers in boutique canvas camps, caldera rim havens, and private concessions where lanterns flicker beneath the southern cross, hot bucket showers are drawn upon your return from dusty drives, and lion roars echo across your veranda while you dine.",
+      "Mass safari lodges with hundreds of rooms erode the romance of the African night. We place our travelers in boutique canvas camps, caldera rim havens, and private concessions where lanterns flicker beneath the southern cross, hot showers are drawn upon your return from dusty drives, and lion roars echo across your veranda while you dine.",
     deliverable: "Curated Camp Portfolio with Room Specs & Concession Access",
     quote: "When you sleep under canvas, your ears never stop listening to the heartbeat of the bush.",
     author: "Wilderness Lodging Director",
     image: {
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=85",
-      alt: "Luxury tented camp in the Serengeti lit by warm lanterns at twilight",
+      url: "/media/accomodations/simba-768x511.jpg",
+      alt: "Serengeti Simba Lodge in the Serengeti lit by warm lanterns at twilight",
     },
   },
   {
@@ -87,23 +87,23 @@ export const PLANNING_STAGES: PlanningStage[] = [
     quote: "Anyone can point at a lion. A naturalist shows you the drama that began twenty minutes before the pride moved.",
     author: "Lead Safari Guide, Ngorongoro",
     image: {
-      url: "/media/about/team/guide-fleet.jpg",
-      alt: "Macho Halisi native safari guide tracking animal spoor in the bush",
+      url: "/media/about/team/new-guide.jpg",
+      alt: "Macho Halisi native safari guide with top-notch safari experience",
     },
   },
   {
     number: "05",
-    stepName: "Flawless Bush Concierge",
-    headline: "Unseen precision behind every bush airstrip landing and cold drink.",
-    lead: "From VIP tarmac greetings at Kilimanjaro (JRO) to charter flights into remote airstrips.",
+    stepName: "Flawless Fleet Concierge",
+    headline: "Unseen precision behind every well-prepared Land Cruiser and cold drink.",
+    lead: "From your welcome at Kilimanjaro (JRO) to the last game drive in a vehicle built for the bush.",
     description:
-      "Behind your peaceful safari stands a synchronized ground operations desk in Karatu and Arusha. We oversee every park entry permit, domestic bush flight manifest, dietary preference, and luggage transfer. If weather shifts, our team rearranges routes seamlessly without interrupting your morning espresso.",
-    deliverable: "Turnkey Travel Dossier & 24/7 Satellite Concierge Liaison",
+      "Behind your peaceful safari stands a synchronized ground operations desk in Karatu and Arusha, anchored by our own workshop. We oversee every park entry permit, daily Land Cruiser service check, dietary preference, and luggage transfer. If weather or road conditions shift, our team reroutes your vehicle and backup support seamlessly without interrupting your morning espresso.",
+    deliverable: "Turnkey Travel Dossier & 24/7 Fleet Support Liaison",
     quote: "You will never see the logistics. You will only feel the effortless grace of Africa.",
     author: "Operations Director, Macho Halisi",
     image: {
       url: "/media/about/fleet/fleet-lineup-rear.jpg",
-      alt: "Scenic bush flight landing on a remote safari airstrip in Tanzania",
+      alt: "Macho Halisi safari Land Cruiser fleet lined up and ready for departure in Tanzania",
     },
   },
 ];
@@ -133,12 +133,7 @@ export const PLANNING_COMPARISONS: ComparisonDimension[] = [
     machoHalisi: "Access to private wilderness conservancies permitting off-road tracking, guided walking safaris, and night drives.",
     highlight: "Private Concession Access",
   },
-  {
-    title: "Safety & Communication",
-    commercialTour: "Standard commercial vans without satellite backups or dedicated flight evacuation coverage.",
-    machoHalisi: "AMREF Flying Doctors 100% emergency evacuation insurance included for every remote safari passenger; VHF radios & GPS tracking.",
-    highlight: "Comprehensive Safety Net",
-  },
+  
 ];
 
 // Coordinates are percentages of the blueprint viewport in

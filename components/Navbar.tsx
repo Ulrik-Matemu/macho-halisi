@@ -34,18 +34,21 @@ export default function Navbar({
   }, [scrollThreshold]);
 
   const isScrolled = scrollThreshold !== Number.POSITIVE_INFINITY && scrolled;
-  // Only the unscrolled homepage floats over the hero footage (light text, no
-  // bar). Everywhere else the bar is solid tan with dark text.
-  // Other pages: transparent while a full-bleed hero (marked
-  // data-navbar-hero) is still behind the bar, solid tan once it scrolls away.
-  const [overPageHero, setOverPageHero] = useState(false);
+  // Transparent (light text, no bar) while a full-bleed hero (marked
+  // data-navbar-hero) is still behind the bar, solid tan otherwise. Measured
+  // from the hero's real position rather than a fixed scroll distance, so a
+  // restored scroll position on reload can't flip it to tan over the footage.
+  const [overPageHero, setOverPageHero] = useState(pathname === "/");
   useEffect(() => {
-    if (pathname === "/") return;
     const BAR_HEIGHT = 90;
     const check = () => {
       const hero = document.querySelector("[data-navbar-hero]");
       const rect = hero?.getBoundingClientRect();
-      const over = !!rect && rect.top <= 0 && rect.bottom > BAR_HEIGHT;
+      // The homepage hero is pinned for 220vh and the next section slides
+      // up over its tail, so the bar leaves the footage when that section
+      // reaches it, not when the hero's own box ends.
+      const bottom = pathname === "/" ? (hero?.nextElementSibling?.getBoundingClientRect().top ?? rect?.bottom ?? 0) : rect?.bottom ?? 0;
+      const over = !!rect && rect.top <= 0 && bottom > BAR_HEIGHT;
       setOverPageHero((prev) => (prev === over ? prev : over));
     };
     check();
@@ -54,10 +57,9 @@ export default function Navbar({
     return () => {
       window.removeEventListener("scroll", check);
       window.removeEventListener("resize", check);
-      setOverPageHero(false);
     };
   }, [pathname]);
-  const overHero = pathname === "/" ? !isScrolled : overPageHero;
+  const overHero = overPageHero;
 
   // Auto-hide on scroll direction: down hides it, any upward movement
   // reveals it immediately — composes with (never overrides) `isVisible`,

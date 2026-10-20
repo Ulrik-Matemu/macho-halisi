@@ -8,7 +8,7 @@ import type { ValueFormat } from "./types";
 export const BRAND = {
   company: "Macho Halisi Ltd",
   tagline: "Private, native-guided safaris across Tanzania",
-  contact: "Arusha, Tanzania  ·  +255 754 474 792  ·  info@machohalisi.com",
+  contact: "Arusha, Tanzania  ·  +255 789 718 505  ·  info@machohalisi.com",
   logoUrl: "/media/new-macho-halisi-logo.jpg",
   /** Logo is 1000×500. */
   logoAspect: 2,

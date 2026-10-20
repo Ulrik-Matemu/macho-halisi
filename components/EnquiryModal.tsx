@@ -189,7 +189,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
       setErrorMessage(
         err instanceof Error && err.message && err.message !== "Failed to fetch"
           ? err.message
-          : "We couldn't send your enquiry just now. Please try again, or message us on WhatsApp at +255 754 474 792."
+          : "We couldn't send your enquiry just now. Please try again, or message us on WhatsApp at +255 789 718 505."
       );
     } finally {
       setIsSubmitting(false);
@@ -247,7 +247,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
               <p className="text-[11px] text-safari-night/70 font-sans">
                 Or WhatsApp{" "}
                 <a href="https://wa.me/255754474792" onClick={() => trackContact("whatsapp", "enquiry-modal")} className="text-safari-russet underline hover:text-safari-night">
-                  +255 754 474 792
+                  +255 789 718 505
                 </a>
               </p>
               <button

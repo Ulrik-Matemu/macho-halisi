@@ -75,7 +75,7 @@ export const aboutStory: AboutStoryChapter[] = [
     eyebrow: "How We Grew",
     heading: "From a single game drive to the whole of Tanzania",
     body:
-      "What started as game drives into the parks next door grew, one honest journey at a time, into full expeditions across the country — the Serengeti, Ngorongoro, Tarangire and Lake Manyara; the summits of Kilimanjaro, Meru and Ol’Doinyo Lengai; and the turquoise calm of Zanzibar and the Swahili Coast. Today travellers from across America, the UK and Europe plan their once-in-a-lifetime journeys with us, and many return.",
+      "What started as game drives into the parks next door grew, one honest journey at a time, into full expeditions across the country — the Serengeti, Ngorongoro, Tarangire and Lake Manyara; the summits of Kilimanjaro, Meru and Ol’Doinyo Lengai; and the turquoise calm waters of Zanzibar and the Swahili Coast. Today travellers from across America, the UK and Europe plan their once-in-a-lifetime journeys with us, and many return.",
   },
   {
     eyebrow: "Why It Matters",

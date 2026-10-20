@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/public/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Terms & Booking Conditions | Macho Halisi Safaris",
   description:
-    "Official booking conditions, payment schedules, cancellation tiers, and AMREF Flying Doctors coverage terms for Macho Halisi Safaris (TALA Licensed).",
+    "Official booking conditions, payment schedules and cancellation tiers.",
   alternates: { canonical: `${getSiteUrl()}/terms` },
 };
 

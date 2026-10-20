@@ -116,7 +116,7 @@ export default function TravelInformationPage() {
                 <span>Wellness & Security</span>
               </div>
               <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl text-safari-bark font-light mb-6">
-                Health, Vaccinations & AMREF Air Evacuation
+                Health and Vaccinations
               </h2>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
@@ -135,22 +135,7 @@ export default function TravelInformationPage() {
                   </p>
                 </div>
 
-                <div className="p-6 sm:p-8 bg-safari-bark text-safari-cream border border-safari-russet/40 shadow-lg space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="font-serif-luxury text-xl text-white">AMREF Flying Doctors Coverage</div>
-                    <span className="px-2.5 py-1 bg-safari-russet/30 text-safari-sand text-[10px] font-mono uppercase tracking-widest rounded">
-                      Included
-                    </span>
-                  </div>
-                  <p className="text-sm text-white/80 leading-relaxed font-sans font-light">
-                    Every Macho Halisi guest is automatically enrolled in AMREF Flying Doctors emergency
-                    airlift evacuation coverage. In the rare event of severe medical distress, dedicated
-                    air ambulance aircraft will airlift you directly from bush airstrips to modern tertiary care.
-                  </p>
-                  <div className="text-xs text-safari-sand font-mono pt-2 border-t border-white/10">
-                    Comprehensive personal travel insurance covering medical repatriation is required.
-                  </div>
-                </div>
+               
               </div>
             </section>
           </ScrollReveal>

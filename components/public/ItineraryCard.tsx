@@ -41,6 +41,7 @@ export default function ItineraryCard({ itinerary, priority = false }: Itinerary
             fill
             priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
             className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
           />
         ) : (

@@ -165,7 +165,7 @@ export default function EnquiryStudioForm({
             href="https://wa.me/255754474792"
             className="text-safari-sand underline hover:text-white"
           >
-            +255 754 474 792
+            +255 789 718 505
           </a>
           .
         </div>

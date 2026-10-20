@@ -104,7 +104,7 @@ export default function EnquiryConciergePanel() {
             <MessageSquare className="w-4 h-4 text-emerald-600" />
             <div>
               <div className="font-medium">Direct WhatsApp Line</div>
-              <div className="text-[11px] text-emerald-800">+255 754 474 792</div>
+              <div className="text-[11px] text-emerald-800">+255 789 718 505</div>
             </div>
           </a>
 
