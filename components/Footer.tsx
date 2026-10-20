@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { useEnquiry } from "@/components/EnquiryProvider";
 import ScrollReveal from "@/components/public/ScrollReveal";
-import { SITE } from "@/lib/site";
+import { SITE, whatsappUrl } from "@/lib/site";
 import { trackContact } from "@/lib/analytics/track";
 
 /** "https://www.instagram.com/x" → "Instagram" */
@@ -158,13 +159,26 @@ export default function Footer() {
                   <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">
                     Speak to us
                   </div>
-                  <a
-                    href={`tel:${SITE.phoneE164}`}
-                    onClick={() => trackContact("phone", "footer")}
-                    className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream hover:text-safari-gold transition-colors"
-                  >
-                    {SITE.phone}
-                  </a>
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <a
+                      href={`tel:${SITE.phoneE164}`}
+                      onClick={() => trackContact("phone", "footer")}
+                      className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream hover:text-safari-gold transition-colors"
+                    >
+                      {SITE.phone}
+                    </a>
+                    <a
+                      href={whatsappUrl(`Hello ${SITE.name}, I'm interested in a safari.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackContact("whatsapp", "footer")}
+                      aria-label="Chat with us on WhatsApp"
+                      className="inline-flex items-center gap-2 font-sans font-light text-[10px] tracking-[0.25em] uppercase text-safari-cream border border-safari-cream/30 hover:border-safari-gold hover:text-safari-gold transition-colors px-3.5 py-2 rounded whitespace-nowrap"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                 </div>
                 <div>
                   <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">

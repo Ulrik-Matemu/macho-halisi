@@ -304,7 +304,7 @@ export const navigationData: NavCategory[] = [
   },
   {
     id: "camps-lodges",
-    title: "CAMPS & LODGES",
+    title: "OUR LODGE",
     // Sub-items are not curated here: FullscreenNavMenu fills this
     // category from the published accommodations in the database.
     href: "/accommodations",

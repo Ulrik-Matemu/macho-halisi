@@ -135,7 +135,20 @@ export default function TravelInformationPage() {
                   </p>
                 </div>
 
-               
+                <div className="p-6 sm:p-8 bg-amber-50/70 border border-amber-200/80 space-y-4">
+                  <div className="font-serif-luxury text-xl text-amber-950">
+                    Medical Cover & Amref Flying Doctors
+                  </div>
+                  <p className="text-sm text-amber-950/80 leading-relaxed font-sans font-light">
+                    Amref air-evacuation cover is <strong className="font-normal">not included</strong> in your
+                    safari price. Every guest must hold their own medical and travel insurance for the duration
+                    of the trip.
+                  </p>
+                  <p className="text-sm text-amber-950/80 leading-relaxed font-sans font-light">
+                    If you would like Amref cover, we can arrange it for you at a minimal extra cost — just ask
+                    when you enquire.
+                  </p>
+                </div>
               </div>
             </section>
           </ScrollReveal>

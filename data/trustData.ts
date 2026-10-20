@@ -52,5 +52,5 @@ export const trustFacts = [
 export const safetyPoints = [
   "Tour operator insurance and passenger liability coverage",
   "Reliable, well-maintained vehicles and trusted partners",
-  "Flying Doctors emergency evacuation support at minimal extra cost",
+  "Flying Doctors emergency evacuation support at xtra cost",
 ];
