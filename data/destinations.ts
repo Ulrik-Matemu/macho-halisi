@@ -968,22 +968,21 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Northern Circuit",
     tagline: "Giraffes, Crater Walks & the Foothills of Meru",
-    heroImage:
-      "https://images.unsplash.com/photo-1549854233-ca0baec6fa74?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A giraffe standing in the grassland of Arusha National Park",
+    heroImage: "/media/arusha-national-park/fig-tree.jpg",
+    heroImageAlt: "The ancient strangler fig arch over the forest track in Arusha National Park",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1626548307930-deac221f87d9?auto=format&fit=crop&w=1400&q=85",
-        alt: "A giraffe silhouetted against the sky near Arusha",
+        url: "/media/arusha-national-park/colombus-monkey.jpg",
+        alt: "A black-and-white colobus monkey perched in the montane forest of Arusha National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden acacia plains beneath Mount Meru",
+        url: "/media/arusha-national-park/fig-tree.jpg",
+        alt: "A blue monkey resting on a branch in Arusha National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A trekking trail on the lower slopes of Mount Meru",
-      },
+        url: "/media/arusha-national-park/Arusha_National_Park_Momella_Lake_Flamingos_83.jpg",
+        alt: "Arusha National Park"
+      }
     ],
     leadParagraph:
       "Tiny by Tanzanian standards and often overlooked in favour of the Serengeti, Arusha National Park packs an outsized variety into just 137 km² — alkaline lakes, a miniature crater, montane forest, and the dramatic ash cone of Mount Meru rising over it all. It's the closest park to Arusha town, making it a rewarding half-day or full-day safari for travellers arriving or departing on a tight schedule.",

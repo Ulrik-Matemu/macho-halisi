@@ -22,10 +22,43 @@ export default function FullscreenNavMenu({
   const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null);
   const [hoveredSubItem, setHoveredSubItem] = useState<NavSubItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [accommodationItems, setAccommodationItems] = useState<NavSubItem[]>([]);
   const [mobileStep, setMobileStep] = useState<"categories" | "subItems" | "preview">("categories");
 
   // Timer reference for safe hover travel between columns
   const resetTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // CAMPS & LODGES is database-backed: load the published accommodations the
+  // first time the menu opens (the endpoint is server-cached). A failed or
+  // degraded response leaves the list empty and retries on the next open.
+  const accommodationsLoadedRef = useRef(false);
+  useEffect(() => {
+    if (!isOpen || accommodationsLoadedRef.current) return;
+    accommodationsLoadedRef.current = true;
+    fetch("/api/public/nav-accommodations")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
+      .then((body: { degraded: boolean; accommodations: { id: string; slug: string; name: string; locationText: string; image: string | null }[] }) => {
+        if (body.degraded) {
+          accommodationsLoadedRef.current = false;
+          return;
+        }
+        setAccommodationItems(
+          body.accommodations.map((a) => ({
+            id: a.id,
+            title: a.name.toUpperCase(),
+            tagline: a.locationText,
+            description: a.locationText,
+            href: `/accommodations/${a.slug}`,
+            // No stock stand-in: an unrelated photo under a real property's
+            // name would mislead, so the preview panel shows a plain backdrop.
+            image: a.image ?? "",
+          }))
+        );
+      })
+      .catch(() => {
+        accommodationsLoadedRef.current = false;
+      });
+  }, [isOpen]);
 
   const cancelResetTimer = useCallback(() => {
     if (resetTimerRef.current) {
@@ -76,7 +109,11 @@ export default function FullscreenNavMenu({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, handleClose]);
 
-  const activeCategory: NavCategory | undefined = navigationData.find(
+  const categories: NavCategory[] = navigationData.map((cat) =>
+    cat.id === "camps-lodges" ? { ...cat, subItems: accommodationItems } : cat
+  );
+
+  const activeCategory: NavCategory | undefined = categories.find(
     (cat) => cat.id === hoveredCategoryId
   );
 
@@ -100,7 +137,7 @@ export default function FullscreenNavMenu({
   const searchResults: { categoryTitle: string; item: NavSubItem }[] = [];
   if (isSearching) {
     const query = searchQuery.toLowerCase();
-    navigationData.forEach((cat) => {
+    categories.forEach((cat) => {
       cat.subItems.forEach((item) => {
         if (
           item.title.toLowerCase().includes(query) ||
@@ -117,7 +154,7 @@ export default function FullscreenNavMenu({
     // is reachable from the menu, not just the curated highlights. Hrefs
     // already surfaced via navigationData are skipped to avoid duplicates.
     const curatedHrefs = new Set(
-      navigationData.flatMap((cat) => cat.subItems.map((item) => item.href))
+      categories.flatMap((cat) => cat.subItems.map((item) => item.href))
     );
     destinations.forEach((dest) => {
       const href = `/destinations/${dest.slug}`;
@@ -299,7 +336,7 @@ export default function FullscreenNavMenu({
                     mobileStep !== "categories" ? "hidden lg:flex" : "flex"
                   }`}
                 >
-                  {navigationData.map((category, index) => {
+                  {categories.map((category, index) => {
                     const isHovered = category.id === hoveredCategoryId;
                     return (
                       <div
@@ -357,6 +394,18 @@ export default function FullscreenNavMenu({
                   {/* Render middle column content ONLY if a category on the left is hovered */}
                   {activeCategory ? (
                     <div key={activeCategory.id} className="space-y-0">
+                      {activeCategory.subItems.length === 0 && (
+                        <Link
+                          href={activeCategory.href}
+                          onClick={handleClose}
+                          className="group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b border-safari-night/25 hover:border-safari-ochre text-safari-night hover:text-safari-russet transition-all duration-200"
+                        >
+                          <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light">
+                            Browse all
+                          </span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      )}
                       {activeCategory.subItems.map((subItem, idx) => {
                         const isSubHovered = hoveredSubItem?.id === subItem.id;
                         return (
@@ -431,13 +480,17 @@ export default function FullscreenNavMenu({
                     className="group relative w-full h-full flex-1 flex flex-col items-center justify-center text-center p-8 sm:p-12 overflow-hidden cursor-pointer animate-image-settle"
                   >
                     {/* Full-bleed background destination image with slow-motion optical zoom */}
-                    <Image
-                      src={hoveredSubItem.image}
-                      alt={hoveredSubItem.title}
-                      fill
-                      priority
-                      className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
-                    />
+                    {hoveredSubItem.image ? (
+                      <Image
+                        src={hoveredSubItem.image}
+                        alt={hoveredSubItem.title}
+                        fill
+                        priority
+                        className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#2a2118] to-[#0a0a0a]" />
+                    )}
 
                     {/* Cinematic Contrast Overlays */}
                     <div className="absolute inset-0 bg-black/45 transition-colors duration-500 group-hover:bg-black/35 pointer-events-none" />

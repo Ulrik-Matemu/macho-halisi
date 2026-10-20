@@ -177,16 +177,16 @@ export const navigationData: NavCategory[] = [
         highlights: ["Canopy Treetop Walk", "Flamingo Flocks", "Hot Springs"],
       },
       {
-        id: "ruaha",
-        title: "RUAHA & NYERERE (SELOUS)",
-        tagline: "The Wild Southern Circuit",
+        id: "arusha",
+        title: "ARUSHA NATIONAL PARK",
+        tagline: "Giraffes, Crater Walks & the Foothills of Meru",
         description:
-          "Venture into raw, remote wilderness unfettered by crowds. River safaris, apex lion prides, and wild dog tracking in Tanzania's untamed south.",
-        href: "/destinations/southern-circuit",
+          "A compact park of Ngurdoto Crater, the Momella Lakes and Mount Meru's forested slopes — giraffe, colobus monkeys and flamingos within an hour of Arusha town.",
+        href: "/destinations/arusha",
         image:
-          "/media/ruaha-selous/ruaha-hero.jpg",
-        badge: "Raw Wilderness",
-        highlights: ["Boat Safaris", "African Wild Dogs", "Immense Solitude"],
+          "/media/arusha-national-park/fig-tree.jpg",
+        badge: "Gateway Park",
+        highlights: ["Walking Safaris", "Colobus Monkeys", "Momella Lakes"],
       },
       {
         id: "view-all-destinations",
@@ -278,30 +278,6 @@ export const navigationData: NavCategory[] = [
     featuredDefaultId: "view-all-journeys",
     subItems: [
       {
-        id: "kilimanjaro-routes",
-        title: "KILIMANJARO ROUTES",
-        tagline: "Uhuru Peak · 5,895 m",
-        description:
-          "Seven ways up the same mountain, each with its own forest, its own camps and its own summit night. The route matters more than the fitness.",
-        href: "/journeys/kilimanjaro-routes",
-        image:
-          "/media/kilimanjaro/lemosho.jpg",
-        badge: "7 Routes",
-        highlights: ["Machame & Lemosho", "Northern Circuit", "≈ 95% Success, 8-day"],
-      },
-      {
-        id: "kilimanjaro-climbing-itineraries",
-        title: "KILIMANJARO CLIMBING ITINERARIES",
-        tagline: "Fixed-departure & private",
-        description:
-          "Every route in the lengths we actually recommend, plus climbs paired with a safari or the coast. Private climbs start any day you choose.",
-        href: "/journeys/kilimanjaro-climbing-itineraries",
-        image:
-          "/media/kilimanjaro/kili-ariel.jpg",
-        badge: "15 Climbs",
-        highlights: ["Daily Private Departures", "3 – 4 Crew per Climber", "Park & Rescue Fees Included"],
-      },
-      {
         id: "zanzibar-journeys",
         title: "ZANZIBAR JOURNEYS",
         tagline: "Indian Ocean · Spice Islands",
@@ -312,18 +288,6 @@ export const navigationData: NavCategory[] = [
           "/media/zanzibar/stone-town.jpg",
         badge: "10 Journeys",
         highlights: ["Stone Town", "Pemba & Mafia", "Honeymoons"],
-      },
-      {
-        id: "spice-tours",
-        title: "ZANZIBAR SPICE TOURS",
-        tagline: "Zanzibar farms & kitchens",
-        description:
-          "Cloves, vanilla, cardamom and nutmeg — walked, picked, cooked and eaten with the families who grow them.",
-        href: "/journeys/spice-tours",
-        image:
-          "https://images.unsplash.com/photo-1740824570732-f2a2d2557dd5?auto=format&fit=crop&w=1400&q=85",
-        badge: "6 Tours",
-        highlights: ["Spice Farm Walks", "Swahili Cooking", "Private Pick-up"],
       },
       {
         id: "view-all-journeys",
@@ -341,48 +305,10 @@ export const navigationData: NavCategory[] = [
   {
     id: "camps-lodges",
     title: "CAMPS & LODGES",
-    // Points at the live, database-backed accommodations catalog. The
-    // sub-items below are curated marketing entries that all funnel into
-    // the same filterable /accommodations page.
+    // Sub-items are not curated here: FullscreenNavMenu fills this
+    // category from the published accommodations in the database.
     href: "/accommodations",
-    featuredDefaultId: "luxury-tented",
-    subItems: [
-      {
-        id: "luxury-tented",
-        title: "PRIVATE LUXURY TENTED CAMPS",
-        tagline: "Under Canvas with Five-Star Luxury",
-        description:
-          "Handcrafted canvas suites with en-suite copper bathtubs, private viewing decks, and lanterns lit under the southern cross.",
-        href: "/accommodations",
-        image:
-          "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
-        badge: "Exclusive Wilderness",
-        highlights: ["Fine Dining in Bush", "Butler Service", "Solar-Powered"],
-      },
-      {
-        id: "crater-lodges",
-        title: "CRATER RIM PANORAMA LODGES",
-        tagline: "Perched Above the Volcanic Clouds",
-        description:
-          "Dramatic architectural wonders clinging to the edge of the Ngorongoro caldera with floor-to-ceiling panoramic glass windows and log fires.",
-        href: "/accommodations",
-        image:
-          "/media/ngorongoro/ngoro-ariel.jpg",
-        badge: "Caldera Vistas",
-        highlights: ["Fireplace Suites", "Private Verandas", "Chilled Wine Cellars"],
-      },
-      {
-        id: "beach-villas",
-        title: "ZANZIBAR BEACHFRONT VILLAS",
-        tagline: "Barefoot Elegance on the Swahili Coast",
-        description:
-          "Private ocean villas featuring plunge pools, private chefs, and direct access to powder sands and turquoise waves.",
-        href: "/accommodations",
-        image:
-          "/media/zanzibar/mnemba-atoll.jpg",
-        badge: "Coastal Bliss",
-        highlights: ["Private Infinity Pools", "Spa & Wellness", "Sunset Dhow Cruises"],
-      },
-    ],
+    featuredDefaultId: "",
+    subItems: [],
   },
 ];
