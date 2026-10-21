@@ -1,46 +1,6 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV !== "production";
-
-// Content Security Policy. 'unsafe-inline' scripts are needed by Next's
-// inline bootstrap and the JSON-LD blocks without per-request nonces (which
-// would force every page to render dynamically and lose ISR); the policy
-// still pins every script, frame and fetch to known origins. Mapbox needs
-// blob: workers; Turnstile runs in a challenges.cloudflare.com iframe.
-const csp = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://challenges.cloudflare.com`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://*.mapbox.com",
-  "font-src 'self' data:",
-  "media-src 'self'",
-  "connect-src 'self' https://api.mapbox.com https://events.mapbox.com https://*.tiles.mapbox.com https://nominatim.openstreetmap.org https://challenges.cloudflare.com",
-  "worker-src 'self' blob:",
-  "frame-src https://challenges.cloudflare.com",
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'",
-  ...(isDev ? [] : ["upgrade-insecure-requests"]),
-].join("; ");
-
-const securityHeaders = [
-  // Report-only while it beds in: violations show in the browser console
-  // without breaking anything. Switch the key to "Content-Security-Policy"
-  // once the main pages and the dashboard run clean.
-  { key: "Content-Security-Policy-Report-Only", value: csp },
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
-  },
-];
-
 const nextConfig: NextConfig = {
-  poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
     // Next 16 only serves allowlisted qualities; 85 is used by the itinerary
@@ -73,10 +33,6 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      { source: "/:path*", headers: securityHeaders },
-      // Keep the admin area and the API out of search results.
-      { source: "/dashboard/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
-      { source: "/api/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
       {
         source: "/media/hero-vids/:path*",
         headers: [

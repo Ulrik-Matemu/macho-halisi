@@ -15,7 +15,6 @@ import {
 import EnquirySummaryCard, { EnquirySelectionState } from "./EnquirySummaryCard";
 import { trackEvent } from "@/lib/analytics/track";
 import { enquiryAttribution, formatEnquiryRef } from "@/lib/enquiries/submit";
-import TurnstileWidget, { turnstileEnabled } from "@/components/TurnstileWidget";
 
 interface EnquiryStudioFormProps {
   initialDestination?: string;
@@ -29,8 +28,6 @@ export default function EnquiryStudioForm({
   const [step, setStep] = useState(1);
   // Honeypot — hidden from people, filled in by naive form bots.
   const [website, setWebsite] = useState("");
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
 
   // Funnel analytics: how far visitors get through the studio.
   useEffect(() => {
@@ -88,10 +85,6 @@ export default function EnquiryStudioForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (turnstileEnabled && !captchaToken) {
-      setErrorMessage("Just a moment — we're confirming you're not a bot. Please try again in a few seconds.");
-      return;
-    }
     setIsSubmitting(true);
     setErrorMessage("");
 
@@ -116,7 +109,6 @@ export default function EnquiryStudioForm({
         preferredDates: `${state.travelWindow} (${state.tripLength})`,
         message: messageContent,
         website,
-        turnstileToken: captchaToken,
         ...enquiryAttribution("studio"),
       };
 
@@ -140,9 +132,6 @@ export default function EnquiryStudioForm({
       setErrorMessage(err.message || "Something went wrong. Please try again or reach out via WhatsApp.");
     } finally {
       setIsSubmitting(false);
-      // Turnstile tokens are single-use: get a fresh one for any retry.
-      setCaptchaToken(null);
-      setCaptchaKey((k) => k + 1);
     }
   };
 
@@ -543,8 +532,6 @@ export default function EnquiryStudioForm({
                 className="w-full bg-white border border-safari-bark/15 p-3 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none resize-none"
               />
             </div>
-
-            <TurnstileWidget key={captchaKey} onToken={setCaptchaToken} />
 
             <div className="pt-4 flex items-center justify-between border-t border-safari-bark/10">
               <button

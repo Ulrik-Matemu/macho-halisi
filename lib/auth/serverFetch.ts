@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AUTH_COOKIES, getExpressApiUrl } from "./constants";
 import { setAuthCookies, clearAuthCookies } from "./cookies";
-import { backendHeaders } from "@/lib/auth/backend";
 
 interface ServerFetchResult {
   response: Response;
@@ -29,7 +28,6 @@ export async function serverFetch(
   const targetUrl = `${expressBase}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
   const headers = new Headers(init.headers || {});
-  for (const [key, value] of Object.entries(backendHeaders(request))) headers.set(key, value);
   if (accessToken && !headers.has("Authorization")) {
     headers.set("Authorization", `Bearer ${accessToken}`);
   }
@@ -45,7 +43,7 @@ export async function serverFetch(
     try {
       const refreshRes = await fetch(`${expressBase}/auth/refresh`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...backendHeaders(request) },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
       });
 

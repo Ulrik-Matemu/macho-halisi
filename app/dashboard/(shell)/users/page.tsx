@@ -347,12 +347,12 @@ export default function UsersManagementPage() {
                   id={id}
                   type="text"
                   required
-                  minLength={12}
+                  minLength={8}
                   value={createForm.password}
                   onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })}
                   className={inputClass}
                   style={inputStyle}
-                  placeholder="Min. 12 characters"
+                  placeholder="Min. 8 characters"
                 />
               )}
             </Field>
@@ -520,7 +520,7 @@ export default function UsersManagementPage() {
         <form id="reset-password-form" onSubmit={handleResetPassword} className="space-y-4">
           <Field label="New password">
             {({ id }) => (
-              <input id={id} type="text" required minLength={12} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className={inputClass} style={inputStyle} placeholder="Min. 12 characters" />
+              <input id={id} type="text" required minLength={8} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className={inputClass} style={inputStyle} placeholder="Min. 8 characters" />
             )}
           </Field>
           {passwordError && <InlineMessage tone="error">{passwordError}</InlineMessage>}

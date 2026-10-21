@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getExpressApiUrl } from "@/lib/auth/constants";
 import { getVisitorContext } from "@/lib/analytics/server";
-import { backendHeaders } from "@/lib/auth/backend";
 
 // Public analytics beacon endpoint. Enriches the browser's events with geo,
 // device and a daily visitor hash, then forwards them to the backend with
@@ -84,7 +83,7 @@ export async function POST(request: Request) {
   try {
     const res = await fetch(`${getExpressApiUrl()}/analytics/ingest`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Ingest-Secret": secret, ...backendHeaders() },
+      headers: { "Content-Type": "application/json", "X-Ingest-Secret": secret },
       body: JSON.stringify({ events: enriched }),
       signal: AbortSignal.timeout(5000),
     });

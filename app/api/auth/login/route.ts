@@ -1,24 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getExpressApiUrl } from "@/lib/auth/constants";
-import { backendHeaders, clientIp } from "@/lib/auth/backend";
-import { verifyTurnstile } from "@/lib/turnstile";
 
 export async function POST(request: NextRequest) {
   try {
-    const { turnstileToken, ...body } = (await request.json()) ?? {};
-    if (!(await verifyTurnstile(turnstileToken, clientIp(request)))) {
-      return NextResponse.json(
-        { status: "error", message: "Browser verification failed. Please reload the page and try again." },
-        { status: 400 }
-      );
-    }
+    const body = await request.json();
     const expressUrl = `${getExpressApiUrl()}/auth/login`;
 
     const res = await fetch(expressUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...backendHeaders(request),
       },
       body: JSON.stringify(body),
     });
