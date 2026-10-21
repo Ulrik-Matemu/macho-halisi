@@ -42,7 +42,7 @@ export const navigationData: NavCategory[] = [
         tagline: "We Provide the Experience. You Create the Memories.",
         description:
           "We know Tanzania, tailor every itinerary, and look after safety and responsible tourism — so you can simply enjoy the journey.",
-        href: "/about#why",
+        href: "/why-book-with-us",
         image:
           "/media/about/fleet/cruiser-three-quarter.jpg",
         badge: "Why Macho Halisi",
@@ -53,12 +53,12 @@ export const navigationData: NavCategory[] = [
         title: "TRAVEL INFORMATION",
         tagline: "Visas, Packing & Bush Logistics",
         description:
-          "Essential pre-departure field guide for Tanzania — entry visas, health and malaria, 15kg bush luggage limits, and interactive packing assistant.",
+          "Everything to prepare for a Tanzanian safari — visas, baggage limits, climate and clothing, photography, currency, park rules, tipping, and health and safety.",
         href: "/travel-information",
         image:
           "/media/about/fleet/fleet-lineup-grass.jpg",
         badge: "Field Guide",
-        highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
+        highlights: ["Visas & Baggage", "USD 2013+ Rules", "AMREF Air Cover"],
       },
     ],
   },

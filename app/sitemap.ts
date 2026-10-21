@@ -20,6 +20,7 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/how-we-plan", changeFrequency: "monthly", priority: 0.7 },
   { path: "/travel-information", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/why-book-with-us", changeFrequency: "monthly", priority: 0.7 },
   { path: "/enquire", changeFrequency: "yearly", priority: 0.8 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },

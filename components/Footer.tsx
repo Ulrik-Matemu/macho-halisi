@@ -276,8 +276,8 @@ export default function Footer() {
                 title="Studio"
                 links={[
                   { label: "Our story", href: "/about" },
-                  { label: "The guides", href: "/about#guides" },
-                  { label: "Conservation", href: "/about#impact" },
+                  { label: "Our mission", href: "/about#our-mission" },
+                  { label: "Why book with us", href: "/why-book-with-us" },
                   { label: "Contact", href: "/enquire" },
                 ]}
               />

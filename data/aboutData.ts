@@ -1,231 +1,180 @@
 /**
- * Static content for the About page (app/about/page.tsx). Follows the same
- * data-file pattern as planningData.ts / travelInfoData.ts — copy lives here,
- * layout lives in the page and components/public/about/*.
- *
- * Narrative reworks the original machohalisi.com "Our Company" founder story
- * and "Why Book with Us" ethos into this project's luxury, native-specialist
- * voice, and carries every point of the client's About Us document
- * (about-us.rtf): The Beginning, Our Mission, Why Travel with Macho Halisi
- * and The Macho Halisi Experience. Founder facts (Dawson Minja, Kudu Lodge
- * origin, Karatu base, 17+ years, 20 vehicles, year-round guides) must stay
- * in step with lib/site.ts.
+ * Static content for the About page (app/about/page.tsx). Copy is the
+ * client's About Us document (about-us.rtf), in the same order and under the
+ * same headings — keep it in step with that document and lib/site.ts.
  */
 
-export interface AboutStat {
-  value: string;
-  label: string;
-}
-
-export interface AboutStoryChapter {
-  eyebrow: string;
+export interface AboutSubsection {
   heading: string;
   body: string;
 }
 
-export interface ValuePillar {
-  /** lucide-react icon name, resolved in the component. */
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export interface FounderProfile {
-  name: string;
-  role: string;
-  location: string;
-  portrait: { url: string; alt: string };
-  quote: string;
+export interface AboutSection {
+  heading: string;
+  /** Intro paragraphs, shown under the section heading. */
   paragraphs: string[];
-}
-
-export interface GuidePrinciple {
-  title: string;
-  description: string;
+  /** Titled sub-points, shown after the intro. */
+  subsections?: AboutSubsection[];
 }
 
 export const aboutHero = {
-  eyebrow: "About Macho Halisi",
-  title: "Genuine Eyes on the Wild",
-  lead:
-    "“Macho Halisi” is Swahili for “genuine eyes.” For more than seventeen years we have shown travellers the real Tanzania — not a packaged version of it — through the eyes of the people who were born to this land and have never stopped reading it.",
-  // The full-bleed 70vh hero needs real vertical resolution; the previous
-  // Serengeti panorama was only 611px tall and upscaled badly here. This is
-  // the highest-resolution asset we own (5563x3709) and is authentically
-  // ours — the company's own fleet at golden hour.
+  title: "ABOUT US",
   image: {
     url: "/media/about/fleet/fleet-lineup-golden.jpg",
     alt: "The Macho Halisi fleet lined up at golden hour",
   },
 };
 
-export const aboutStats: AboutStat[] = [
-  { value: "17+", label: "Years crafting Tanzanian journeys" },
-  { value: "20", label: "Custom-built safari vehicles" },
-  { value: "365", label: "Days a year in the field" },
-  { value: "100%", label: "Tanzanian owned & led" },
-];
-
-export const aboutStory: AboutStoryChapter[] = [
-  {
-    eyebrow: "The Beginning",
-    heading: "A simple idea, seventeen years ago",
-    body:
-      "Macho Halisi has been creating unforgettable safari experiences and authentic African adventures for more than seventeen years. Founded by Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, it was built on a simple idea: to offer travellers safe, exciting and professionally guided safaris that deliver exceptional value while showcasing the true beauty of Tanzania.",
-  },
-  {
-    eyebrow: "Our Origin",
-    heading: "It began at a campsite on the northern circuit",
-    body:
-      "Long before the bespoke itineraries and the fleet of Land Cruisers, there was a single stop on the road north — Kudu Lodge & Campsite in Karatu, a resting place for travellers on their way to the Ngorongoro Crater and the Serengeti beyond. Watching guests arrive road-weary and leave transformed, our founder saw what was missing: a safari that was genuinely safe, genuinely exciting, and genuinely worth the value placed on it.",
-  },
-  {
-    eyebrow: "How We Grew",
-    heading: "From a single game drive to the whole of Tanzania",
-    body:
-      "What started as game drives into the parks next door grew, one honest journey at a time, into full expeditions across the country — the Serengeti, Ngorongoro, Tarangire and Lake Manyara; the summits of Kilimanjaro, Meru and Ol’Doinyo Lengai; and the turquoise calm waters of Zanzibar and the Swahili Coast. Today travellers from across America, the UK and Europe plan their once-in-a-lifetime journeys with us, and many return.",
-  },
-  {
-    eyebrow: "A Trusted Name",
-    heading: "From a small dream to a fleet of twenty",
-    body:
-      "What began as a small dream has grown into one of Tanzania’s trusted safari companies. Today, Macho Halisi operates a fleet of 20 custom-built safari vehicles designed for optimal wildlife viewing, supported by a team of experienced, knowledgeable guides who work year-round to deliver extraordinary journeys across East Africa.",
-  },
-  {
-    eyebrow: "Our Journeys",
-    heading: "From the Serengeti to the shores of Zanzibar",
-    body:
-      "From the endless plains of the Serengeti to the majestic Ngorongoro Crater, the summit of Kilimanjaro and the turquoise shores of Zanzibar Island, we craft journeys that connect travellers to Africa’s landscapes, wildlife and cultures in a meaningful and authentic way.",
-  },
-  {
-    eyebrow: "Why It Matters",
-    heading: "A safari cannot be bought off a conveyor belt",
-    body:
-      "We have never believed a true African safari can be mass-produced. It has to be drawn around your rhythm, your curiosity, and the seasonal movement of wildlife across the plains. That conviction — that every journey is built from scratch, by people who live here — is what makes Macho Halisi the one travellers trust.",
-  },
-];
-
-export const founder: FounderProfile = {
-  name: "Dawson Minja",
-  role: "Founder & Managing Director",
-  location: "Karatu, Tanzania",
-  // A real photo of the company's own fleet, not a portrait of the founder:
-  // we don't have a confirmed photograph of Dawson Minja, and captioning a
-  // person's face with his name would misattribute a real person. The
-  // founder is named in the prose below (sourced), not pinned to a face —
-  // see FounderStory.tsx, which renders this without a name caption.
-  portrait: {
-    url: "/media/about/fleet/fleet-lineup-rear.jpg",
-    alt: "The Macho Halisi safari fleet lined up in the bush, Kudu Lodge Karatu on the spare wheel covers",
-  },
-  quote:
-    "You arrive as a guest, and you leave as a friend. That has been the promise since the very first drive.",
-  paragraphs: [
-    "Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, founded Macho Halisi on a simple idea: that the people who know Tanzania best are the people who come from it. Born and raised in the north, he built the company from Kudu Lodge & Campsite in Karatu into a full safari operation, without ever handing the storytelling to anyone who hadn’t grown up under these skies.",
-    "He still lives in Karatu with his wife and their three children, a short drive from the crater rim, and he still treats every itinerary as a personal introduction to his home. Under his direction, Macho Halisi has grown to a fleet of twenty custom-built vehicles purpose-built for wildlife viewing and a team of experienced, knowledgeable guides working the field every day of the year.",
-    "His measure of success has never changed: not the size of the group, but whether a traveller leaves having seen the real Tanzania — and wanting to come back.",
-  ],
-};
-
-export const whyBookPillars: ValuePillar[] = [
-  {
-    icon: "Compass",
-    title: "We Know Tanzania",
-    description:
-      "Our team has years of firsthand experience exploring Tanzania and East Africa. We take you beyond the ordinary tourist routes to discover authentic destinations, hidden gems and remarkable wildlife encounters.",
-  },
-  {
-    icon: "Eye",
-    title: "Native Eyes, Real Access",
-    description:
-      "Every journey is led by Tanzanian naturalist guides who read the bush the way you read a page — tracking, behaviour, birdsong and the small signs a visitor would never catch.",
-  },
-  {
-    icon: "Compass",
-    title: "Tailor-Made, Built From Scratch",
-    description:
-      "Nothing is pulled off a shelf. Every traveller is different, so your route, pace and camps are drawn around your travel style, interests and the season’s wildlife movements — whether it’s a luxury safari, cultural experience, mountain trek or beach escape, we cater for all.",
-  },
-  {
-    icon: "Truck",
-    title: "A Fleet Built for the Field",
-    description:
-      "Twenty custom-built vehicles, each outfitted for optimum wildlife viewing and meticulously maintained — open hatches, long sightlines and the reliability a remote bush track demands.",
-  },
-  {
-    icon: "HeartHandshake",
-    title: "Exceptional Service, Guest to Friend",
-    description:
-      "Your comfort, safety and experience are our priority. From expert safari guides and carefully selected accommodations to private transfers and personalised attention, we take care of every detail — and deal with real people who care how your journey goes, from the first message to the last farewell.",
-  },
-  {
-    icon: "ShieldCheck",
-    title: "Safety You Can Rely On",
-    description:
-      "Travelling to Africa is a significant investment. We provide reliable vehicles, trusted partners, comprehensive tour operator insurance and passenger liability coverage, plus Flying Doctors emergency evacuation support at minimal extra cost.",
-  },
-  {
-    icon: "Leaf",
-    title: "Responsible Tourism",
-    description:
-      "Tourism should protect nature and support local communities. We promote eco-friendly travel practices, support conservation initiatives, reduce plastic waste on safari and contribute to community development programmes.",
-  },
-];
-
-export const mission = {
-  eyebrow: "Our Mission",
-  statement:
-    "To create exceptional safari experiences while contributing positively to Tanzania, its people, and its natural heritage.",
-  values: [
-    { title: "Service", description: "We are committed to delivering impeccable services and ensuring every client enjoys a seamless and memorable travel experience." },
-    { title: "Innovation", description: "We continuously strive to bring creativity, innovation and fresh ideas to every safari we design." },
-    { title: "Inclusiveness", description: "We build knowledgeable, responsible and passionate teams because we believe our people are the foundation of our success." },
-    { title: "Empowerment", description: "Through tourism, we aim to improve the welfare of Tanzanian communities and create meaningful opportunities for local people." },
-    { title: "Development", description: "We carefully identify and develop markets that align with our vision for sustainable and responsible tourism." },
-    { title: "Relationships", description: "We value long-term relationships with our clients, partners and service providers built on trust, professionalism and excellence." },
-  ],
-};
-
-export const guidesEthos = {
-  eyebrow: "The Soul of Every Expedition",
-  heading: "Master naturalist guides",
-  lead:
-    "A vehicle gets you to the wildlife. A great guide is the reason you understand what you are looking at. Our guides are the heart of Macho Halisi — certified, endlessly curious, and native to the ground they interpret.",
-  principles: [
-    {
-      title: "Certified & seasoned",
-      description:
-        "Professionally certified, experienced and knowledgeable guides with years in the field, working year-round and chosen as much for how they teach as for what they know.",
-    },
-    {
-      title: "Fluent in the bush",
-      description:
-        "Animal behaviour, tracking, ecology, bird calls and the rhythms of the migration — turning a game drive into a masterclass.",
-    },
-    {
-      title: "Born to this land",
-      description:
-        "Tanzanian to the core, sharing their home with the pride of people who genuinely want you to fall for it too.",
-    },
-  ] as GuidePrinciple[],
+/** Closing "Our Fleet" section — the fleet figures are from the document. */
+export const aboutFleet = {
+  heading: "Our Fleet",
+  body:
+    "A fleet of 20 custom-built safari vehicles, designed for optimal wildlife viewing.",
   image: {
-    url: "/media/about/team/guide-golden-hour.jpg",
-    alt: "A Macho Halisi naturalist guide beside the fleet at golden hour",
+    url: "/media/about/fleet/fleet-lineup-grass.jpg",
+    alt: "Four Macho Halisi safari Land Cruisers lined up in the grass at golden hour",
   },
 };
 
-export const conservation = {
-  eyebrow: "Impact & Responsibility",
-  heading: "Genuine eyes look after what they see",
-  body:
-    "Showing travellers the real Tanzania comes with a duty to protect it. Through tourism we aim to improve the welfare of Tanzanian communities, support conservation initiatives and reduce plastic waste on safari — because a safari operator native to this land has every reason to keep it wild for the next generation.",
-};
+export const aboutSections: AboutSection[] = [
+  {
+    heading: "THE BEGINNING",
+    paragraphs: [
+      "Macho Halisi has been creating unforgettable safari experiences and authentic African adventures for more than seventeen years. Founded by Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, Macho Halisi was built on a simple idea to offer travelers safe, exciting, and professionally guided safaris that deliver exceptional value while showcasing the true beauty of Tanzania.",
+      "What began as a small dream has grown into one of Tanzania’s trusted safari companies. Today, Macho Halisi operates a fleet of 20 custom-built safari vehicles designed for optimal wildlife viewing and is supported by a team of experienced, knowledgeable guides who work year-round to deliver extraordinary journeys across East Africa.",
+      "From the endless plains of the Serengeti to the majestic Ngorongoro Crater, the summit of Kilimanjaro, and the turquoise shores of Zanzibar Island, we craft journeys that connect travelers to Africa’s landscapes, wildlife, and cultures in a meaningful and authentic way.",
+    ],
+  },
+  {
+    heading: "Our Mission",
+    paragraphs: [
+      "At Macho Halisi, our mission is to create exceptional safari experiences while contributing positively to Tanzania, its people, and its natural heritage.",
+    ],
+    subsections: [
+      {
+        heading: "Service",
+        body: "We are committed to delivering impeccable services and ensuring every client enjoys a seamless and memorable travel experience.",
+      },
+      {
+        heading: "Innovation",
+        body: "We continuously strive to bring creativity, innovation, and fresh ideas to every safari we design.",
+      },
+      {
+        heading: "Inclusiveness",
+        body: "We build knowledgeable, responsible, and passionate teams because we believe our people are the foundation of our success.",
+      },
+      {
+        heading: "Empowerment",
+        body: "Through tourism, we aim to improve the welfare of Tanzanian communities and create meaningful opportunities for local people.",
+      },
+      {
+        heading: "Development",
+        body: "We carefully identify and develop markets that align with our vision for sustainable and responsible tourism.",
+      },
+      {
+        heading: "Relationships",
+        body: "We value long-term relationships with our clients, partners, and service providers built on trust, professionalism, and excellence.",
+      },
+    ],
+  },
+  {
+    heading: "Why Travel with Macho Halisi",
+    paragraphs: [],
+    subsections: [
+      {
+        heading: "We Know TANZANIA",
+        body: "Our team has years of firsthand experience exploring Tanzania and East Africa. We take you beyond the ordinary tourist routes to discover authentic destinations, hidden gems, and remarkable wildlife encounters.",
+      },
+      {
+        heading: "Tailor-Made Experiences",
+        body: "Every traveler is different, which is why every itinerary we create is carefully designed to match your travel style, interests, and expectations whether it’s luxury safaris, cultural experiences, mountain trekking, or beach escapes we cater for all.",
+      },
+      {
+        heading: "Exceptional Guides & Service",
+        body: "Your comfort, safety, and experience are our priority. From expert safari guides and carefully selected accommodations to private transfers and personalized attention, we take care of every detail so you can fully enjoy your journey.",
+      },
+      {
+        heading: "Responsible Tourism",
+        body: "We believe tourism should protect nature and support local communities. Macho Halisi promotes eco-friendly travel practices, supports conservation initiatives, reduces plastic waste on safari, and contributes to community development programs.",
+      },
+      {
+        heading: "Safety",
+        body: "We understand that travelling to Africa is a significant investment. That’s why we provide reliable vehicles, trusted partners, comprehensive tour operator insurance, passenger liability coverage, and with minimum extra costs Flying Doctors emergency evacuation support for added peace of mind.",
+      },
+    ],
+  },
+  {
+    heading: "The Macho Halisi Experience",
+    paragraphs: [
+      "At Macho Halisi, we believe Tanzania is more than a destination it is an experience that stays with you forever. Every safari is unique, shaped by breathtaking landscapes, extraordinary wildlife, vibrant cultures, and unforgettable moments shared in the heart of the wilderness.",
+      "Whether you dream of witnessing the Great Migration in the Serengeti, climbing Mount Kilimanjaro, exploring remote cultural communities, or relaxing on the Zanzibar beaches, our team is here to help you create your own extraordinary African story.",
+      "We provide the experience. You create the memories.",
+    ],
+  },
+];
 
-export const aboutCta = {
-  eyebrow: "The Macho Halisi Experience",
-  heading: "We provide the experience. You create the memories.",
-  body:
-    "Tanzania is more than a destination — it is an experience that stays with you forever. Whether you dream of witnessing the Great Migration in the Serengeti, climbing Mount Kilimanjaro, exploring remote cultural communities or relaxing on the Zanzibar beaches, our team is here to help you create your own extraordinary African story.",
-  primary: { label: "Start Planning Your Journey", href: "/enquire" },
-  secondary: { label: "See How We Plan", href: "/how-we-plan" },
+/**
+ * "Our Team & Fleet" — the client's OUR-TEAM-AND-FLEET.rtf document, in its
+ * order and under its headings. Shown below the Our Fleet photo band.
+ */
+export interface TeamFleetPoint {
+  title: string;
+  body: string;
+}
+
+export const aboutTeamFleet = {
+  heading: "Our Team & Fleet",
+  intro:
+    "Ask any seasoned traveler about their safari, and the conversation invariably begins with their guide. At Macho Halisi, we don’t just provide driver-guides — we provide master storytellers, expert tracking strategists, and dedicated guardians of the African wilderness.",
+  guides: {
+    heading: "Bush Masters: Our Guides",
+    intro:
+      "Our team is the heartbeat of every expedition. Built on deep loyalty, mutual respect, and an extraordinary passion for the wild, many of our lead guides have been navigating the Northern Circuit with us since our very first sunrise.",
+    points: [
+      {
+        title: "Expertly Educated & Fluent Communicators",
+        body: "Every guide holds professional wilderness tourism qualifications and is fluent in English, seamlessly bridging the gap between you and the deep secrets of the savannah. They act as cultural ambassadors, wildlife scholars, and intuitive hosts.",
+      },
+      {
+        title: "Certified Wilderness First Responders",
+        body: "Your safety and peace of mind are non-negotiable. Every Macho Halisi guide undergoes rigorous medical and field safety training, maintaining full certification as a Wilderness First Responder (WFR). Whether navigating remote tracks or managing unexpected situations, they act with professional calm and absolute competence.",
+      },
+      {
+        title: "Passionate & Instinctive Naturalists",
+        body: "Far beyond driving, our team reads the bush like an open book. From interpreting subtle alarm calls in the acacia canopy to tracking a solitary leopard by a faint footprint in the dusk soil, their sharp eyes and deep ecological insight turn every game drive into an immersive masterclass.",
+      },
+      {
+        title: "Tailored Guest Connections",
+        body: "Our guides excel at reading guest preferences — whether accommodating wildlife photographers needing precise light angles and patient positioning, or engaging families with captivating lore of the bush.",
+      },
+    ] as TeamFleetPoint[],
+  },
+  fleet: {
+    heading: "Engineered for Discovery: Our Custom 4x4 Fleet",
+    intro:
+      "The rugged terrain of Northern Tanzania — from the dust of Tarangire to the volcanic tracks of Ngorongoro and the vast plains of the Serengeti — demands absolute respect. We own and operate our own custom-built fleet of 20 heavy-duty 4x4 Toyota Land Cruisers, specifically modified for maximum terrain capability and guest luxury.",
+    points: [
+      {
+        title: "Unrivaled Space & Panoramic Views",
+        body: "Each vehicle is extended and custom-outfitted to seat up to seven guests comfortably, guaranteeing every passenger a direct “window to the wild.” Pop-up roofs open wide for 360-degree unobstructed views and optimal photography angles.",
+      },
+      {
+        title: "Premium Comfort Upholstery",
+        body: "Fitted with ergonomic, high-comfort seating, heavy-duty suspension, and multi-point seatbelt mechanisms, our vehicles turn long bush transits into smooth, relaxing journeys.",
+      },
+      {
+        title: "On-Board Power & Modern Amenities",
+        body: "Never miss a moment due to a dead battery. Every vehicle features in-vehicle electrical inverters and multi-plug charging points so you can keep camera gear, smartphones, and tablets charged on the go. High-capacity on-board refrigerators ensure ice-cold water and refreshing beverages are always at hand during warm afternoon drives.",
+      },
+      {
+        title: "Meticulous Mechanical Reliability",
+        body: "Every Land Cruiser undergoes strict preventative maintenance, pre-trip multi-point safety inspections, and continuous fleet monitoring. We take pride in self-maintaining our fleet so that your focus remains entirely on the adventure.",
+      },
+    ] as TeamFleetPoint[],
+  },
+  promise: {
+    heading: "The Macho Halisi Promise",
+    quote:
+      "From the moment you step into your custom 4x4 to your final African sunset, we take every care to ensure your Tanzanian journey is seamless, safe, and deeply moving — turning a simple safari into the adventure of a lifetime.",
+  },
 };

@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteChrome from "@/components/SiteChrome";
 import SmoothScroll from "@/components/public/SmoothScroll";
 import ScrollReveal from "@/components/public/ScrollReveal";
 import AboutHero from "@/components/public/about/AboutHero";
-import AboutStatsBand from "@/components/public/about/AboutStatsBand";
-import FounderStory from "@/components/public/about/FounderStory";
-import ValuePillars from "@/components/public/about/ValuePillars";
-import GuidesEthos from "@/components/public/about/GuidesEthos";
-import { aboutStory, conservation, aboutCta, mission } from "@/data/aboutData";
+import Image from "next/image";
+import { aboutSections, aboutFleet, aboutTeamFleet } from "@/data/aboutData";
 import { getSiteUrl } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
@@ -35,138 +31,119 @@ export default function AboutPage() {
 
       <AboutHero />
 
+      {/* Plain text in the order and under the headings of the client's
+          About Us document (data/aboutData.ts). */}
       <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
-          {/* Story chapters */}
-          <section id="story" className="scroll-mt-28 max-w-3xl">
-            <div className="space-y-14 sm:space-y-16">
-              {aboutStory.map((chapter, idx) => (
-                <ScrollReveal key={chapter.heading} delayMs={idx * 60} size="lift">
-                  <article>
-                    <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-                      {chapter.eyebrow}
+          <div className="max-w-3xl space-y-14 sm:space-y-20">
+            {aboutSections.map((section, idx) => (
+              <ScrollReveal key={section.heading} delayMs={idx * 40} size="lift">
+                <section id={section.heading.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "")} className="scroll-mt-28">
+                  <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight tracking-wide">
+                    {section.heading}
+                  </h2>
+                  {section.paragraphs.length > 0 && (
+                    <div className="mt-5 space-y-4">
+                      {section.paragraphs.map((paragraph) => (
+                        <p key={paragraph} className="font-sans font-light text-sm sm:text-base text-safari-bark/75 leading-relaxed">
+                          {paragraph}
+                        </p>
+                      ))}
                     </div>
-                    <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight">
-                      {chapter.heading}
-                    </h2>
-                    <p className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-4 leading-relaxed">
-                      {chapter.body}
-                    </p>
-                  </article>
-                </ScrollReveal>
-              ))}
-            </div>
-          </section>
+                  )}
+                  {section.subsections && (
+                    <div className="mt-8 space-y-7">
+                      {section.subsections.map((sub) => (
+                        <div key={sub.heading}>
+                          <h3 className="font-serif-luxury text-lg sm:text-xl text-safari-bark">{sub.heading}</h3>
+                          <p className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-2 leading-relaxed">
+                            {sub.body}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          {/* Stats band */}
-          <ScrollReveal delayMs={80} size="lift" className="block mt-16 sm:mt-24">
-            <AboutStatsBand />
-          </ScrollReveal>
+      {/* Our Fleet — a full-bleed photo band that divides the document text
+          above from the Our Team & Fleet text below. */}
+      <ScrollReveal size="lift" className="block">
+        <section id="our-fleet" className="relative h-[52vh] min-h-[340px] max-h-[560px] w-full bg-safari-bark scroll-mt-28">
+          <Image
+            src={aboutFleet.image.url}
+            alt={aboutFleet.image.alt}
+            fill
+            sizes="100vw"
+            quality={85}
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-[0.14em] uppercase">
+              {aboutFleet.heading}
+            </h2>
+            <span className="h-px w-12 bg-safari-gold/70 mt-5" />
+            <p className="font-sans font-light text-sm sm:text-base text-white/85 mt-5 max-w-xl leading-relaxed">
+              {aboutFleet.body}
+            </p>
+          </div>
+        </section>
+      </ScrollReveal>
 
-          {/* Founder */}
-          <section id="founder" className="scroll-mt-28 mt-20 sm:mt-28">
-            <ScrollReveal className="mb-10 sm:mb-12">
-              <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-                The People Behind the Journeys
-              </div>
-              <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark leading-tight">
-                Founded by native eyes
-              </h2>
-            </ScrollReveal>
+      {/* Our Team & Fleet — the client's OUR-TEAM-AND-FLEET document. */}
+      <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="max-w-3xl space-y-14 sm:space-y-20">
             <ScrollReveal size="lift">
-              <FounderStory />
-            </ScrollReveal>
-          </section>
-
-          {/* Mission & values */}
-          <section id="mission" className="scroll-mt-28 mt-20 sm:mt-28">
-            <ScrollReveal className="mb-10 sm:mb-12 max-w-3xl">
-              <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-                {mission.eyebrow}
-              </div>
-              <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight">
-                {mission.statement}
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal size="lift">
-              <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                {mission.values.map((v) => (
-                  <div key={v.title} className="bg-white/70 border border-safari-bark/10 p-6 shadow-sm">
-                    <dt className="font-serif-luxury text-lg text-safari-bark mb-2">{v.title}</dt>
-                    <dd className="font-sans font-light text-sm text-safari-bark/70 leading-relaxed">{v.description}</dd>
-                  </div>
-                ))}
-              </dl>
-            </ScrollReveal>
-          </section>
-
-          {/* Why book with us */}
-          <section id="why" className="scroll-mt-28 mt-20 sm:mt-28">
-            <ScrollReveal className="mb-10 sm:mb-12 max-w-3xl">
-              <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-                Why Travel With Us
-              </div>
-              <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark leading-tight">
-                You arrive a guest, you leave a friend
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal size="lift">
-              <ValuePillars />
-            </ScrollReveal>
-          </section>
-
-          {/* Guides ethos */}
-          <section id="guides" className="scroll-mt-28 mt-20 sm:mt-28">
-            <ScrollReveal size="lift">
-              <GuidesEthos />
-            </ScrollReveal>
-          </section>
-
-          {/* Conservation / impact */}
-          <section id="impact" className="scroll-mt-28 mt-20 sm:mt-28">
-            <ScrollReveal size="lift">
-              <div className="max-w-3xl">
-                <div className="text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-                  {conservation.eyebrow}
-                </div>
-                <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight">
-                  {conservation.heading}
+              <section id="our-team-and-fleet" className="scroll-mt-28">
+                <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-light text-safari-bark leading-tight tracking-wide">
+                  {aboutTeamFleet.heading}
                 </h2>
-                <p className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-4 leading-relaxed">
-                  {conservation.body}
+                <p className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-5 leading-relaxed">
+                  {aboutTeamFleet.intro}
                 </p>
-              </div>
+              </section>
             </ScrollReveal>
-          </section>
 
-          {/* CTA */}
-          <ScrollReveal delayMs={80} size="lift" className="block">
-            <div className="mt-20 sm:mt-28 p-8 sm:p-14 bg-safari-bark text-safari-cream text-center max-w-4xl mx-auto shadow-2xl border border-safari-russet/40">
-              <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-safari-sand block mb-2">
-                {aboutCta.eyebrow}
-              </span>
-              <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-6">
-                {aboutCta.heading}
-              </h2>
-              <p className="font-sans font-light text-sm sm:text-base text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-                {aboutCta.body}
-              </p>
-              <div className="flex items-center justify-center gap-4 flex-wrap">
-                <Link
-                  href={aboutCta.primary.href}
-                  className="px-8 py-3.5 bg-safari-russet hover:bg-safari-russet text-white text-xs font-sans tracking-widest uppercase rounded shadow transition-all"
-                >
-                  {aboutCta.primary.label}
-                </Link>
-                <Link
-                  href={aboutCta.secondary.href}
-                  className="px-8 py-3.5 bg-white/10 hover:bg-white/15 text-white text-xs font-sans tracking-widest uppercase rounded border border-white/10 transition-all"
-                >
-                  {aboutCta.secondary.label} &rarr;
-                </Link>
-              </div>
-            </div>
-          </ScrollReveal>
+            {[aboutTeamFleet.guides, aboutTeamFleet.fleet].map((group) => (
+              <ScrollReveal key={group.heading} size="lift">
+                <section className="scroll-mt-28">
+                  <h3 className="font-serif-luxury text-xl sm:text-2xl text-safari-bark leading-snug">
+                    {group.heading}
+                  </h3>
+                  <p className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-4 leading-relaxed">
+                    {group.intro}
+                  </p>
+                  <dl className="mt-8 border-t border-safari-bark/15">
+                    {group.points.map((point) => (
+                      <div key={point.title} className="py-6 border-b border-safari-bark/15">
+                        <dt className="font-serif-luxury text-lg text-safari-bark">{point.title}</dt>
+                        <dd className="font-sans font-light text-sm sm:text-base text-safari-bark/75 mt-2 leading-relaxed">
+                          {point.body}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              </ScrollReveal>
+            ))}
+
+            <ScrollReveal size="lift">
+              <section className="scroll-mt-28">
+                <h3 className="font-serif-luxury text-xl sm:text-2xl text-safari-bark leading-snug">
+                  {aboutTeamFleet.promise.heading}
+                </h3>
+                <blockquote className="mt-5 border-l-2 border-safari-russet pl-5 font-serif-luxury text-lg sm:text-xl font-light italic text-safari-bark/85 leading-relaxed">
+                  {aboutTeamFleet.promise.quote}
+                </blockquote>
+              </section>
+            </ScrollReveal>
+          </div>
         </div>
       </div>
     </SiteChrome>

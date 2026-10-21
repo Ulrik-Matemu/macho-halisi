@@ -1,240 +1,331 @@
-export interface TravelTopic {
-  id: string;
-  title: string;
-  shortTitle: string;
-  iconName: string;
+/**
+ * Static content for the Travel Information page
+ * (app/travel-information/page.tsx). Copy is the client's
+ * TRAVEL-INFORMATION.rtf, in its order and under its headings — keep it in
+ * step with that document.
+ */
+
+export interface TravelEntry {
+  title?: string;
+  body?: string;
+  /** Nested points under this entry. */
+  items?: TravelEntry[];
 }
 
-export interface PackingItem {
+export interface TravelSection {
   id: string;
-  name: string;
-  category: "clothing" | "optics-tech" | "health-toiletries" | "documents";
-  essential: boolean;
-  notes: string;
-  tripTypes: ("safari" | "kili" | "beach")[];
+  /** The document's section number, e.g. "1". */
+  number: string;
+  title: string;
+  /** Short label for the sticky index. */
+  shortTitle: string;
+  intro?: string;
+  entries: TravelEntry[];
 }
 
 export interface TravelFaq {
   question: string;
   answer: string;
-  category: "visas" | "health" | "money" | "gear" | "etiquette";
 }
 
-export const TRAVEL_TOPICS: TravelTopic[] = [
-  { id: "visas", title: "Visas & Entry", shortTitle: "Visas", iconName: "Passport" },
-  { id: "health", title: "Health & Vaccines", shortTitle: "Health", iconName: "HeartPulse" },
-  { id: "packing", title: "Packing Checklist", shortTitle: "Packing", iconName: "CheckSquare" },
-  { id: "luggage", title: "Bush Luggage Specs", shortTitle: "Luggage", iconName: "Briefcase" },
-  { id: "currency", title: "Currency & Tipping", shortTitle: "Money", iconName: "Coins" },
-  { id: "etiquette", title: "Bush Etiquette", shortTitle: "Etiquette", iconName: "ShieldCheck" },
-  { id: "faqs", title: "Frequent Questions", shortTitle: "FAQs", iconName: "HelpCircle" },
+export const travelIntro = {
+  title: "Travel Information",
+  welcome:
+    "Welcome to the Macho Halisi Travel Information portal. Preparing for a Tanzanian safari is an exciting journey, and having thorough, accurate details ensures your expedition is seamless, comfortable, and unforgettable. Explore our detailed travel guides below.",
+};
+
+export const TRAVEL_SECTIONS: TravelSection[] = [
+  {
+    id: "faqs",
+    number: "1",
+    title: "FAQ’S",
+    shortTitle: "FAQ’s",
+    entries: [
+      {
+        title: "Do I need a Visa to enter Tanzania?",
+        body: "Yes, most foreign nationals require a tourist visa. You can apply easily online via the official Tanzania eVisa portal prior to departure, or obtain a Visa on Arrival at major ports of entry, including Kilimanjaro International Airport (JRO), Julius Nyerere International Airport (DAR), and the Namanga border post. Ensure your passport has at least 6 months of validity from your planned departure date and at least two blank pages.",
+      },
+      {
+        title: "What is the baggage limit for domestic safari flights?",
+        body: "If your itinerary includes domestic bush flights (e.g., Flying Medical Service, Auric Air, or Coastal Aviation between Serengeti, Manyara, and Zanzibar), strict baggage limits apply. Passengers are generally allowed 15 kg (33 lbs) per person, inclusive of hand luggage. Bags must be soft-sided (duffel bags) so they can fit into the aircraft’s cargo pods.",
+      },
+      {
+        title: "Is Wi-Fi available during the safari?",
+        body: "While we encourage guests to disconnect and immerse themselves in nature, most luxury lodges and permanent tented camps offer complimentary Wi-Fi in public lounge areas. Mobile cellular coverage (VodaCom / Airtel) is surprisingly good across much of the Northern Circuit, though it may be intermittent in deep remote sections of the Serengeti.",
+      },
+      {
+        title: "Are safaris suitable for children?",
+        body: "Absolutely! We specialize in tailored family safaris. Our private 4x4 Land Cruisers allow families to travel at their own pace without worrying about other guests, and our guides are exceptional at engaging young minds with animal tracking, bird calls, and bush stories.",
+      },
+    ],
+  },
+  {
+    id: "climate",
+    number: "2",
+    title: "CLIMATE AND CLOTHING",
+    shortTitle: "Climate",
+    intro:
+      "Tanzania’s climate varies across seasons and altitudes. Understanding temperatures across the Northern Circuit helps you pack efficiently:",
+    entries: [
+      {
+        title: "Seasonal Breakdown",
+        items: [
+          {
+            title: "Dry Season (June to October)",
+            body: "Warm, sunny days (20°C to 28°C / 68°F to 82°F) with clear skies. Wildlife viewing is exceptional as animals concentrate around permanent water sources.",
+          },
+          {
+            title: "Green / Calving Season (November to May)",
+            body: "Short rains fall in November/December, followed by the main wet season from March to May. The landscape is lush, wild flowers bloom, and thousands of wildebeest calves are born in the Southern Serengeti (Ndutu).",
+          },
+        ],
+      },
+      {
+        title: "High-Altitude Temperature Drops",
+        body: "Regions like the Ngorongoro Crater Rim sit at over 2,200 meters (7,200 feet) above sea level. Early mornings and nights here can be brisk, with temperatures dropping below 10°C (50°F).",
+      },
+      {
+        title: "Packing & Attire Recommendations",
+        items: [
+          {
+            title: "Colors",
+            body: "Wear neutral, earth-toned clothing (khaki, olive green, beige, or brown) to blend into the wilderness. Avoid bright colors, bright white (which draws attention and gathers dust), and dark blue or black (which attract tsetse flies in specific wooded areas).",
+          },
+          {
+            title: "Layering Strategy",
+            body: "Dress in layers. Combine lightweight, moisture-wicking shirts with a fleece sweater or windproof jacket for morning game drives, which can be unlayered as the afternoon sun warms the savannah.",
+          },
+          {
+            title: "Footwear & Sun Protection",
+            body: "Pack sturdy, broken-in walking shoes or trail sneakers, a wide-brimmed sun hat, polarized sunglasses, and high-SPF sunblock.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "guidelines",
+    number: "3",
+    title: "SAFARI GUIDELINES",
+    shortTitle: "Guidelines",
+    intro:
+      "To ensure a respectful, safe, and enriching game viewing experience, Macho Halisi adheres to professional bush protocols:",
+    entries: [
+      {
+        title: "Patience Rewarded",
+        body: "Wildlife tracking in the wild requires time and observation. Spending 45 minutes silently watching a lioness in the grass often rewards you with a dramatic hunt or intimate family interaction that hasty travelers miss.",
+      },
+      {
+        title: "Quiet & Respectful Game Drives",
+        body: "Keep noise levels low near wildlife to avoid disrupting natural feeding, resting, or hunting behaviors. Speak in soft tones when animals are close to the vehicle.",
+      },
+      {
+        title: "In-Vehicle Safety",
+        body: "Our custom 4x4 Land Cruisers feature individual window seats and wide pop-up roof hatches. Always remain inside the vehicle frame unless your driver-guide explicitly indicates it is safe to step out at designated picnic sites or ranger posts.",
+      },
+      {
+        title: "Environmental Integrity",
+        body: "Leave no trace behind. All trash, food wrappers, and organic waste must remain inside the vehicle’s garbage receptacles to preserve Tanzania’s pristine natural reserves.",
+      },
+    ],
+  },
+  {
+    id: "photography",
+    number: "4",
+    title: "PHOTOGRAPHY",
+    shortTitle: "Photography",
+    intro:
+      "Tanzania is widely considered one of the world’s premier destinations for wildlife and landscape photography:",
+    entries: [
+      {
+        title: "Camera Gear & Lens Recommendations",
+        items: [
+          {
+            title: "Telephoto Lenses",
+            body: "A zoom lens reaching 300mm to 600mm is ideal for close-up wildlife shots and birdlife.",
+          },
+          {
+            title: "Wide-Angle Lenses",
+            body: "A 16mm–35mm lens is perfect for sweeping landscapes, dramatic African sunsets, and starry night skies.",
+          },
+          {
+            title: "Stability",
+            body: "Dust beanbags are exceptionally useful for resting heavy telephoto lenses on the open roof frames of our safari vehicles.",
+          },
+        ],
+      },
+      {
+        title: "On-Board Power Inverters",
+        body: "Never worry about running out of battery during a Great Migration River crossing or predator sighting. All Macho Halisi 4x4 Land Cruisers are equipped with heavy-duty in-vehicle power inverters and multi-plug charging points. You can recharge camera batteries, drone controllers, laptops, and tablets directly from your seat while on the move.",
+      },
+      {
+        title: "Protecting Equipment from Dust",
+        body: "Fine savannah dust is common during dry season game drives. Keep cameras inside padded bags when driving between sightings, and carry a microfiber cloth and blower bulb for daily lens cleaning.",
+      },
+      {
+        title: "Cultural Sensitivity",
+        body: "When visiting local communities, such as Maasai bomas or Hadzabe hunter-gatherer settlements, always ask your guide before photographing individuals. Respectful interactions lead to authentic photographic moments.",
+      },
+    ],
+  },
+  {
+    id: "currency",
+    number: "5",
+    title: "CURRENCY",
+    shortTitle: "Currency",
+    entries: [
+      {
+        title: "Local Currency",
+        body: "The official currency is the Tanzanian Shilling (TZS). It is useful for small roadside purchases, souvenirs, and tips at local markets.",
+      },
+      {
+        title: "United States Dollars (USD)",
+        body: "US Dollars are widely accepted across tourist establishments, safari lodges, national park gifts shops, and for driver-guide tipping.",
+      },
+      {
+        title: "CRITICAL REQUIREMENT - USD Bill Series",
+        body: "Due to strict banking regulations in East Africa, all USD bills must be issued in 2013 or later, and must be in clean, crisp condition without tears, stamps, or heavy folds. Older series bills (pre-2013) are strictly rejected by local banks, lodges, and exchange bureaus.",
+      },
+      {
+        title: "Credit Cards & ATMs",
+        body: "Major credit cards (Visa and Mastercard) are accepted at most hotels and luxury lodges. However, a 3% to 5% card processing surcharge is standard across Tanzania. ATMs are readily available in major towns like Arusha and Karatu, but are non-existent inside national parks.",
+      },
+    ],
+  },
+  {
+    id: "park-rules",
+    number: "6",
+    title: "NATIONAL PARK RULES",
+    shortTitle: "Park Rules",
+    intro:
+      "All guests entering Tanzania’s National Parks (TANAPA) and Conservation Areas (NCAA) are required to follow official conservation laws:",
+    entries: [
+      {
+        title: "Strict Off-Road Driving Ban",
+        body: "Vehicles must stay on designated tracks and roads at all times to prevent soil erosion and habitat destruction, except in designated off-road concession zones.",
+      },
+      {
+        title: "Speed Limits",
+        body: "The maximum speed limit inside National Parks is 50 km/h (30 mph), and lower near animals, ensuring safety for both wildlife and guests.",
+      },
+      {
+        title: "Wildlife Protection",
+        body: "Feeding wild animals (including monkeys and birds at picnic sites) is strictly forbidden. It alters natural hunting behaviors and causes aggression.",
+      },
+      {
+        title: "Single-Use Plastics Ban",
+        body: "Tanzania strictly bans single-use plastic bags. Guests are encouraged to travel with reusable water bottles, which can be refilled continuously from the filtered water tanks in our vehicles.",
+      },
+      {
+        title: "Drone Regulations",
+        body: "Unmanned Aerial Vehicles (drones) are strictly prohibited inside all Tanzanian National Parks and Conservation Areas without advance written permits from TANAPA, the Ministry of Defense, and the Civil Aviation Authority.",
+      },
+    ],
+  },
+  {
+    id: "tipping",
+    number: "7",
+    title: "DRIVER AND GUIDES TIPPING",
+    shortTitle: "Tipping",
+    intro:
+      "While tipping is not mandatory, it is a deeply appreciated tradition in African safari culture that rewards exceptional knowledge, effort, and personalized service:",
+    entries: [
+      {
+        title: "Safari Driver-Guides",
+        body: "Recommended tip: $15 to $20 USD per day per vehicle (from the entire group or private party), handed directly to your guide at the end of the safari.",
+      },
+      {
+        title: "Lodge & Camp Staff",
+        body: "Most safari lodges and tented camps feature a central “Staff Tip Box” at reception. Tipping $10 to $15 USD per day into this box ensures equal distribution among the behind-the-scenes staff, including kitchen teams, housekeepers, gardeners, and night guards.",
+      },
+      {
+        title: "Mountain Trekking Crew (Kilimanjaro / Meru)",
+        body: "For mountain expeditions, tipping is structured per crew member (guides, assistants, camp chefs, and porters) and details are provided during pre-trek briefings.",
+      },
+    ],
+  },
+  {
+    id: "links",
+    number: "8",
+    title: "USEFUL LINKS",
+    shortTitle: "Links",
+    intro: "Prepare for your journey using official government, health, and travel resources:",
+    entries: [
+      { title: "Tanzania Official eVisa Application", body: "Apply for your entry visa online." },
+      {
+        title: "Tanzania National Parks (TANAPA)",
+        body: "Official updates on park conservation and wildlife regulations.",
+      },
+      {
+        title: "Ngorongoro Conservation Area Authority (NCAA)",
+        body: "Rules and insights on visiting the Crater and Ndutu plains.",
+      },
+      {
+        title: "AMREF Flying Doctors",
+        body: "Emergency air evacuation services and Maisha Tourist Cover details.",
+      },
+      {
+        title: "World Health Organization (WHO)",
+        body: "International travel health advisories and immunization guidelines.",
+      },
+    ],
+  },
+  {
+    id: "health",
+    number: "9",
+    title: "HEALTH AND SAFETY",
+    shortTitle: "Health",
+    intro:
+      "Your personal safety and health are held to the absolute highest standards throughout your time with Macho Halisi:",
+    entries: [
+      {
+        title: "Emergency Medical Evacuation (AMREF Flying Doctors)",
+        body: "Remote wilderness areas require guaranteed medical response capabilities. Macho Halisi works directly with AMREF Flying Doctors, East Africa’s leading emergency air ambulance network.",
+        items: [
+          {
+            title: "24/7 Rapid Evacuation",
+            body: "In the unlikely event of a medical emergency, severe injury, or sudden illness in remote areas like the Northern Serengeti, AMREF dispatches medically equipped aircraft staffed by emergency flight physicians.",
+          },
+          {
+            title: "Air Ambulance Coverage",
+            body: "Guests are covered for direct air transportation from bush airstrips straight to full-service medical centers in Nairobi or Dar es Salaam.",
+          },
+          {
+            title: "Seamless Peace of Mind",
+            body: "We automatically assist guests with enrolling in the AMREF Maisha Tourist Cover to ensure complete field protection without out-of-pocket evacuation costs.",
+          },
+        ],
+      },
+      {
+        title: "Certified Wilderness First Responders (WFR)",
+        body: "On the ground, you are supported by highly skilled professionals. Every single Macho Halisi driver-guide holds full certification as a Wilderness First Responder (WFR), trained in remote medical care, CPR, and trauma response. Every Land Cruiser is continuously stocked with comprehensive medical first-aid kits and field communications.",
+      },
+      {
+        title: "Health & Routine Preparations",
+        items: [
+          {
+            title: "Yellow Fever Certificate",
+            body: "Required if arriving from or transiting through a country with risk of Yellow Fever transmission (e.g., Kenya, Uganda, Ethiopia) for more than 12 hours.",
+          },
+          {
+            title: "Malaria Prophylaxis",
+            body: "Northern Tanzania is a low-to-moderate malaria area. Consult your physician regarding antimalarial tablets (such as Atovaquone-Proguanil/Malarone or Doxycycline). Apply insect repellent during dusk and wear long sleeves during evening dinners.",
+          },
+          {
+            title: "On-Board Hydration",
+            body: "Safe, cold, filtered drinking water is supplied inside all our custom safari vehicles to keep you energized throughout daily game drives.",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
-export const PACKING_ITEMS: PackingItem[] = [
-  // Clothing
-  {
-    id: "c-khaki",
-    name: "Neutral Safari Attire (Khaki, Olive, Sand)",
-    category: "clothing",
-    essential: true,
-    notes: "Avoid dark blue and black (attracts tsetse flies); avoid bright white and camouflage.",
-    tripTypes: ["safari", "beach"],
-  },
-  {
-    id: "c-fleece",
-    name: "Warm Fleece or Light Down Jacket",
-    category: "clothing",
-    essential: true,
-    notes: "Ngorongoro Crater rim and pre-dawn game drives are surprisingly cold (10°C / 50°F).",
-    tripTypes: ["safari", "kili"],
-  },
-  {
-    id: "c-boots",
-    name: "Comfortable Sturdy Walking Shoes or Trail Runners",
-    category: "clothing",
-    essential: true,
-    notes: "Break in before departure. Essential for walking safaris and camp evenings.",
-    tripTypes: ["safari", "kili"],
-  },
-  {
-    id: "c-hat",
-    name: "Wide-Brimmed Safari Sun Hat with Chin Cord",
-    category: "clothing",
-    essential: true,
-    notes: "Crucial for open-roof game drives under high UV equatorial sunshine.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "c-linen",
-    name: "Lightweight Breathable Linen / Cotton Shirts",
-    category: "clothing",
-    essential: true,
-    notes: "Long sleeves protect against intense midday sun and evening mosquitoes.",
-    tripTypes: ["safari", "beach"],
-  },
-  {
-    id: "c-swim",
-    name: "Swimwear & Beach Sandals",
-    category: "clothing",
-    essential: false,
-    notes: "For lodge plunge pools and barefoot relaxation along the Zanzibar coastline.",
-    tripTypes: ["safari", "beach"],
-  },
-  {
-    id: "c-thermal",
-    name: "Thermal Base Layers & Waterproof Hardshell",
-    category: "clothing",
-    essential: true,
-    notes: "Vital for Kilimanjaro summit push where arctic temperatures reach -15°C.",
-    tripTypes: ["kili"],
-  },
+/** Sticky-index topics, derived from the sections. */
+export const TRAVEL_TOPICS = TRAVEL_SECTIONS.map((s) => ({ id: s.id, title: s.title, shortTitle: s.shortTitle }));
 
-  // Optics & Tech
-  {
-    id: "t-binocs",
-    name: "High-Quality Binoculars (8x42 or 10x42)",
-    category: "optics-tech",
-    essential: true,
-    notes: "One pair per traveler transforms your safari experience tenfold.",
-    tripTypes: ["safari", "kili"],
-  },
-  {
-    id: "t-zoom",
-    name: "Telephoto Camera Lens (100–400mm or equivalent)",
-    category: "optics-tech",
-    essential: false,
-    notes: "For crisp wildlife portraits and distant predator behavioral shots.",
-    tripTypes: ["safari"],
-  },
-  {
-    id: "t-batteries",
-    name: "Spare Camera Batteries & Memory Cards",
-    category: "optics-tech",
-    essential: true,
-    notes: "Dusty days mean lots of frames; vehicle charging is available, but backups are key.",
-    tripTypes: ["safari", "kili"],
-  },
-  {
-    id: "t-plug",
-    name: "UK-Style Type G Electrical Adapter",
-    category: "optics-tech",
-    essential: true,
-    notes: "Standard three-rectangular-pin British sockets (230V / 50Hz) are universal in Tanzania.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "t-headlamp",
-    name: "Hands-Free Headlamp with Red Light Mode",
-    category: "optics-tech",
-    essential: true,
-    notes: "For tented camps at night and early pre-dawn summit attempts.",
-    tripTypes: ["safari", "kili"],
-  },
-
-  // Health & Toiletries
-  {
-    id: "h-deet",
-    name: "DEET-Based Insect Repellent (30%+ Concentration)",
-    category: "health-toiletries",
-    essential: true,
-    notes: "Apply on exposed ankles and wrists around dusk and dawn.",
-    tripTypes: ["safari", "beach"],
-  },
-  {
-    id: "h-sunscreen",
-    name: "Broad-Spectrum SPF 50 Sunscreen & Lip Balm",
-    category: "health-toiletries",
-    essential: true,
-    notes: "Equatorial African sun penetrates even on overcast mornings.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "h-meds",
-    name: "Malaria Prophylaxis & Personal Prescriptions",
-    category: "health-toiletries",
-    essential: true,
-    notes: "Consult your travel clinic (Malarone or Doxycycline are common choices). Keep in carry-on.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "h-drops",
-    name: "Lubricating Eye Drops & Saline Nasal Spray",
-    category: "health-toiletries",
-    essential: false,
-    notes: "Dry season dust can irritate contact lens wearers and sensitive eyes.",
-    tripTypes: ["safari"],
-  },
-
-  // Documents
-  {
-    id: "d-passport",
-    name: "Passport Valid for 6+ Months from Exit Date",
-    category: "documents",
-    essential: true,
-    notes: "Must have at least 3 completely blank unstamped visa pages.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "d-visa",
-    name: "Printed Tanzania eVisa Confirmation",
-    category: "documents",
-    essential: true,
-    notes: "Apply 3–4 weeks prior via immigration.go.tz or obtain on arrival.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "d-yellow",
-    name: "Yellow Fever Vaccination Certificate (if applicable)",
-    category: "documents",
-    essential: false,
-    notes: "Only mandatory if arriving from or transiting >12h through an endemic country (e.g. Kenya, Ethiopia).",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-  {
-    id: "d-cash",
-    name: "Crisp USD Cash (Printed 2009 or Newer)",
-    category: "documents",
-    essential: true,
-    notes: "Tanzanian banks and camps strictly refuse US dollar bills printed prior to 2009.",
-    tripTypes: ["safari", "kili", "beach"],
-  },
-];
-
-export const TRAVEL_FAQS: TravelFaq[] = [
-  {
-    question: "Do I need a visa to enter Tanzania?",
-    answer:
-      "Yes. Most nationalities (including US, UK, EU, Canada, and Australia) require a tourist visa. You can obtain an electronic visa (eVisa) online prior to departure through the official Tanzanian Immigration portal (immigration.go.tz), or obtain a visa upon arrival at Kilimanjaro (JRO), Dar es Salaam (DAR), or Zanzibar (ZNZ) international airports. The standard single-entry tourist visa is $50 USD for most citizens, and $100 USD for US citizens (multiple-entry 1-year). Ensure your passport has at least 6 months validity beyond your planned departure date.",
-    category: "visas",
-  },
-  {
-    question: "What vaccinations and health precautions are required?",
-    answer:
-      "Tanzania requires a Yellow Fever vaccination certificate ONLY if you are arriving from or transiting for more than 12 hours through a country with risk of yellow fever transmission (such as Kenya, Uganda, or Ethiopia). If flying directly from Europe, North America, or the Middle East, it is not required. Malaria prophylaxis (such as Atovaquone/Proguanil or Doxycycline) is strongly recommended for all safari destinations. All Macho Halisi luxury camps provide purified drinking water, hot showers, and mosquito netting.",
-    category: "health",
-  },
-  {
-    question: "What is the luggage weight limit for internal bush flights?",
-    answer:
-      "Internal scheduled bush flights (operated by light aircraft like the Cessna Grand Caravan 208B) impose a strict weight limit of 15 kg (33 lbs) per passenger, inclusive of camera gear and hand luggage. Crucially, luggage MUST be soft-sided duffel bags without rigid frames or hard wheels so they can fit into the small curved aircraft luggage pods beneath the fuselage. If you have excess baggage, Macho Halisi can arrange complimentary secure luggage storage at our base in Arusha/Karatu while you are on safari.",
-    category: "gear",
-  },
-  {
-    question: "Why must US dollar bills be printed in 2009 or later?",
-    answer:
-      "Due to historical counterfeiting concerns across East Africa, Tanzanian banks, hotels, and national park authorities strictly reject all US dollar banknotes with a series date prior to 2009. Please check every bill before traveling to ensure they are crisp, clean, tear-free, and printed in 2009 or newer.",
-    category: "money",
-  },
-  {
-    question: "What is the customary tipping etiquette on safari?",
-    answer:
-      "Tipping is discretionary but deeply appreciated in Tanzania, where tourism directly sustains families and communities. As a guideline: for your dedicated Private Naturalist Safari Guide, $20 to $30 USD per day total from the travel party is customary. For general luxury lodge and tented camp staff (chefs, housekeepers, tent attendants), $15 to $20 USD per room per day placed into the communal staff tip box is standard.",
-    category: "money",
-  },
-  {
-    question: "Are drones permitted inside Tanzania's national parks?",
-    answer:
-      "No. Recreational drones are strictly prohibited in all Tanzanian National Parks (TANAPA), Ngorongoro Conservation Area (NCAA), and game reserves. Flying unauthorized drones carries severe penalties, confiscation, and heavy fines. Filming permits for commercial documentaries require complex advance clearance through the Tanzania Film Board, Ministry of Defense, and TANAPA.",
-    category: "etiquette",
-  },
-];
+/** Section 1's questions, for FAQ structured data and llms.txt. */
+export const TRAVEL_FAQS: TravelFaq[] = TRAVEL_SECTIONS[0].entries.map((e) => ({
+  question: e.title ?? "",
+  answer: e.body ?? "",
+}));

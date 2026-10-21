@@ -57,7 +57,7 @@ export async function buildLlmsTxt(): Promise<string> {
     `- [Destinations](${site}/destinations): guides to Tanzania's parks, mountains and islands`,
     `- [Experiences](${site}/experiences): migration, balloon, walking, photographic and cultural safaris`,
     `- [Safari lodges & camps](${site}/accommodations): hand-picked accommodation`,
-    `- [Travel information](${site}/travel-information): visas, vaccines, money, luggage and FAQs`,
+    `- [Travel information](${site}/travel-information): visas, baggage, climate and clothing, photography, currency, park rules, tipping, health and safety, and FAQs`,
     `- [How we plan](${site}/how-we-plan): our five-stage planning process`,
     `- [About](${site}/about): company story, founder and guides`,
     "",

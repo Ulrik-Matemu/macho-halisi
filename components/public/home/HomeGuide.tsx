@@ -198,7 +198,7 @@ export default async function HomeGuide() {
           ))}
         </dl>
         <Link href="/travel-information#faqs" className="inline-block mt-6 font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase transition-colors">
-          Visas, health &amp; packing →
+          Visas, health &amp; safety →
         </Link>
       </section>
 
