@@ -9,9 +9,9 @@ import { getSiteUrl } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Tanzania Safari Experiences | Migration, Balloon, Walking & Cultural Safaris | Macho Halisi",
+  title: "Tanzania Safari Experiences | Balloon, Cultural, Coffee, Canoeing & Night Drives | Macho Halisi",
   description:
-    "Signature safari experiences with Macho Halisi — Great Migration expeditions, Serengeti balloon flights, walking safaris, photographic expeditions and authentic Maasai encounters.",
+    "Safari activities with Macho Halisi — hot air balloon safaris, Maasai and Hadzabe cultural experiences, coffee tours, waterfall and hot spring days, canoeing and night game drives.",
   alternates: { canonical: `${getSiteUrl()}/experiences` },
 };
 
@@ -30,8 +30,8 @@ export default function ExperiencesIndexPage() {
               Ways to Experience the Wild
             </h1>
             <p className="text-sm text-safari-bark/62 font-sans mt-3 max-w-2xl leading-relaxed">
-              From river crossings in the northern Serengeti to dawn above the plains and mornings on
-              foot with an armed ranger — the moments our guests remember longest. Take any of them on
+              From dawn above the plains to mornings with the Maasai and Hadzabe, coffee farms, hot springs,
+              a canoe on the Momella Lakes and the bush after dark — the moments our guests remember longest. Take any of them on
               their own or fold them into a longer journey.
             </p>
           </ScrollReveal>

@@ -55,7 +55,7 @@ export async function buildLlmsTxt(): Promise<string> {
     `- [Safari itineraries](${site}/itineraries): published routes with day-by-day plans and prices`,
     `- [Best time to visit Tanzania](${site}/when-to-travel): month-by-month migration, weather, crowds and rates`,
     `- [Destinations](${site}/destinations): guides to Tanzania's parks, mountains and islands`,
-    `- [Experiences](${site}/experiences): migration, balloon, walking, photographic and cultural safaris`,
+    `- [Experiences](${site}/experiences): balloon, Maasai and Hadzabe cultural, coffee, waterfall and hot spring, canoeing and night game drives`,
     `- [Safari lodges & camps](${site}/accommodations): hand-picked accommodation`,
     `- [Travel information](${site}/travel-information): visas, baggage, climate and clothing, photography, currency, park rules, tipping, health and safety, and FAQs`,
     `- [How we plan](${site}/how-we-plan): our five-stage planning process`,

@@ -159,67 +159,73 @@ export const navigationData: NavCategory[] = [
     id: "experiences",
     title: "ACTIVITIES & EXPERIENCES",
     href: "/experiences",
-    featuredDefaultId: "migration",
+    featuredDefaultId: "hot-air-balloon",
     subItems: [
       {
-        id: "migration",
-        title: "THE GREAT MIGRATION EXPEDITIONS",
-        tagline: "The Greatest Wildlife Spectacle on Earth",
-        description:
-          "Follow two million hooves on the move through river crossings, predator ambushes, and calving season in the Ndutu plains.",
-        href: "/experiences/great-migration",
-        image:
-          "/media/great-migration/gm-hero.jpg",
-        badge: "Signature Journey",
-        highlights: ["Mara River Crossings", "Predator Action", "Mobile Camps"],
-      },
-      {
         id: "hot-air-balloon",
-        title: "SERENGETI HOT AIR BALLOON SAFARIS",
+        title: "HOT AIR BALLOON SAFARIS",
         tagline: "Dawn Flights Over the Savannah",
         description:
           "Float silently over the awakening plains at sunrise, observing herds from above before enjoying a champagne bush breakfast under an acacia tree.",
         href: "/experiences/balloon-safari",
-        image:
-          "/media/serengeti/sere-baloon.jpg",
+        image: "/media/serengeti/sere-baloon.jpg",
         badge: "Aerial View",
         highlights: ["Sunrise Panorama", "Champagne Bush Breakfast", "Silent Flight"],
       },
       {
-        id: "walking-safari",
-        title: "GUIDED WALKING BUSH SAFARIS",
-        tagline: "Track Africa's Wild on Foot",
+        id: "maasai-hadzabe",
+        title: "MAASAI & HADZABE CULTURAL EXPERIENCE",
+        tagline: "Two Living Traditions, One Journey",
         description:
-          "Step into the bush accompanied by professional armed rangers. Learn ancient tracking techniques, medicinal botany, and the intimacy of wild encounters.",
-        href: "/experiences/walking-safaris",
-        image:
-          "/media/tarangire/tara-river.jpg",
-        badge: "Immersive Safari",
-        highlights: ["Spoor Tracking", "Armed Expert Guide", "Senses Awakened"],
-      },
-      {
-        id: "photo-safari",
-        title: "PHOTOGRAPHIC EXPEDITIONS",
-        tagline: "Golden Hour Mastery with Custom 4x4s",
-        description:
-          "Custom photographic vehicles with 360-degree open hatches, bean bags, low-angle mounts, and private expert guides attuned to optimal lighting.",
-        href: "/experiences/photographic-safari",
-        image:
-          "/media/experiences/leopard-photographers.jpg",
-        badge: "Pro Photographers",
-        highlights: ["Modified Open Vehicles", "Prime Lighting Hours", "Expert Trackers"],
-      },
-      {
-        id: "maasai-cultural",
-        title: "AUTHENTIC MAASAI ENCOUNTERS",
-        tagline: "Centuries of Pastoral Traditions",
-        description:
-          "Respectful, non-commercial cultural exchanges with Maasai elders and warriors in traditional bomas, celebrating age-old songs and stories.",
+          "Respectful, non-commercial visits with Maasai herders in their bomas and with the Hadzabe hunter-gatherers at Lake Eyasi.",
         href: "/experiences/cultural-encounters",
-        image:
-          "/media/ngorongoro/ngoro-maasai.jpg",
+        image: "/media/ngorongoro/ngoro-maasai.jpg",
         badge: "Cultural Heritage",
-        highlights: ["Traditional Bomas", "Elder Storytelling", "Direct Community Support"],
+        highlights: ["Maasai Bomas", "Hadzabe Hunt Walk", "Direct Community Support"],
+      },
+      {
+        id: "coffee-tours",
+        title: "COFFEE TOURS",
+        tagline: "From the Slopes to the Cup",
+        description:
+          "Walk the shaded coffee farms on the slopes of Kilimanjaro and Mount Meru, then roast, grind and taste the beans with local growers.",
+        href: "/experiences/coffee-tours",
+        image: "/media/kilimanjaro/lemosho.jpg",
+        badge: "Farm to Cup",
+        highlights: ["Farm Walk", "Roast & Grind", "Fresh Tasting"],
+      },
+      {
+        id: "waterfall-hot-spring",
+        title: "WATERFALL & HOT SPRING EXPERIENCE",
+        tagline: "Cool Cascades, Warm Springs",
+        description:
+          "Hike to a forest waterfall on the Kilimanjaro foothills, then float in the clear, warm waters of a natural hot spring.",
+        href: "/experiences/waterfall-hot-spring",
+        image: "/media/kilimanjaro/kili-ariel.jpg",
+        badge: "Nature Day Out",
+        highlights: ["Waterfall Hike", "Natural Hot Spring", "Picnic Lunch"],
+      },
+      {
+        id: "canoeing",
+        title: "CANOEING",
+        tagline: "Wildlife at Water Level",
+        description:
+          "Paddle the calm Momella Lakes in Arusha National Park with a ranger, among flamingos, hippos and buffalo.",
+        href: "/experiences/canoeing",
+        image: "/media/arusha-national-park/Arusha_National_Park_Momella_Lake_Flamingos_83.jpg",
+        badge: "On the Water",
+        highlights: ["Momella Lakes", "Ranger-Led", "Mount Meru Views"],
+      },
+      {
+        id: "night-game-drives",
+        title: "NIGHT GAME DRIVES",
+        tagline: "The Bush After Sunset",
+        description:
+          "Search the dark with a spotlight for leopards, hyenas, civets and other animals that most guests never see by day.",
+        href: "/experiences/night-game-drives",
+        image: "/media/experiences/lion-resting.jpg",
+        badge: "After Dark",
+        highlights: ["Nocturnal Wildlife", "Expert Spotters", "Sundowners"],
       },
     ],
   },
