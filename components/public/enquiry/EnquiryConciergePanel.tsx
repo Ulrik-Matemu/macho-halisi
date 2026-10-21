@@ -21,7 +21,7 @@ export default function EnquiryConciergePanel() {
           </div>
           <div>
             <div className="font-serif-luxury text-lg text-safari-bark">
-              Elibariki M.
+              Rashid Mtua
             </div>
             <div className="font-sans text-xs text-safari-russet uppercase tracking-wider">
               Head of Safari Planning · Karatu, Tanzania
