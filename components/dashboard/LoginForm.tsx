@@ -6,6 +6,7 @@ import { LoginSuccessResponse } from "@/lib/auth/types";
 import Field, { inputClass, inputStyle } from "@/components/dashboard/ui/Field";
 import Button from "@/components/dashboard/ui/Button";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
+import TurnstileWidget, { turnstileEnabled } from "@/components/TurnstileWidget";
 
 interface LoginFormProps {
   onSuccess: (data: LoginSuccessResponse) => void;
@@ -16,9 +17,15 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (turnstileEnabled && !captchaToken) {
+      setError("Verifying your browser — please try again in a few seconds.");
+      return;
+    }
     setError(null);
     setLoading(true);
 
@@ -26,7 +33,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ email: email.trim(), password, turnstileToken: captchaToken }),
       });
       const data = await res.json();
 
@@ -45,6 +52,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       setError("Unable to reach authentication server. Please try again.");
     } finally {
       setLoading(false);
+      setCaptchaToken(null);
+      setCaptchaKey((k) => k + 1);
     }
   };
 
@@ -92,6 +101,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           </div>
         )}
       </Field>
+
+      <TurnstileWidget key={captchaKey} onToken={setCaptchaToken} theme="auto" />
 
       <Button type="submit" variant="primary" fullWidth loading={loading} size="md">
         {loading ? "Verifying credentials…" : "Continue"}

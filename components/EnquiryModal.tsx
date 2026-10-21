@@ -6,6 +6,7 @@ import { X, Check, Send, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
 import type { EnquirySeed } from "./EnquiryProvider";
 import { trackContact, trackEvent } from "@/lib/analytics/track";
 import { enquiryAttribution, formatEnquiryRef } from "@/lib/enquiries/submit";
+import TurnstileWidget, { turnstileEnabled } from "./TurnstileWidget";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -74,6 +75,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
   const [contact, setContact] = useState(DEFAULT_CONTACT);
   // Honeypot — hidden from people, filled in by naive form bots.
   const [website, setWebsite] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const autoCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -145,6 +148,10 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (turnstileEnabled && !captchaToken) {
+      setErrorMessage("Just a moment — we're confirming you're not a bot. Please try again in a few seconds.");
+      return;
+    }
     setIsSubmitting(true);
     setErrorMessage("");
 
@@ -169,6 +176,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           preferredDates: vision.travelWindow,
           message,
           website,
+          turnstileToken: captchaToken,
           ...enquiryAttribution("modal"),
         }),
       });
@@ -193,6 +201,9 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
       );
     } finally {
       setIsSubmitting(false);
+      // Turnstile tokens are single-use: get a fresh one for any retry.
+      setCaptchaToken(null);
+      setCaptchaKey((k) => k + 1);
     }
   };
 
@@ -504,6 +515,8 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors resize-none"
                   />
                 </div>
+
+                <TurnstileWidget key={captchaKey} onToken={setCaptchaToken} />
 
                 <div className="pt-2 flex items-center justify-between">
                   <button

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getExpressApiUrl } from "@/lib/auth/constants";
 import { getVisitorContext } from "@/lib/analytics/server";
+import { backendHeaders, clientIp } from "@/lib/auth/backend";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 const optional = (value: unknown, max: number) =>
   typeof value === "string" && value.trim() ? value.trim().slice(0, max) : null;
@@ -29,15 +31,22 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!(await verifyTurnstile(body.turnstileToken, clientIp(request)))) {
+      return NextResponse.json(
+        { status: "error", message: "We couldn't verify your browser. Please reload the page and try again, or message us on WhatsApp." },
+        { status: 400 }
+      );
+    }
+
     const visitor = getVisitorContext(request);
     const payload = {
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      itineraryId: itineraryId || null,
-      partySize: partySize || null,
-      preferredDates: preferredDates || null,
-      message: message || null,
+      name: name.trim().slice(0, 120),
+      email: email.trim().toLowerCase().slice(0, 254),
+      phone: phone.trim().slice(0, 40),
+      itineraryId: typeof itineraryId === "string" && itineraryId ? itineraryId : null,
+      partySize: optional(partySize, 100),
+      preferredDates: optional(preferredDates, 200),
+      message: optional(message, 5000),
       source: body.source === "modal" || body.source === "studio" ? body.source : null,
       pagePath: optional(body.pagePath, 500),
       referrerHost: optional(body.referrerHost, 255),
@@ -59,6 +68,7 @@ export async function POST(request: Request) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...backendHeaders(request),
           ...(ingestSecret && visitor.ip && { "X-Client-IP": visitor.ip, "X-Ingest-Secret": ingestSecret }),
         },
         body: JSON.stringify(payload),

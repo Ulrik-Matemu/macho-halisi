@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getExpressApiUrl } from "@/lib/auth/constants";
 import { setAuthCookies } from "@/lib/auth/cookies";
+import { backendHeaders } from "@/lib/auth/backend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,6 +20,7 @@ export async function POST(request: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...backendHeaders(request),
       },
       body: JSON.stringify({ challengeToken, code }),
     });

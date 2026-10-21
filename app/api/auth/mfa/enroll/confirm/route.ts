@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getExpressApiUrl } from "@/lib/auth/constants";
 import { setAuthCookies } from "@/lib/auth/cookies";
+import { backendHeaders } from "@/lib/auth/backend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,6 +27,7 @@ export async function POST(request: NextRequest) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        ...backendHeaders(request),
       },
       body: JSON.stringify({ code }),
     });

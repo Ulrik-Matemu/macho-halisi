@@ -1,5 +1,5 @@
 import { Eye, Compass, Truck, HeartHandshake, ShieldCheck, Leaf, type LucideIcon } from "lucide-react";
-import { whyBookPillars, whyBookPillarsExtra } from "@/data/aboutData";
+import { whyBookPillars } from "@/data/aboutData";
 
 // Maps the icon names stored in aboutData to their lucide components.
 const ICONS: Record<string, LucideIcon> = { Eye, Compass, Truck, HeartHandshake, ShieldCheck, Leaf };
@@ -11,12 +11,15 @@ const ICONS: Record<string, LucideIcon> = { Eye, Compass, Truck, HeartHandshake,
 export default function ValuePillars() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-      {[...whyBookPillars, ...whyBookPillarsExtra].map((pillar) => {
+      {whyBookPillars.map((pillar, idx) => {
         const Icon = ICONS[pillar.icon] ?? Compass;
         return (
           <div
             key={pillar.title}
-            className="bg-white/70 border border-safari-bark/10 p-6 sm:p-8 shadow-sm flex flex-col gap-4"
+            // An odd final card spans the row instead of leaving a gap.
+            className={`bg-white/70 border border-safari-bark/10 p-6 sm:p-8 shadow-sm flex flex-col gap-4 ${
+              idx === whyBookPillars.length - 1 && whyBookPillars.length % 2 === 1 ? "sm:col-span-2" : ""
+            }`}
           >
             <span className="w-11 h-11 rounded-full bg-safari-russet/12 border border-safari-russet/25 text-safari-russet flex items-center justify-center shrink-0">
               <Icon className="w-5 h-5" />

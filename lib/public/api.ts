@@ -1,4 +1,5 @@
 import { getExpressApiUrl } from "@/lib/auth/constants";
+import { backendHeaders } from "@/lib/auth/backend";
 import type { AvailabilityPeriod, ItineraryDay } from "@/lib/itineraries/types";
 import type {
   PublicItineraryDetail,
@@ -27,6 +28,7 @@ async function publicFetch<T>(path: string, tag: string = ITINERARIES_TAG): Prom
 
   try {
     const res = await fetch(url, {
+      headers: backendHeaders(),
       next: { revalidate: 300, tags: [tag] },
       // The backend runs on a free-tier host that cold-starts after idle
       // (30-50s in practice) — without a bound, a visitor's very first

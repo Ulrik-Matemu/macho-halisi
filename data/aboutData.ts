@@ -5,9 +5,11 @@
  *
  * Narrative reworks the original machohalisi.com "Our Company" founder story
  * and "Why Book with Us" ethos into this project's luxury, native-specialist
- * voice. Founder facts (Dawson Minja, Kudu Lodge origin, Karatu base, 17+
- * years, 20 vehicles, year-round guides) follow the client's own About Us
- * text (Oct 2026) and must stay in step with lib/site.ts.
+ * voice, and carries every point of the client's About Us document
+ * (about-us.rtf): The Beginning, Our Mission, Why Travel with Macho Halisi
+ * and The Macho Halisi Experience. Founder facts (Dawson Minja, Kudu Lodge
+ * origin, Karatu base, 17+ years, 20 vehicles, year-round guides) must stay
+ * in step with lib/site.ts.
  */
 
 export interface AboutStat {
@@ -66,6 +68,12 @@ export const aboutStats: AboutStat[] = [
 
 export const aboutStory: AboutStoryChapter[] = [
   {
+    eyebrow: "The Beginning",
+    heading: "A simple idea, seventeen years ago",
+    body:
+      "Macho Halisi has been creating unforgettable safari experiences and authentic African adventures for more than seventeen years. Founded by Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, it was built on a simple idea: to offer travellers safe, exciting and professionally guided safaris that deliver exceptional value while showcasing the true beauty of Tanzania.",
+  },
+  {
     eyebrow: "Our Origin",
     heading: "It began at a campsite on the northern circuit",
     body:
@@ -76,6 +84,18 @@ export const aboutStory: AboutStoryChapter[] = [
     heading: "From a single game drive to the whole of Tanzania",
     body:
       "What started as game drives into the parks next door grew, one honest journey at a time, into full expeditions across the country — the Serengeti, Ngorongoro, Tarangire and Lake Manyara; the summits of Kilimanjaro, Meru and Ol’Doinyo Lengai; and the turquoise calm waters of Zanzibar and the Swahili Coast. Today travellers from across America, the UK and Europe plan their once-in-a-lifetime journeys with us, and many return.",
+  },
+  {
+    eyebrow: "A Trusted Name",
+    heading: "From a small dream to a fleet of twenty",
+    body:
+      "What began as a small dream has grown into one of Tanzania’s trusted safari companies. Today, Macho Halisi operates a fleet of 20 custom-built safari vehicles designed for optimal wildlife viewing, supported by a team of experienced, knowledgeable guides who work year-round to deliver extraordinary journeys across East Africa.",
+  },
+  {
+    eyebrow: "Our Journeys",
+    heading: "From the Serengeti to the shores of Zanzibar",
+    body:
+      "From the endless plains of the Serengeti to the majestic Ngorongoro Crater, the summit of Kilimanjaro and the turquoise shores of Zanzibar Island, we craft journeys that connect travellers to Africa’s landscapes, wildlife and cultures in a meaningful and authentic way.",
   },
   {
     eyebrow: "Why It Matters",
@@ -89,25 +109,31 @@ export const founder: FounderProfile = {
   name: "Dawson Minja",
   role: "Founder & Managing Director",
   location: "Karatu, Tanzania",
-  // Deliberately a generic team image, not a portrait of the founder: we
-  // don't have a confirmed photograph of Dawson Minja, and captioning an
-  // unidentified guide with his name would misattribute a real person. The
+  // A real photo of the company's own fleet, not a portrait of the founder:
+  // we don't have a confirmed photograph of Dawson Minja, and captioning a
+  // person's face with his name would misattribute a real person. The
   // founder is named in the prose below (sourced), not pinned to a face —
   // see FounderStory.tsx, which renders this without a name caption.
   portrait: {
-    url: "/media/experiences/lion-resting.jpg",
-    alt: "Macho Halisi guides gathered with the fleet in Karatu",
+    url: "/media/about/fleet/fleet-lineup-rear.jpg",
+    alt: "The Macho Halisi safari fleet lined up in the bush, Kudu Lodge Karatu on the spare wheel covers",
   },
   quote:
     "You arrive as a guest, and you leave as a friend. That has been the promise since the very first drive.",
   paragraphs: [
-    "Dawson Minja founded Macho Halisi on a simple idea: that the people who know Tanzania best are the people who come from it. Born and raised in the north, he built the company from Kudu Lodge & Campsite in Karatu into a full safari operation, without ever handing the storytelling to anyone who hadn’t grown up under these skies.",
-    "He still lives in Karatu with his wife and their three children, a short drive from the crater rim, and he still treats every itinerary as a personal introduction to his home. Under his direction, Macho Halisi has grown to a fleet of twenty custom-built vehicles purpose-built for wildlife viewing and a team of naturalist guides working the field every day of the year.",
+    "Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, founded Macho Halisi on a simple idea: that the people who know Tanzania best are the people who come from it. Born and raised in the north, he built the company from Kudu Lodge & Campsite in Karatu into a full safari operation, without ever handing the storytelling to anyone who hadn’t grown up under these skies.",
+    "He still lives in Karatu with his wife and their three children, a short drive from the crater rim, and he still treats every itinerary as a personal introduction to his home. Under his direction, Macho Halisi has grown to a fleet of twenty custom-built vehicles purpose-built for wildlife viewing and a team of experienced, knowledgeable guides working the field every day of the year.",
     "His measure of success has never changed: not the size of the group, but whether a traveller leaves having seen the real Tanzania — and wanting to come back.",
   ],
 };
 
 export const whyBookPillars: ValuePillar[] = [
+  {
+    icon: "Compass",
+    title: "We Know Tanzania",
+    description:
+      "Our team has years of firsthand experience exploring Tanzania and East Africa. We take you beyond the ordinary tourist routes to discover authentic destinations, hidden gems and remarkable wildlife encounters.",
+  },
   {
     icon: "Eye",
     title: "Native Eyes, Real Access",
@@ -116,9 +142,9 @@ export const whyBookPillars: ValuePillar[] = [
   },
   {
     icon: "Compass",
-    title: "Built From Scratch",
+    title: "Tailor-Made, Built From Scratch",
     description:
-      "Nothing is pulled off a shelf. Your route, your pace and your camps are drawn around you and the season’s wildlife movements — a private expedition, never a fixed package.",
+      "Nothing is pulled off a shelf. Every traveller is different, so your route, pace and camps are drawn around your travel style, interests and the season’s wildlife movements — whether it’s a luxury safari, cultural experience, mountain trek or beach escape, we cater for all.",
   },
   {
     icon: "Truck",
@@ -128,14 +154,10 @@ export const whyBookPillars: ValuePillar[] = [
   },
   {
     icon: "HeartHandshake",
-    title: "Guest to Friend",
+    title: "Exceptional Service, Guest to Friend",
     description:
-      "From the first message to the last farewell you deal with real people who care how your journey goes — personal attention end to end, backed by the travellers who keep returning.",
+      "Your comfort, safety and experience are our priority. From expert safari guides and carefully selected accommodations to private transfers and personalised attention, we take care of every detail — and deal with real people who care how your journey goes, from the first message to the last farewell.",
   },
-];
-
-// Appended from the client's About Us text. Icons resolved in ValuePillars.
-export const whyBookPillarsExtra: ValuePillar[] = [
   {
     icon: "ShieldCheck",
     title: "Safety You Can Rely On",
@@ -146,7 +168,7 @@ export const whyBookPillarsExtra: ValuePillar[] = [
     icon: "Leaf",
     title: "Responsible Tourism",
     description:
-      "Tourism should protect nature and support local communities. We promote eco-friendly travel, support conservation initiatives, reduce plastic waste on safari and contribute to community development programmes.",
+      "Tourism should protect nature and support local communities. We promote eco-friendly travel practices, support conservation initiatives, reduce plastic waste on safari and contribute to community development programmes.",
   },
 ];
 
@@ -155,12 +177,12 @@ export const mission = {
   statement:
     "To create exceptional safari experiences while contributing positively to Tanzania, its people, and its natural heritage.",
   values: [
-    { title: "Service", description: "Impeccable service, so every client enjoys a seamless and memorable travel experience." },
-    { title: "Innovation", description: "Creativity, innovation and fresh ideas in every safari we design." },
-    { title: "Inclusiveness", description: "Knowledgeable, responsible and passionate teams — our people are the foundation of our success." },
-    { title: "Empowerment", description: "Improving the welfare of Tanzanian communities and creating meaningful opportunities for local people." },
-    { title: "Development", description: "Carefully identifying and developing markets that align with sustainable and responsible tourism." },
-    { title: "Relationships", description: "Long-term relationships with clients, partners and service providers built on trust, professionalism and excellence." },
+    { title: "Service", description: "We are committed to delivering impeccable services and ensuring every client enjoys a seamless and memorable travel experience." },
+    { title: "Innovation", description: "We continuously strive to bring creativity, innovation and fresh ideas to every safari we design." },
+    { title: "Inclusiveness", description: "We build knowledgeable, responsible and passionate teams because we believe our people are the foundation of our success." },
+    { title: "Empowerment", description: "Through tourism, we aim to improve the welfare of Tanzanian communities and create meaningful opportunities for local people." },
+    { title: "Development", description: "We carefully identify and develop markets that align with our vision for sustainable and responsible tourism." },
+    { title: "Relationships", description: "We value long-term relationships with our clients, partners and service providers built on trust, professionalism and excellence." },
   ],
 };
 
@@ -173,7 +195,7 @@ export const guidesEthos = {
     {
       title: "Certified & seasoned",
       description:
-        "Professionally certified guides with years in the field, chosen as much for how they teach as for what they know.",
+        "Professionally certified, experienced and knowledgeable guides with years in the field, working year-round and chosen as much for how they teach as for what they know.",
     },
     {
       title: "Fluent in the bush",
@@ -200,10 +222,10 @@ export const conservation = {
 };
 
 export const aboutCta = {
-  eyebrow: "Begin the Conversation",
+  eyebrow: "The Macho Halisi Experience",
   heading: "We provide the experience. You create the memories.",
   body:
-    "Tanzania is more than a destination — it is an experience that stays with you forever. Tell us how you like to travel and our team in Karatu will draw a bespoke journey around you: the Great Migration, Kilimanjaro, remote cultural communities or the beaches of Zanzibar.",
+    "Tanzania is more than a destination — it is an experience that stays with you forever. Whether you dream of witnessing the Great Migration in the Serengeti, climbing Mount Kilimanjaro, exploring remote cultural communities or relaxing on the Zanzibar beaches, our team is here to help you create your own extraordinary African story.",
   primary: { label: "Start Planning Your Journey", href: "/enquire" },
   secondary: { label: "See How We Plan", href: "/how-we-plan" },
 };

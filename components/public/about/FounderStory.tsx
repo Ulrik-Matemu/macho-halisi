@@ -7,7 +7,7 @@ import { founder } from "@/data/aboutData";
  * pull quote. Flat corners per the site convention.
  *
  * Deliberately does NOT caption the image with the founder's name: the photo
- * is a generic team/fleet shot (see founder.portrait in aboutData.ts) and we
+ * is a photo of the fleet (see founder.portrait in aboutData.ts) and we
  * have no confirmed photograph of Dawson Minja, so labelling a face with his
  * name would misattribute a real person. He is credited on the quote — which
  * is an attribution of words, not of a likeness — and named in the prose.
@@ -26,7 +26,7 @@ export default function FounderStory() {
           />
         </div>
         <p className="mt-3 text-xs font-sans font-light text-safari-bark/50 leading-relaxed">
-          Our guides and fleet — {founder.location}
+          The Macho Halisi fleet — {founder.location}
         </p>
       </div>
 

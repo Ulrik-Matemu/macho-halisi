@@ -26,51 +26,27 @@ export const navigationData: NavCategory[] = [
     subItems: [
       {
         id: "our-story",
-        title: "THE MACHO HALISI PHILOSOPHY",
+        title: "ABOUT US",
         tagline: "Genuine Eyes on the Wild",
         description:
-          "Founded by native Tanzanian safari specialists with over two decades of bush expertise. We reveal Africa with untamed honesty, luxury, and devotion.",
+          "A 100% Tanzanian-owned safari company founded by Dawson Minja in Karatu, creating authentic African adventures for more than seventeen years.",
         href: "/about",
         image:
           "/media/about/team/guides-team.jpg",
         badge: "Native Born & Led",
-        highlights: ["100% Tanzanian Owned", "20+ Years Bush Experience", "Bespoke Itineraries"],
+        highlights: ["100% Tanzanian Owned", "17+ Years", "Fleet of 20 Safari Vehicles"],
       },
       {
-        id: "our-guides",
-        title: "MASTER NATURALIST GUIDES",
-        tagline: "The Soul of Every Expedition",
+        id: "why-book",
+        title: "WHY BOOK WITH US",
+        tagline: "We Provide the Experience. You Create the Memories.",
         description:
-          "Our certified guides have spent lifetimes studying animal behavior, bird calls, and tracking signs, transforming every drive into a masterclass.",
-        href: "/about#guides",
-        image:
-          "/media/about/team/guide-golden-hour.jpg",
-        badge: "Elite Naturalists",
-        highlights: ["Level 3 Certified Guides", "Multi-lingual", "Wildlife Photographers"],
-      },
-      {
-        id: "how-we-plan",
-        title: "HOW WE PLAN SAFARIS",
-        tagline: "Bespoke Safari Architecture",
-        description:
-          "Explore our five-stage planning blueprint — discovery dialogue, ecological canvas, intimate canvas sanctuaries, guide pairing, and on-ground concierge.",
-        href: "/how-we-plan",
+          "We know Tanzania, tailor every itinerary, and look after safety and responsible tourism — so you can simply enjoy the journey.",
+        href: "/about#why",
         image:
           "/media/about/fleet/cruiser-three-quarter.jpg",
-        badge: "Our Process",
-        highlights: ["100% Private Vehicles", "Zero Rigid Packages", "Bespoke Routes"],
-      },
-      {
-        id: "when-to-travel",
-        title: "WHEN TO TRAVEL",
-        tagline: "12 Months in the Wild",
-        description:
-          "Month-by-month safari intelligence. Discover Great Migration positions, calving spectacles, dry season river crossings, and green season solitude.",
-        href: "/when-to-travel",
-        image:
-          "/media/serengeti/great-m-1.jpg",
-        badge: "Safari Seasons",
-        highlights: ["Migration Scrubber", "Climate Patterns", "Wildlife Highlights"],
+        badge: "Why Macho Halisi",
+        highlights: ["Tailor-Made Journeys", "Expert Guides", "Safety First"],
       },
       {
         id: "travel-information",
@@ -83,18 +59,6 @@ export const navigationData: NavCategory[] = [
           "/media/about/fleet/fleet-lineup-grass.jpg",
         badge: "Field Guide",
         highlights: ["Interactive Checklist", "USD 2009+ Rules", "AMREF Air Cover"],
-      },
-      {
-        id: "enquire-studio",
-        title: "TAILOR-MADE EXPEDITION STUDIO",
-        tagline: "Begin Your Bespoke Consultation",
-        description:
-          "Design your custom Tanzanian journey with native safari specialists. Multi-step consultative planner with transparent pricing and direct director contact.",
-        href: "/enquire",
-        image:
-          "/media/about/team/guide-welcome.jpg",
-        badge: "Start Planning",
-        highlights: ["24h Specialist Review", "Private 4x4 Cruiser", "Karatu Office Direct"],
       },
     ],
   },
