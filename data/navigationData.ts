@@ -232,18 +232,6 @@ export const navigationData: NavCategory[] = [
     featuredDefaultId: "view-all-journeys",
     subItems: [
       {
-        id: "zanzibar-journeys",
-        title: "ZANZIBAR JOURNEYS",
-        tagline: "Indian Ocean · Spice Islands",
-        description:
-          "Stone Town alleys, reef lagoons and a slower clock. Take the island on its own or as the soft landing after the mountain or the plains.",
-        href: "/journeys/zanzibar-journeys",
-        image:
-          "/media/zanzibar/stone-town.jpg",
-        badge: "10 Journeys",
-        highlights: ["Stone Town", "Pemba & Mafia", "Honeymoons"],
-      },
-      {
         id: "view-all-journeys",
         title: "SAFARI ITINERARIES",
         tagline: "7 · 9 · 10 · 12 · 15 Days",
