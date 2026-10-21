@@ -92,13 +92,13 @@ Animations are implemented through four native techniques without external libra
 - **Role:** Fixed top navigation header.
 - **Structure:**
   - Semantic `<header>` fixed at the top with `z-40`.
-  - Left: Next.js `<Link href="/">` enclosing an aspect-ratio-constrained container holding the brand logo image (`/media/new-macho-halisi-logo.jpg`).
+  - Left: Next.js `<Link href="/">` enclosing an aspect-ratio-constrained container holding the brand logo image (`/media/latest-logo.jpg`).
   - Right: Actions group containing:
     - Search icon button (`<Search />`).
     - "ENQUIRE" CTA button.
     - Hamburger icon button constructed from three staggered horizontal `<span>` bars (`w-10`, `w-8`, `w-6`).
 - **Data & Copy Drivenness:**
-  - Logo path (`/media/new-macho-halisi-logo.jpg`) is hardcoded.
+  - Logo path (`/media/latest-logo.jpg`) is hardcoded.
   - Copy `"ENQUIRE"` and aria-labels are hardcoded.
   - Navigation links or category lists are not present in the header itself; navigation is delegated to the fullscreen menu trigger.
 - **Reusability:**
@@ -290,7 +290,7 @@ The following items are factual observations regarding current implementation de
 - **Boilerplate Assets:** Standard starter SVGs from `create-next-app` (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`) remain in `public/`.
 - **UI Design Reference Images:** UI design screenshots (`Screenshot_2026-09-06_21_01_59.png`, `Screenshot_2026-09-07_12_45_22.png`, `nav-1.png`, `nav-2.png`, `nav-3.png`) are stored directly in `public/` and `public/media/`.
 - **Logo Assets:** Multiple logo formats exist in `public/media/`:
-  - `new-macho-halisi-logo.jpg` (used by Navbar and FullscreenNavMenu)
+  - `latest-logo.jpg` (used by Navbar and FullscreenNavMenu)
   - `macho-halisi-logo-for-loader.png` (1.5 MB, currently unreferenced)
   - `macho-halisi-logo-for-loader.webp` (208 KB, currently unreferenced)
 - **Favicons:** Both `app/favicon.ico` and `app/favicon.jpg` exist inside the `app/` directory.

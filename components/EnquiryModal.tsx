@@ -219,7 +219,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           <div>
             <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md mb-6">
               <Image
-                src="/media/new-macho-halisi-logo.jpg"
+                src="/media/latest-logo.jpg"
                 alt="Macho Halisi"
                 fill
                 sizes="112px"
@@ -265,7 +265,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
             <div className="flex items-center justify-between mb-6 pr-10">
               <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md shrink-0">
                 <Image
-                  src="/media/new-macho-halisi-logo.jpg"
+                  src="/media/latest-logo.jpg"
                   alt="Macho Halisi"
                   fill
                   sizes="112px"

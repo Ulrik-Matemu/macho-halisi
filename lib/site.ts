@@ -37,7 +37,7 @@ export const SITE = {
   address: { locality: "Karatu", region: "Arusha", country: "TZ", countryName: "Tanzania" },
   /** Typical reply time promised to guests. */
   replyPromise: "within 24 hours",
-  logoPath: "/media/new-macho-halisi-logo.jpg",
+  logoPath: "/media/latest-logo.jpg",
   // TODO(client): add the real profile URLs (Instagram, Facebook, YouTube,
   // TripAdvisor, SafariBookings, Google Business Profile). They feed the
   // footer icons and schema.org `sameAs`; nothing renders until they exist.

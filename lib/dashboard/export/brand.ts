@@ -9,7 +9,7 @@ export const BRAND = {
   company: "Macho Halisi Ltd",
   tagline: "Private, native-guided safaris across Tanzania",
   contact: "Arusha, Tanzania  ·  +255 789 718 505  ·  info@machohalisi.com",
-  logoUrl: "/media/new-macho-halisi-logo.jpg",
+  logoUrl: "/media/latest-logo.jpg",
   /** Logo is 1000×500. */
   logoAspect: 2,
   ink: [67, 41, 26] as const, // #43291a — logo band brown

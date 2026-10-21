@@ -152,17 +152,7 @@ export const navigationData: NavCategory[] = [
         badge: "Gateway Park",
         highlights: ["Walking Safaris", "Colobus Monkeys", "Momella Lakes"],
       },
-      {
-        id: "view-all-destinations",
-        title: "VIEW ALL DESTINATIONS",
-        tagline: "27 National Parks, Islands & Natural Wonders",
-        description:
-          "Browse every Tanzania destination we cover — national parks, conservation areas, mountains, islands and more — with search and category filters.",
-        href: "/destinations",
-        image:
-          "/media/serengeti/sere-lion.jpg",
-        highlights: [],
-      },
+     
     ],
   },
   {

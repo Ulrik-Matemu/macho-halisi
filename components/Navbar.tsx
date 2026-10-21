@@ -127,7 +127,7 @@ export default function Navbar({
         >
           <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-safari-night/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
             <Image
-              src="/media/new-macho-halisi-logo.jpg"
+              src="/media/latest-logo.jpg"
               alt="Macho Halisi Logo"
               fill
               priority
