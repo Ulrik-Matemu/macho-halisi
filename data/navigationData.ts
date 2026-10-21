@@ -157,7 +157,7 @@ export const navigationData: NavCategory[] = [
   },
   {
     id: "experiences",
-    title: "SAFARI EXPERIENCES",
+    title: "ACTIVITIES & EXPERIENCES",
     href: "/experiences",
     featuredDefaultId: "migration",
     subItems: [

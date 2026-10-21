@@ -74,13 +74,14 @@ const img = (id: string, w = 1400) =>
 const PHOTO = {
   plainsVehicle: "/media/experiences/game-drive-guests.jpg",
   goldenPlains: "/media/serengeti/southern-plains.jpg",
+  hotAirBalloon: "/media/hot-air-baloon.jpg",
   lions: "/media/serengeti/sere-lion-couple.jpg",
   // No in-house lodge photography yet.
-  lodge: "1566073771259-6a8506099945",
+  lodge: "/media/accomodations/63bf7866.avif",
   elephant: "/media/manyara/elephant.jpg",
   elephantsDusk: "/media/experiences/elephant-vehicle.jpg",
   acacia: "/media/serengeti/seronera-valley.jpg",
-  trail: "/media/kilimanjaro/lemosho.jpg",
+  trail: "/media/NEW-TANZANIA-Kichaka-Expeditions-family-bush-walk-C_KE.jpg",
   // No in-house giraffe photograph yet.
   giraffe: "1626548307930-deac221f87d9",
   natron: "/media/manyara/flamingo.jpg",
@@ -168,7 +169,7 @@ export const experiences: Experience[] = [
       "Float silently over the awakening plains at sunrise, observing herds from above before enjoying a champagne bush breakfast under an acacia tree.",
     seoDescription:
       "Serengeti hot air balloon safaris with Macho Halisi — a silent sunrise flight over the plains followed by a champagne bush breakfast.",
-    heroImage: img(PHOTO.goldenPlains, 2200),
+    heroImage: img(PHOTO.hotAirBalloon, 2200),
     heroImageAlt: "The Serengeti plains lit gold at sunrise",
     glance: [
       { label: "Duration", value: "One morning · 3 hrs" },
@@ -181,17 +182,17 @@ export const experiences: Experience[] = [
       {
         title: "Sunrise Panorama",
         text: "Lift off in the half-dark and watch the plains light up beneath you, herd by herd.",
-        image: { url: img(PHOTO.goldenPlains), alt: "Acacia-dotted plains at dawn" },
+        image: { url: img("/media/hot-air-baloon-3.jpg"), alt: "Acacia-dotted plains at dawn" },
       },
       {
         title: "Champagne Bush Breakfast",
         text: "Land where the wind decides, to a table laid under an acacia and a glass already poured.",
-        image: { url: img(PHOTO.acacia), alt: "A solitary acacia tree on the plains" },
+        image: { url: img("/media/entumoto-17831035.jpg"), alt: "A solitary acacia tree on the plains" },
       },
       {
         title: "Silent Flight",
         text: "Between burns the only sound is the grass below — close enough to hear hooves.",
-        image: { url: img(PHOTO.elephantsDusk), alt: "Elephants crossing the grasslands at sunset" },
+        image: { url: img("/media/hot-air-baloon2.jpg"), alt: "Elephants crossing the grasslands at sunset" },
       },
     ],
     day: [
@@ -203,7 +204,7 @@ export const experiences: Experience[] = [
     ],
     quote: "At a thousand feet the Serengeti finally makes sense — you can see where everything is going.",
     quoteBy: "Pilot, Seronera",
-    quoteImage: { url: img(PHOTO.plainsVehicle, 2200), alt: "The open Serengeti plains from above the grass" },
+    quoteImage: { url: img("/media/hot-air-baloon.jpg", 2200), alt: "The open Serengeti plains from above the grass" },
     places: [
       {
         name: "Central Serengeti",
