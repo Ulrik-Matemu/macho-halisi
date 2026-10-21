@@ -20,7 +20,7 @@ export interface AboutSection {
 export const aboutHero = {
   title: "ABOUT US",
   image: {
-    url: "/media/about/fleet/fleet-lineup-golden.jpg",
+    url: "/media/savannah.jpg",
     alt: "The Macho Halisi fleet lined up at golden hour",
   },
 };

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import { useEnquiry } from "@/components/EnquiryProvider";
 import ScrollReveal from "@/components/public/ScrollReveal";
@@ -78,6 +79,9 @@ type SubscribeState = "idle" | "submitting" | "done";
  */
 export default function Footer() {
   const { openEnquiry } = useEnquiry();
+  // The closing CTA band belongs to the homepage only; every other page
+  // ends straight into the footer.
+  const isHome = usePathname() === "/";
   const [email, setEmail] = useState("");
   const [subscribeState, setSubscribeState] = useState<SubscribeState>("idle");
 
@@ -93,9 +97,11 @@ export default function Footer() {
 
   return (
     <>
-      {/* Closing CTA — reveals in a slow, deliberate cascade as it scrolls
-          into view: eyebrow, then the headline, then the supporting line,
-          then the two actions, each settling a beat after the last. */}
+      {/* Closing CTA (homepage only) — reveals in a slow, deliberate cascade
+          as it scrolls into view: eyebrow, then the headline, then the
+          supporting line, then the two actions, each settling a beat after
+          the last. */}
+      {isHome && (
       <section className="bg-safari-tan text-safari-bark px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal size="lift">
@@ -133,6 +139,7 @@ export default function Footer() {
           </ScrollReveal>
         </div>
       </section>
+      )}
 
       <footer className="bg-safari-bark text-safari-cream">
         <div className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-20 sm:pt-24 lg:pt-[104px]">
