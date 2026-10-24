@@ -175,8 +175,8 @@ const baseExperiences: ExperienceBase[] = [
       "Meet members of the Maasai, Hadzabe and Datoga communities around Lake Eyasi and Karatu, learn about their traditions and craftsmanship, and see how people, land and wildlife are bound together.",
     seoDescription:
       "Cultural experiences with Macho Halisi — Maasai boma visits, a Hadzabe hunter-gatherer walk and Datoga blacksmith demonstrations around Lake Eyasi, arranged from Karatu.",
-    heroImage: img("/media/ngorongoro/ngoro-maasai.jpg", 2200),
-    heroImageAlt: "Maasai herders in the Ngorongoro highlands",
+    heroImage: img("/media/experiences/cultural/maasai-group.jpg", 2200),
+    heroImageAlt: "Maasai community members gathering near Lake Eyasi",
     glance: [
       { label: "Communities", value: "Maasai · Hadzabe · Datoga" },
       { label: "Where", value: "Lake Eyasi & Karatu" },
@@ -187,17 +187,17 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Maasai Boma Visits",
         text: "Learn about the traditional homestead, the importance of cattle, Maasai beadwork and, where offered, songs and dances.",
-        image: { url: img(PHOTO.acacia), alt: "Highland grazing country" },
+        image: { url: img("/media/experiences/cultural/maasai-woman.jpg"), alt: "A Maasai woman in traditional beadwork" },
       },
       {
         title: "Hadzabe Hunter-Gatherers",
         text: "An early-morning guided walk near Lake Eyasi, with tracking, archery and fire-making, subject to local arrangements and community consent.",
-        image: { url: img(PHOTO.natron), alt: "The arid country around Lake Eyasi" },
+        image: { url: img("/media/experiences/cultural/hadzabe-hunter.jpg"), alt: "A Hadzabe hunter preparing his bow and knife" },
       },
       {
         title: "Datoga Blacksmiths",
         text: "Watch artisans around Lake Eyasi turn metal into arrowheads, knives, jewellery and other everyday objects.",
-        image: { url: img(PHOTO.goldenPlains), alt: "Open plains in the Lake Eyasi region" },
+        image: { url: img("/media/experiences/cultural/datoga-blacksmith.jpg"), alt: "A Datoga blacksmith hammering a spear tip" },
       },
     ],
     day: [
@@ -214,7 +214,7 @@ const baseExperiences: ExperienceBase[] = [
         name: "Lake Eyasi",
         type: "Hadzabe & Datoga communities",
         destinationSlug: "lake-natron",
-        image: { url: img(PHOTO.natron), alt: "The landscape of the Rift valley lakes" },
+        image: { url: img("/media/experiences/cultural/hadzabe-eating.jpg"), alt: "A Hadzabe man in the bush near Lake Eyasi" },
       },
       {
         name: "Ngorongoro",
@@ -235,8 +235,8 @@ const baseExperiences: ExperienceBase[] = [
       "From the coffee plant to the perfect cup: walk the plantations of Karatu's fertile highlands, see how cherries become roasted beans, and finish with a crop-to-cup tasting.",
     seoDescription:
       "Coffee tours in Karatu with Macho Halisi — a guided walk through the coffee plantations, traditional roasting and preparation, and a crop-to-cup tasting.",
-    heroImage: img("/media/kilimanjaro/lemosho.jpg", 2200),
-    heroImageAlt: "Green highland slopes where coffee is grown",
+    heroImage: img("/media/experiences/coffee-tours/beans-sack.jpg", 2200),
+    heroImageAlt: "A sack of roasted coffee beans",
     glance: [
       { label: "Where", value: "Karatu highlands" },
       { label: "Best for", value: "Arrival day or a break between game drives" },
@@ -247,17 +247,17 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Farm Walk",
         text: "A guided walk between the coffee bushes, with cherries at every stage from green fruit to deep red.",
-        image: { url: img("/media/kilimanjaro/lemosho.jpg"), alt: "Forested slopes above the farms" },
+        image: { url: img("/media/experiences/coffee-tours/picking-cherries.jpg"), alt: "Picking coffee cherries by hand on the farm" },
       },
       {
         title: "Roast & Prepare",
         text: "Where facilities permit, watch a roasting demonstration and learn how grinding and brewing shape the cup.",
-        image: { url: img(PHOTO.trail), alt: "A footpath through the farmland" },
+        image: { url: img("/media/experiences/coffee-tours/cherries-in-hands.jpg"), alt: "Freshly picked red coffee cherries" },
       },
       {
         title: "The Tasting",
         text: "A freshly prepared cup of locally grown coffee, with notes of fruit, chocolate, nuts or flowers.",
-        image: { url: img(PHOTO.forest), alt: "Green hillside country" },
+        image: { url: img("/media/experiences/coffee-tours/cups.jpg"), alt: "Cups of freshly brewed coffee" },
       },
     ],
     day: [
@@ -268,7 +268,7 @@ const baseExperiences: ExperienceBase[] = [
     ],
     quote: "The mountain gives the rain, the family gives the care, and the cup gives you both.",
     quoteBy: "Grower, Karatu highlands",
-    quoteImage: { url: img("/media/kilimanjaro/kili-ariel.jpg", 2200), alt: "Highland farmland under a wide sky" },
+    quoteImage: { url: img("/media/experiences/coffee-tours/beans-sack.jpg", 2200), alt: "Coffee beans in a burlap sack" },
     places: [
       {
         name: "Karatu",
@@ -301,8 +301,8 @@ const baseExperiences: ExperienceBase[] = [
       "Forest trails, mountain waterfalls and a turquoise swimming spring: four natural sanctuaries around Karatu, Kilimanjaro and Mount Meru that offer a refreshing change of pace from game drives.",
     seoDescription:
       "Waterfall and hot spring excursions with Macho Halisi — Endoro Waterfalls and Elephant Caves near Karatu, Materuni on Kilimanjaro, Napuru near Mount Meru and Chemka Hot Springs.",
-    heroImage: img("/media/kilimanjaro/lemosho.jpg", 2200),
-    heroImageAlt: "Forested foothills of Kilimanjaro",
+    heroImage: img("/media/experiences/waterfall-hot-spring/materuni.jpg", 2200),
+    heroImageAlt: "Materuni waterfall tumbling through the forested foothills of Kilimanjaro",
     glance: [
       { label: "Sites", value: "Endoro · Materuni · Napuru · Chemka" },
       { label: "Where", value: "Karatu · Kilimanjaro · Mount Meru" },
@@ -313,17 +313,17 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Endoro & Elephant Caves",
         text: "A forest trail near Karatu past the caves where elephants dig for minerals, ending at the waterfall.",
-        image: { url: img("/media/kilimanjaro/lemosho.jpg"), alt: "Forest trail on the foothills" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/elephant-caves.webp"), alt: "Elephants gathered at the Endoro caves" },
       },
       {
         title: "Materuni Waterfall",
         text: "A walk through Chagga farmland on the slopes of Kilimanjaro to a waterfall plunging into a natural pool.",
-        image: { url: img(PHOTO.forest), alt: "Green tropical vegetation" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/materuni.jpg"), alt: "Materuni waterfall seen from the forest trail" },
       },
       {
         title: "Chemka Hot Springs",
         text: "Clear turquoise water ringed by trees, a place to swim and rest between safari days.",
-        image: { url: img(PHOTO.trail), alt: "A shaded path" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/hot-spring.jpg"), alt: "The turquoise water of Chemka Hot Springs" },
       },
     ],
     day: [
@@ -340,19 +340,19 @@ const baseExperiences: ExperienceBase[] = [
         name: "Endoro",
         type: "Karatu highlands",
         destinationSlug: "ngorongoro",
-        image: { url: img(PHOTO.elephantsDusk), alt: "Highlands near Karatu" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/elephant-caves-2.jpg"), alt: "Elephants near the Endoro caves" },
       },
       {
         name: "Materuni",
         type: "Slopes of Kilimanjaro",
         destinationSlug: "kilimanjaro",
-        image: { url: img("/media/kilimanjaro/kili-ariel.jpg"), alt: "Kilimanjaro above the foothills" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/materuni.jpg"), alt: "Materuni waterfall" },
       },
       {
         name: "Napuru & Chemka",
         type: "Mount Meru and the Arusha–Moshi region",
         destinationSlug: "arusha",
-        image: { url: img("/media/arusha-national-park/fig-tree.jpg"), alt: "Forest near Mount Meru" },
+        image: { url: img("/media/experiences/waterfall-hot-spring/hot-spring-2.jpg"), alt: "Palm-fringed spring water at Chemka" },
       },
     ],
   },
@@ -367,8 +367,8 @@ const baseExperiences: ExperienceBase[] = [
       "A different way to experience northern Tanzania: glide across a forested crater lake near Arusha or enjoy the Rift Valley from water level, with birdlife all around.",
     seoDescription:
       "Canoeing with Macho Halisi — a peaceful paddle on Lake Duluti near Arusha, and a water-level view of the Rift Valley at Lake Manyara where permitted.",
-    heroImage: img("/media/manyara/flamingo.jpg", 2200),
-    heroImageAlt: "Flamingos on Lake Manyara",
+    heroImage: img("/media/experiences/canoeing/kilimanjaro-canoes.webp", 2200),
+    heroImageAlt: "Canoeists on a lake beneath Mount Kilimanjaro",
     glance: [
       { label: "Where", value: "Lake Duluti · Lake Manyara" },
       { label: "Highlights", value: "Birdwatching & photography" },
@@ -379,17 +379,17 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Lake Duluti",
         text: "A sheltered crater lake near Arusha where kingfishers, egrets and fish eagles may be seen, with views towards Mount Meru.",
-        image: { url: img("/media/arusha-national-park/fig-tree.jpg"), alt: "Forest on the Mount Meru slopes" },
+        image: { url: img("/media/experiences/canoeing/duluti-sunset.jpg"), alt: "Sunset over Lake Duluti" },
       },
       {
         title: "Lake Manyara",
         text: "A quieter perspective of the lake beneath the Great Rift Valley escarpment, where canoeing is available and permitted.",
-        image: { url: img("/media/manyara/flamingo.jpg"), alt: "Flamingos on Lake Manyara" },
+        image: { url: img("/media/experiences/canoeing/manyara-elephant.jpg"), alt: "Canoeists watching an elephant on the shore" },
       },
       {
         title: "Birdlife",
         text: "Waterbirds along the shoreline, including flamingos and pelicans at Manyara when conditions are suitable.",
-        image: { url: img("/media/arusha-national-park/colombus-monkey.jpg"), alt: "Colobus monkey in the forest" },
+        image: { url: img("/media/experiences/canoeing/flamingo-canoes.webp"), alt: "Canoeists paddling past a flamingo" },
       },
     ],
     day: [
@@ -400,7 +400,7 @@ const baseExperiences: ExperienceBase[] = [
     ],
     quote: "From a canoe the animals forget you are there — and you finally see them as they are.",
     quoteBy: "Guide, Lake Duluti",
-    quoteImage: { url: img("/media/arusha-national-park/fig-tree.jpg", 2200), alt: "Forest beside a Tanzanian lake" },
+    quoteImage: { url: img("/media/experiences/canoeing/manyara-elephant.jpg", 2200), alt: "Canoeing close to an elephant at the water's edge" },
     places: [
       {
         name: "Lake Manyara",
@@ -412,7 +412,7 @@ const baseExperiences: ExperienceBase[] = [
         name: "Lake Duluti",
         type: "Crater lake near Arusha",
         destinationSlug: "arusha",
-        image: { url: img("/media/arusha-national-park/fig-tree.jpg"), alt: "Forest near Arusha" },
+        image: { url: img("/media/experiences/canoeing/duluti-sunset.jpg"), alt: "Lake Duluti at dusk" },
       },
     ],
   },
@@ -427,8 +427,8 @@ const baseExperiences: ExperienceBase[] = [
       "When daylight fades the wilderness enters a different phase: nocturnal species emerge, predators move and an experienced guide helps you read the dark.",
     seoDescription:
       "Night game drives with Macho Halisi — authorised after-dark wildlife drives around Lake Manyara and Tarangire, with an experienced driver-guide.",
-    heroImage: img("/media/experiences/lion-resting.jpg", 2200),
-    heroImageAlt: "A lion resting at dusk",
+    heroImage: img("/media/experiences/night-game-drives/leopard.jpg", 2200),
+    heroImageAlt: "A leopard resting in the spotlight at night",
     glance: [
       { label: "Where", value: "Lake Manyara & Tarangire" },
       { label: "Guided by", value: "Driver-guide and, where required, a park ranger" },
@@ -439,7 +439,7 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Nocturnal Wildlife",
         text: "Leopards, lions, hyenas, genets, civets, servals, porcupines, bushbabies and owls, depending on habitat and season.",
-        image: { url: img("/media/experiences/leopard-photographers.jpg"), alt: "A leopard at dusk" },
+        image: { url: img("/media/experiences/night-game-drives/lioness.jpg"), alt: "A lioness caught in the spotlight" },
       },
       {
         title: "Guided Observation",
@@ -449,7 +449,7 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "A Different Ecosystem",
         text: "Learn how scavengers, insects, small mammals and predators work after sunset.",
-        image: { url: img(PHOTO.goldenPlains), alt: "Plains at sunset" },
+        image: { url: img("/media/experiences/night-game-drives/giraffe-waterhole.jpg"), alt: "A giraffe at a waterhole after dark" },
       },
     ],
     day: [
@@ -459,7 +459,7 @@ const baseExperiences: ExperienceBase[] = [
     ],
     quote: "By day the bush shows you what it wants you to see. By night, it shows you the rest.",
     quoteBy: "Guide, Karatu",
-    quoteImage: { url: img("/media/experiences/lion-vehicle-2.jpg", 2200), alt: "Lions near a safari vehicle at dusk" },
+    quoteImage: { url: img("/media/experiences/night-game-drives/sunset.jpg", 2200), alt: "The sun setting behind acacia trees as the night drive begins" },
     places: [
       {
         name: "Lake Manyara",
