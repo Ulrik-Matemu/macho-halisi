@@ -19,7 +19,7 @@ export default function Breadcrumbs({
   visible?: boolean;
   className?: string;
 }) {
-  const muted = tone === "light" ? "text-safari-bark/55 hover:text-safari-russet" : "text-white/50 hover:text-safari-gold";
+  const muted = tone === "light" ? "text-safari-bark/78 hover:text-safari-russet" : "text-white/50 hover:text-safari-gold";
   const current = tone === "light" ? "text-safari-bark/80" : "text-white/80";
   const all: Crumb[] = [{ name: "Home", path: "/" }, ...items];
 

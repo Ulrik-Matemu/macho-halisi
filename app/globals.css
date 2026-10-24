@@ -12,6 +12,10 @@
   --safari-cream: #fff6ea;
   --safari-night: #120b06;
   --safari-tan: #d0b783;
+  /* Light cream from the client palette (#f1e9da): the dominant surface (~50%), with tan ~30% and dark brown ~20%. */
+  --safari-linen: #f1e9da;
+  /* Deep russet for small text/numerals on tan (4.6:1) where plain russet only reaches 3.1:1. */
+  --safari-umber: #6b3f14;
 }
 
 @theme inline {
@@ -26,6 +30,8 @@
   --color-safari-cream: var(--safari-cream);
   --color-safari-night: var(--safari-night);
   --color-safari-tan: var(--safari-tan);
+  --color-safari-linen: var(--safari-linen);
+  --color-safari-umber: var(--safari-umber);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
   --font-serif: var(--font-serif-luxury), "Source Serif 4", Georgia, serif;

@@ -54,18 +54,18 @@ export default function LegalPageShell({ document }: LegalPageShellProps) {
         style={{ width: `${readingProgress}%` }}
       />
 
-      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-linen text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Header */}
           <div className="pb-10 mb-12 border-b border-safari-bark/10">
             <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-              <ShieldCheck className="w-3.5 h-3.5 text-safari-gold" />
+              <ShieldCheck className="w-3.5 h-3.5 text-safari-russet" />
               <span>{document.eyebrow}</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-safari-bark tracking-[0.02em]">
               {document.title}
             </h1>
-            <div className="flex items-center gap-4 mt-4 text-xs font-mono text-safari-bark/60">
+            <div className="flex items-center gap-4 mt-4 text-xs font-mono text-safari-bark/78">
               <span>Last Revised: {document.lastUpdated}</span>
               <span>•</span>
               <span>Tanzania Licensed Tour Operator (TALA)</span>
@@ -91,7 +91,7 @@ export default function LegalPageShell({ document }: LegalPageShellProps) {
                         className={`w-full text-left py-2 px-3 rounded text-xs font-sans transition-all cursor-pointer ${
                           isActive
                             ? "bg-safari-bark text-safari-cream font-medium"
-                            : "text-safari-bark/70 hover:text-safari-bark hover:bg-black/5"
+                            : "text-safari-bark/78 hover:text-safari-bark hover:bg-black/5"
                         }`}
                       >
                         {sec.shortTitle}

@@ -20,7 +20,7 @@ export default function JourneyOtherCollections({ currentSlug }: { currentSlug: 
             <span className="font-serif-luxury font-light text-[clamp(28px,3.4vw,48px)] leading-[1.08] tracking-[0.02em]">
               {c.line1} <em className="italic">{c.line2}</em>
             </span>
-            <span className="max-md:order-3 max-md:col-span-2 font-sans font-light text-[11px] tracking-[0.24em] text-safari-bark/70 uppercase">
+            <span className="max-md:order-3 max-md:col-span-2 font-sans font-light text-[11px] tracking-[0.24em] text-safari-bark/78 uppercase">
               {c.eyebrow}
             </span>
             <span className="font-serif-luxury font-light text-[22px] text-right text-safari-russet">

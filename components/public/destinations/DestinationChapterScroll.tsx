@@ -92,7 +92,7 @@ export default function DestinationChapterScroll({
           <h3 className="font-serif-luxury font-light text-3xl sm:text-4xl leading-[1.14] tracking-[0.03em] text-safari-bark mb-5">
             {chapter.title}
           </h3>
-          <p className="font-sans font-light text-[15.5px] leading-[2.05] text-safari-bark/68 max-w-[520px]">
+          <p className="font-sans font-light text-[15.5px] leading-[2.05] text-safari-bark/78 max-w-[520px]">
             {chapter.text}
           </p>
         </div>

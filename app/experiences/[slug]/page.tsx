@@ -11,6 +11,7 @@ import ExperienceHighlightStrip from "@/components/public/experiences/Experience
 import ExperienceDayTimeline from "@/components/public/experiences/ExperienceDayTimeline";
 import ExperienceQuote from "@/components/public/experiences/ExperienceQuote";
 import ExperienceMaskImage from "@/components/public/experiences/ExperienceMaskImage";
+import { ExperienceLongformBody, ExperienceAdvantage } from "@/components/public/experiences/ExperienceLongform";
 import ExperienceMoreList from "@/components/public/experiences/ExperienceMoreList";
 import { experiences, getAllExperienceSlugs, getExperienceBySlug } from "@/data/experiences";
 import { getSiteUrl } from "@/lib/site";
@@ -127,7 +128,7 @@ export default async function ExperienceDetailPage({
       <JsonLd data={jsonLd} />
       <SmoothScroll />
 
-      <div className="bg-safari-tan text-safari-bark">
+      <div className="bg-safari-linen text-safari-bark">
         <ExperienceReadingBar short={experience.short} planElementId="plan" />
 
         <ExperienceHero
@@ -152,7 +153,7 @@ export default async function ExperienceDetailPage({
           <dl className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-7 mt-16 sm:mt-24 pt-7 border-t border-safari-bark/[0.18]">
             {experience.glance.map((g) => (
               <div key={g.label}>
-                <dt className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-2.5">
+                <dt className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mb-2.5">
                   {g.label}
                 </dt>
                 <dd className="m-0 font-serif-luxury font-light text-[19px] sm:text-[21px] leading-[1.35] tracking-[0.04em] text-safari-bark">
@@ -162,6 +163,8 @@ export default async function ExperienceDetailPage({
             ))}
           </dl>
         </ExperienceWordReveal>
+
+        <ExperienceLongformBody longform={experience.longform} />
 
         <ExperienceHighlightStrip highlights={experience.highlights} />
 
@@ -213,8 +216,10 @@ export default async function ExperienceDetailPage({
           </div>
         </section>
 
+        <ExperienceAdvantage section={experience.longform.advantage} />
+
         {/* Plan this experience */}
-        <section id="plan" className="mt-28 sm:mt-36 bg-safari-bark text-safari-cream scroll-mt-16">
+        <section id="plan" className="bg-safari-night text-safari-cream scroll-mt-16">
           <div className="max-w-[1240px] mx-auto px-6 sm:px-16 py-20 sm:py-28 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
             <div>
               <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-gold uppercase mb-5">
@@ -227,7 +232,7 @@ export default async function ExperienceDetailPage({
               </h2>
             </div>
             <div>
-              <p className="m-0 mb-9 font-sans font-light text-[15.5px] leading-[2] text-safari-cream/72 max-w-[460px]">
+              <p className="m-0 mb-9 font-sans font-light text-[15.5px] leading-[2] text-safari-cream/80 max-w-[460px]">
                 Take it on its own or fold it into a longer journey. Tell us your dates — we reply within 24
                 hours with availability and a firm price.
               </p>

@@ -78,7 +78,7 @@ export default function ItineraryReadingBar({
           <span className="font-serif-luxury font-light text-base tracking-[0.16em] uppercase text-safari-bark whitespace-nowrap">
             Macho Halisi
           </span>
-          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/70 truncate">
+          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/78 truncate">
             {title}
             {durationLabel ? ` · ${durationLabel}` : ""}
           </span>

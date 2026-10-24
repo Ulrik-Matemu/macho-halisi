@@ -18,7 +18,7 @@ export default function SafariVehicleBlueprint() {
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           The Anatomy of a Macho Halisi 4x4
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 max-w-2xl leading-relaxed">
           Our custom-stretched Toyota Land Cruisers are designed specifically for long optical lenses,
           maximum passenger suspension comfort, and absolute bush reliability.
         </p>

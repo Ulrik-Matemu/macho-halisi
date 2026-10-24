@@ -46,7 +46,7 @@ export default function RelatedItineraryCard({ itinerary }: RelatedItineraryCard
         {itinerary.title}
       </div>
 
-      <div className="font-sans font-light text-xs tracking-[0.16em] text-safari-bark/70 uppercase">
+      <div className="font-sans font-light text-xs tracking-[0.16em] text-safari-bark/78 uppercase">
         {itinerary.nights !== null && `${itinerary.nights + 1}D / ${itinerary.nights}N · `}
         {itinerary.priceOnRequest ? "Enquire" : price ? `From $${price}` : ""}
       </div>

@@ -17,15 +17,15 @@ export default function TrustBand() {
         <dl className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-12 sm:py-16 border-t border-safari-bark/[0.12]">
           {trustFacts.map((f) => (
             <div key={f.label}>
-              <dd className="font-serif-luxury font-light text-4xl sm:text-5xl text-safari-russet">{f.value}</dd>
-              <dt className="font-sans font-light text-xs tracking-wide text-safari-bark/70 mt-2 max-w-[22ch]">{f.label}</dt>
+              <dd className="font-serif-luxury font-light text-4xl sm:text-5xl text-safari-umber">{f.value}</dd>
+              <dt className="font-sans font-light text-xs tracking-wide text-safari-bark/78 mt-2 max-w-[22ch]">{f.label}</dt>
             </div>
           ))}
         </dl>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           <div>
-            <div className="flex items-center gap-2 font-sans font-light text-[11px] tracking-[0.34em] text-safari-russet uppercase mb-4">
+            <div className="flex items-center gap-2 font-sans font-light text-[11px] tracking-[0.34em] text-safari-umber uppercase mb-4">
               <ShieldCheck className="w-4 h-4" aria-hidden="true" /> Travel with confidence
             </div>
             <ul className="space-y-3 font-sans font-light text-sm sm:text-base text-safari-bark/80 leading-relaxed">
@@ -34,20 +34,20 @@ export default function TrustBand() {
               ))}
             </ul>
             {SITE.licences.length > 0 && (
-              <p className="mt-6 font-sans text-xs text-safari-bark/65">Licensed &amp; registered: {SITE.licences.join(" · ")}</p>
+              <p className="mt-6 font-sans text-xs text-safari-bark/78">Licensed &amp; registered: {SITE.licences.join(" · ")}</p>
             )}
           </div>
 
           <div className="bg-white/70 border border-safari-bark/10 p-6 sm:p-8 self-start">
             <h2 className="font-serif-luxury text-2xl text-safari-bark mb-2">Talk to a real person</h2>
-            <p className="font-sans font-light text-sm text-safari-bark/70 leading-relaxed mb-5">
+            <p className="font-sans font-light text-sm text-safari-bark/78 leading-relaxed mb-5">
               Our team in Karatu replies {SITE.replyPromise}. Call {SITE.phone}, email {SITE.email} or message us on WhatsApp.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/enquire" className="px-6 py-3 text-center bg-safari-ochre hover:bg-safari-russet text-safari-night font-serif-luxury text-xs tracking-[0.2em] uppercase rounded transition-colors">
+              <Link href="/enquire" className="px-6 py-3 text-center bg-safari-ochre hover:bg-safari-umber hover:text-safari-cream text-safari-night font-serif-luxury text-xs tracking-[0.2em] uppercase rounded transition-colors">
                 ENQUIRE
               </Link>
-              <a href={whatsappUrl("Hello Macho Halisi, I'm interested in a safari.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-safari-bark/30 hover:border-safari-russet text-safari-bark font-serif-luxury text-xs tracking-[0.2em] uppercase rounded transition-colors">
+              <a href={whatsappUrl("Hello Macho Halisi, I'm interested in a safari.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-safari-bark/30 hover:border-safari-umber text-safari-bark font-serif-luxury text-xs tracking-[0.2em] uppercase rounded transition-colors">
                 <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" /> WhatsApp
               </a>
             </div>
@@ -59,7 +59,7 @@ export default function TrustBand() {
             {guestReviews.map((r) => (
               <figure key={r.name + r.quote} className="bg-white/70 border border-safari-bark/10 p-6">
                 <blockquote className="font-serif-luxury text-lg text-safari-bark leading-snug">“{r.quote}”</blockquote>
-                <figcaption className="mt-4 font-sans text-xs text-safari-bark/65">{r.name} · {r.origin}</figcaption>
+                <figcaption className="mt-4 font-sans text-xs text-safari-bark/78">{r.name} · {r.origin}</figcaption>
               </figure>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default function TrustBand() {
                   <Image src={g.photo.url} alt={g.photo.alt} fill sizes="(min-width:768px) 25vw, 50vw" className="object-cover" />
                 </div>
                 <div className="font-serif-luxury text-lg">{g.name}</div>
-                <div className="font-sans text-xs text-safari-bark/65">{g.role}</div>
+                <div className="font-sans text-xs text-safari-bark/78">{g.role}</div>
               </div>
             ))}
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -125,16 +125,7 @@ export default function Navbar({
           href="/"
           className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
         >
-          <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-safari-night/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
-            <Image
-              src="/media/latest-logo.jpg"
-              alt="Macho Halisi Logo"
-              fill
-              priority
-              sizes="112px"
-              className="object-cover object-center"
-            />
-          </div>
+          <Logo priority className="h-12 sm:h-14 lg:h-16" />
         </Link>
 
         {/* Right: Hamburger Menu & Enquiry CTA */}

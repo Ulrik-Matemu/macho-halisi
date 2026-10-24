@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import { X, Check, Send, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
 import type { EnquirySeed } from "./EnquiryProvider";
 import { trackContact, trackEvent } from "@/lib/analytics/track";
@@ -217,15 +217,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
 
         {submitted ? (
           <div>
-            <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md mb-6">
-              <Image
-                src="/media/latest-logo.jpg"
-                alt="Macho Halisi"
-                fill
-                sizes="112px"
-                className="object-cover object-center"
-              />
-            </div>
+            <Logo className="h-12 sm:h-14 mb-6" sizes="112px" />
             <div className="py-2 sm:py-4 flex flex-col items-center text-center space-y-4">
               <div className="w-14 h-14 rounded-full bg-safari-russet/20 border border-safari-ochre flex items-center justify-center text-safari-ochre">
                 <Check className="w-7 h-7" />
@@ -263,15 +255,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           <div>
             {/* Header: Logo top-left + compact step counter */}
             <div className="flex items-center justify-between mb-6 pr-10">
-              <div className="relative h-9 sm:h-10 aspect-[180/94] rounded overflow-hidden border border-safari-night/35 bg-black shadow-md shrink-0">
-                <Image
-                  src="/media/latest-logo.jpg"
-                  alt="Macho Halisi"
-                  fill
-                  sizes="112px"
-                  className="object-cover object-center"
-                />
-              </div>
+              <Logo className="h-12 sm:h-14 shrink-0" sizes="112px" />
               <span className="font-mono text-[10px] tracking-[0.2em] text-safari-night/65">
                 {step}/{STEP_META.length}
               </span>

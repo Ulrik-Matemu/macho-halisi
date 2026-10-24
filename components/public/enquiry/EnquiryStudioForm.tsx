@@ -202,7 +202,7 @@ export default function EnquiryStudioForm({
         {/* STEP 1: DESTINATIONS */}
         {step === 1 && (
           <div className="space-y-6">
-            <p className="text-sm text-safari-bark/70 font-sans">
+            <p className="text-sm text-safari-bark/78 font-sans">
               Select the ecosystems that inspire you. You may select several, or leave open for our
               specialist recommendations.
             </p>
@@ -337,7 +337,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/78 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -431,7 +431,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/78 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -537,7 +537,7 @@ export default function EnquiryStudioForm({
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/70 hover:text-safari-bark font-sans"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs text-safari-bark/78 hover:text-safari-bark font-sans"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>

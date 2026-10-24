@@ -16,7 +16,7 @@ const FEATURED_DESTINATIONS = ["serengeti", "ngorongoro", "tarangire", "kilimanj
 
 const eyebrow = "font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-4";
 const heading = "font-serif-luxury font-light text-3xl sm:text-4xl lg:text-[44px] leading-[1.1] tracking-[0.14em] text-safari-bark uppercase";
-const body = "font-sans font-light text-[15px] leading-[1.95] text-safari-bark/72";
+const body = "font-sans font-light text-[15px] leading-[1.95] text-safari-bark/78";
 
 const toNumber = (v: number | string | null) => (v === null ? null : Number(v));
 
@@ -67,7 +67,7 @@ export default async function HomeGuide() {
   ];
 
   return (
-    <div className="relative z-10 bg-safari-tan text-safari-bark">
+    <div className="relative z-10 bg-safari-linen text-safari-bark">
       <JsonLd data={faqPage(faqs)} />
 
       {/* Intro — the answer-first summary AI assistants quote */}
@@ -106,7 +106,7 @@ export default async function HomeGuide() {
           ))}
         </div>
         {more.length > 0 && (
-          <p className="font-sans font-light text-sm text-safari-bark/70 mt-8 leading-relaxed">
+          <p className="font-sans font-light text-sm text-safari-bark/78 mt-8 leading-relaxed">
             Also:{" "}
             {more.map((d, i) => (
               <span key={d.slug}>
@@ -132,7 +132,7 @@ export default async function HomeGuide() {
                   <span className="font-serif-luxury font-light text-xl sm:text-2xl tracking-[0.04em] text-safari-bark group-hover:text-safari-russet transition-colors">
                     {e.short}
                   </span>
-                  <span className="block font-sans font-light text-sm text-safari-bark/62 mt-1">{e.tagline}</span>
+                  <span className="block font-sans font-light text-sm text-safari-bark/78 mt-1">{e.tagline}</span>
                 </span>
                 <ArrowRight className="w-4 h-4 shrink-0 text-safari-russet group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </Link>
@@ -179,7 +179,7 @@ export default async function HomeGuide() {
             <li key={s.number}>
               <div className="font-mono text-xs text-safari-russet mb-2">{s.number}</div>
               <h3 className="font-serif-luxury font-light text-lg text-safari-bark leading-snug">{s.stepName}</h3>
-              <p className="font-sans font-light text-[13.5px] leading-relaxed text-safari-bark/65 mt-2">{s.headline}</p>
+              <p className="font-sans font-light text-[13.5px] leading-relaxed text-safari-bark/78 mt-2">{s.headline}</p>
             </li>
           ))}
         </ol>
@@ -210,7 +210,7 @@ export default async function HomeGuide() {
             <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-safari-cream uppercase mb-6">
               Tell us where you dream of going
             </h2>
-            <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/72 max-w-md">
+            <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/80 max-w-md">
               Share your dates and wishes — a safari specialist replies {SITE.replyPromise} with a route, camps and a firm price.
             </p>
           </div>

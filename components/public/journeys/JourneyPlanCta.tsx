@@ -16,7 +16,7 @@ export default function JourneyPlanCta() {
           </h2>
         </div>
         <div>
-          <p className="m-0 mb-9 max-w-[460px] font-sans font-light text-[15.5px] leading-[2] text-safari-cream/72">
+          <p className="m-0 mb-9 max-w-[460px] font-sans font-light text-[15.5px] leading-[2] text-safari-cream/80">
             Use any of these as a starting point, or tell us what you have in mind. We reply within 24 hours
             with a route, dates and a firm price.
           </p>

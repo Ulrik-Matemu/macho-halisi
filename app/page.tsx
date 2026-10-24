@@ -7,6 +7,8 @@ import SmoothScroll from "@/components/public/SmoothScroll";
 import { getSiteUrl } from "@/lib/site";
 import HomeGuide from "@/components/public/home/HomeGuide";
 import TrustBand from "@/components/public/home/TrustBand";
+import HomeExperiences from "@/components/public/home/HomeExperiences";
+import HomeDestinations from "@/components/public/home/HomeDestinations";
 
 
 
@@ -53,6 +55,8 @@ export default function Home() {
       <Suspense fallback={<FeaturedItinerariesSkeleton />}>
         <FeaturedItineraries />
       </Suspense>
+      <HomeExperiences />
+      <HomeDestinations />
       <TrustBand />
       {/* Streams in after the featured journeys; still part of the HTML crawlers receive. */}
       <Suspense fallback={null}>

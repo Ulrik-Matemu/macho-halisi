@@ -116,7 +116,7 @@ export default function EnquiryConciergePanel() {
             <Phone className="w-4 h-4 text-safari-russet" />
             <div>
               <div className="font-medium">Direct Karatu Office</div>
-              <div className="text-[11px] text-safari-bark/70">Mon – Sat · 08:00 – 18:00 EAT</div>
+              <div className="text-[11px] text-safari-bark/78">Mon – Sat · 08:00 – 18:00 EAT</div>
             </div>
           </a>
 
@@ -128,7 +128,7 @@ export default function EnquiryConciergePanel() {
             <Mail className="w-4 h-4 text-safari-russet" />
             <div>
               <div className="font-medium">Email the Directors</div>
-              <div className="text-[11px] text-safari-bark/70">info@machohalisi.com</div>
+              <div className="text-[11px] text-safari-bark/78">info@machohalisi.com</div>
             </div>
           </a>
         </div>

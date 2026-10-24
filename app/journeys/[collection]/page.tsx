@@ -99,7 +99,7 @@ export default async function JourneyCollectionPage({
         items={[{ name: `${collection.line1} ${collection.line2}`, path: `/journeys/${collection.slug}` }]}
       />
 
-      <div className="bg-safari-tan text-safari-bark">
+      <div className="bg-safari-linen text-safari-bark">
         <ScrollProgressBar />
         <JourneyCollectionTabs activeSlug={collection.slug} />
         <JourneyCollectionHero

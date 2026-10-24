@@ -48,7 +48,7 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
   return (
     <section
       ref={sectionRef}
-      className="relative mt-24 sm:mt-36 scrub:h-[var(--strip-h)]"
+      className="relative mt-24 sm:mt-36 py-16 sm:py-24 scrub:py-0 bg-safari-tan scrub:h-[var(--strip-h)]"
       style={{ "--strip-h": `${100 + n * 90}vh` } as CSSProperties}
     >
       <div className="scrub:sticky scrub:top-0 scrub:h-screen scrub:overflow-hidden flex flex-col justify-center">
@@ -65,7 +65,7 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
               <br />
               <em>will not forget</em>
             </h2>
-            <p className="hidden scrub:block m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/68 max-w-[360px]">
+            <p className="hidden scrub:block m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/78 max-w-[360px]">
               Keep scrolling — the page moves sideways through each one.
             </p>
           </div>
@@ -85,13 +85,13 @@ export default function ExperienceHighlightStrip({ highlights }: ExperienceHighl
                 />
               </div>
               <div className="sm:pb-2.5">
-                <div className="font-serif-luxury font-light text-[clamp(56px,6vw,96px)] leading-none text-safari-gold mb-5">
+                <div className="font-serif-luxury font-light text-[clamp(56px,6vw,96px)] leading-none text-safari-umber mb-5">
                   {pad(i + 1)}
                 </div>
                 <h3 className="m-0 mb-4 font-serif-luxury font-light text-[clamp(26px,2.5vw,36px)] leading-[1.16] tracking-[0.03em] text-safari-bark">
                   {h.title}
                 </h3>
-                <p className="m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/68">{h.text}</p>
+                <p className="m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/78">{h.text}</p>
               </div>
             </article>
           ))}

@@ -60,13 +60,13 @@ export default function JourneyCollectionHero({
               <div className="font-serif-luxury font-light text-[clamp(54px,5.6vw,84px)] leading-[0.9] text-safari-bark">
                 {count}
               </div>
-              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mt-2.5">
+              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mt-2.5">
                 Journeys
               </div>
             </div>
             {facts.map((f) => (
               <div key={f.label} className="pb-1">
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-[9px]">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mb-[9px]">
                   {f.label}
                 </div>
                 <div className="font-serif-luxury font-light text-xl tracking-[0.04em]">{f.value}</div>

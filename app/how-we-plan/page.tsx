@@ -29,18 +29,18 @@ export default function HowWePlanPage() {
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "How we plan", path: "/how-we-plan" }]} />
       <SmoothScroll />
-      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-linen text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Page Hero Header */}
           <ScrollReveal className="mb-12 sm:mb-16 pb-10 border-b border-safari-bark/10">
             <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-              <Compass className="w-3.5 h-3.5 text-safari-gold" />
+              <Compass className="w-3.5 h-3.5 text-safari-russet" />
               <span>Bespoke Safari Architecture</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-safari-bark tracking-[0.02em] leading-tight">
               From a Blank Map to the Bush
             </h1>
-            <p className="font-sans font-light text-sm sm:text-base text-safari-bark/70 mt-4 max-w-3xl leading-relaxed">
+            <p className="font-sans font-light text-sm sm:text-base text-safari-bark/78 mt-4 max-w-3xl leading-relaxed">
               &ldquo;Macho Halisi&rdquo; translates from Swahili to &ldquo;Genuine Eyes.&rdquo; We believe
               a true African safari cannot be purchased off a conveyor belt. It must be drawn around your
               rhythm, your sensory desires, and the seasonal movement of wildlife across Tanzania.

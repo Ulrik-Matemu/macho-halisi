@@ -34,13 +34,13 @@ export default function SeasonalMatrix() {
     <section className="py-20 sm:py-28 border-b border-safari-bark/10">
       <div className="mb-10 sm:mb-14">
         <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-          <Calendar className="w-3.5 h-3.5 text-safari-gold" />
+          <Calendar className="w-3.5 h-3.5 text-safari-russet" />
           <span>The Living Calendar</span>
         </div>
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           12 Months in the Tanzanian Wild
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 max-w-2xl leading-relaxed">
           Select any month to reveal where the Great Migration herds are grazing, rainfall and temperature
           conditions, and which wilderness areas peak at that moment.
         </p>

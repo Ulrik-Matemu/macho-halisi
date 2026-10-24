@@ -121,7 +121,7 @@ export default function ExperienceHero({
           })()}
           <p
             className={`mt-8 mx-auto max-w-[520px] font-sans font-light text-[11px] sm:text-xs tracking-[0.34em] uppercase ${
-              onPhoto ? "text-safari-cream/90" : "text-safari-bark/72"
+              onPhoto ? "text-safari-cream/90" : "text-safari-bark/78"
             }`}
             aria-hidden={onPhoto || undefined}
           >

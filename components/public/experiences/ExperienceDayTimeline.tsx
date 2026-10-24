@@ -56,7 +56,7 @@ export default function ExperienceDayTimeline({ day }: ExperienceDayTimelineProp
             <br />
             <em>of a day</em>
           </h2>
-          <p className="m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/68 max-w-[360px] scrub:mb-10">
+          <p className="m-0 font-sans font-light text-[15px] leading-[2] text-safari-bark/78 max-w-[360px] scrub:mb-10">
             An indicative day. Your guide adjusts every hour of it to the light, the weather and the animals.
           </p>
           <div
@@ -84,13 +84,13 @@ export default function ExperienceDayTimeline({ day }: ExperienceDayTimelineProp
               className="group relative pb-16 sm:pb-[88px] last:pb-0"
             >
               <span className="absolute -left-[44px] sm:-left-[60px] top-3.5 w-[9px] h-[9px] rounded-full bg-safari-russet group-data-[on=false]:bg-safari-bark/20 transition-colors duration-500" />
-              <div className="font-sans font-light text-xs tracking-[0.3em] uppercase mb-3.5 text-safari-russet group-data-[on=false]:text-safari-bark/40 transition-colors duration-500">
+              <div className="font-sans font-light text-xs tracking-[0.3em] uppercase mb-3.5 text-safari-russet group-data-[on=false]:text-safari-bark/60 transition-colors duration-500">
                 {d.time}
               </div>
               <h3 className="m-0 mb-3.5 font-serif-luxury font-light text-[clamp(26px,2.6vw,36px)] leading-[1.16] tracking-[0.03em] text-safari-bark group-data-[on=false]:text-safari-bark/34 transition-colors duration-500">
                 {d.title}
               </h3>
-              <p className="m-0 font-sans font-light text-[15px] leading-[2] max-w-[520px] text-safari-bark/68 group-data-[on=false]:text-safari-bark/30 transition-colors duration-500">
+              <p className="m-0 font-sans font-light text-[15px] leading-[2] max-w-[520px] text-safari-bark/78 group-data-[on=false]:text-safari-bark/55 transition-colors duration-500">
                 {d.text}
               </p>
             </div>

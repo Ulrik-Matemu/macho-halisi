@@ -68,7 +68,7 @@ export default function ExperienceMoreList({ items }: ExperienceMoreListProps) {
             <span className="font-serif-luxury font-light text-[clamp(26px,3.4vw,48px)] leading-[1.08] tracking-[0.02em]">
               {item.line1} <em>{item.line2}</em>
             </span>
-            <span className="col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto font-sans font-light text-[10.5px] sm:text-[11px] tracking-[0.24em] text-safari-bark/70 uppercase">
+            <span className="col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto font-sans font-light text-[10.5px] sm:text-[11px] tracking-[0.24em] text-safari-bark/78 uppercase">
               {item.tagline}
             </span>
             <span aria-hidden className="col-start-3 row-start-1 sm:col-start-auto sm:row-start-auto font-sans font-light text-lg text-right">

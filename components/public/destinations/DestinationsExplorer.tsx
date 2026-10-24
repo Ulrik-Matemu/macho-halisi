@@ -67,7 +67,7 @@ export default function DestinationsExplorer({ destinations }: DestinationsExplo
               className={`px-4 py-2 rounded-full font-sans font-light text-xs tracking-[0.08em] uppercase transition-colors cursor-pointer ${
                 category === f.value
                   ? "bg-safari-bark text-safari-cream"
-                  : "bg-safari-bark/[0.05] text-safari-bark/70 hover:bg-safari-bark/10"
+                  : "bg-safari-bark/[0.05] text-safari-bark/78 hover:bg-safari-bark/10"
               }`}
             >
               {f.label}
@@ -78,7 +78,7 @@ export default function DestinationsExplorer({ destinations }: DestinationsExplo
 
       {filtered.length === 0 ? (
         <div className="p-16 text-center border border-dashed border-safari-bark/15 rounded-xl">
-          <p className="text-sm text-safari-bark/50 font-sans">
+          <p className="text-sm text-safari-bark/78 font-sans">
             No destinations match &quot;{query}&quot;. Try another search or category.
           </p>
         </div>

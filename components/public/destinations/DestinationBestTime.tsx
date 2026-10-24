@@ -53,7 +53,7 @@ export default function DestinationBestTime({ months }: DestinationBestTimeProps
               </div>
               <span
                 className={`font-sans font-light text-[10px] tracking-[0.1em] uppercase ${
-                  isActive ? "text-safari-cream" : "text-safari-bark/70"
+                  isActive ? "text-safari-cream" : "text-safari-bark/78"
                 }`}
               >
                 {entry.month}
@@ -73,7 +73,7 @@ export default function DestinationBestTime({ months }: DestinationBestTimeProps
               {RATING_LABEL[active.rating]}
             </span>
           </div>
-          <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/72 max-w-xl">
+          <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/78 max-w-xl">
             {active.note}
           </p>
         </div>

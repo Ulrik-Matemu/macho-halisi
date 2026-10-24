@@ -95,7 +95,7 @@ export default function ExperienceReadingBar({ short, planElementId }: Experienc
           <span className="font-serif-luxury font-light text-base sm:text-lg tracking-[0.16em] uppercase text-safari-bark whitespace-nowrap">
             Macho Halisi
           </span>
-          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/70 truncate">
+          <span className="hidden sm:block font-sans font-light text-[10.5px] tracking-[0.28em] uppercase text-safari-bark/78 truncate">
             Safari Experiences · {short}
           </span>
         </div>

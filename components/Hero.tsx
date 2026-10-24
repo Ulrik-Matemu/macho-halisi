@@ -219,17 +219,17 @@ export default function Hero({ onVideoReady }: HeroProps) {
           }}
           className="relative z-30 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-[clamp(2rem,8dvh,6rem)] sm:pb-6 lg:pb-8 flex flex-col items-start text-left transition-[opacity,transform,filter] duration-1000 transition-luxury motion-reduce:transition-none"
         >
-          {/* Brand title: two stacked lines, Helvetica Bold, bottom-left */}
+          {/* Brand title: the site's serif display, two stacked lines, bottom-left */}
+         
           <h1
-            className={`font-bold uppercase text-[#d0b783] text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.04em] leading-[0.92] drop-shadow-[0_4px_40px_rgba(0,0,0,0.6)] transition-all duration-1100 transition-luxury delay-700 ${
+            className={`font-serif-luxury font-light uppercase text-safari-cream text-[clamp(2.75rem,9vw,7.5rem)] tracking-[0.14em] leading-[0.98] drop-shadow-[0_4px_40px_rgba(0,0,0,0.6)] transition-all duration-1100 transition-luxury delay-700 ${
               isEntered
                 ? "opacity-100 translate-y-0 blur-0"
                 : "opacity-0 translate-y-6 blur-[8px]"
             }`}
-            style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
           >
             <span className="block">Macho</span>
-            <span className="block">Halisi</span>
+            <span className="block text-safari-sand">Halisi</span>
           </h1>
 
           {/* Phase 1 — the offer. The title above lands alone on load. On
@@ -283,16 +283,16 @@ export default function Hero({ onVideoReady }: HeroProps) {
           className="absolute inset-0 max-w-[1600px] w-full mx-auto px-6 sm:px-12 lg:px-16 pb-14 sm:pb-20 lg:pb-24 flex flex-col justify-end items-end text-right transition-all duration-150 pointer-events-none"
         >
           <div className="max-w-2xl border-r-2 border-safari-ochre/75 pr-6 sm:pr-8 py-2">
-            <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-[#d0b783] tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+            <h2 className="font-serif-luxury font-medium text-lg sm:text-2xl md:text-3xl text-safari-sand tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
               Private safaris led by native Tanzanian guides
             </h2>
             <p className=" text-xs sm:text-sm tracking-[0.28em] uppercase text-white mt-2 mb-4 sm:mb-5">
               – YOUR EYES ON TANZANIA –
             </p>
-            <p className="text-xs sm:text-sm md:text-base text-[#d0b783] font-sans font-light leading-relaxed mb-3 drop-shadow">
+            <p className="text-xs sm:text-sm md:text-base text-safari-sand font-sans font-light leading-relaxed mb-3 drop-shadow">
               Macho Halisi <span className="font-serif-italic text-white">(true eyes in Swahili)</span> is a long term provider of safaris in Tanzania. Locally owned and operated, we are native Tanzanians who are proud of our country and love to share our knowledge and passion for safari with you. A safari with Macho Halisi will be the trip of a lifetime, forging memories and experiences that will change you forever.
             </p>
-            <p className="text-xs sm:text-sm md:text-base text-[#d0b783] font-sans font-light leading-relaxed drop-shadow">
+            <p className="text-xs sm:text-sm md:text-base text-safari-sand font-sans font-light leading-relaxed drop-shadow">
               We look forward to showing you the interesting cultures, stunning landscapes and masses of wildlife that make our home, Tanzania, such an alluring destination.
             </p>
           </div>

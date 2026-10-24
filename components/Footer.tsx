@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessageCircle } from "lucide-react";
@@ -31,7 +31,7 @@ interface FooterLink {
 function FooterLinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
   return (
     <div>
-      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-6">
+      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/80 uppercase mb-6">
         {title}
       </div>
       <div className="flex flex-col gap-3.5 font-sans font-light text-[14.5px]">
@@ -102,20 +102,20 @@ export default function Footer() {
           supporting line, then the two actions, each settling a beat after
           the last. */}
       {isHome && (
-      <section className="bg-safari-tan text-safari-bark px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
+      <section className="bg-safari-russet text-safari-cream px-6 sm:px-16 pt-28 sm:pt-32 pb-28 sm:pb-32 text-center">
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal size="lift">
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-6">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-champagne uppercase mb-6">
               Not sure where to begin?
             </div>
           </ScrollReveal>
           <ScrollReveal delayMs={120}>
-            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.16] tracking-[0.08em] text-safari-bark max-w-3xl mx-auto mb-8 text-balance">
+            <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.16] tracking-[0.08em] text-safari-cream max-w-3xl mx-auto mb-8 text-balance">
               Tell us how you like to travel. We will draw the route around you.
             </h2>
           </ScrollReveal>
           <ScrollReveal delayMs={240} size="lift">
-            <p className="font-sans font-light text-[15px] leading-[2] text-safari-bark/66 max-w-lg mx-auto mb-10">
+            <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/90 max-w-lg mx-auto mb-10">
               Every Macho Halisi journey is built by hand, privately guided, and quietly obsessive
               about the details.
             </p>
@@ -125,13 +125,13 @@ export default function Footer() {
               <button
                 type="button"
                 onClick={() => openEnquiry()}
-                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-cream bg-safari-bark hover:bg-safari-russet uppercase px-10 py-[18px] rounded-sm transition-colors cursor-pointer"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-cream bg-safari-bark hover:bg-safari-night uppercase px-10 py-[18px] rounded-sm transition-colors cursor-pointer"
               >
                 Start planning
               </button>
               <Link
                 href="/itineraries"
-                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-bark hover:text-safari-russet uppercase py-[18px] transition-colors"
+                className="font-sans font-light text-[11px] tracking-[0.3em] text-safari-cream hover:text-safari-champagne uppercase py-[18px] transition-colors"
               >
                 Browse itineraries →
               </Link>
@@ -147,23 +147,15 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-14 lg:gap-24 items-start pb-16 sm:pb-20">
             <ScrollReveal>
               <Link href="/" className="inline-block mb-8 transition-opacity hover:opacity-80">
-                <div className="relative h-16 sm:h-20 aspect-[180/94] rounded overflow-hidden border border-safari-cream/20 shadow-md">
-                  <Image
-                    src="/media/latest-logo.jpg"
-                    alt="Macho Halisi"
-                    fill
-                    sizes="160px"
-                    className="object-cover object-center"
-                  />
-                </div>
+                <Logo className="h-20 sm:h-24" sizes="192px" />
               </Link>
-              <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/66 max-w-md mb-10">
+              <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/80 max-w-md mb-10">
                 Private, native-guided safaris across Tanzania — the Serengeti and the Crater,
                 Kilimanjaro, the wild south and the Zanzibar coast.
               </p>
               <div className="flex gap-14 flex-wrap">
                 <div>
-                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">
+                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/80 uppercase mb-3">
                     Speak to us
                   </div>
                   <div className="flex items-center gap-4 flex-wrap">
@@ -188,7 +180,7 @@ export default function Footer() {
                   </div>
                 </div>
                 <div>
-                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-3">
+                  <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/80 uppercase mb-3">
                     Write to us
                   </div>
                   <a
@@ -206,7 +198,7 @@ export default function Footer() {
               <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-gold uppercase mb-4">
                 The quiet letter
               </div>
-              <p className="font-sans font-light text-sm leading-[1.95] text-safari-cream/62 mb-6">
+              <p className="font-sans font-light text-sm leading-[1.95] text-safari-cream/80 mb-6">
                 Four notes a year — where the herds are, which camps are worth the detour, and
                 nothing else.
               </p>
@@ -290,10 +282,10 @@ export default function Footer() {
               />
             </ScrollReveal>
             <ScrollReveal delayMs={280} size="lift">
-              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/66 uppercase mb-6">
+              <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/80 uppercase mb-6">
                 Office
               </div>
-              <div className="font-sans font-light text-sm leading-[1.95] text-safari-cream/72">
+              <div className="font-sans font-light text-sm leading-[1.95] text-safari-cream/80">
                 Karatu
                 <br />
                 Arusha, Tanzania
@@ -308,14 +300,14 @@ export default function Footer() {
           <ScrollReveal delayMs={120} size="lift">
             <div className="flex items-center justify-between gap-9 flex-wrap py-8 sm:py-[42px] border-t border-safari-cream/[0.14]">
               <div className="flex gap-7 flex-wrap font-sans font-light text-[10.5px] tracking-[0.22em] uppercase">
-                <span className="text-safari-cream/55">© {new Date().getFullYear()} Macho Halisi Safaris</span>
-                <Link href="/privacy" className="text-safari-cream/55 hover:text-safari-gold transition-colors">
+                <span className="text-safari-cream/80">© {new Date().getFullYear()} Macho Halisi Safaris</span>
+                <Link href="/privacy" className="text-safari-cream/80 hover:text-safari-gold transition-colors">
                   Privacy
                 </Link>
-                <Link href="/terms" className="text-safari-cream/55 hover:text-safari-gold transition-colors">
+                <Link href="/terms" className="text-safari-cream/80 hover:text-safari-gold transition-colors">
                   Terms
                 </Link>
-                <span className="text-safari-cream/55">TALA licensed</span>
+                <span className="text-safari-cream/80">TALA licensed</span>
               </div>
               <div className="flex items-center gap-7 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">
                 {/* Real profiles only (SITE.sameAs) — links to bare instagram.com etc.
@@ -326,7 +318,7 @@ export default function Footer() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer me"
-                    className="text-safari-cream/70 hover:text-safari-gold transition-colors"
+                    className="text-safari-cream/80 hover:text-safari-gold transition-colors"
                   >
                     {profileLabel(url)}
                   </a>

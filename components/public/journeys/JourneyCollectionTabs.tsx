@@ -18,7 +18,7 @@ export default function JourneyCollectionTabs({ activeSlug }: { activeSlug: stri
             className={`py-1.5 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase border-b transition-colors duration-300 ${
               active
                 ? "text-safari-bark border-safari-russet"
-                : "text-safari-bark/55 border-transparent hover:text-safari-bark"
+                : "text-safari-bark/78 border-transparent hover:text-safari-bark"
             }`}
           >
             {c.tab}

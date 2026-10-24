@@ -47,12 +47,17 @@ export default function ScrollReveal({ children, delayMs = 0, size = "rise", cla
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        // A ratio threshold alone never fires for wrappers much taller than
+        // the viewport (e.g. the destinations grid: 15% of ~5000px is more
+        // than a screen), which left whole pages blank. Reveal once 15% of
+        // the element OR 15% of the viewport is showing, whichever is less.
+        const needed = Math.min(entry.boundingClientRect.height * 0.15, window.innerHeight * 0.15);
+        if (entry.isIntersecting && entry.intersectionRect.height >= needed) {
           setInView(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      { threshold: [0, 0.01, 0.05, 0.15], rootMargin: "0px 0px -8% 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();

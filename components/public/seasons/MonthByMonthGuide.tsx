@@ -105,19 +105,19 @@ export default function MonthByMonthGuide() {
             </h3>
             <p className="font-sans font-light text-[14.5px] leading-relaxed text-safari-bark/75 mt-2">{m.description}</p>
             <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 mt-4 text-[13px] font-sans">
-              <dt className="text-safari-bark/55">Migration</dt>
+              <dt className="text-safari-bark/78">Migration</dt>
               <dd className="text-safari-bark">{m.migrationLocation}</dd>
-              <dt className="text-safari-bark/55">Weather</dt>
+              <dt className="text-safari-bark/78">Weather</dt>
               <dd className="text-safari-bark">
                 {RAIN[m.rainfall]}, {m.tempDayC}°C day / {m.tempNightC}°C night
               </dd>
-              <dt className="text-safari-bark/55">Crowds</dt>
+              <dt className="text-safari-bark/78">Crowds</dt>
               <dd className="text-safari-bark">{cap(m.crowdLevel)}</dd>
-              <dt className="text-safari-bark/55">Rates</dt>
+              <dt className="text-safari-bark/78">Rates</dt>
               <dd className="text-safari-bark">{cap(m.valueRating)}</dd>
             </dl>
             {m.recommendedParks.length > 0 && (
-              <p className="text-[13px] font-sans text-safari-bark/70 mt-3">
+              <p className="text-[13px] font-sans text-safari-bark/78 mt-3">
                 Best parks:{" "}
                 {m.recommendedParks.map((p, i) => (
                   <span key={p.name}>

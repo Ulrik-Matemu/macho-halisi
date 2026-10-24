@@ -14,13 +14,13 @@ export default function WildlifeInterestFilter() {
     <section className="py-20 sm:py-28">
       <div className="mb-12">
         <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-          <Eye className="w-3.5 h-3.5 text-safari-gold" />
+          <Eye className="w-3.5 h-3.5 text-safari-russet" />
           <span>Intent-Driven Planning</span>
         </div>
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           What Do You Yearn to See?
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 max-w-2xl leading-relaxed">
           Select your bucket-list wildlife encounter to discover which months provide the highest
           probability of witnessing it in person.
         </p>

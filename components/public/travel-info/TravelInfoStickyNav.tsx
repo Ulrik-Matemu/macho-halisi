@@ -48,7 +48,7 @@ export default function TravelInfoStickyNav() {
                 className={`px-3 py-1.5 rounded text-xs font-sans tracking-wide transition-all whitespace-nowrap cursor-pointer ${
                   isActive
                     ? "bg-safari-bark text-safari-cream font-medium shadow-sm"
-                    : "text-safari-bark/70 hover:text-safari-bark hover:bg-black/5"
+                    : "text-safari-bark/78 hover:text-safari-bark hover:bg-black/5"
                 }`}
               >
                 {topic.shortTitle}

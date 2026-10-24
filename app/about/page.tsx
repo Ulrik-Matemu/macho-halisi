@@ -33,7 +33,7 @@ export default function AboutPage() {
 
       {/* Plain text in the order and under the headings of the client's
           About Us document (data/aboutData.ts). */}
-      <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
+      <div className="bg-safari-linen text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="max-w-3xl space-y-14 sm:space-y-20">
             {aboutSections.map((section, idx) => (
@@ -96,7 +96,7 @@ export default function AboutPage() {
       </ScrollReveal>
 
       {/* Our Team & Fleet — the client's OUR-TEAM-AND-FLEET document. */}
-      <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
+      <div className="bg-safari-linen text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="max-w-3xl space-y-14 sm:space-y-20">
             <ScrollReveal size="lift">

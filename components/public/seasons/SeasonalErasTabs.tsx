@@ -12,13 +12,13 @@ export default function SeasonalErasTabs() {
     <section className="py-20 sm:py-28 border-b border-safari-bark/10">
       <div className="mb-12 text-center max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-          <Compass className="w-3.5 h-3.5 text-safari-gold" />
+          <Compass className="w-3.5 h-3.5 text-safari-russet" />
           <span>The Three Great Chapters</span>
         </div>
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           Tanzania Across the Primary Eras
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 leading-relaxed">
           Rather than simple four-season calendars, safari travel is shaped by three distinct wilderness
           cycles.
         </p>
@@ -41,7 +41,7 @@ export default function SeasonalErasTabs() {
                 className={`px-5 py-2.5 rounded font-sans text-xs sm:text-sm transition-all duration-300 cursor-pointer ${
                   isActive
                     ? "bg-safari-bark text-safari-cream shadow-sm font-medium"
-                    : "text-safari-bark/70 hover:text-safari-bark hover:bg-white/40"
+                    : "text-safari-bark/78 hover:text-safari-bark hover:bg-white/40"
                 }`}
               >
                 {e.title}

@@ -43,7 +43,7 @@ export default function DestinationCard({ destination, priority = false }: Desti
           <h3 className="font-serif-luxury text-xl font-normal text-safari-bark group-hover:text-safari-russet transition-colors tracking-wide">
             {destination.name}
           </h3>
-          <p className="text-xs text-safari-bark/62 line-clamp-2 mt-2 font-sans leading-relaxed">
+          <p className="text-xs text-safari-bark/78 line-clamp-2 mt-2 font-sans leading-relaxed">
             {destination.tagline}
           </p>
         </div>

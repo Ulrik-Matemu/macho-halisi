@@ -11,13 +11,13 @@ export default function PlanningComparison() {
     <section className="py-20 sm:py-28 border-b border-safari-bark/10">
       <div className="mb-12 text-center max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-          <Scale className="w-3.5 h-3.5 text-safari-gold" />
+          <Scale className="w-3.5 h-3.5 text-safari-russet" />
           <span>The Real Distinction</span>
         </div>
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           Commercial Package vs. Bespoke Architecture
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 leading-relaxed">
           Why two journeys with the same national park names on paper deliver profoundly different
           safari memories.
         </p>
@@ -32,7 +32,7 @@ export default function PlanningComparison() {
               <X className="w-4 h-4" />
             </div>
             <div>
-              <div className="font-sans text-[11px] uppercase tracking-wider text-safari-bark/60 font-medium">
+              <div className="font-sans text-[11px] uppercase tracking-wider text-safari-bark/78 font-medium">
                 Standard Industry Norm
               </div>
               <div className="font-serif-luxury text-lg text-safari-bark">

@@ -18,17 +18,17 @@ export default function DestinationsIndexPage() {
   return (
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "Destinations", path: "/destinations" }]} />
-      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28 min-h-screen">
+      <div className="bg-safari-linen text-safari-bark pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <ScrollReveal className="mb-10 sm:mb-14 pb-8 border-b border-safari-bark/10">
             <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-              <Compass className="w-3.5 h-3.5 text-safari-gold" />
+              <Compass className="w-3.5 h-3.5 text-safari-russet" />
               <span>Tanzania Destinations</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.12em] sm:tracking-[0.14em] uppercase leading-snug">
               Where to Go in Tanzania
             </h1>
-            <p className="text-sm text-safari-bark/62 font-sans mt-3 max-w-2xl leading-relaxed">
+            <p className="text-sm text-safari-bark/78 font-sans mt-3 max-w-2xl leading-relaxed">
               From the endless plains of the Serengeti to the spice-scented lanes of Zanzibar —
               explore the national parks, conservation areas and coastline that make Tanzania one
               of Africa&apos;s greatest safari and beach destinations.

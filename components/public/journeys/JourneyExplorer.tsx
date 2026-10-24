@@ -21,10 +21,10 @@ const formatPrice = (p: number | null) => (p == null ? "On request" : `$${p.toLo
 
 const chip = (active: boolean) =>
   `border-b transition-colors duration-300 cursor-pointer ${
-    active ? "text-safari-bark border-safari-russet" : "text-safari-bark/55 border-transparent hover:text-safari-bark"
+    active ? "text-safari-bark border-safari-russet" : "text-safari-bark/78 border-transparent hover:text-safari-bark"
   }`;
 
-const LABEL = "font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase";
+const LABEL = "font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase";
 
 interface Row extends Journey {
   /** Position in the collection's recommended order, 0-based. */
@@ -271,7 +271,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
 
       <div ref={listRef} className="max-w-[1340px] mx-auto px-6 sm:px-16 pt-11">
         <div className="flex items-baseline justify-between gap-6 mb-[26px]">
-          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase">
+          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/78 uppercase">
             {rows.length ? `Showing ${pad(from)} – ${pad(to)} of ${pad(rows.length)} journeys` : "No journeys"}
           </span>
           {filtered && (
@@ -310,7 +310,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                 {ticks.map((d) => (
                   <span
                     key={d}
-                    className="absolute bottom-0 -translate-x-1/2 font-sans font-light text-[10px] text-safari-bark/60"
+                    className="absolute bottom-0 -translate-x-1/2 font-sans font-light text-[10px] text-safari-bark/78"
                     style={{ left: `${((d / axisMax) * 100).toFixed(2)}%` }}
                   >
                     {d}
@@ -339,7 +339,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                     <div className="font-serif-luxury font-light text-[clamp(24px,2.3vw,32px)] leading-[1.14] tracking-[0.03em] mb-2">
                       {r.name}
                     </div>
-                    <div className="font-sans font-light text-[13px] leading-[1.7] text-safari-bark/66">{r.sub}</div>
+                    <div className="font-sans font-light text-[13px] leading-[1.7] text-safari-bark/78">{r.sub}</div>
                   </div>
                   <div className="relative min-w-0 max-md:col-start-2 max-md:col-span-2 max-md:row-start-2">
                     <div className="relative h-3.5">
@@ -353,7 +353,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                         style={{ left: barW, transitionDelay: delay }}
                       />
                     </div>
-                    <div className="flex gap-5 mt-3 font-sans font-light text-[10.5px] tracking-[0.2em] text-safari-bark/70 uppercase">
+                    <div className="flex gap-5 mt-3 font-sans font-light text-[10.5px] tracking-[0.2em] text-safari-bark/78 uppercase">
                       <span className="text-safari-bark">{lengthLabel(r.length)}</span>
                       <span>{r.facet}</span>
                     </div>
@@ -391,7 +391,7 @@ export default function JourneyExplorer({ items, unit, facetLabel }: JourneyExpl
                 <div className="font-serif-luxury font-light text-[28px] leading-[1.14] tracking-[0.03em] mb-2.5 group-hover:text-safari-russet transition-colors">
                   {r.name}
                 </div>
-                <div className="font-sans font-light text-[13.5px] leading-[1.8] text-safari-bark/66 mb-4">{r.sub}</div>
+                <div className="font-sans font-light text-[13.5px] leading-[1.8] text-safari-bark/78 mb-4">{r.sub}</div>
                 <div className="flex items-baseline justify-between pt-3.5 border-t border-safari-bark/[0.14]">
                   <span className="font-serif-luxury font-light text-xl text-safari-russet">{formatPrice(r.price)}</span>
                   <span className="font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">View →</span>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { X, ArrowRight, Search } from "lucide-react";
 import { navigationData, NavCategory, NavSubItem } from "../data/navigationData";
@@ -188,9 +189,9 @@ export default function FullscreenNavMenu({
       // `inert` (React 19) removes it from both tab order and hit-testing
       // in one attribute, without touching the curtain transition itself.
       inert={!isOpen}
-      className={`fixed inset-0 z-50 bg-[#d0b783] text-safari-night flex flex-col select-none transition-curtain ${
+      className={`fixed inset-0 z-50 bg-safari-bark text-safari-cream flex flex-col select-none transition-curtain ${
         isOpen ? "curtain-open pointer-events-auto" : "curtain-closed pointer-events-none"
-      } border-b border-safari-ochre/50 shadow-[0_12px_40px_rgba(198,134,66,0.22)]`}
+      } border-b border-safari-ochre/50 shadow-[0_12px_40px_rgba(0,0,0,0.4)]`}
       onMouseLeave={() => scheduleReset(200)}
     >
       {/* Inner Content Layer: Fades in after curtain unfurls, dissolves upward during curtain retraction */}
@@ -204,7 +205,7 @@ export default function FullscreenNavMenu({
         {/* Top Bar with Staggered Header Descent */}
         <header
           onMouseEnter={cancelResetTimer}
-          className="border-b border-safari-night/15 bg-[#d0b783] py-5 sm:py-6"
+          className="border-b border-safari-cream/20 bg-safari-bark py-5 sm:py-6"
         >
           <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
             {/* Left: Brand Logo (matching Navbar) */}
@@ -213,16 +214,7 @@ export default function FullscreenNavMenu({
               onClick={handleClose}
               className="flex items-center group transition-transform duration-300 hover:scale-[1.02]"
             >
-              <div className="relative lg:h-14 h-12 aspect-[180/94] rounded overflow-hidden border border-safari-night/20 bg-black shadow-md transition-colors duration-300 group-hover:border-safari-ochre/60">
-                <Image
-                  src="/media/latest-logo.jpg"
-                  alt="Macho Halisi Logo"
-                  fill
-                  priority
-                  sizes="112px"
-                  className="object-cover object-center"
-                />
-              </div>
+              <Logo priority className="h-12 sm:h-14 lg:h-16" />
             </Link>
 
             {/* Right: Close Menu Trigger, Search & Enquire CTA */}
@@ -232,13 +224,13 @@ export default function FullscreenNavMenu({
 
               {/* Search destinations input */}
               <div className="relative hidden md:block w-48 lg:w-60">
-                <Search className="w-4 h-4 text-safari-night/40 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-safari-cream/80 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Search destinations..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-safari-night/5 border border-safari-night/25 rounded-sm md:h-10 pl-9 pr-4 py-1.5 text-xs text-safari-night placeholder-safari-night/40 focus:outline-none focus:border-safari-ochre transition-colors"
+                  className="w-full bg-safari-cream/10 border border-safari-cream/25 rounded-sm md:h-10 pl-9 pr-4 py-1.5 text-xs text-safari-cream placeholder-safari-cream/60 focus:outline-none focus:border-safari-ochre transition-colors"
                 />
               </div>
 
@@ -248,17 +240,17 @@ export default function FullscreenNavMenu({
                   handleClose();
                   onOpenEnquiry();
                 }}
-                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-safari-ochre hover:bg-safari-russet text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
+                className="px-5 sm:px-7 py-2.5 sm:py-3 bg-safari-ochre hover:bg-safari-gold text-safari-bark font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded cursor-pointer shadow-md hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(198,134,66,0.35)]"
               >
                 ENQUIRE
               </button>
               <button
                 onClick={handleClose}
                 aria-label="Close menu"
-                className="group flex items-center gap-2.5 sm:gap-3 text-safari-night focus:outline-none cursor-pointer"
+                className="group flex items-center gap-2.5 sm:gap-3 text-safari-cream focus:outline-none cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-full border border-safari-night/30 flex items-center justify-center transition-all duration-300 group-hover:border-safari-ochre group-hover:scale-105 group-hover:bg-safari-russet/20">
-                  <X className="w-4 h-4 text-safari-night group-hover:text-safari-russet transition-colors" />
+                <div className="w-10 h-10 rounded-full border border-safari-cream/30 flex items-center justify-center transition-all duration-300 group-hover:border-safari-ochre group-hover:scale-105 group-hover:bg-safari-gold/20">
+                  <X className="w-4 h-4 text-safari-cream group-hover:text-safari-champagne transition-colors" />
                 </div>
               </button>
             </div>
@@ -270,7 +262,7 @@ export default function FullscreenNavMenu({
           {/* If user is actively searching */}
           {isSearching ? (
             <div className="max-w-[1400px] mx-auto p-6 sm:p-12">
-              <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-safari-russet mb-6">
+              <h3 className="text-xs font-sans font-light uppercase tracking-[0.3em] text-safari-gold mb-6">
                 Found {searchResults.length} destination(s) for &quot;{searchQuery}&quot;
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -292,25 +284,25 @@ export default function FullscreenNavMenu({
                       handleClose();
                     }}
                     style={{ animationDelay: `${idx * 40}ms` }}
-                    className="p-5 border border-safari-night/15 hover:border-safari-ochre transition-all duration-300 rounded bg-safari-night/[0.03] cursor-pointer group flex flex-col justify-between animate-nav-cascade hover:-translate-y-1 hover:shadow-xl"
+                    className="p-5 border border-safari-cream/20 hover:border-safari-ochre transition-all duration-300 rounded bg-safari-cream/[0.05] cursor-pointer group flex flex-col justify-between animate-nav-cascade hover:-translate-y-1 hover:shadow-xl"
                   >
                     <div>
-                      <span className="text-[10px] tracking-[0.25em] text-safari-russet uppercase block mb-1">
+                      <span className="text-[10px] tracking-[0.25em] text-safari-gold uppercase block mb-1">
                         {categoryTitle}
                       </span>
-                      <h4 className="font-serif-luxury text-xl font-normal text-safari-night group-hover:text-safari-russet transition-colors tracking-wide">
+                      <h4 className="font-serif-luxury text-xl font-normal text-safari-cream group-hover:text-safari-champagne transition-colors tracking-wide">
                         {item.title}
                       </h4>
                       {item.tagline && (
-                        <p className="font-serif-italic text-xs text-safari-russet/80 mt-1">
+                        <p className="font-serif-italic text-xs text-safari-gold/90 mt-1">
                           {item.tagline}
                         </p>
                       )}
-                      <p className="text-xs text-safari-night/85 line-clamp-2 mt-2 font-sans leading-relaxed">
+                      <p className="text-xs text-safari-cream/85 line-clamp-2 mt-2 font-sans leading-relaxed">
                         {item.description}
                       </p>
                     </div>
-                    <div className="mt-4 flex items-center gap-2 text-xs text-safari-russet">
+                    <div className="mt-4 flex items-center gap-2 text-xs text-safari-gold">
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
                     </div>
@@ -320,7 +312,7 @@ export default function FullscreenNavMenu({
             </div>
           ) : (
             /* Split Panel Navigation with Full-Height Top-Border Flush Preview */
-            <div className="w-full flex-1 flex flex-col lg:flex-row h-full min-h-[calc(100vh-85px)]">
+            <div className="w-full flex-1 flex flex-col lg:flex-row h-full min-h-[calc(100dvh-85px)]">
               {/* Left & Middle: Columns 1 & 2 in an elegant padded container */}
               <div
                 onMouseEnter={cancelResetTimer}
@@ -349,8 +341,8 @@ export default function FullscreenNavMenu({
                         }}
                         className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-300 animate-nav-cascade ${
                           isHovered
-                            ? "border-safari-ochre text-safari-russet"
-                            : "border-safari-night/25 text-safari-night hover:text-safari-russet hover:border-safari-ochre"
+                            ? "border-safari-ochre text-safari-gold"
+                            : "border-safari-cream/25 text-safari-cream hover:text-safari-champagne hover:border-safari-ochre"
                         }`}
                       >
                         <span className="font-serif-luxury text-sm sm:text-base lg:text-lg tracking-[0.14em] uppercase font-light transition-transform duration-300 group-hover:translate-x-2">
@@ -358,7 +350,7 @@ export default function FullscreenNavMenu({
                         </span>
                         {/* Orange Arrow on active/hovered state with smooth slide-in */}
                         <ArrowRight
-                          className={`w-4 h-4 text-safari-russet transition-all duration-300 ${
+                          className={`w-4 h-4 text-safari-gold transition-all duration-300 ${
                             isHovered
                               ? "opacity-100 translate-x-0"
                               : "opacity-0 -translate-x-3 group-hover:opacity-40 group-hover:-translate-x-1"
@@ -385,7 +377,7 @@ export default function FullscreenNavMenu({
                         setHoveredCategoryId(null);
                         setHoveredSubItem(null);
                       }}
-                      className="flex items-center gap-2 text-xs text-safari-russet uppercase tracking-widest py-2"
+                      className="flex items-center gap-2 text-xs text-safari-gold uppercase tracking-widest py-2"
                     >
                       ← Back to Menu
                     </button>
@@ -398,7 +390,7 @@ export default function FullscreenNavMenu({
                         <Link
                           href={activeCategory.href}
                           onClick={handleClose}
-                          className="group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b border-safari-night/25 hover:border-safari-ochre text-safari-night hover:text-safari-russet transition-all duration-200"
+                          className="group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b border-safari-cream/25 hover:border-safari-ochre text-safari-cream hover:text-safari-champagne transition-all duration-200"
                         >
                           <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light">
                             Browse all
@@ -417,8 +409,8 @@ export default function FullscreenNavMenu({
                             onClick={handleClose}
                             className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-200 animate-sub-cascade ${
                               isSubHovered
-                                ? "border-safari-ochre text-safari-russet"
-                                : "border-safari-night/25 text-safari-night hover:text-safari-russet hover:border-safari-ochre"
+                                ? "border-safari-ochre text-safari-gold"
+                                : "border-safari-cream/25 text-safari-cream hover:text-safari-champagne hover:border-safari-ochre"
                             }`}
                           >
                             <span className="font-serif-luxury text-xs sm:text-sm tracking-[0.12em] uppercase font-light transition-transform duration-200 group-hover:translate-x-2">
@@ -426,7 +418,7 @@ export default function FullscreenNavMenu({
                             </span>
                             {/* Indicator Pip on Hover */}
                             <div
-                              className={`w-1.5 h-1.5 rounded-full bg-safari-russet transition-all duration-200 ${
+                              className={`w-1.5 h-1.5 rounded-full bg-safari-gold transition-all duration-200 ${
                                 isSubHovered
                                   ? "opacity-100 scale-100"
                                   : "opacity-0 scale-50"
@@ -447,9 +439,9 @@ export default function FullscreenNavMenu({
               <div
                 onMouseEnter={cancelResetTimer}
                 onMouseLeave={() => scheduleReset(320)}
-                className={`w-full lg:w-5/12 xl:w-1/3 border-t lg:border-t-0 lg:border-l border-safari-night/15 relative flex flex-col overflow-hidden ${
+                className={`w-full lg:w-5/12 xl:w-1/3 border-t lg:border-t-0 lg:border-l border-safari-cream/20 relative flex flex-col overflow-hidden ${
                   mobileStep === "preview"
-                    ? "flex min-h-[calc(100vh-140px)]"
+                    ? "flex min-h-[calc(100dvh-140px)]"
                     : "hidden lg:flex min-h-full"
                 }`}
               >

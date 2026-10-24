@@ -126,7 +126,7 @@ export default async function DestinationDetailPage({
     <SiteChrome>
       <JsonLd data={jsonLd} />
 
-      <div className="bg-safari-tan text-safari-bark">
+      <div className="bg-safari-linen text-safari-bark">
         <ScrollProgressBar />
         <DestinationHero
           image={destination.heroImage}
@@ -156,7 +156,7 @@ export default async function DestinationDetailPage({
               {destination.bodyParagraphs.map((para, idx) => (
                 <p
                   key={idx}
-                  className="font-sans font-light text-[15.5px] leading-[2] text-safari-bark/66 max-w-[620px] mb-5 last:mb-0"
+                  className="font-sans font-light text-[15.5px] leading-[2] text-safari-bark/78 max-w-[620px] mb-5 last:mb-0"
                 >
                   {para}
                 </p>
@@ -165,12 +165,12 @@ export default async function DestinationDetailPage({
 
             <ScrollReveal delayMs={120} size="lift">
               <aside className="border-t border-safari-bark/[0.16] pt-7 flex flex-col gap-7">
-                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-1">
+                <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mb-1">
                   Quick facts
                 </div>
                 {destination.quickFacts.map((fact) => (
                   <div key={fact.label} className="flex items-baseline justify-between gap-4">
-                    <span className="font-sans font-light text-[13px] text-safari-bark/60 uppercase tracking-[0.05em]">
+                    <span className="font-sans font-light text-[13px] text-safari-bark/78 uppercase tracking-[0.05em]">
                       {fact.label}
                     </span>
                     <span className="font-serif-luxury font-light text-base text-safari-bark text-right">
@@ -218,14 +218,14 @@ export default async function DestinationDetailPage({
             {destination.highlights.map((highlight, idx) => (
               <ScrollReveal key={highlight.title} delayMs={idx * 60} size="lift">
                 <div className="flex gap-5">
-                  <span className="font-serif-luxury font-light text-2xl text-safari-gold shrink-0">
+                  <span className="font-serif-luxury font-light text-2xl text-safari-umber shrink-0">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-serif-luxury font-light text-xl tracking-[0.02em] text-safari-bark mb-2">
                       {highlight.title}
                     </h3>
-                    <p className="font-sans font-light text-[15px] leading-[1.8] text-safari-bark/66">
+                    <p className="font-sans font-light text-[15px] leading-[1.8] text-safari-bark/78">
                       {highlight.description}
                     </p>
                   </div>
@@ -368,7 +368,7 @@ export default async function DestinationDetailPage({
                 <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-safari-cream uppercase mb-6">
                   Visit {destination.name}
                 </h2>
-                <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/72 max-w-md mb-8">
+                <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/80 max-w-md mb-8">
                   Tell us roughly when you would like to travel and our safari specialists will
                   come back within 24 hours with a bespoke itinerary built around {destination.name}.
                 </p>

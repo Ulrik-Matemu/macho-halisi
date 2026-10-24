@@ -30,18 +30,18 @@ export default function WhenToTravelPage() {
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "When to travel", path: "/when-to-travel" }]} />
       <SmoothScroll />
-      <div className="bg-safari-tan text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
+      <div className="bg-safari-linen text-safari-bark pt-28 sm:pt-36 pb-20 sm:pb-32 min-h-screen">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           {/* Header */}
           <ScrollReveal className="mb-12 sm:mb-16 pb-10 border-b border-safari-bark/10">
             <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-3">
-              <Calendar className="w-3.5 h-3.5 text-safari-gold" />
+              <Calendar className="w-3.5 h-3.5 text-safari-russet" />
               <span>Wilderness Seasons & Migration Rhythm</span>
             </div>
             <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-light text-safari-bark tracking-[0.02em] leading-tight">
               Best Time to Visit Tanzania
             </h1>
-            <p className="font-sans font-light text-sm sm:text-base text-safari-bark/70 mt-4 max-w-3xl leading-relaxed">
+            <p className="font-sans font-light text-sm sm:text-base text-safari-bark/78 mt-4 max-w-3xl leading-relaxed">
               Tanzania offers breathtaking wildlife encounters every single month of the year. However,
               the wilderness changes its skin continuously: from the river crossings of July and August
               to the synchronized calving of February and the lush, quiet solitude of April.

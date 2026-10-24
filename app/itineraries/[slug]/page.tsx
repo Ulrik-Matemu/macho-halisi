@@ -140,7 +140,7 @@ export default async function ItineraryDetailPage({
         heroElementId={HERO_ELEMENT_ID}
       />
 
-      <div className="bg-safari-tan text-safari-bark">
+      <div className="bg-safari-linen text-safari-bark">
         {/* Hero */}
         <ItineraryHero
           elementId={HERO_ELEMENT_ID}
@@ -174,7 +174,7 @@ export default async function ItineraryDetailPage({
                 {bodyParagraphs.map((para, idx) => (
                   <p
                     key={idx}
-                    className="font-sans font-light text-[15.5px] leading-[2] text-safari-bark/66 max-w-[620px] mb-5 last:mb-0"
+                    className="font-sans font-light text-[15.5px] leading-[2] text-safari-bark/78 max-w-[620px] mb-5 last:mb-0"
                   >
                     {para}
                   </p>
@@ -185,7 +185,7 @@ export default async function ItineraryDetailPage({
                 <aside className="border-t border-safari-bark/[0.16] pt-7 flex flex-col gap-7">
                   {itinerary.destinations.length > 0 && (
                     <div>
-                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-2.5">
+                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mb-2.5">
                         Destinations visited
                       </div>
                       <div className="font-sans font-light text-[15px] leading-[1.85] text-safari-bark">
@@ -210,7 +210,7 @@ export default async function ItineraryDetailPage({
 
                   {itinerary.availabilityPeriods.length > 0 && (
                     <div>
-                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase mb-2.5">
+                      <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase mb-2.5">
                         Seasonal availability
                       </div>
                       <div className="flex flex-col gap-2">
@@ -220,7 +220,7 @@ export default async function ItineraryDetailPage({
                             className="font-sans font-light text-[15px] leading-[1.6] text-safari-bark"
                           >
                             {formatAvailabilityPeriodLabel(period)}
-                            {period.note && <span className="text-safari-bark/55"> — {period.note}</span>}
+                            {period.note && <span className="text-safari-bark/78"> — {period.note}</span>}
                           </div>
                         ))}
                       </div>
@@ -259,7 +259,7 @@ export default async function ItineraryDetailPage({
                   <span className="font-serif-luxury font-light text-xl sm:text-2xl tracking-[0.04em] text-safari-bark">
                     {stay.name}
                   </span>
-                  <span className="font-sans font-light text-xs tracking-[0.18em] text-safari-bark/66 uppercase whitespace-nowrap">
+                  <span className="font-sans font-light text-xs tracking-[0.18em] text-safari-bark/78 uppercase whitespace-nowrap">
                     {stay.nights} night{stay.nights === 1 ? "" : "s"}
                   </span>
                 </div>
@@ -277,7 +277,7 @@ export default async function ItineraryDetailPage({
                   <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-6">
                     What&apos;s included
                   </div>
-                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/72">
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/78">
                     {itinerary.inclusions.map((item, idx) => (
                       <div key={idx}>{item}</div>
                     ))}
@@ -286,10 +286,10 @@ export default async function ItineraryDetailPage({
               )}
               {itinerary.exclusions.length > 0 && (
                 <div>
-                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-bark/70 uppercase mb-6">
+                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-bark/78 uppercase mb-6">
                     Not included
                   </div>
-                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/62">
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/78">
                     {itinerary.exclusions.map((item, idx) => (
                       <div key={idx}>{item}</div>
                     ))}
@@ -298,10 +298,10 @@ export default async function ItineraryDetailPage({
               )}
               {itinerary.travelInfo && (
                 <div>
-                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-bark/70 uppercase mb-6">
+                  <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-bark/78 uppercase mb-6">
                     Travel information
                   </div>
-                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/72 whitespace-pre-line">
+                  <div className="font-sans font-light text-[15px] leading-[2.25] text-safari-bark/78 whitespace-pre-line">
                     {itinerary.travelInfo}
                   </div>
                 </div>
@@ -356,14 +356,14 @@ export default async function ItineraryDetailPage({
                 <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl leading-[1.08] tracking-[0.1em] text-safari-cream uppercase mb-6">
                   Plan this trip
                 </h2>
-                <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/72 max-w-md mb-8">
+                <p className="font-sans font-light text-[15px] leading-[2] text-safari-cream/80 max-w-md mb-8">
                   Tell us roughly when you would like to travel and we will come back within 24
                   hours with dates, camps and a firm price — no deposit until the route is right.
                 </p>
 
                 {activePeriod && (
                   <div>
-                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/70 uppercase mb-2">
+                    <div className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-cream/80 uppercase mb-2">
                       Next availability
                     </div>
                     <div className="font-serif-luxury font-light text-xl tracking-[0.06em] text-safari-cream">

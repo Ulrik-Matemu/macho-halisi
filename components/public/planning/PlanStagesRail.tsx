@@ -12,13 +12,13 @@ export default function PlanStagesRail() {
     <section className="py-20 sm:py-28 border-b border-safari-bark/10">
       <div className="mb-12 sm:mb-16">
         <div className="flex items-center gap-2 text-xs font-sans font-light tracking-[0.25em] text-safari-russet uppercase mb-2">
-          <Compass className="w-3.5 h-3.5 text-safari-gold" />
+          <Compass className="w-3.5 h-3.5 text-safari-russet" />
           <span>The Five Chapters</span>
         </div>
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-light text-safari-bark tracking-[0.04em] leading-tight">
           How a Safari Takes Form
         </h2>
-        <p className="text-sm sm:text-[15px] text-safari-bark/70 font-sans mt-3 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-[15px] text-safari-bark/78 font-sans mt-3 max-w-2xl leading-relaxed">
           From an unhurried conversation in Karatu to tracking prides at dawn. Explore how we architect
           each journey from the ground up.
         </p>
@@ -108,7 +108,7 @@ export default function PlanStagesRail() {
 
             {/* Quote */}
             <div className="pt-2 border-t border-safari-bark/10">
-              <p className="font-serif-luxury italic text-sm text-safari-bark/70">
+              <p className="font-serif-luxury italic text-sm text-safari-bark/78">
                 &ldquo;{stage.quote}&rdquo;
               </p>
               <span className="font-sans text-[11px] text-safari-russet uppercase tracking-widest block mt-1">

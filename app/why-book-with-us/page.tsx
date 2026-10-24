@@ -33,7 +33,7 @@ export default function WhyBookWithUsPage() {
 
       {/* Plain text from the client's Why Book With Us document
           (data/whyBookData.ts). */}
-      <div className="bg-safari-tan text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
+      <div className="bg-safari-linen text-safari-bark pt-16 sm:pt-24 pb-20 sm:pb-32">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="max-w-3xl space-y-8 sm:space-y-10">
             {whyBookParagraphs.map((paragraph, idx) => (

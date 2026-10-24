@@ -39,7 +39,7 @@ export default function DestinationFaq({ faqs }: DestinationFaqProps) {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/72 pb-6 max-w-2xl">
+                <p className="font-sans font-light text-[15px] leading-[1.9] text-safari-bark/78 pb-6 max-w-2xl">
                   {faq.answer}
                 </p>
               </div>

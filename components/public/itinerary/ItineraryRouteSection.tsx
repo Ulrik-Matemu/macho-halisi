@@ -87,7 +87,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                   className={`px-3.5 py-1.5 rounded-full font-sans font-light text-[10px] tracking-[0.24em] uppercase transition-colors cursor-pointer ${
                     panelView === view
                       ? "bg-safari-bark text-safari-cream"
-                      : "text-safari-bark/60 hover:text-safari-bark"
+                      : "text-safari-bark/78 hover:text-safari-bark"
                   }`}
                 >
                   {view === "photo" ? "Photos" : "Map"}
@@ -95,7 +95,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
               ))}
             </div>
           )}
-          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/70 uppercase whitespace-nowrap">
+          <span className="font-sans font-light text-[11px] tracking-[0.28em] text-safari-bark/78 uppercase whitespace-nowrap">
             Day {String(activeDayNumber).padStart(2, "0")} of {String(days.length).padStart(2, "0")}
           </span>
         </div>
@@ -140,7 +140,7 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
 
           {routeMapUrl && (
             <div className="flex items-center gap-3.5 mt-5">
-              <span className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/70 uppercase whitespace-nowrap">
+              <span className="font-sans font-light text-[10px] tracking-[0.3em] text-safari-bark/78 uppercase whitespace-nowrap">
                 Route map
               </span>
               <span className="flex-1 h-px bg-safari-bark/[0.18]" />
@@ -199,13 +199,13 @@ export default function ItineraryRouteSection({ days, images, routeMapUrl, mapPi
                 )}
 
                 {day.description && (
-                  <p className="font-sans font-light text-sm leading-[1.98] text-safari-bark/66 mb-5">
+                  <p className="font-sans font-light text-sm leading-[1.98] text-safari-bark/78 mb-5">
                     {day.description}
                   </p>
                 )}
 
                 {(day.accommodation || day.activities.length > 0) && (
-                  <div className="flex gap-x-7 gap-y-2 flex-wrap font-sans font-light text-[11px] tracking-[0.18em] text-safari-bark/70 uppercase">
+                  <div className="flex gap-x-7 gap-y-2 flex-wrap font-sans font-light text-[11px] tracking-[0.18em] text-safari-bark/78 uppercase">
                     {day.accommodation && <span>{day.accommodation}</span>}
                     {day.activities.map((activity, actIdx) => (
                       <span key={actIdx}>{activity}</span>

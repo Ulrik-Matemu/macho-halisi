@@ -111,7 +111,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         </h3>
 
         {itinerary.overview && (
-          <p className="font-sans font-light text-sm leading-[1.92] text-safari-bark/62 max-w-[450px] mb-4 sm:mb-6 lg:mb-[26px] line-clamp-2 lg:line-clamp-3">
+          <p className="font-sans font-light text-sm leading-[1.92] text-safari-bark/78 max-w-[450px] mb-4 sm:mb-6 lg:mb-[26px] line-clamp-2 lg:line-clamp-3">
             {itinerary.overview}
           </p>
         )}
@@ -119,7 +119,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         <div className="flex items-center gap-8 sm:gap-10 lg:gap-12 mb-3 sm:mb-4">
           {itinerary.nights !== null && (
             <div>
-              <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/70 uppercase mb-2">
+              <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/78 uppercase mb-2">
                 Duration
               </div>
               <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-safari-bark">
@@ -128,7 +128,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
             </div>
           )}
           <div>
-            <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/70 uppercase mb-2">
+            <div className="font-sans font-light text-[10px] tracking-[0.28em] text-safari-bark/78 uppercase mb-2">
               {itinerary.priceOnRequest ? "Pricing" : "From"}
             </div>
             <div className="font-serif-luxury font-light text-lg sm:text-xl tracking-[0.06em] text-safari-russet">
@@ -138,7 +138,7 @@ export default function ItineraryStackCard({ itinerary, index, priority = false 
         </div>
 
         {activePeriod && (
-          <div className="hidden sm:flex items-center gap-1.5 font-sans font-light text-xs text-safari-bark/70">
+          <div className="hidden sm:flex items-center gap-1.5 font-sans font-light text-xs text-safari-bark/78">
             <CalendarRange className="w-3.5 h-3.5 text-safari-russet" />
             <span>{formatAvailabilityPeriodLabel(activePeriod)}</span>
           </div>
