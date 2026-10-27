@@ -6,7 +6,13 @@ import {
   ItineraryStatus,
   AvailabilityPeriod,
 } from "@/lib/itineraries/types";
-import type { AccommodationType, ServiceTier } from "@/lib/accommodations/types";
+import type {
+  AccommodationType,
+  ServiceTier,
+  AccommodationSpace,
+  NearbyPlace,
+  AccommodationActivity,
+} from "@/lib/accommodations/types";
 
 // Shapes returned by the backend's unauthenticated /public/* routes (see
 // macho-halisi-backend src/routes/public/public.serializers.ts). These are
@@ -142,6 +148,14 @@ export interface PublicAccommodationDetail {
   longitude: number | null;
   description: string | null;
   amenities: string[];
+  // Optional: absent when talking to an API that predates the rich-content
+  // migration, and empty for accommodations the client hasn't written up.
+  tagline?: string | null;
+  elevationMeters?: number | null;
+  maxGuests?: number | null;
+  spaces?: AccommodationSpace[];
+  nearbyPlaces?: NearbyPlace[];
+  activities?: AccommodationActivity[];
   pricePerNight: number | string | null;
   priceOnRequest: boolean;
   publishedAt: string | null;

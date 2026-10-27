@@ -60,6 +60,45 @@ export function hasPendingImageChange(img: AccommodationImage): boolean {
   return Boolean(img.status && img.status !== "LIVE") || img.pendingSortOrder != null || img.pendingAltText != null;
 }
 
+export type SpaceCategory = "ROOM" | "DINING" | "WELLNESS" | "MEETINGS" | "CAMPING";
+export type ActivityCategory = "SAFARI" | "WALK" | "CULTURE";
+
+export interface AccommodationSpace {
+  category: SpaceCategory;
+  name: string;
+  tagline?: string | null;
+  description?: string | null;
+  capacity?: number | null;
+  features: string[];
+}
+
+export interface NearbyPlace {
+  name: string;
+  distanceKm?: number | null;
+  description?: string | null;
+}
+
+export interface AccommodationActivity {
+  name: string;
+  description?: string | null;
+  category: ActivityCategory;
+}
+
+// Headings follow the client's document: rooms and the campsite sit under one
+// "Accommodation" heading.
+export const SPACE_GROUPS: { label: string; categories: SpaceCategory[] }[] = [
+  { label: "Accommodation", categories: ["ROOM", "CAMPING"] },
+  { label: "Dining & Social Spaces", categories: ["DINING"] },
+  { label: "Leisure & Wellness", categories: ["WELLNESS"] },
+  { label: "Conferences, Meetings & Special Occasions", categories: ["MEETINGS"] },
+];
+
+export const ACTIVITY_CATEGORY_LABELS: Record<ActivityCategory, string> = {
+  SAFARI: "Wildlife Safari Excursions",
+  CULTURE: "Cultural Experiences",
+  WALK: "Guided Walks & Outdoor Activities",
+};
+
 export interface AccommodationSummary {
   id: string;
   name: string;
@@ -90,6 +129,12 @@ export interface AccommodationDetail {
   longitude: number | null;
   description: string | null;
   amenities: string[];
+  tagline?: string | null;
+  elevationMeters?: number | null;
+  maxGuests?: number | null;
+  spaces?: AccommodationSpace[];
+  nearbyPlaces?: NearbyPlace[];
+  activities?: AccommodationActivity[];
   pricePerNight: number | string | null;
   priceOnRequest: boolean;
   destinationId: string | null;

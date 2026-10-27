@@ -6,6 +6,11 @@ import { MapPin, Check } from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
 import AccommodationMap from "@/components/public/accommodations/AccommodationMap";
 import AccommodationGallery from "@/components/public/accommodations/AccommodationGallery";
+import {
+  SpacesSection,
+  NearbySection,
+  ActivitiesSection,
+} from "@/components/public/accommodations/AccommodationSections";
 import { getAccommodationBySlug, getPublishedAccommodations } from "@/lib/public/api";
 import { ACCOMMODATION_TYPE_LABELS, SERVICE_TIER_LABELS } from "@/lib/accommodations/types";
 import { getSiteUrl } from "@/lib/site";
@@ -112,6 +117,11 @@ export default async function AccommodationDetailPage({
               <h1 className="font-serif-luxury text-3xl sm:text-4xl lg:text-6xl font-light text-white tracking-wide leading-tight max-w-4xl">
                 {accommodation.name}
               </h1>
+              {accommodation.tagline && (
+                <p className="font-serif-luxury text-lg sm:text-xl text-safari-sand/90 font-light mt-3 max-w-3xl">
+                  {accommodation.tagline}
+                </p>
+              )}
               <p className="flex items-center gap-1.5 text-sm text-white/70 mt-3 font-sans">
                 <MapPin className="w-4 h-4 text-safari-ochre shrink-0" />
                 {accommodation.locationText}
@@ -168,6 +178,10 @@ export default async function AccommodationDetailPage({
                 </section>
               )}
 
+              <SpacesSection spaces={accommodation.spaces ?? []} />
+              <NearbySection places={accommodation.nearbyPlaces ?? []} />
+              <ActivitiesSection activities={accommodation.activities ?? []} />
+
               {gallery.length > 0 && (
                 <section>
                   <h2 className="font-serif-luxury text-2xl text-white font-light tracking-wide mb-4">Gallery</h2>
@@ -204,6 +218,20 @@ export default async function AccommodationDetailPage({
                     <dt className="text-white/50 font-sans">Location</dt>
                     <dd className="text-white font-sans text-right">{accommodation.locationText}</dd>
                   </div>
+                  {accommodation.elevationMeters && (
+                    <div className="flex items-center justify-between">
+                      <dt className="text-white/50 font-sans">Elevation</dt>
+                      <dd className="text-white font-sans">
+                        ~{accommodation.elevationMeters.toLocaleString("en-US")} m
+                      </dd>
+                    </div>
+                  )}
+                  {accommodation.maxGuests && (
+                    <div className="flex items-center justify-between">
+                      <dt className="text-white/50 font-sans">Sleeps up to</dt>
+                      <dd className="text-white font-sans">{accommodation.maxGuests} guests</dd>
+                    </div>
+                  )}
                 </dl>
               </div>
             </aside>

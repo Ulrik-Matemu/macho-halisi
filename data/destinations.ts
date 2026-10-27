@@ -1181,21 +1181,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Western Circuit",
     tagline: "Tanzania's Wildest, Least-Visited Wilderness",
-    heroImage:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A safari vehicle crossing Katavi's remote floodplain at sunset",
+    heroImage: "/media/destinations/katavi/hero.jpg",
+    heroImageAlt: "Sunset over Katavi's floodplain treeline",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1400&q=85",
-        alt: "Elephants at sunset on Katavi's remote plains",
+        url: "/media/destinations/katavi/gallery-1.jpg",
+        alt: "A hippo in a Katavi waterhole",
       },
       {
-        url: "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=1400&q=85",
-        alt: "A lion pair resting in Katavi's bush",
+        url: "/media/destinations/katavi/gallery-2.jpg",
+        alt: "Katavi's green floodplain from the air",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary acacia tree on Katavi's plains",
+        url: "/media/destinations/katavi/gallery-3.jpg",
+        alt: "A buffalo wallowing in Katavi's marshland",
       },
     ],
     leadParagraph:
@@ -1288,16 +1287,16 @@ export const destinations: Destination[] = [
     heroImageAlt: "A chimpanzee resting in the forest of the Mahale Mountains",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
-        alt: "A lakeshore lodge terrace on Lake Tanganyika",
+        url: "/media/destinations/mahale/hero.jpg",
+        alt: "The clear shoreline of Lake Tanganyika",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the hills near Mahale",
+        url: "/media/destinations/mahale/gallery-1.jpg",
+        alt: "Forested hills above Lake Tanganyika",
       },
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A trekking trail through Mahale's forested mountains",
+        url: "/media/destinations/mahale/gallery-2.jpg",
+        alt: "Lake Tanganyika from the shore",
       },
     ],
     leadParagraph:
@@ -1384,21 +1383,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Western Circuit",
     tagline: "Jane Goodall's Chimpanzee Research Home",
-    heroImage:
-      "https://images.unsplash.com/photo-1742328114651-f4dbd710cd5d?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A chimpanzee resting in the forest of Gombe Stream National Park",
+    heroImage: "/media/destinations/gombe/hero.jpg",
+    heroImageAlt: "Chimpanzees resting in the forest at Gombe Stream National Park",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A forest trekking trail above Lake Tanganyika at Gombe",
+        url: "/media/destinations/gombe/gallery-1.jpg",
+        alt: "The pebble shore of Lake Tanganyika at Gombe",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree on the hills above Gombe",
+        url: "/media/destinations/gombe/gallery-2.jpg",
+        alt: "An eastern chimpanzee peering from the foliage",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the hills near Lake Tanganyika",
+        url: "/media/destinations/gombe/gallery-3.jpg",
+        alt: "Kakombe Waterfall tumbling through Gombe's forest",
       },
     ],
     leadParagraph:
@@ -1480,21 +1478,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Lake Victoria",
     tagline: "A Forested Island Sanctuary on Lake Victoria",
-    heroImage:
-      "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "An elephant amid Rubondo Island's forest on Lake Victoria",
+    heroImage: "/media/destinations/rubondo/hero.jpg",
+    heroImageAlt: "A sitatunga in the forest of Rubondo Island",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1549854233-ca0baec6fa74?auto=format&fit=crop&w=1400&q=85",
-        alt: "A giraffe among Rubondo Island's woodland",
+        url: "/media/destinations/rubondo/gallery-1.jpg",
+        alt: "Hippos along Rubondo Island's shoreline",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree on Rubondo Island's shoreline",
+        url: "/media/destinations/rubondo/gallery-2.jpg",
+        alt: "A sandy lake beach on Rubondo Island",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over Rubondo's woodland at dusk",
+        url: "/media/destinations/rubondo/gallery-3.jpg",
+        alt: "A park vehicle on Rubondo Island's forest tracks",
       },
     ],
     leadParagraph:
@@ -1577,21 +1574,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Coastal",
     tagline: "Where the Bush Meets the Indian Ocean",
-    heroImage:
-      "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A tropical coastline where Saadani National Park meets the Indian Ocean",
+    heroImage: "/media/destinations/saadani/hero.jpg",
+    heroImageAlt: "Sunrise over the beach at Saadani National Park",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1400&q=85",
-        alt: "Elephants at sunset near Saadani's coastline",
+        url: "/media/destinations/saadani/gallery-1.jpg",
+        alt: "Elephants beside a track in Saadani National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
-        alt: "A safari vehicle on Saadani's coastal plains",
+        url: "/media/destinations/saadani/gallery-2.jpg",
+        alt: "A baobab tree standing in Saadani National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
-        alt: "Aerial view of Saadani's coastal resort waters",
+        url: "/media/destinations/saadani/gallery-3.jpg",
+        alt: "The Wami River winding through Saadani's mangroves",
       },
     ],
     leadParagraph:
@@ -1674,21 +1670,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Southern Highlands",
     tagline: "Rainforest, Waterfalls & the African Galápagos",
-    heroImage:
-      "https://images.unsplash.com/photo-1747241118490-818d37b2bdae?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A waterfall cascading through Udzungwa's dense rainforest",
+    heroImage: "/media/destinations/udzungwa/hero.jpg",
+    heroImageAlt: "Sanje Falls pouring over a rock ledge in Udzungwa",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A forest trekking trail through the Udzungwa Mountains",
+        url: "/media/destinations/udzungwa/gallery-1.jpg",
+        alt: "A waterfall in Udzungwa Mountains National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the foothills of the Udzungwa range",
+        url: "/media/destinations/udzungwa/gallery-2.jpg",
+        alt: "The view over the plains from Udzungwa's escarpment",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree on the plains below the Udzungwa Mountains",
+        url: "/media/destinations/udzungwa/gallery-3.jpg",
+        alt: "A forest trail in Udzungwa's scarp forest",
       },
     ],
     leadParagraph:
@@ -1771,21 +1766,20 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Southern Highlands",
     tagline: "The Serengeti of Flowers",
-    heroImage:
-      "https://images.unsplash.com/photo-1783099994045-7243bccf2d5b?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A green highland trail through Kitulo's flower-covered plateau",
+    heroImage: "/media/destinations/kitulo/hero.jpg",
+    heroImageAlt: "Rolling green grassland on the Kitulo plateau",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A trekking trail across the Kitulo Plateau",
+        url: "/media/destinations/kitulo/gallery-1.jpg",
+        alt: "A track across the Kitulo highlands",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the Southern Highlands near Kitulo",
+        url: "/media/destinations/kitulo/gallery-2.jpg",
+        alt: "Yellow wildflowers carpeting Kitulo's meadows",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree on the Kitulo highland plateau",
+        url: "/media/destinations/kitulo/gallery-3.jpg",
+        alt: "Zebra grazing on the Kitulo plateau",
       },
     ],
     leadParagraph:
@@ -1964,21 +1958,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Conservation Area",
     region: "Northern Tanzania",
     tagline: "A Rhino & Wild Dog Sanctuary on the Kenyan Border",
-    heroImage:
-      "https://images.unsplash.com/photo-1544211413-16597c1a40b4?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A black rhino grazing in Mkomazi National Park",
+    heroImage: "/media/destinations/mkomazi/hero.jpg",
+    heroImageAlt: "A safari vehicle parked on rocks in Mkomazi National Park",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden semi-arid plains of Mkomazi National Park",
+        url: "/media/destinations/mkomazi/gallery-1.jpg",
+        alt: "A dry riverbed in Mkomazi's bushland",
       },
       {
-        url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
-        alt: "A safari vehicle crossing Mkomazi's dry landscape",
+        url: "/media/destinations/mkomazi/gallery-2.jpg",
+        alt: "A black rhino in Mkomazi National Park",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary acacia tree on Mkomazi's semi-arid plains",
+        url: "/media/destinations/mkomazi/gallery-3.jpg",
+        alt: "A seasonal river in Mkomazi National Park",
       },
     ],
     leadParagraph:
@@ -2059,21 +2052,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Mountain",
     region: "Arusha Region",
     tagline: "Africa's Fifth-Highest Peak & Kilimanjaro's Best Acclimatiser",
-    heroImage:
-      "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A trekker on the high-altitude trail of Mount Meru",
+    heroImage: "/media/destinations/meru/hero.jpg",
+    heroImageAlt: "Mount Meru rising above the foothills near Arusha",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the foothills of Mount Meru",
+        url: "/media/destinations/meru/gallery-1.jpg",
+        alt: "The ash cone inside Mount Meru's crater",
       },
       {
-        url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
-        alt: "Sunrise light over the plains near Mount Meru",
+        url: "/media/destinations/meru/gallery-2.jpg",
+        alt: "Trekkers resting on the Little Meru ridge",
       },
       {
-        url: "https://images.unsplash.com/photo-1549854233-ca0baec6fa74?auto=format&fit=crop&w=1400&q=85",
-        alt: "A giraffe on Mount Meru's lower slopes",
+        url: "/media/destinations/meru/gallery-3.jpg",
+        alt: "Mount Meru's summit ridge under blue sky",
       },
     ],
     leadParagraph:
@@ -2149,21 +2141,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Mountain",
     region: "Northeastern Tanzania",
     tagline: "Cool Highland Forest, Waterfalls & the Birthplace of African Violets",
-    heroImage:
-      "https://images.unsplash.com/photo-1747241118490-818d37b2bdae?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A waterfall in the forested Usambara Mountains",
+    heroImage: "/media/destinations/usambara/hero.jpg",
+    heroImageAlt: "Misty cliffs of the Usambara Mountains",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A hiking trail through the Usambara highlands",
+        url: "/media/destinations/usambara/gallery-1.jpg",
+        alt: "Lushoto town nestled in the Usambara valley",
       },
       {
-        url: "https://images.unsplash.com/photo-1783099994045-7243bccf2d5b?auto=format&fit=crop&w=1400&q=85",
-        alt: "A green hillside trail in the Usambara Mountains",
+        url: "/media/destinations/usambara/gallery-2.jpg",
+        alt: "A horned chameleon in the Usambara forest",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the Usambara foothills",
+        url: "/media/destinations/usambara/gallery-3.jpg",
+        alt: "A green slope in the Usambara Mountains",
       },
     ],
     leadParagraph:
@@ -2240,21 +2231,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Island",
     region: "Zanzibar Archipelago",
     tagline: "The Green Island — Tanzania's Best-Kept Diving Secret",
-    heroImage:
-      "https://images.unsplash.com/photo-1664552348837-367b555cfaa9?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A snorkeller over the coral reefs of Pemba Island",
+    heroImage: "/media/destinations/pemba/hero.jpg",
+    heroImageAlt: "The white sand of Vumawimbi Beach on Pemba",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
-        alt: "A tropical seaside terrace overlooking Pemba's coastline",
+        url: "/media/destinations/pemba/gallery-1.jpg",
+        alt: "A sheltered cove on Pemba's coast",
       },
       {
-        url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85",
-        alt: "A private beachfront resort pool at night",
+        url: "/media/destinations/pemba/gallery-2.jpg",
+        alt: "Pemba's forested coast and turquoise sea from the lighthouse",
       },
       {
-        url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=85",
-        alt: "Aerial view of a coastal resort among turquoise waters",
+        url: "/media/destinations/pemba/gallery-3.jpg",
+        alt: "A jetty running through the mangroves at Chake Chake",
       },
     ],
     leadParagraph:
@@ -2330,21 +2320,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Island",
     region: "Indian Ocean Coast",
     tagline: "Swim with Whale Sharks in Tanzania's First Marine Park",
-    heroImage:
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "Aerial view of Mafia Island's turquoise marine park waters",
+    heroImage: "/media/destinations/mafia/hero.jpg",
+    heroImageAlt: "Mafia Island's palm-fringed shore",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1664552348837-367b555cfaa9?auto=format&fit=crop&w=1400&q=85",
-        alt: "A snorkeller over Mafia Island's coral reefs",
+        url: "/media/destinations/mafia/gallery-1.jpg",
+        alt: "A dhow on Mafia Island's beach",
       },
       {
-        url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85",
-        alt: "A private beachfront resort pool at night",
+        url: "/media/destinations/mafia/gallery-2.jpg",
+        alt: "Mafia Island's harbour",
       },
       {
-        url: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
-        alt: "A tropical seaside terrace overlooking the ocean",
+        url: "/media/destinations/mafia/gallery-3.jpg",
+        alt: "A natural lagoon in Mafia Island Marine Park",
       },
     ],
     leadParagraph:
@@ -2419,21 +2408,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Natural Wonder",
     region: "Northern Rift Valley",
     tagline: "A Blood-Red Soda Lake Beneath an Active Volcano",
-    heroImage:
-      "https://images.unsplash.com/photo-1559617350-6eee0f8b702a?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "Flamingos wading in the pink waters of Lake Natron",
+    heroImage: "/media/destinations/natron/hero.jpg",
+    heroImageAlt: "Ol Doinyo Lengai rising beyond a stream near Lake Natron",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1758881534639-709146239bd1?auto=format&fit=crop&w=1400&q=85",
-        alt: "The arid landscape surrounding Lake Natron and Ol Doinyo Lengai",
+        url: "/media/destinations/natron/gallery-1.jpg",
+        alt: "Flamingos on Lake Natron",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the plains near Lake Natron",
+        url: "/media/destinations/natron/gallery-2.jpg",
+        alt: "A Maasai home beneath Ol Doinyo Lengai",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree in the arid country near Lake Natron",
+        url: "/media/destinations/natron/gallery-3.jpg",
+        alt: "Ol Doinyo Lengai across the Natron plains",
       },
     ],
     leadParagraph:
@@ -2514,21 +2502,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Natural Wonder",
     region: "Lake Victoria Basin",
     tagline: "Africa's Largest Lake & the Rock City of Mwanza",
-    heroImage:
-      "https://images.unsplash.com/photo-1736091852588-668e092d1e9f?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "Granite boulders balanced on the shore of Lake Victoria",
+    heroImage: "/media/destinations/victoria/hero.jpg",
+    heroImageAlt: "Sunset over Lake Victoria at Mwanza",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1740824570732-f2a2d2557dd5?auto=format&fit=crop&w=1400&q=85",
-        alt: "Traditional fishing boats on the shore of Lake Victoria",
+        url: "/media/destinations/victoria/gallery-1.jpg",
+        alt: "Bismarck Rock rising from Lake Victoria",
       },
       {
-        url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
-        alt: "A lakeside lodge terrace overlooking Lake Victoria",
+        url: "/media/destinations/victoria/gallery-2.jpg",
+        alt: "The granite shoreline at Mwanza",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the plains near Lake Victoria",
+        url: "/media/destinations/victoria/gallery-3.jpg",
+        alt: "A busy lakeside market in Mwanza",
       },
     ],
     leadParagraph:
@@ -2604,21 +2591,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Natural Wonder",
     region: "Western Tanzania",
     tagline: "The World's Longest Freshwater Lake & a Historic Meeting Point",
-    heroImage:
-      "https://images.unsplash.com/photo-1740824570732-f2a2d2557dd5?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "Traditional fishing boats on the shore of Lake Tanganyika",
+    heroImage: "/media/destinations/tanganyika/hero.jpg",
+    heroImageAlt: "Forested hills above the clear shore of Lake Tanganyika",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1736091852588-668e092d1e9f?auto=format&fit=crop&w=1400&q=85",
-        alt: "Granite rocks on the shore of Lake Tanganyika",
+        url: "/media/destinations/tanganyika/gallery-1.jpg",
+        alt: "Lake steamers in Kigoma port",
       },
       {
-        url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85",
-        alt: "A lakeside lodge terrace on Lake Tanganyika",
+        url: "/media/destinations/tanganyika/gallery-2.jpg",
+        alt: "Sunset over Lake Tanganyika",
       },
       {
-        url: "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1400&q=85",
-        alt: "A trail through the mountains above Lake Tanganyika",
+        url: "/media/destinations/tanganyika/gallery-3.jpg",
+        alt: "Clear green water on Lake Tanganyika",
       },
     ],
     leadParagraph:
@@ -2694,21 +2680,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Historic Site",
     region: "Coastal Tanzania",
     tagline: "A Historic Swahili Port at the Heart of East African History",
-    heroImage:
-      "https://images.unsplash.com/photo-1771787603786-c7b212b9a198?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "Historic stone ruins along the coast at Bagamoyo",
+    heroImage: "/media/destinations/bagamoyo/hero.jpg",
+    heroImageAlt: "The 13th-century Kaole mosque ruins near Bagamoyo",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1400&q=85",
-        alt: "A tropical seaside terrace overlooking the ocean near Bagamoyo",
+        url: "/media/destinations/bagamoyo/gallery-1.jpg",
+        alt: "Kaole ruins and pillar tombs",
       },
       {
-        url: "https://images.unsplash.com/photo-1740824570732-f2a2d2557dd5?auto=format&fit=crop&w=1400&q=85",
-        alt: "Traditional fishing boats in Bagamoyo's historic harbour",
+        url: "/media/destinations/bagamoyo/gallery-2.jpg",
+        alt: "A carved Swahili doorway in Bagamoyo",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the coastal plains near Bagamoyo",
+        url: "/media/destinations/bagamoyo/gallery-3.jpg",
+        alt: "A dhow at dusk off Bagamoyo",
       },
     ],
     leadParagraph:
@@ -2789,21 +2774,20 @@ export const destinations: Destination[] = [
     categoryLabel: "Historic Site",
     region: "Ngorongoro Conservation Area",
     tagline: "The Cradle of Mankind",
-    heroImage:
-      "https://images.unsplash.com/photo-1758881534639-709146239bd1?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "The arid Rift Valley landscape surrounding Olduvai Gorge",
+    heroImage: "/media/destinations/olduvai/hero.jpg",
+    heroImageAlt: "Olduvai Gorge and its layered sandstone outcrop",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1616398534527-312eba971979?auto=format&fit=crop&w=1400&q=85",
-        alt: "A dirt road crossing the plains near Olduvai Gorge",
+        url: "/media/destinations/olduvai/gallery-1.jpg",
+        alt: "Olduvai Gorge's layered rock formation",
       },
       {
-        url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85",
-        alt: "Golden light over the plains near Olduvai Gorge",
+        url: "/media/destinations/olduvai/gallery-2.jpg",
+        alt: "The Olduvai Gorge monolith",
       },
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85",
-        alt: "A solitary tree on the plains near Olduvai Gorge",
+        url: "/media/destinations/olduvai/gallery-3.jpg",
+        alt: "Olduvai Gorge seen from the viewpoint",
       },
     ],
     leadParagraph:

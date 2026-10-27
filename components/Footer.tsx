@@ -307,6 +307,9 @@ export default function Footer() {
                 <Link href="/terms" className="text-safari-cream/80 hover:text-safari-gold transition-colors">
                   Terms
                 </Link>
+                <Link href="/credits" className="text-safari-cream/80 hover:text-safari-gold transition-colors">
+                  Photo credits
+                </Link>
                 <span className="text-safari-cream/80">TALA licensed</span>
               </div>
               <div className="flex items-center gap-7 font-sans font-light text-[10.5px] tracking-[0.26em] uppercase">
