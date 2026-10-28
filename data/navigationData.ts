@@ -1,3 +1,6 @@
+import { destinations, type DestinationCategory } from "./destinations";
+import { CATEGORY_FILTERS } from "./destinationCategories";
+
 export interface NavSubItem {
   id: string;
   title: string;
@@ -17,6 +20,32 @@ export interface NavCategory {
   subItems: NavSubItem[];
 }
 
+/**
+ * The DESTINATIONS menu entry. Its middle column lists the destination
+ * categories (not the individual destinations); each links to the
+ * /destinations explorer pre-filtered to that category. Generated from
+ * data/destinations.ts so the counts and preview images can't drift.
+ */
+const destinationCategorySubItems: NavSubItem[] = CATEGORY_FILTERS.filter(
+  (filter): filter is { value: DestinationCategory; label: string } => filter.value !== "all"
+).flatMap((filter) => {
+  const inCategory = destinations.filter((d) => d.category === filter.value);
+  if (inCategory.length === 0) return [];
+  return [
+    {
+      id: `category-${filter.value}`,
+      title: filter.label.toUpperCase(),
+      tagline: `${inCategory.length} destinations`,
+      description: inCategory
+        .slice(0, 4)
+        .map((d) => d.name)
+        .join(", "),
+      href: `/destinations?category=${filter.value}`,
+      image: inCategory[0].heroImage,
+    },
+  ];
+});
+
 export const navigationData: NavCategory[] = [
   {
     id: "about",
@@ -35,6 +64,16 @@ export const navigationData: NavCategory[] = [
           "/media/about/team/guides-team.jpg",
         badge: "Native Born & Led",
         highlights: ["100% Tanzanian Owned", "17+ Years", "Fleet of 20 Safari Vehicles"],
+      },
+      {
+        id: "how-we-plan",
+        title: "HOW WE PLAN",
+        tagline: "",
+        description: "",
+        href: "/how-we-plan",
+        image: "/media/about/fleet/cruiser-three-quarter.jpg",
+        badge: "Why Macho Halisi",
+        highlights: ["How we plan"],
       },
       {
         id: "why-book",
@@ -66,94 +105,8 @@ export const navigationData: NavCategory[] = [
     id: "destinations",
     title: "DESTINATIONS",
     href: "/destinations",
-    featuredDefaultId: "serengeti",
-    subItems: [
-      {
-        id: "serengeti",
-        title: "SERENGETI NATIONAL PARK",
-        tagline: "The Endless Plains & The Great Migration",
-        description:
-          "Witness millions of wildebeest and zebras crossing treacherous crocodile-infested waters in Africa's most iconic wildlife sanctuary.",
-        href: "/destinations/serengeti",
-        image:
-          "/media/serengeti/macho-serengeti.jpg",
-        badge: "UNESCO World Heritage",
-        highlights: ["The Great Migration", "Big Five Encounters", "Endless Savannas"],
-      },
-      {
-        id: "ngorongoro",
-        title: "NGORONGORO CRATER",
-        tagline: "The Eighth Wonder of the World",
-        description:
-          "Descend into an ancient intact volcanic caldera harboring one of the highest densities of predators, elephants, and endangered black rhinos on Earth.",
-        href: "/destinations/ngorongoro",
-        image:
-          "/media/ngorongoro/ngorongoro-hero.jpg",
-        badge: "Natural Wonder",
-        highlights: ["Black Rhino Haven", "Intact Caldera", "Hippo Pools"],
-      },
-      {
-        id: "tarangire",
-        title: "TARANGIRE NATIONAL PARK",
-        tagline: "The Kingdom of Elephants & Ancient Baobabs",
-        description:
-          "Traverse dry riverbeds flanked by colossal baobab trees where massive breeding herds of elephants gather during dry season spectacles.",
-        href: "/destinations/tarangire",
-        image:
-          "/media/tarangire/tara-hero.jpg",
-        badge: "Elephant Haven",
-        highlights: ["500+ Bird Species", "Ancient Baobabs", "Silale Swamps"],
-      },
-      {
-        id: "kilimanjaro",
-        title: "MOUNT KILIMANJARO",
-        tagline: "The Roof of Africa (5,895m)",
-        description:
-          "Ascend the world's highest free-standing mountain across five ecological climate zones, culminating at Uhuru Peak's glaciated rim.",
-        href: "/destinations/kilimanjaro",
-        image:
-          "/media/kilimanjaro/kili-ariel.jpg",
-        badge: "Highest Peak in Africa",
-        highlights: ["Uhuru Peak", "Lemosho & Machame Routes", "Alpine Glaciers"],
-      },
-      {
-        id: "zanzibar",
-        title: "ZANZIBAR ARCHIPELAGO",
-        tagline: "Spice Island & Turquoise Indian Ocean",
-        description:
-          "Unwind along powdery white-sand coastlines, dive pristine coral reefs, and wander the sensory spice-scented alleyways of historic Stone Town.",
-        href: "/destinations/zanzibar",
-        image:
-          "/media/zanzibar/mnemba-atoll.jpg",
-        badge: "Tropical Sanctuary",
-        highlights: ["Stone Town UNESCO", "Coral Reef Diving", "Private Islands"],
-      },
-      {
-        id: "manyara",
-        title: "LAKE MANYARA",
-        tagline: "Tree-Climbing Lions & Pink Flamingo Shores",
-        description:
-          "Nestled beneath the Great Rift Valley escarpment, a lush groundwater forest brimming with baboons, hippos, and flocks of flamingos.",
-        href: "/destinations/manyara",
-        image:
-          "/media/manyara/manyara-hero.jpg",
-        badge: "Rift Valley Eden",
-        highlights: ["Canopy Treetop Walk", "Flamingo Flocks", "Hot Springs"],
-      },
-      {
-        id: "arusha",
-        title: "ARUSHA NATIONAL PARK",
-        tagline: "Giraffes, Crater Walks & the Foothills of Meru",
-        description:
-          "A compact park of Ngurdoto Crater, the Momella Lakes and Mount Meru's forested slopes — giraffe, colobus monkeys and flamingos within an hour of Arusha town.",
-        href: "/destinations/arusha",
-        image:
-          "/media/arusha-national-park/fig-tree.jpg",
-        badge: "Gateway Park",
-        highlights: ["Walking Safaris", "Colobus Monkeys", "Momella Lakes"],
-      },
-     
-    ],
+    featuredDefaultId: "category-national-park",
+    subItems: destinationCategorySubItems,
   },
   {
     id: "experiences",
@@ -190,7 +143,7 @@ export const navigationData: NavCategory[] = [
         description:
           "Walk the coffee plantations of Karatu, see how cherries become roasted beans and finish with a crop-to-cup tasting.",
         href: "/experiences/coffee-tours",
-        image: "/media/kilimanjaro/lemosho.jpg",
+        image: "/media/experiences/coffee-tours/picking-cherries.jpg",
         badge: "Farm to Cup",
         highlights: ["Farm Walk", "Roast & Prepare", "Crop-to-Cup Tasting"],
       },
@@ -223,7 +176,7 @@ export const navigationData: NavCategory[] = [
         description:
           "Discover the wilderness after dark with an experienced guide, where authorised night drives are available.",
         href: "/experiences/night-game-drives",
-        image: "/media/experiences/lion-resting.jpg",
+        image: "/media/experiences/night-game-drives/leopard.jpg",
         badge: "After Dark",
         highlights: ["Nocturnal Wildlife", "Guided Observation", "A Different Ecosystem"],
       },
@@ -231,7 +184,7 @@ export const navigationData: NavCategory[] = [
   },
   {
     id: "journeys",
-    title: "BESPOKE JOURNEYS",
+    title: "BESPOKE JOURNEYS & ACCOMODATIONS",
     // Mirrors the collections in data/journeys.ts (not imported here —
     // this file ships in the client bundle via FullscreenNavMenu).
     href: "/itineraries",
@@ -246,6 +199,16 @@ export const navigationData: NavCategory[] = [
         href: "/itineraries",
         image:
           "/media/serengeti/seronera-valley.jpg",
+        highlights: [],
+      },
+      {
+        id: "camps-and-lodges",
+        title: "CAMPS & LODGES",
+        tagline: "Where to Stay Across Tanzania",
+        description:
+          "Hand-picked safari lodges, tented camps, hotels and beach retreats — in the parks and in the nearest base towns — for every destination we visit.",
+        href: "/camps-lodges",
+        image: "/media/arusha-national-park/fig-tree.jpg",
         highlights: [],
       },
     ],

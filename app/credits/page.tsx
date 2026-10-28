@@ -8,7 +8,7 @@ import { getSiteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Photo Credits | Macho Halisi Safaris",
   description:
-    "Photographers and licences for the openly licensed images used on destination pages across the Macho Halisi Safaris website.",
+    "Photographers and licences for the openly licensed images used on destination and camps & lodges pages across the Macho Halisi Safaris website.",
   alternates: { canonical: `${getSiteUrl()}/credits` },
 };
 
@@ -32,7 +32,7 @@ export default function CreditsPage() {
               Photo Credits
             </h1>
             <p className="mt-5 max-w-2xl font-sans text-sm leading-relaxed text-safari-bark/78">
-              Several destination pages use photographs shared under open licences on Wikimedia Commons. We are
+              Several destination and camps &amp; lodges pages use photographs shared under open licences on Wikimedia Commons. We are
               grateful to the photographers below. Images may have been resized or cropped; licence terms stay with
               each original file.
             </p>

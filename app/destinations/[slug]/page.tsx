@@ -21,6 +21,7 @@ import RelatedItineraryCard from "@/components/public/itinerary/RelatedItinerary
 import { getPublishedItineraries } from "@/lib/public/api";
 import { faqPage, JsonLd, orgRef } from "@/lib/seo/jsonLd";
 import { guideForDestination } from "@/lib/seo/links";
+import DestinationStays from "@/components/public/camps-lodges/DestinationStays";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -320,6 +321,9 @@ export default async function DestinationDetailPage({
         {/* <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
           <DestinationDiptych left={diptych[0]} right={diptych[1]} caption={diptych[2]} />
         </section> */}
+
+        {/* Where to stay */}
+        <DestinationStays destinationSlug={destination.slug} destinationName={destination.name} />
 
         {/* FAQ */}
         <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">

@@ -1,7 +1,10 @@
+import { extraDestinations } from "@/data/destinations-extra";
+
 export type DestinationCategory =
   | "national-park"
   | "conservation-area"
   | "game-reserve"
+  | "lake"
   | "island"
   | "mountain"
   | "natural-wonder"
@@ -75,7 +78,7 @@ export interface Destination {
   diptych?: [DestinationGalleryImage, DestinationGalleryImage, string];
 }
 
-export const destinations: Destination[] = [
+const coreDestinations: Destination[] = [
   {
     slug: "serengeti",
     name: "Serengeti National Park",
@@ -120,7 +123,7 @@ export const destinations: Destination[] = [
       { label: "UNESCO status", value: "World Heritage Site (1981)" },
       { label: "Altitude", value: "920 – 1,850 m" },
       { label: "Nearest airstrip", value: "Seronera, Kogatende, Grumeti" },
-      { label: "Getting there", value: "Scheduled bush flight or 5–6 hr drive from Arusha" },
+      { label: "Getting there", value: "Scheduled bush flight or a 7–8 hr drive from Arusha" },
     ],
     highlights: [
       {
@@ -286,8 +289,8 @@ export const destinations: Destination[] = [
   {
     slug: "ngorongoro",
     name: "Ngorongoro Crater",
-    category: "conservation-area",
-    categoryLabel: "Conservation Area",
+    category: "natural-wonder",
+    categoryLabel: "Natural Wonder",
     region: "Northern Circuit",
     tagline: "The Eighth Wonder of the World",
     heroImage:
@@ -435,13 +438,13 @@ export const destinations: Destination[] = [
       "Tarangire is Tanzania's elephant stronghold — a river-fed sanctuary of golden grassland and ancient, swollen baobab trees where dry-season herds gather in numbers rarely matched anywhere else on the continent. It is the quieter, wilder counterpart to the Serengeti, and rewards travellers who want big landscapes without the crowds.",
     bodyParagraphs: [
       "The Tarangire River is the park's lifeline: as the dry season tightens its grip between June and October, wildlife converges on its banks in extraordinary density, with elephant family groups of 20 to 300 animals a defining sight, alongside wildebeest, zebra, buffalo, giraffe and eland pushed in from the surrounding Maasai Steppe. It is also one of the best parks in Tanzania for tree-climbing pythons, and its baobab-studded horizon is instantly recognisable — some individual trees are estimated to be over a thousand years old.",
-      "Beyond the big herds, Tarangire is an outstanding birding destination, with over 550 species recorded, including the striking yellow-collared lovebird and the endangered Ashy Starling, found almost nowhere else on Earth. Its comparatively low visitor numbers, even in peak season, make it a favourite add-on for travellers wanting a genuinely wild, uncrowded Northern Circuit stop.",
+      "Beyond the big herds, Tarangire is an outstanding birding destination, with over 550 species recorded, including the striking yellow-collared lovebird and the Ashy Starling, found almost nowhere else on Earth. Its comparatively low visitor numbers, even in peak season, make it a favourite add-on for travellers wanting a genuinely wild, uncrowded Northern Circuit stop.",
     ],
     quickFacts: [
       { label: "Size", value: "2,850 km²" },
       { label: "Established", value: "1970" },
       { label: "Altitude", value: "1,000 – 1,500 m" },
-      { label: "Known for", value: "Largest elephant concentrations in Tanzania" },
+      { label: "Known for", value: "Large dry-season elephant concentrations" },
       { label: "Getting there", value: "2 hr drive from Arusha" },
     ],
     highlights: [
@@ -514,7 +517,7 @@ export const destinations: Destination[] = [
       },
     ],
     seoDescription:
-      "Explore Tarangire National Park with Macho Halisi — Tanzania's largest elephant herds, ancient baobabs and uncrowded dry-season game drives on the Northern Circuit.",
+      "Explore Tarangire National Park with Macho Halisi — some of Tanzania's largest elephant herds, ancient baobabs and uncrowded dry-season game drives on the Northern Circuit.",
     relatedSlugs: ["manyara", "serengeti", "ngorongoro"],
   },
   {
@@ -763,10 +766,10 @@ export const destinations: Destination[] = [
       "Lake Manyara sits dramatically beneath the wall of the Great Rift Valley, a compact park where dense groundwater forest gives way to open floodplain and a soda lake that, in the right season, turns pink with thousands of flamingos. Ernest Hemingway once called it \"the loveliest I had seen in Africa\" — and its scale makes it perfect for a half-day add-on to a longer safari.",
     bodyParagraphs: [
       "The park's defining curiosity is its tree-climbing lions — one of only a handful of populations in Africa known to regularly rest in the branches of acacia and fig trees, a behaviour still debated by researchers but reliably spotted here. Manyara's groundwater forest, fed by underground springs from the escarpment above, supports troops of baboon and blue monkey, while the alkaline lake itself draws vast numbers of flamingo, pelican and other waterbirds depending on water levels.",
-      "Because roughly two-thirds of the park is lake, Manyara rewards a slower pace: canopy walkways through the forest, escarpment-view picnic sites, and short game drives make it an easy, scenic day rather than a multi-day base — most visitors combine it with Ngorongoro or Tarangire on a Northern Circuit route.",
+      "Because much of the park is lake, Manyara rewards a slower pace: canopy walkways through the forest, escarpment-view picnic sites, and short game drives make it an easy, scenic day rather than a multi-day base — most visitors combine it with Ngorongoro or Tarangire on a Northern Circuit route.",
     ],
     quickFacts: [
-      { label: "Size", value: "330 km² (of which ~200 km² is lake)" },
+      { label: "Size", value: "325 km² (much of it lake)" },
       { label: "Established", value: "1960" },
       { label: "Altitude", value: "960 – 1,830 m" },
       { label: "Known for", value: "Tree-climbing lions, flamingos, canopy walkway" },
@@ -800,7 +803,7 @@ export const destinations: Destination[] = [
       "Flamingo, pelican & other waterbirds (seasonal)",
       "Olive baboon & blue monkey troops",
       "Hippo pods in the lake shallows",
-      "380+ recorded bird species",
+      "350+ recorded bird species",
     ],
     activitiesHeading: "Safari activities",
     activities: [
@@ -849,8 +852,8 @@ export const destinations: Destination[] = [
   {
     slug: "southern-circuit",
     name: "Ruaha & Nyerere (Selous)",
-    category: "game-reserve",
-    categoryLabel: "Game Reserve",
+    category: "national-park",
+    categoryLabel: "National Park",
     region: "Southern Circuit",
     tagline: "The Wild Southern Circuit",
     heroImage:
@@ -877,12 +880,12 @@ export const destinations: Destination[] = [
     leadParagraph:
       "Tanzania's Southern Circuit — anchored by Ruaha National Park and the vast Nyerere National Park (formerly Selous Game Reserve) — is raw, remote wilderness at a scale the Northern Circuit cannot match, seeing a fraction of the visitors of the Serengeti while holding some of Africa's last great populations of lion, wild dog and elephant.",
     bodyParagraphs: [
-      "Ruaha, Tanzania's largest national park at over 20,000 km², sits at a biological crossroads where East and Southern African species overlap — greater and lesser kudu, sable and roan antelope alongside classic savanna wildlife, all supported by one of the largest lion populations left in Africa, and healthy numbers of endangered African wild dog. Nyerere, split by the Rufiji River into a game-drive northern sector and a photographic-boating southern sector, adds a activity no Northern Circuit park offers at scale: boat safaris drifting past hippo pods, crocodile and elephant herds coming down to drink.",
+      "Ruaha, Tanzania's second-largest national park at over 20,000 km², sits at a biological crossroads where East and Southern African species overlap — greater and lesser kudu, sable and roan antelope alongside classic savanna wildlife, all supported by one of the largest lion populations left in Africa, and healthy numbers of endangered African wild dog. Nyerere, cut through by the Rufiji River, adds an activity no Northern Circuit park offers at scale: boat safaris drifting past hippo pods, crocodile and elephant herds coming down to drink.",
       "What defines the Southern Circuit most is solitude — camps here are few, small and often exclusive-use, vehicle-to-wildlife ratios are a fraction of the north's, and the remoteness that once made this region hard to reach is now precisely its appeal for travellers who have done the classic safari and want something wilder.",
     ],
     quickFacts: [
-      { label: "Ruaha size", value: "20,226 km² — Tanzania's largest national park" },
-      { label: "Nyerere size", value: "~30,000 km²" },
+      { label: "Ruaha size", value: "20,226 km² — Tanzania's second-largest national park" },
+      { label: "Nyerere size", value: "~30,900 km²" },
       { label: "Known for", value: "Low visitor density, wild dog, boat safaris" },
       { label: "Getting there", value: "Scheduled fly-in from Dar es Salaam or Arusha" },
       { label: "Best paired with", value: "Zanzibar (short connecting flight)" },
@@ -944,7 +947,7 @@ export const destinations: Destination[] = [
       {
         question: "What's the difference between Ruaha and Nyerere (Selous)?",
         answer:
-          "Ruaha is Tanzania's largest national park, known for classic game drives and a striking mix of East and Southern African wildlife. Nyerere (the former Selous Game Reserve) is larger still and centred on the Rufiji River, adding boat safaris alongside game drives.",
+          "Ruaha is Tanzania's second-largest national park, known for classic game drives and a striking mix of East and Southern African wildlife. Nyerere (the former Selous Game Reserve) is larger still and centred on the Rufiji River, adding boat safaris alongside game drives.",
       },
       {
         question: "Is the Southern Circuit good for first-time safari-goers?",
@@ -988,12 +991,12 @@ export const destinations: Destination[] = [
       "Tiny by Tanzanian standards and often overlooked in favour of the Serengeti, Arusha National Park packs an outsized variety into just 137 km² — alkaline lakes, a miniature crater, montane forest, and the dramatic ash cone of Mount Meru rising over it all. It's the closest park to Arusha town, making it a rewarding half-day or full-day safari for travellers arriving or departing on a tight schedule.",
     bodyParagraphs: [
       "The Momella Lakes, a chain of shallow alkaline lakes fed by underground streams, are the park's signature feature — each a different shade of green or blue depending on its mineral content, and often dotted with flamingo, pelican and hippo. Ngurdoto Crater, a smaller echo of Ngorongoro, holds a swampy floor visible only from the rim walking trails that circle it. Arusha is also one of the very few Tanzanian parks where walking safaris and canoeing are routinely permitted, since it has no resident lion population — making close encounters with giraffe, buffalo and colobus monkey on foot a real possibility.",
-      "For climbers, Arusha National Park is the gateway to Mount Meru — Africa's fifth-highest peak lies entirely within the park's boundaries, and most Meru ascents begin from the Momella Gate here before continuing to their own dedicated trailhead.",
+      "For climbers, Arusha National Park is the gateway to Mount Meru — Tanzania's second-highest peak — lies entirely within the park's boundaries, and most Meru ascents begin from the Momella Gate here before continuing to their own dedicated trailhead.",
     ],
     quickFacts: [
       { label: "Size", value: "137 km²" },
       { label: "Established", value: "1960" },
-      { label: "Altitude", value: "1,388 – 4,566 m (incl. Mount Meru)" },
+      { label: "Altitude", value: "~1,400 – 4,562 m (incl. Mount Meru)" },
       { label: "Known for", value: "Giraffes, Momella Lakes, walking safaris" },
       { label: "Getting there", value: "45 min drive from Arusha town" },
     ],
@@ -1098,7 +1101,7 @@ export const destinations: Destination[] = [
     leadParagraph:
       "Mikumi is the most accessible of Tanzania's southern parks — a paved road connects it directly to Dar es Salaam in around four hours, making it the easiest way to combine a genuine safari with a beach holiday without a bush flight. Its open Mkata floodplain, ringed by the Uluguru and Rubeho mountains, is often described as a mini-Serengeti for its similar grassland game viewing.",
     bodyParagraphs: [
-      "The floodplain supports large herds of buffalo, zebra, wildebeest and impala, with resident lion prides that — like their cousins in Manyara — are occasionally seen resting in the branches of acacia and baobab trees. Elephant and giraffe are common along the park's watercourses, and a fenced black rhino sanctuary protects a small breeding population. Mikumi shares an unfenced boundary with the vast Nyerere National Park to the south, effectively forming part of one of Africa's largest continuous protected ecosystems.",
+      "The floodplain supports large herds of buffalo, zebra, wildebeest and impala, with resident lion prides that — like their cousins in Manyara — are occasionally seen resting in the branches of acacia and baobab trees. Elephant and giraffe are common along the park's watercourses. Mikumi shares an unfenced boundary with the vast Nyerere National Park to the south, effectively forming part of one of Africa's largest continuous protected ecosystems.",
     ],
     quickFacts: [
       { label: "Size", value: "3,230 km²" },
@@ -1182,23 +1185,31 @@ export const destinations: Destination[] = [
     region: "Western Circuit",
     tagline: "Tanzania's Wildest, Least-Visited Wilderness",
     heroImage: "/media/destinations/katavi/hero.jpg",
-    heroImageAlt: "Sunset over Katavi's floodplain treeline",
+    heroImageAlt: "A male lion in the long grass of Katavi National Park",
     gallery: [
       {
         url: "/media/destinations/katavi/gallery-1.jpg",
-        alt: "A hippo in a Katavi waterhole",
+        alt: "Hippos crowded together in a Katavi river pool",
       },
       {
         url: "/media/destinations/katavi/gallery-2.jpg",
-        alt: "Katavi's green floodplain from the air",
+        alt: "Katavi's green floodplain seen from the air",
       },
       {
         url: "/media/destinations/katavi/gallery-3.jpg",
-        alt: "A buffalo wallowing in Katavi's marshland",
+        alt: "A buffalo bull wallowing in Katavi's marshland",
+      },
+      {
+        url: "/media/destinations/katavi/gallery-4.jpg",
+        alt: "An elephant in the bush at Katavi National Park",
+      },
+      {
+        url: "/media/destinations/katavi/gallery-5.jpg",
+        alt: "Evening light on a Katavi floodplain channel and treeline",
       },
     ],
     leadParagraph:
-      "Katavi is Tanzania's third-largest national park and among its least visited — a genuinely remote Western Circuit wilderness where dry-season wildlife congregations rival anything on the Northern Circuit, seen by a tiny fraction of the visitors. For travellers who have done the classic safari and want somewhere truly wild, Katavi is as close as Tanzania gets to untouched.",
+      "Katavi is one of Tanzania's largest national parks and among its least visited — a genuinely remote Western Circuit wilderness where dry-season wildlife congregations rival anything on the Northern Circuit, seen by a tiny fraction of the visitors. For travellers who have done the classic safari and want somewhere truly wild, Katavi is as close as Tanzania gets to untouched.",
     bodyParagraphs: [
       "As the dry season advances, the Katuma River and its floodplain lakes shrink into a handful of pools, forcing hundreds of hippo and enormous Nile crocodile into crowded, dramatic congregations, while some of Tanzania's largest buffalo herds — numbering in the thousands — gather on the receding floodplain grass. Lion prides here are known for unusually large numbers, preying on the concentrated herds, and the park's isolation means sightings are often made without another vehicle in view all day.",
     ],
@@ -1282,21 +1293,16 @@ export const destinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Western Circuit",
     tagline: "Chimpanzee Trekking on the Shores of Lake Tanganyika",
-    heroImage:
-      "https://images.unsplash.com/photo-1742328114651-f4dbd710cd5d?auto=format&fit=crop&w=2200&q=85",
-    heroImageAlt: "A chimpanzee resting in the forest of the Mahale Mountains",
+    heroImage: "/media/destinations/mahale/hero.jpg",
+    heroImageAlt: "Two chimpanzees feeding in a fig tree in Mahale Mountains National Park",
     gallery: [
       {
-        url: "/media/destinations/mahale/hero.jpg",
-        alt: "The clear shoreline of Lake Tanganyika",
-      },
-      {
         url: "/media/destinations/mahale/gallery-1.jpg",
-        alt: "Forested hills above Lake Tanganyika",
+        alt: "A chimpanzee mother holding her infant in the forest of Mahale",
       },
       {
-        url: "/media/destinations/mahale/gallery-2.jpg",
-        alt: "Lake Tanganyika from the shore",
+        url: "/media/destinations/mahale/hero.jpg",
+        alt: "Chimpanzees in a fruiting fig tree, Mahale Mountains",
       },
     ],
     leadParagraph:
@@ -1400,12 +1406,12 @@ export const destinations: Destination[] = [
       },
     ],
     leadParagraph:
-      "Tanzania's smallest national park is also its most scientifically famous — Gombe Stream is where Jane Goodall began her chimpanzee research in 1960, work that overturned assumptions about the line between humans and animals and continues today as one of the longest-running wildlife studies on Earth.",
+      "One of Tanzania's smallest national parks is also its most scientifically famous — Gombe Stream is where Jane Goodall began her chimpanzee research in 1960, work that overturned assumptions about the line between humans and animals and continues today as one of the longest-running wildlife studies on Earth.",
     bodyParagraphs: [
-      "At just 52 km², a narrow strip of forested hills running along the shore of Lake Tanganyika, Gombe is compact enough that trekking to find a chimpanzee group typically takes less time than at larger parks — though the terrain is steep. The habituated communities here descend from the very groups Goodall first studied, and rangers and researchers still track them daily, giving visitors both a wildlife encounter and a direct link to one of primatology's foundational research sites.",
+      "At just 35 km², a narrow strip of forested hills running along the shore of Lake Tanganyika, Gombe is compact enough that trekking to find a chimpanzee group typically takes less time than at larger parks — though the terrain is steep. The habituated communities here descend from the very groups Goodall first studied, and rangers and researchers still track them daily, giving visitors both a wildlife encounter and a direct link to one of primatology's foundational research sites.",
     ],
     quickFacts: [
-      { label: "Size", value: "52 km² — Tanzania's smallest national park" },
+      { label: "Size", value: "35 km² — one of Tanzania's smallest national parks" },
       { label: "Established", value: "1968" },
       { label: "Known for", value: "Jane Goodall's chimpanzee research since 1960" },
       { label: "Getting there", value: "Boat from Kigoma only — no road access" },
@@ -1495,7 +1501,7 @@ export const destinations: Destination[] = [
       },
     ],
     leadParagraph:
-      "Rubondo is an entire national park contained on one forested island in Africa's largest lake — a place where, between the 1960s and 1990s, conservationists deliberately introduced chimpanzee, giraffe, elephant and black rhino to a predator-free environment, creating one of Tanzania's strangest and most rewarding wildlife experiments.",
+      "Rubondo is an entire national park contained on one forested island in Africa's largest lake — a place where, from the mid-1960s, conservationists deliberately introduced chimpanzee, giraffe and elephant to a predator-free environment, creating one of Tanzania's strangest and most rewarding wildlife experiments.",
     bodyParagraphs: [
       "The result is a genuinely unusual safari: forest and papyrus-fringed shoreline instead of open savanna, giraffe browsing beneath tropical canopy, and a healthy population of sitatunga — a shy, swamp-dwelling antelope rarely seen elsewhere in East Africa. Rubondo is also one of Tanzania's best birding destinations, with African fish eagle, grey parrot and hundreds of migrant species, and its surrounding waters offer excellent Nile perch fishing. Very few visitors make it here, which is exactly the appeal for travellers seeking something entirely different from the standard safari circuit.",
     ],
@@ -1591,12 +1597,12 @@ export const destinations: Destination[] = [
       },
     ],
     leadParagraph:
-      "Saadani is the only place in East Africa where a genuine game drive and a swim in the Indian Ocean can happen within the same afternoon — a coastal park where the bush runs straight down to unspoiled beach, and elephant tracks are sometimes found in the sand.",
+      "Saadani is one of the very few places in East Africa where a genuine game drive and a swim in the Indian Ocean can happen within the same afternoon — a coastal park where the bush runs straight down to unspoiled beach, and elephant tracks are sometimes found in the sand.",
     bodyParagraphs: [
       "Wildlife density is lower than the Northern Circuit's flagship parks, but the setting is unmatched: game drives across open grassland and acacia woodland give way to mangrove-lined creeks and palm-backed beach, and boat safaris on the Wami River bring close sightings of hippo, crocodile and abundant waterbirds. Saadani sits conveniently between Dar es Salaam and Zanzibar, making it an easy addition to a beach-focused itinerary for travellers who still want a real safari without a long detour inland.",
     ],
     quickFacts: [
-      { label: "Size", value: "1,100 km²" },
+      { label: "Size", value: "1,062 km²" },
       { label: "Established", value: "2005" },
       { label: "Known for", value: "Tanzania's only beachfront national park" },
       { label: "Getting there", value: "3–4 hr drive from Dar es Salaam, or boat from Zanzibar" },
@@ -1873,13 +1879,13 @@ export const destinations: Destination[] = [
       },
     ],
     leadParagraph:
-      "At 20,226 km², Ruaha is Tanzania's largest national park by a wide margin — bigger than the Serengeti and Ngorongoro combined — and sits at a rare biological crossroads where East African savanna species overlap with dry-country Southern African wildlife, all seen by only a fraction of the Northern Circuit's visitor numbers.",
+      "At 20,226 km², Ruaha is Tanzania's second-largest national park — larger than the Serengeti — and sits at a rare biological crossroads where East African savanna species overlap with dry-country Southern African wildlife, all seen by only a fraction of the Northern Circuit's visitor numbers.",
     bodyParagraphs: [
       "The Great Ruaha River is the park's lifeline, and its retreating dry-season pools concentrate wildlife into some of Tanzania's most reliable predator viewing: Ruaha holds one of Africa's largest lion populations, alongside healthy numbers of the endangered African wild dog. Its location at the meeting point of two ecosystems brings unusual species combinations — greater and lesser kudu, sable and roan antelope graze alongside classic plains game — and elephant numbers here represent a significant share of Tanzania's entire population. Despite its scale and wildlife density, Ruaha remains genuinely uncrowded, with camps that are few, small and often exclusive-use.",
     ],
     quickFacts: [
-      { label: "Size", value: "20,226 km² — Tanzania's largest national park" },
-      { label: "Known for", value: "Largest elephant & one of the largest lion populations in Tanzania" },
+      { label: "Size", value: "20,226 km² — Tanzania's second-largest national park" },
+      { label: "Known for", value: "One of Tanzania's largest elephant and lion populations" },
       { label: "Getting there", value: "Scheduled fly-in from Arusha or Dar es Salaam" },
       { label: "Best paired with", value: "Southern Circuit combination with Nyerere (Selous)" },
     ],
@@ -1939,7 +1945,7 @@ export const destinations: Destination[] = [
       {
         question: "Is Ruaha bigger than the Serengeti?",
         answer:
-          "Yes, considerably — at 20,226 km² Ruaha is Tanzania's largest national park, more than a third larger than the Serengeti, though it receives far fewer visitors.",
+          "Yes, considerably — at 20,226 km² Ruaha is Tanzania's second-largest national park, more than a third larger than the Serengeti, though it receives far fewer visitors.",
       },
       {
         question: "How does Ruaha compare to Nyerere (Selous)?",
@@ -1948,14 +1954,14 @@ export const destinations: Destination[] = [
       },
     ],
     seoDescription:
-      "Discover Ruaha National Park with Macho Halisi — Tanzania's largest national park, with one of Africa's biggest lion populations and uncrowded, wild game viewing.",
+      "Discover Ruaha National Park with Macho Halisi — Tanzania's second-largest national park, with one of Africa's biggest lion populations and uncrowded, wild game viewing.",
     relatedSlugs: ["southern-circuit", "katavi", "mikumi"],
   },
   {
     slug: "mkomazi",
     name: "Mkomazi National Park",
-    category: "conservation-area",
-    categoryLabel: "Conservation Area",
+    category: "national-park",
+    categoryLabel: "National Park",
     region: "Northern Tanzania",
     tagline: "A Rhino & Wild Dog Sanctuary on the Kenyan Border",
     heroImage: "/media/destinations/mkomazi/hero.jpg",
@@ -1980,7 +1986,7 @@ export const destinations: Destination[] = [
       "By the 1980s, poaching had wiped out Mkomazi's rhino and severely reduced its wild dog; a long-running conservation project has since rebuilt both populations from protected breeding sanctuaries, releasing animals gradually back into the wider ecosystem. The surrounding landscape is dry, open and dramatic — acacia scrub and rocky outcrops beneath the Pare and Usambara Mountains — and because visitor numbers remain low, Mkomazi rewards travellers with a genuine sense of frontier conservation rather than a polished safari circuit.",
     ],
     quickFacts: [
-      { label: "Size", value: "3,245 km²" },
+      { label: "Size", value: "3,234 km²" },
       { label: "Established", value: "1951 (reserve); national park since 2006" },
       { label: "Known for", value: "Black rhino sanctuary, wild dog breeding programme" },
       { label: "Getting there", value: "Drive from Moshi or Same, near the Usambara foothills" },
@@ -2069,15 +2075,15 @@ export const destinations: Destination[] = [
       },
     ],
     leadParagraph:
-      "Mount Meru is Africa's fifth-highest peak and, in the shadow of its far more famous neighbour Kilimanjaro, one of the continent's most underrated climbs — a dramatic, horseshoe-shaped volcanic peak whose crater rim trail delivers some of East Africa's most spectacular ridge walking, with views across to Kilimanjaro itself on a clear morning.",
+      "Mount Meru is Tanzania's second-highest peak and, in the shadow of its far more famous neighbour Kilimanjaro, one of the continent's most underrated climbs — a dramatic, horseshoe-shaped volcanic peak whose crater rim trail delivers some of East Africa's most spectacular ridge walking, with views across to Kilimanjaro itself on a clear morning.",
     bodyParagraphs: [
-      "Unlike Kilimanjaro, Meru's lower slopes pass through genuine wildlife habitat inside Arusha National Park, so climbs here begin with an armed ranger escort past giraffe, buffalo and colobus monkey before the trail climbs into montane forest, heath and finally a stark volcanic summit ridge. The ascent typically takes 3–4 days via the Momella Route, culminating in a pre-dawn push along a narrow, exposed rim to Socialist Peak at 4,566m — technically undemanding but genuinely thrilling, and widely regarded as the best possible altitude preparation for a Kilimanjaro climb.",
+      "Unlike Kilimanjaro, Meru's lower slopes pass through genuine wildlife habitat inside Arusha National Park, so climbs here begin with an armed ranger escort past giraffe, buffalo and colobus monkey before the trail climbs into montane forest, heath and finally a stark volcanic summit ridge. The ascent typically takes 3–4 days via the Momella Route, culminating in a pre-dawn push along a narrow, exposed rim to Socialist Peak at 4,562m — technically undemanding but genuinely thrilling, and widely regarded as the best possible altitude preparation for a Kilimanjaro climb.",
     ],
     quickFacts: [
-      { label: "Summit", value: "Socialist Peak, 4,566 m" },
-      { label: "Type", value: "Active stratovolcano" },
+      { label: "Summit", value: "Socialist Peak, 4,562 m" },
+      { label: "Type", value: "Dormant stratovolcano" },
       { label: "Typical duration", value: "3–4 days" },
-      { label: "Rank", value: "Africa's 5th-highest peak" },
+      { label: "Rank", value: "Tanzania's 2nd-highest peak" },
       { label: "Getting there", value: "Via Arusha National Park's Momella Gate" },
     ],
     highlights: [
@@ -2404,8 +2410,8 @@ export const destinations: Destination[] = [
   {
     slug: "lake-natron",
     name: "Lake Natron & Ol Doinyo Lengai",
-    category: "natural-wonder",
-    categoryLabel: "Natural Wonder",
+    category: "lake",
+    categoryLabel: "Lake & Water Body",
     region: "Northern Rift Valley",
     tagline: "A Blood-Red Soda Lake Beneath an Active Volcano",
     heroImage: "/media/destinations/natron/hero.jpg",
@@ -2498,8 +2504,8 @@ export const destinations: Destination[] = [
   {
     slug: "lake-victoria",
     name: "Lake Victoria & Mwanza",
-    category: "natural-wonder",
-    categoryLabel: "Natural Wonder",
+    category: "lake",
+    categoryLabel: "Lake & Water Body",
     region: "Lake Victoria Basin",
     tagline: "Africa's Largest Lake & the Rock City of Mwanza",
     heroImage: "/media/destinations/victoria/hero.jpg",
@@ -2521,7 +2527,7 @@ export const destinations: Destination[] = [
     leadParagraph:
       "Lake Victoria is Africa's largest lake by surface area and the source of the White Nile, and its Tanzanian shore is anchored by Mwanza — the country's second city, built around massive balancing granite boulders that have earned it the nickname \"Rock City.\"",
     bodyParagraphs: [
-      "Bismarck Rock, an improbably stacked formation rising straight from the lakeshore, is Mwanza's signature landmark and best seen at sunset from a boat on the water. The lake itself is a place of striking contrasts: it holds the world's largest freshwater fishery, built on Nile perch — a species introduced in the 1950s that transformed the local economy but devastated hundreds of endemic cichlid fish species found nowhere else, one of the most studied cases of ecological disruption anywhere on Earth. For travellers, Mwanza serves mainly as a practical and scenic gateway — to the Serengeti's less-visited western corridor, and by boat to Rubondo Island's forested wildlife sanctuary further out on the lake.",
+      "Bismarck Rock, an improbably stacked formation rising straight from the lakeshore, is Mwanza's signature landmark and best seen at sunset from a boat on the water. The lake itself is a place of striking contrasts: it supports one of the world's largest inland fisheries, built on Nile perch — a species introduced in the 1950s that transformed the local economy but devastated hundreds of endemic cichlid fish species found nowhere else, one of the most studied cases of ecological disruption anywhere on Earth. For travellers, Mwanza serves mainly as a practical and scenic gateway — to the Serengeti's less-visited western corridor, and by boat to Rubondo Island's forested wildlife sanctuary further out on the lake.",
     ],
     quickFacts: [
       { label: "Lake area", value: "~68,800 km² — Africa's largest lake" },
@@ -2587,8 +2593,8 @@ export const destinations: Destination[] = [
   {
     slug: "lake-tanganyika",
     name: "Lake Tanganyika & Kigoma",
-    category: "natural-wonder",
-    categoryLabel: "Natural Wonder",
+    category: "lake",
+    categoryLabel: "Lake & Water Body",
     region: "Western Tanzania",
     tagline: "The World's Longest Freshwater Lake & a Historic Meeting Point",
     heroImage: "/media/destinations/tanganyika/hero.jpg",
@@ -2702,7 +2708,7 @@ export const destinations: Destination[] = [
       "The town's name is widely said to derive from the Swahili \"bwaga moyo\" — \"lay down your heart\" — reflecting the grief of enslaved people held here before being shipped onward, a sobering history documented at the Old Fort (Boma) and the nearby Caravan-Serai. A few kilometres south, the Kaole Ruins preserve the remains of a 13th–15th century Swahili settlement, including one of the oldest mosques on the East African coast. Bagamoyo is also home to a respected arts college known for traditional dance, drumming and sculpture, making it a rewarding half or full-day cultural detour for travellers based in Dar es Salaam or en route to Saadani.",
     ],
     quickFacts: [
-      { label: "Founded", value: "c. 18th century; German East Africa capital 1888–1891" },
+      { label: "Founded", value: "c. 18th century; first capital of German East Africa (until 1891)" },
       { label: "UNESCO status", value: "On the World Heritage Tentative List" },
       { label: "Known for", value: "Slave trade history, coral-stone architecture, arts college" },
       { label: "Getting there", value: "1 hr drive from Dar es Salaam" },
@@ -2856,6 +2862,9 @@ export const destinations: Destination[] = [
     relatedSlugs: ["ngorongoro", "serengeti", "lake-natron"],
   },
 ];
+
+/** Original hand-built guides plus the compact entries in ./destinations-extra. */
+export const destinations: Destination[] = [...coreDestinations, ...extraDestinations];
 
 export function getDestinationBySlug(slug: string): Destination | undefined {
   return destinations.find((d) => d.slug === slug);

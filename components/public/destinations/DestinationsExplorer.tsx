@@ -3,22 +3,14 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import type { Destination, DestinationCategory } from "@/data/destinations";
+import { CATEGORY_FILTERS } from "@/data/destinationCategories";
 import DestinationCard from "./DestinationCard";
 
 interface DestinationsExplorerProps {
   destinations: Destination[];
+  /** Pre-selected category chip, e.g. from the nav menu's /destinations?category=... links. */
+  initialCategory?: DestinationCategory | "all";
 }
-
-const CATEGORY_FILTERS: { value: DestinationCategory | "all"; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "national-park", label: "National Parks" },
-  { value: "conservation-area", label: "Conservation Areas" },
-  { value: "game-reserve", label: "Game Reserves" },
-  { value: "mountain", label: "Mountains" },
-  { value: "island", label: "Islands" },
-  { value: "natural-wonder", label: "Natural Wonders" },
-  { value: "historic-site", label: "Historic Sites" },
-];
 
 /**
  * Client-side category chips + free-text search over the static
@@ -26,8 +18,8 @@ const CATEGORY_FILTERS: { value: DestinationCategory | "all"; label: string }[] 
  * the nav mega-menu search (components/FullscreenNavMenu.tsx), applied
  * here to a much smaller, fully static dataset.
  */
-export default function DestinationsExplorer({ destinations }: DestinationsExplorerProps) {
-  const [category, setCategory] = useState<DestinationCategory | "all">("all");
+export default function DestinationsExplorer({ destinations, initialCategory = "all" }: DestinationsExplorerProps) {
+  const [category, setCategory] = useState<DestinationCategory | "all">(initialCategory);
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {

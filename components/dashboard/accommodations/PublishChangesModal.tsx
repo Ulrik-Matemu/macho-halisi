@@ -56,6 +56,10 @@ export default function PublishChangesModal({ live, pending, isAdmin, onPublish,
 
   const rows: [string, unknown, unknown][] = [
     ["Name", live.name, pending.name],
+    ["Tagline", live.tagline, pending.tagline],
+    ["Web address", live.slug, pending.slug],
+    ["Elevation (m)", live.elevationMeters, pending.elevationMeters],
+    ["Sleeps (guests)", live.maxGuests, pending.maxGuests],
     ["Type", ACCOMMODATION_TYPE_LABELS[live.type], ACCOMMODATION_TYPE_LABELS[pending.type]],
     ["Service tier", SERVICE_TIER_LABELS[live.serviceTier], SERVICE_TIER_LABELS[pending.serviceTier]],
     ["Star rating", live.starRating, pending.starRating],
@@ -72,6 +76,21 @@ export default function PublishChangesModal({ live, pending, isAdmin, onPublish,
   const diff: FieldDiff[] = rows
     .map(([label, before, after]) => ({ label, before: fmt(before), after: fmt(after) }))
     .filter((d) => d.before !== d.after);
+
+  // Structured lists: show the item names, and flag edits inside an item
+  // (same names, different details) so they never go unnoticed.
+  const lists: [string, { name: string }[] | undefined, { name: string }[] | undefined][] = [
+    ["Rooms & spaces", live.spaces, pending.spaces],
+    ["Activities", live.activities, pending.activities],
+    ["Nearby places", live.nearbyPlaces, pending.nearbyPlaces],
+  ];
+  for (const [label, before, after] of lists) {
+    if (JSON.stringify(before ?? []) === JSON.stringify(after ?? [])) continue;
+    const names = (items?: { name: string }[]) => fmt((items ?? []).map((i) => i.name));
+    const b = names(before);
+    const a = names(after);
+    diff.push({ label, before: b, after: b === a ? `${a} (details edited)` : a });
+  }
 
   // Hero image and gallery changes are staged per-image (see the
   // /:id/images route handlers), independent of the scalar revision the

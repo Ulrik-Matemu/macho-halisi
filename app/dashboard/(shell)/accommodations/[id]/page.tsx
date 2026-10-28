@@ -14,6 +14,8 @@ import {
   Eye,
   Hotel,
   FileText,
+  BedDouble,
+  Compass,
   Image as ImageIcon,
 } from "lucide-react";
 import { useAuth } from "@/lib/dashboard/auth-context";
@@ -27,16 +29,20 @@ import Dialog from "@/components/dashboard/ui/Dialog";
 import { InlineMessage } from "@/components/dashboard/ui/Toast";
 
 import DetailsTab from "@/components/dashboard/accommodations/DetailsTab";
+import SpacesTab from "@/components/dashboard/accommodations/SpacesTab";
+import ExtrasTab from "@/components/dashboard/accommodations/ExtrasTab";
 import AmenitiesTab from "@/components/dashboard/accommodations/AmenitiesTab";
 import GalleryTab from "@/components/dashboard/accommodations/GalleryTab";
 import PublishChangesModal from "@/components/dashboard/accommodations/PublishChangesModal";
 
-type TabKey = "details" | "amenities" | "gallery";
+type TabKey = "details" | "amenities" | "spaces" | "extras" | "gallery";
 type SaveStatus = "saved" | "unsaved" | "saving" | "error";
 
 const TABS: { key: TabKey; label: string; icon: typeof Hotel; count?: (d: AccommodationDetail) => number }[] = [
   { key: "details", label: "Details", icon: Hotel },
   { key: "amenities", label: "Description & amenities", icon: FileText, count: (d) => d.amenities?.length || 0 },
+  { key: "spaces", label: "Rooms & spaces", icon: BedDouble, count: (d) => d.spaces?.length || 0 },
+  { key: "extras", label: "Activities & nearby", icon: Compass, count: (d) => (d.activities?.length || 0) + (d.nearbyPlaces?.length || 0) },
   { key: "gallery", label: "Gallery", icon: ImageIcon, count: (d) => d.images?.length || 0 },
 ];
 
@@ -163,6 +169,16 @@ export default function AccommodationEditorPage() {
           longitude: current.longitude ?? null,
           description: current.description ?? null,
           amenities: current.amenities || [],
+          tagline: current.tagline?.trim() || null,
+          elevationMeters: current.elevationMeters || null,
+          maxGuests: current.maxGuests || null,
+          // Rows still being typed (no name yet) wait until named, so one
+          // half-filled card never blocks the whole autosave.
+          spaces: (current.spaces || [])
+            .filter((x) => x.name.trim())
+            .map((x) => ({ ...x, name: x.name.trim(), features: (x.features || []).filter((f) => f.trim()) })),
+          nearbyPlaces: (current.nearbyPlaces || []).filter((x) => x.name.trim()).map((x) => ({ ...x, name: x.name.trim() })),
+          activities: (current.activities || []).filter((x) => x.name.trim()).map((x) => ({ ...x, name: x.name.trim() })),
           priceOnRequest: current.priceOnRequest,
           pricePerNight: current.priceOnRequest ? null : current.pricePerNight ? Number(current.pricePerNight) : null,
           destinationId: current.destinationId ?? null,
@@ -578,6 +594,12 @@ export default function AccommodationEditorPage() {
             )}
             {tab.key === "amenities" && activeTab === "amenities" && (
               <AmenitiesTab data={formState} onChange={handleFieldChange} disabled={isViewer} />
+            )}
+            {tab.key === "spaces" && activeTab === "spaces" && (
+              <SpacesTab data={formState} onChange={handleFieldChange} disabled={isViewer} />
+            )}
+            {tab.key === "extras" && activeTab === "extras" && (
+              <ExtrasTab data={formState} onChange={handleFieldChange} disabled={isViewer} />
             )}
             {tab.key === "gallery" && activeTab === "gallery" && (
               <GalleryTab

@@ -150,10 +150,10 @@ export default function FullscreenNavMenu({
       });
     });
 
-    // The DESTINATIONS category above only curates 7 of the 27 destinations
-    // (data/destinations.ts) — search over the rest too so every destination
-    // is reachable from the menu, not just the curated highlights. Hrefs
-    // already surfaced via navigationData are skipped to avoid duplicates.
+    // The DESTINATIONS menu entry only lists categories, so search over
+    // every individual destination (data/destinations.ts) here — that is how
+    // a specific park, lake or site is reached from the menu. Hrefs already
+    // surfaced via navigationData are skipped to avoid duplicates.
     const curatedHrefs = new Set(
       categories.flatMap((cat) => cat.subItems.map((item) => item.href))
     );

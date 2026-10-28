@@ -1,6 +1,6 @@
 /**
  * Static content for the About page (app/about/page.tsx). Copy is the
- * client's About Us document (about-us.rtf), in the same order and under the
+ * client's About Us document (about-us-1.rtf), in the same order and under the
  * same headings — keep it in step with that document and lib/site.ts.
  */
 
@@ -40,7 +40,7 @@ export const aboutSections: AboutSection[] = [
   {
     heading: "THE BEGINNING",
     paragraphs: [
-      "Macho Halisi has been creating unforgettable safari experiences and authentic African adventures for more than seventeen years. Founded by Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, Macho Halisi was built on a simple idea to offer travelers safe, exciting, and professionally guided safaris that deliver exceptional value while showcasing the true beauty of Tanzania.",
+      "Macho Halisi has been crafting unforgettable safari experiences and authentic African adventures for more than seventeen years. Founded by Dawson Minja, a passionate Tanzanian tourism visionary based in Karatu, Macho Halisi was built on a simple idea to offer travelers safe, exciting, and professionally guided safaris that deliver exceptional value while showcasing the true beauty of Tanzania.",
       "What began as a small dream has grown into one of Tanzania’s trusted safari companies. Today, Macho Halisi operates a fleet of 20 custom-built safari vehicles designed for optimal wildlife viewing and is supported by a team of experienced, knowledgeable guides who work year-round to deliver extraordinary journeys across East Africa.",
       "From the endless plains of the Serengeti to the majestic Ngorongoro Crater, the summit of Kilimanjaro, and the turquoise shores of Zanzibar Island, we craft journeys that connect travelers to Africa’s landscapes, wildlife, and cultures in a meaningful and authentic way.",
     ],
@@ -99,7 +99,7 @@ export const aboutSections: AboutSection[] = [
       },
       {
         heading: "Safety",
-        body: "We understand that travelling to Africa is a significant investment. That’s why we provide reliable vehicles, trusted partners, comprehensive tour operator insurance, passenger liability coverage, and with minimum extra costs Flying Doctors emergency evacuation support for added peace of mind.",
+        body: "We understand that travelling to Africa is a significant investment. That’s why we provide reliable vehicles, trusted partners, passenger liability insurance, and with minimum extra costs Flying Doctors emergency evacuation support for added peace of mind.",
       },
     ],
   },

@@ -74,6 +74,34 @@ export default function DetailsTab({ data, onChange, disabled = false }: Details
         )}
       </Field>
 
+      <Field label="Tagline" hint="Short headline shown under the name.">
+        {({ id }) => (
+          <input
+            id={id}
+            type="text"
+            disabled={disabled}
+            value={data.tagline ?? ""}
+            onChange={(e) => onChange({ tagline: e.target.value })}
+            className={inputClass}
+            style={inputStyle}
+          />
+        )}
+      </Field>
+
+      <Field label="Web address (slug)" hint="Part of the public URL. Changing it breaks existing links to this page.">
+        {({ id }) => (
+          <input
+            id={id}
+            type="text"
+            disabled={disabled}
+            value={data.slug ?? ""}
+            onChange={(e) => onChange({ slug: e.target.value })}
+            className={`${inputClass} dash-code`}
+            style={inputStyle}
+          />
+        )}
+      </Field>
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         <Field label="Type" required>
           {({ id }) => (
@@ -151,6 +179,37 @@ export default function DetailsTab({ data, onChange, disabled = false }: Details
           </div>
         )}
       </Field>
+
+      <div className="grid grid-cols-2 gap-5">
+        <Field label="Elevation (m)">
+          {({ id }) => (
+            <input
+              id={id}
+              type="number"
+              min={1}
+              disabled={disabled}
+              value={data.elevationMeters ?? ""}
+              onChange={(e) => onChange({ elevationMeters: e.target.value === "" ? null : Number(e.target.value) })}
+              className={inputClass}
+              style={inputStyle}
+            />
+          )}
+        </Field>
+        <Field label="Sleeps (guests)">
+          {({ id }) => (
+            <input
+              id={id}
+              type="number"
+              min={1}
+              disabled={disabled}
+              value={data.maxGuests ?? ""}
+              onChange={(e) => onChange({ maxGuests: e.target.value === "" ? null : Number(e.target.value) })}
+              className={inputClass}
+              style={inputStyle}
+            />
+          )}
+        </Field>
+      </div>
 
       <Field label="Linked destination" hint="Optional — associate this property with a destination in the catalog.">
         {({ id }) => (

@@ -6,6 +6,7 @@ import { getPublishedAccommodations } from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { itemList, JsonLd } from "@/lib/seo/jsonLd";
+import { areaImageFor } from "@/lib/accommodations/areaImage";
 
 export const metadata: Metadata = {
   title: "Safari Lodges & Tented Camps in Tanzania | Macho Halisi",
@@ -53,7 +54,11 @@ export default async function AccommodationsIndexPage() {
               </p>
             </div>
           ) : (
-            <AccommodationsExplorer accommodations={accommodations} />
+            <AccommodationsExplorer
+              accommodations={accommodations.map((a) =>
+                a.heroImage || a.images.length > 0 ? a : { ...a, areaImage: areaImageFor(a) }
+              )}
+            />
           )}
         </div>
       </div>

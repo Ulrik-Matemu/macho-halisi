@@ -133,6 +133,8 @@ export interface PublicAccommodationSummary {
   heroImage: PublicAccommodationImage | null;
   images: PublicAccommodationImage[];
   destination: Pick<PublicAccommodationDestination, "id" | "name" | "slug"> | null;
+  /** Set client-side-free by the catalogue page when there is no photo, so the card still shows an image. */
+  areaImage?: { url: string; alt: string; place: string };
 }
 
 export interface PublicAccommodationDetail {

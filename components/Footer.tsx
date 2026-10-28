@@ -248,11 +248,13 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Destinations"
                 links={[
-                  { label: "Serengeti", href: "/destinations/serengeti" },
-                  { label: "Ngorongoro Crater", href: "/destinations/ngorongoro" },
-                  { label: "Kilimanjaro", href: "/destinations/kilimanjaro" },
-                  { label: "Ruaha & Nyerere", href: "/destinations/southern-circuit" },
-                  { label: "Zanzibar", href: "/destinations/zanzibar" },
+                  { label: "National Parks", href: "/destinations?category=national-park" },
+                  { label: "Game Reserves", href: "/destinations?category=game-reserve" },
+                  { label: "Mountains", href: "/destinations?category=mountain" },
+                  { label: "Lakes & Water Bodies", href: "/destinations?category=lake" },
+                  { label: "Historical Sites", href: "/destinations?category=historic-site" },
+                  { label: "Natural Wonders", href: "/destinations?category=natural-wonder" },
+                  { label: "Islands", href: "/destinations?category=island" },
                   { label: "All destinations →", href: "/destinations" },
                 ]}
               />

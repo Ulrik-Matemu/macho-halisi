@@ -444,7 +444,7 @@ const baseExperiences: ExperienceBase[] = [
       {
         title: "Guided Observation",
         text: "Your guide uses appropriate lighting and observation techniques, respecting the rules for wildlife viewing after dark.",
-        image: { url: img("/media/experiences/lion-vehicle.jpg"), alt: "A lion beside a safari vehicle" },
+        image: { url: img("/media/night/night-game-drive-masai-mara.webp"), alt: "A rusty-spotted genet in a vehicle spotlight on a night drive" },
       },
       {
         title: "A Different Ecosystem",
@@ -459,19 +459,19 @@ const baseExperiences: ExperienceBase[] = [
     ],
     quote: "By day the bush shows you what it wants you to see. By night, it shows you the rest.",
     quoteBy: "Guide, Karatu",
-    quoteImage: { url: img("/media/experiences/night-game-drives/sunset.jpg", 2200), alt: "The sun setting behind acacia trees as the night drive begins" },
+    quoteImage: { url: img("/media/night/night-game-drive-masai-mara.webp", 2200), alt: "A full moon shining through acacia branches on a night in Tarangire" },
     places: [
       {
         name: "Lake Manyara",
         type: "Where authorised",
         destinationSlug: "manyara",
-        image: { url: img(PHOTO.forest), alt: "Lake Manyara country" },
+        image: { url: img("/media/experiences/night-game-drives/large-spotted-genet.jpg"), alt: "A large-spotted genet seen at night in a spotlight" },
       },
       {
         name: "Tarangire",
         type: "Where authorised",
         destinationSlug: "tarangire",
-        image: { url: img("/media/tarangire/tara-hero.jpg"), alt: "Tarangire landscape" },
+        image: { url: img("/media/experiences/night-game-drives/tarangire-moon.jpg"), alt: "Moonlight through acacia branches at night in Tarangire" },
       },
     ],
   },

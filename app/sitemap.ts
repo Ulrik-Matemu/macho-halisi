@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getPublishedItineraries, getPublishedAccommodations } from "@/lib/public/api";
 import { getSiteUrl } from "@/lib/site";
 import { destinations } from "@/data/destinations";
+import { campsLodges } from "@/data/campsLodges";
 import { experiences } from "@/data/experiences";
 import { journeyCollections } from "@/data/journeys";
 
@@ -16,6 +17,7 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/destinations", changeFrequency: "weekly", priority: 0.9 },
   { path: "/experiences", changeFrequency: "weekly", priority: 0.9 },
   { path: "/accommodations", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/camps-lodges", changeFrequency: "monthly", priority: 0.8 },
   { path: "/when-to-travel", changeFrequency: "monthly", priority: 0.9 },
   { path: "/how-we-plan", changeFrequency: "monthly", priority: 0.7 },
   { path: "/travel-information", changeFrequency: "monthly", priority: 0.8 },
@@ -53,6 +55,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.8,
       images: [destination.heroImage, ...destination.gallery.map((g) => g.url)].filter(Boolean).slice(0, 5).map(abs),
+    })),
+    ...campsLodges.map((lodge) => ({
+      url: `${siteUrl}/camps-lodges/${lodge.slug}`,
+      lastModified: BUILT_AT,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      images: lodge.images.slice(0, 5).map((img) => abs(img.url)),
     })),
     ...experiences.map((experience) => ({
       url: `${siteUrl}/experiences/${experience.slug}`,

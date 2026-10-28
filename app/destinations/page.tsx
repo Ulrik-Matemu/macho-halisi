@@ -4,6 +4,7 @@ import SiteChrome from "@/components/SiteChrome";
 import ScrollReveal from "@/components/public/ScrollReveal";
 import DestinationsExplorer from "@/components/public/destinations/DestinationsExplorer";
 import { destinations } from "@/data/destinations";
+import { CATEGORY_FILTERS } from "@/data/destinationCategories";
 import { getSiteUrl } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
@@ -14,7 +15,13 @@ export const metadata: Metadata = {
   alternates: { canonical: `${getSiteUrl()}/destinations` },
 };
 
-export default function DestinationsIndexPage() {
+export default async function DestinationsIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category } = await searchParams;
+  const initialCategory = CATEGORY_FILTERS.find((f) => f.value === category)?.value ?? "all";
   return (
     <SiteChrome>
       <Breadcrumbs visible={false} items={[{ name: "Destinations", path: "/destinations" }]} />
@@ -36,7 +43,7 @@ export default function DestinationsIndexPage() {
           </ScrollReveal>
 
           <ScrollReveal delayMs={100} size="lift">
-            <DestinationsExplorer destinations={destinations} />
+            <DestinationsExplorer key={initialCategory} destinations={destinations} initialCategory={initialCategory} />
           </ScrollReveal>
         </div>
       </div>

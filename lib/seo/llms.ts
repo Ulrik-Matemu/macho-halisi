@@ -1,4 +1,5 @@
 import { destinations } from "@/data/destinations";
+import { campsLodges } from "@/data/campsLodges";
 import { experiences } from "@/data/experiences";
 import { journeyCollections } from "@/data/journeys";
 import { MONTHS_DATA, SEASONAL_ERAS } from "@/data/seasonalData";
@@ -57,6 +58,7 @@ export async function buildLlmsTxt(): Promise<string> {
     `- [Destinations](${site}/destinations): guides to Tanzania's parks, mountains and islands`,
     `- [Experiences](${site}/experiences): balloon, Maasai and Hadzabe cultural, coffee, waterfall and hot spring, canoeing and night game drives`,
     `- [Safari lodges & camps](${site}/accommodations): hand-picked accommodation`,
+    `- [Camps & Lodges guide](${site}/camps-lodges): recommended camps, lodges and hotels for each Tanzanian destination`,
     `- [Travel information](${site}/travel-information): visas, baggage, climate and clothing, photography, currency, park rules, tipping, health and safety, and FAQs`,
     `- [How we plan](${site}/how-we-plan): our five-stage planning process`,
     `- [About](${site}/about): company story, founder and guides`,
@@ -67,6 +69,7 @@ export async function buildLlmsTxt(): Promise<string> {
     out.push("## Safari itineraries", ...itineraries.map((i) => `- [${i.title}](${site}/itineraries/${i.slug}): ${tripFacts(i)}`), "");
   }
   out.push("## Destinations", ...destinations.map((d) => `- [${d.name}](${site}/destinations/${d.slug}): ${flat(d.seoDescription)}`), "");
+  out.push("## Camps & lodges", ...campsLodges.map((l) => `- [${l.name}](${site}/camps-lodges/${l.slug}): ${flat(l.summary)}`), "");
   out.push("## Experiences", ...experiences.map((e) => `- [${e.short}](${site}/experiences/${e.slug}): ${flat(e.seoDescription)}`), "");
   out.push("## Journey collections", ...journeyCollections.map((c) => `- [${c.line1} ${c.line2}](${site}/journeys/${c.slug}): ${flat(c.seoDescription)}`), "");
   out.push("## Quick answers", ...bestTimeFaqs().map((f) => `- ${f.question} ${f.answer}`), "");

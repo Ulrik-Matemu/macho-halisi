@@ -33,6 +33,20 @@ export default function AccommodationCard({ accommodation, priority = false }: A
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
           />
+        ) : accommodation.areaImage ? (
+          <>
+            <Image
+              src={accommodation.areaImage.url}
+              alt={accommodation.areaImage.alt}
+              fill
+              priority={priority}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
+            />
+            <span className="absolute bottom-3 left-3 z-10 px-2 py-1 rounded text-[9px] font-sans tracking-[0.18em] uppercase bg-black/60 backdrop-blur-md text-safari-cream/90">
+              Area photo · {accommodation.areaImage.place}
+            </span>
+          </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#1c160f] to-[#0a0a0a]" />
         )}
