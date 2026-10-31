@@ -435,10 +435,10 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                    <label htmlFor="enq-modal-name" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                       Name *
                     </label>
-                    <input
+                    <input id="enq-modal-name" autoComplete="name" maxLength={100}
                       type="text"
                       required
                       value={contact.name}
@@ -448,10 +448,10 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                    <label htmlFor="enq-modal-email" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                       Email *
                     </label>
-                    <input
+                    <input id="enq-modal-email" autoComplete="email" maxLength={254}
                       type="email"
                       required
                       value={contact.email}
@@ -463,10 +463,10 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                  <label htmlFor="enq-modal-phone-whatsapp" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                     Phone / WhatsApp *
                   </label>
-                  <input
+                  <input id="enq-modal-phone-whatsapp" autoComplete="tel" maxLength={40}
                     type="tel"
                     required
                     value={contact.phone}
@@ -477,10 +477,10 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                  <label htmlFor="enq-modal-notes" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
                     Notes (Optional)
                   </label>
-                  <textarea
+                  <textarea id="enq-modal-notes" maxLength={2000}
                     rows={2}
                     value={contact.notes}
                     onChange={(e) => setContact((prev) => ({ ...prev, notes: e.target.value }))}

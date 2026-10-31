@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/public/ScrollReveal";
 import PageTitleHero from "@/components/public/PageTitleHero";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { whyBookHero, whyBookParagraphs } from "@/data/whyBookData";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 
 const TITLE = "Why Book With Us — Owner-Operated Safaris from Karatu | Macho Halisi";
 const DESCRIPTION =
@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: `${getSiteUrl()}/why-book-with-us`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

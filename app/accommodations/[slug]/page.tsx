@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Check } from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
-import AccommodationMap from "@/components/public/accommodations/AccommodationMap";
+import AccommodationMap from "@/components/public/accommodations/LazyAccommodationMap";
 import AccommodationGallery from "@/components/public/accommodations/AccommodationGallery";
 import {
   SpacesSection,
@@ -13,7 +13,7 @@ import {
 } from "@/components/public/accommodations/AccommodationSections";
 import { getAccommodationBySlug, getPublishedAccommodations } from "@/lib/public/api";
 import { ACCOMMODATION_TYPE_LABELS, SERVICE_TIER_LABELS } from "@/lib/accommodations/types";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { JsonLd, lodging } from "@/lib/seo/jsonLd";
 import { clip } from "@/lib/seo/text";
@@ -61,9 +61,9 @@ export async function generateMetadata({
       title,
       description,
       url,
-      images: coverImage ? [{ url: coverImage }] : undefined,
+      images: coverImage ? [{ url: coverImage }] : [OG_DEFAULT_IMAGE],
     },
-    twitter: { card: "summary_large_image", title, description, images: coverImage ? [coverImage] : undefined },
+    twitter: { card: "summary_large_image", title, description, images: coverImage ? [coverImage] : [OG_DEFAULT_IMAGE.url] },
   };
 }
 

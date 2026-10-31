@@ -22,6 +22,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Waterfront location", "Swimming pool", "Restaurant and bar", "Tour arrangements"],
     idealFor: ["Culture-minded travellers", "Value-minded travellers", "Road trips"],
+    imageAlts: ["The entrance to the Mkonge Hotel in Tanga"],
   }),
   defineLodge({
     slug: "tanga-beach-resort",
@@ -43,6 +44,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Swimming pool", "Restaurant and bar", "Gardens"],
     idealFor: ["Families", "Couples", "Road trips"],
+    imageAlts: ["Aerial view of the pools at Tanga Beach Resort at sunset"],
   }),
   defineLodge({
     slug: "capricorn-beach-cottages",
@@ -64,6 +66,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Beach cottages", "Restaurant and bar", "Beachfront", "Pangani excursions"],
     idealFor: ["Couples", "Quiet stays", "History lovers"],
+    imageAlts: ["Thatched cottages under baobab trees at Capricorn Beach Cottages"],
   }),
   defineLodge({
     slug: "emayani-beach-lodge",
@@ -85,6 +88,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Beach cottages", "Restaurant and bar", "Beachfront", "Pangani excursions"],
     idealFor: ["Couples", "Quiet stays", "Bird lovers"],
+    imageAlts: ["Aerial view of Emayani Beach Lodge among palms beside the sea"],
   }),
   defineLodge({
     slug: "lawns-hotel-lushoto",
@@ -106,6 +110,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Gardens", "Restaurant and bar", "Walking trails nearby", "Fireplaces"],
     idealFor: ["Walkers", "Couples", "Slow travellers"],
+    imageAlts: ["The pool and sun loungers at The Lawns Hotel in Lushoto"],
   }),
   defineLodge({
     slug: "mullers-mountain-lodge",
@@ -127,6 +132,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Hillside setting", "Restaurant and bar", "Guided walks", "Valley views"],
     idealFor: ["Walkers", "Nature lovers", "Couples"],
+    imageAlts: ["The red-roofed lodge and garden path at Müller's Mountain Lodge"],
   }),
   defineLodge({
     slug: "mambo-view-point-ecolodge",
@@ -148,6 +154,7 @@ export const tangaStays: CampLodge[] = [
     ],
     features: ["Ridge setting", "Restaurant", "Guided hikes", "Eco-minded design"],
     idealFor: ["Hikers", "Eco-minded travellers", "Photographers"],
+    imageAlts: ["Thatched cottages on the forested hillside at Mambo View Point Ecolodge"],
   }),
 ];
 
@@ -216,6 +223,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Stone-and-thatch cottages", "Boat safaris", "Walking safaris", "Fly-camping"],
     idealFor: ["Seasoned safari-goers", "Walking enthusiasts", "Honeymooners"],
+    imageAlts: ["A guest relaxing on the deck at Sand Rivers Selous, looking over the river"],
   }),
   defineLodge({
     slug: "beho-beho",
@@ -237,6 +245,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Hilltop setting", "Swimming pool", "Boat safaris", "Walking safaris"],
     idealFor: ["Honeymooners", "Couples", "Seasoned safari-goers"],
+    imageAlts: ["A long dining table on the terrace at Beho Beho, looking over the Selous hills"],
   }),
   defineLodge({
     slug: "siwandu-camp",
@@ -258,6 +267,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Lakeside tents", "Boat safaris", "Walking safaris", "Restaurant and bar"],
     idealFor: ["Couples", "Birdwatchers", "Boat-safari fans"],
+    imageAlts: ["Breakfast served on the deck at Siwandu Camp, looking over Lake Natron"],
   }),
   defineLodge({
     slug: "vuma-hills-tented-camp",
@@ -279,6 +289,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Swimming pool", "Restaurant and bar", "Game drives arranged"],
     idealFor: ["Short safaris", "Families", "Road trips"],
+    imageAlts: ["The fire pit lounge at Vuma Hills Tented Camp in the evening"],
   }),
   defineLodge({
     slug: "mikumi-wildlife-camp",
@@ -300,6 +311,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Thatched bandas", "Restaurant and bar", "Game drives arranged", "Inside the park"],
     idealFor: ["Value-minded travellers", "Short safaris", "Families"],
+    imageAlts: ["The thatched dining area at Mikumi Wildlife Camp"],
   }),
   defineLodge({
     slug: "hotel-morogoro",
@@ -345,6 +357,7 @@ export const southernStays: CampLodge[] = [
     features: ["Tents and huts", "Restaurant and bar", "Guided forest walks", "At the park edge"],
     idealFor: ["Hikers", "Primate-lovers", "Birdwatchers"],
     destinations: ["udzungwa"],
+    imageAlts: ["Thatched buildings in green grounds at Hondo Hondo in the Udzungwa foothills"],
   }),
   defineLodge({
     slug: "udzungwa-falls-lodge",
@@ -367,6 +380,7 @@ export const southernStays: CampLodge[] = [
     features: ["Restaurant and bar", "Swimming pool", "Guided walks arranged", "At the park edge"],
     idealFor: ["Hikers", "Value-minded travellers", "Primate-lovers"],
     destinations: ["udzungwa"],
+    imageAlts: ["An ivy-covered round cottage at Udzungwa Falls Lodge"],
   }),
   defineLodge({
     slug: "ruaha-river-lodge",
@@ -415,6 +429,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Restaurant and bar", "Game drives arranged", "Remote location"],
     idealFor: ["Seasoned safari-goers", "Birdwatchers", "Couples"],
+    imageAlts: ["A tented suite under a thatched roof at Jongomero Camp"],
   }),
   defineLodge({
     slug: "mwagusi-safari-camp",
@@ -436,6 +451,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Banda-style rooms", "Walking safaris", "Restaurant and bar", "Small camp"],
     idealFor: ["Walking enthusiasts", "Seasoned safari-goers", "Photographers"],
+    imageAlts: ["A thatched tented room at Mwagusi Safari Camp"],
   }),
   defineLodge({
     slug: "kigelia-ruaha",
@@ -457,6 +473,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Open-fronted tents", "Restaurant and bar", "Game drives arranged", "Walking safaris"],
     idealFor: ["Couples", "Honeymooners", "Quiet-seekers"],
+    imageAlts: ["A thatched tented suite shaded by a large tree at Kigelia Ruaha"],
   }),
   defineLodge({
     slug: "tandala-tented-camp",
@@ -478,6 +495,7 @@ export const southernStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Swimming pool", "Game drives and walks arranged", "Close to the park gate"],
     idealFor: ["Value-minded travellers", "Families", "Small groups"],
+    imageAlts: ["A raised tented room at Tandala Tented Camp"],
   }),
   defineLodge({
     slug: "kisolanza-old-farm-house",
@@ -500,6 +518,7 @@ export const southernStays: CampLodge[] = [
     features: ["Farm cottages", "Campsite", "Restaurant", "Farm produce"],
     idealFor: ["Road trips", "Families", "Overlanders"],
     destinations: ["isimila", "ruaha"],
+    imageAlts: ["The old farmhouse and gardens at Kisolanza Farm"],
   }),
   defineLodge({
     slug: "mufindi-highland-lodge",
@@ -522,6 +541,7 @@ export const southernStays: CampLodge[] = [
     features: ["Lakeside setting", "Restaurant and bar", "Walks and fishing", "Fireplaces"],
     idealFor: ["Couples", "Families", "Nature lovers"],
     destinations: ["isimila", "ruaha", "udzungwa"],
+    imageAlts: ["A timber chalet in the Mufindi highlands at Mufindi Highland Lodge"],
   }),
 ];
 
@@ -546,6 +566,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Walking safaris", "Restaurant and bar", "Intimate scale"],
     idealFor: ["Seasoned safari-goers", "Walking enthusiasts", "Wilderness seekers"],
+    imageAlts: ["Tented lounge and deck under giant trees at Chada Katavi"],
   }),
   defineLodge({
     slug: "katuma-bush-lodge",
@@ -567,6 +588,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Walking safaris", "Restaurant and bar", "Game drives"],
     idealFor: ["Seasoned safari-goers", "Couples", "Walking enthusiasts"],
+    imageAlts: ["The fire pit and deck at Mbali Mbali Katavi"],
   }),
   defineLodge({
     slug: "katavi-wildlife-camp",
@@ -609,6 +631,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Beachfront bandas", "Chimpanzee tracking", "Lake swimming and snorkelling", "Dhow trips"],
     idealFor: ["Primate lovers", "Adventurous couples", "Honeymooners"],
+    imageAlts: ["A thatched banda in the forest above Lake Tanganyika at Greystoke Mahale"],
   }),
   defineLodge({
     slug: "mbali-mbali-mahale",
@@ -630,6 +653,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Lakeshore suites", "Chimpanzee trekking", "Kayaking", "Boat trips"],
     idealFor: ["Primate lovers", "Couples", "Adventurers"],
+    imageAlts: ["The thatched main lodge at Mbali Mbali Mahale on the lake shore"],
   }),
   defineLodge({
     slug: "gombe-forest-lodge",
@@ -651,6 +675,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Forest cottages", "Chimpanzee trekking", "Lake views", "Restaurant"],
     idealFor: ["Primate lovers", "Nature lovers", "Couples"],
+    imageAlts: ["Sun loungers on the Lake Tanganyika shore at Gombe Forest Lodge"],
   }),
   defineLodge({
     slug: "kigoma-hilltop-hotel",
@@ -673,6 +698,7 @@ export const westStays: CampLodge[] = [
     features: ["Gardens", "Restaurant and bar", "Lake views", "Transfers arranged"],
     idealFor: ["Gombe and Mahale travellers", "Business travellers", "Short stays"],
     destinations: ["gombe", "mahale"],
+    imageAlts: ["The clifftop dining deck above Lake Tanganyika at Kigoma Hilltop Hotel"],
   }),
   defineLodge({
     slug: "lake-tanganyika-hotel",
@@ -694,6 +720,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Private bathrooms", "Restaurant", "Central location", "Transfers arranged"],
     idealFor: ["Value-minded travellers", "Overnight stops", "Early departures"],
+    imageAlts: ["Loungers by the pool at sunset at Lake Tanganyika Hotel"],
   }),
   defineLodge({
     slug: "malaika-beach-resort",
@@ -716,6 +743,7 @@ export const westStays: CampLodge[] = [
     features: ["Lakeside setting", "Swimming pool", "Restaurant and bar", "Gardens"],
     idealFor: ["Couples", "Families", "Lake Victoria visitors"],
     destinations: ["ukerewe"],
+    imageAlts: ["Malaika Beach Resort on the shore of Lake Victoria"],
   }),
   defineLodge({
     slug: "gold-crest-hotel",
@@ -737,6 +765,7 @@ export const westStays: CampLodge[] = [
     ],
     features: ["Upper-floor views", "Restaurant and bar", "Central location", "Airport transfers"],
     idealFor: ["Business travellers", "Arrival nights", "Short stays"],
+    imageAlts: ["The Gold Crest Hotel in Mwanza lit up at dusk"],
   }),
   defineLodge({
     slug: "rubondo-island-camp",
@@ -783,6 +812,7 @@ export const highlandsSouthStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Restaurant and bar", "Gardens", "Conference facilities"],
     idealFor: ["Southern Highlands travellers", "Couples", "Overnight stops"],
+    imageAlts: ["The veranda at Utengule Coffee Lodge looking over the grounds"],
   }),
   defineLodge({
     slug: "landmark-hotel-matema",
@@ -804,6 +834,7 @@ export const highlandsSouthStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Bar and lounge", "Breakfast included", "Lake swimming"],
     idealFor: ["Lake lovers", "Hikers", "Value-minded travellers"],
+    imageAlts: ["The pool and lakeside terrace at Landmark Hotel Matema"],
   }),
   defineLodge({
     slug: "matema-lake-shore-resort",
@@ -826,6 +857,7 @@ export const highlandsSouthStays: CampLodge[] = [
     features: ["Lakeside setting", "Restaurant and bar", "Lake swimming", "Village walks"],
     idealFor: ["Lake lovers", "Kitulo visitors", "Value-minded travellers"],
     destinations: ["kitulo", "kipengere"],
+    imageAlts: ["The timber lodge buildings of Matema Lake Shore Resort"],
   }),
   defineLodge({
     slug: "kilwa-seaview-resort",
@@ -848,6 +880,7 @@ export const highlandsSouthStays: CampLodge[] = [
     features: ["Beachfront bungalows", "Restaurant", "Campsite", "Boat trips to the ruins"],
     idealFor: ["History lovers", "Couples", "Road trips"],
     destinations: ["songo-songo"],
+    imageAlts: ["A thatched cottage and baobab tree beside the sea at Kilwa Seaview Resort"],
   }),
   defineLodge({
     slug: "old-boma-mikindani",
@@ -898,5 +931,6 @@ export const highlandsSouthStays: CampLodge[] = [
     features: ["Restaurant and bar", "Central Mtwara", "Airport transfers", "Excursions arranged"],
     idealFor: ["Far-south travellers", "Business travellers", "Short stays"],
     destinations: ["mikindani"],
+    imageAlts: ["Aerial view of the swimming pool at Luwa Evergreen Hotel"],
   }),
 ];

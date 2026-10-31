@@ -6,7 +6,7 @@ import SiteChrome from "@/components/SiteChrome";
 import ScrollReveal from "@/components/public/ScrollReveal";
 import ScrollProgressBar from "@/components/public/ScrollProgressBar";
 import DestinationHero from "@/components/public/destinations/DestinationHero";
-import DestinationMap from "@/components/public/destinations/DestinationMap";
+import DestinationMap from "@/components/public/destinations/LazyDestinationMap";
 import DestinationBestTime from "@/components/public/destinations/DestinationBestTime";
 import DestinationFaq from "@/components/public/destinations/DestinationFaq";
 import DestinationCard from "@/components/public/destinations/DestinationCard";

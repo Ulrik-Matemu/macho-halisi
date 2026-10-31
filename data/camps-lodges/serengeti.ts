@@ -48,6 +48,7 @@ export const serengetiStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Spa", "Restaurant and bar", "Waterhole viewing"],
     idealFor: ["Couples", "Honeymooners", "Families who want comfort"],
+    imageAlts: ["A balcony at Four Seasons Safari Lodge Serengeti at dusk"],
   }),
   defineLodge({
     slug: "seronera-wildlife-lodge",
@@ -69,6 +70,7 @@ export const serengetiStays: CampLodge[] = [
     ],
     features: ["Restaurant and bar", "Swimming pool", "Kopje setting", "Game drives arranged"],
     idealFor: ["First-time visitors", "Wildlife photographers", "Value-minded travellers"],
+    imageAlts: ["Seronera Wildlife Lodge built among the Serengeti rock kopjes"],
   }),
   defineLodge({
     slug: "lobo-wildlife-lodge",
@@ -117,7 +119,7 @@ export const serengetiStays: CampLodge[] = [
     features: ["Restaurant and bar", "Lakeside acacia setting", "Game drives arranged", "Birdwatching"],
     idealFor: ["Calving-season travellers", "Photographers", "Families"],
     destinations: ["great-migration", "ngorongoro"],
-    imageAlts: ["Sunrise near Ndutu Safari Lodge in the southern Serengeti", "Evening at the Ndutu camp area under acacia trees"],
+    imageAlts: ["The stone-and-thatch buildings of Ndutu Safari Lodge under acacia trees", "Evening at the Ndutu camp area under acacia trees"],
   }),
   defineLodge({
     slug: "singita-sabora-tented-camp",
@@ -191,7 +193,7 @@ export const serengetiStays: CampLodge[] = [
     idealFor: ["Migration seekers", "Couples", "Nature lovers"],
     destinations: ["great-migration", "ikorongo-grumeti"],
     imageAlts: [
-      "A panorama of the Grumeti River from Migration Camp",
+      "The lounge tent at Serengeti Migration Camp",
       "The Grumeti River with hippos beside Migration Camp",
       "The hippo pool on the Grumeti River at Migration Camp",
     ],
@@ -217,6 +219,7 @@ export const serengetiStays: CampLodge[] = [
     features: ["Spacious tents", "Restaurant and bar", "Game drives arranged", "Mara River access"],
     idealFor: ["Migration seekers", "Couples", "Photographers"],
     destinations: ["great-migration"],
+    imageAlts: ["The pool deck and lounge at Sayari Camp at dusk"],
   }),
   defineLodge({
     slug: "namiri-plains",
@@ -238,5 +241,6 @@ export const serengetiStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Restaurant and bar", "Game drives arranged", "Open plains views"],
     idealFor: ["Wildlife photographers", "Couples", "Repeat visitors"],
+    imageAlts: ["Namiri Plains camp under a big Serengeti sky"],
   }),
 ];

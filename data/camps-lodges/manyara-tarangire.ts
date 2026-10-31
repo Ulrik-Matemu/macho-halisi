@@ -23,7 +23,7 @@ export const manyaraStays: CampLodge[] = [
     features: ["Swimming pool", "Restaurant and bar", "Escarpment views", "Game drives arranged"],
     idealFor: ["Couples", "Families", "Photographers"],
     imageAlts: [
-      "Lake Manyara National Park seen from Escarpment Lodge",
+      "Aerial view of Escarpment Luxury Lodge and its pool among the trees",
       "The forest and lake below Escarpment Lodge",
       "Acacia vegetation near Escarpment Lodge above Lake Manyara",
     ],
@@ -48,6 +48,7 @@ export const manyaraStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Restaurant and bar", "Lake views", "Game drives arranged"],
     idealFor: ["Families", "Couples", "First-time visitors"],
+    imageAlts: ["The infinity pool at Lake Manyara Serena Safari Lodge looking over the Rift Valley"],
   }),
   defineLodge({
     slug: "maramboi-tented-camp",
@@ -96,6 +97,7 @@ export const manyaraStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Restaurant and bar", "Forest setting", "Village walks"],
     idealFor: ["Birdwatchers", "Cultural travellers", "Value-minded travellers"],
+    imageAlts: ["A thatched tent among the trees at Migunga Tented Camp"],
   }),
   defineLodge({
     slug: "kirurumu-manyara-lodge",
@@ -117,6 +119,7 @@ export const manyaraStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Restaurant and bar", "Escarpment views", "Game drives arranged"],
     idealFor: ["Couples", "Photographers", "Value-minded travellers"],
+    imageAlts: ["A deck at Kirurumu Manyara Lodge looking out over Lake Manyara"],
   }),
   defineLodge({
     slug: "lake-manyara-kilimamoja-lodge",
@@ -138,6 +141,7 @@ export const manyaraStays: CampLodge[] = [
     ],
     features: ["Gardens", "Restaurant and bar", "Escarpment views", "Birdwatching"],
     idealFor: ["Birdwatchers", "Couples", "Families"],
+    imageAlts: ["The thatched main lodge and pool at Lake Manyara Kilimamoja Lodge"],
   }),
 ];
 
@@ -188,6 +192,7 @@ export const tarangireStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Restaurant and bar", "Inside the park", "Ridge-top views"],
     idealFor: ["Families", "Birdwatchers", "Groups"],
+    imageAlts: ["Tarangire Sopa Lodge and its pool at dusk"],
   }),
   defineLodge({
     slug: "olivers-camp",
@@ -209,6 +214,7 @@ export const tarangireStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Guided walks", "Restaurant and bar", "Small camp"],
     idealFor: ["Walking enthusiasts", "Seasoned safari-goers", "Photographers"],
+    imageAlts: ["A thatched suite and acacia trees at sunset at Oliver's Camp"],
   }),
   defineLodge({
     slug: "tarangire-safari-lodge",
@@ -230,6 +236,7 @@ export const tarangireStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Swimming pool", "Restaurant and bar", "Inside the park"],
     idealFor: ["Families", "Value-minded travellers", "Photographers"],
+    imageAlts: ["The terrace at Tarangire Safari Lodge looking over the Tarangire plains"],
   }),
   defineLodge({
     slug: "swala-camp",
@@ -251,6 +258,7 @@ export const tarangireStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Restaurant and bar", "Inside the park", "Game drives arranged"],
     idealFor: ["Couples", "Photographers", "Quiet-seekers"],
+    imageAlts: ["An elephant in golden light near Swala Camp in Tarangire"],
   }),
   defineLodge({
     slug: "lake-burunge-tented-lodge",
@@ -273,6 +281,7 @@ export const tarangireStays: CampLodge[] = [
     features: ["Tented rooms", "Restaurant and bar", "Lake views", "Birdwatching"],
     idealFor: ["Birdwatchers", "Couples", "Value-minded travellers"],
     destinations: ["lake-babati", "hanang"],
+    imageAlts: ["A thatched tent on stilts at Lake Burunge Tented Lodge"],
   }),
   defineLodge({
     slug: "lemala-mpingo-ridge",

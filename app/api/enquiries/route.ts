@@ -3,7 +3,16 @@ import { getExpressApiUrl } from "@/lib/auth/constants";
 import { getVisitorContext } from "@/lib/analytics/server";
 
 const optional = (value: unknown, max: number) =>
-  typeof value === "string" && value.trim() ? value.trim().slice(0, max) : null;
+  typeof value === "string" && value.trim() ? clean(value.trim()).slice(0, max) : null;
+
+// Pragmatic address check (one @, a dot in the domain, no spaces). The
+// backend re-validates with Zod, but rejecting junk here saves the hop.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Strip control characters (keeping tab/newline) from free text before it
+// is stored and later shown in the dashboard and staff-alert emails.
+const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g;
+const clean = (value: string) => value.replace(CONTROL_CHARS, "");
 
 export async function POST(request: Request) {
   try {
@@ -16,7 +25,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    if (!email || typeof email !== "string" || !email.includes("@")) {
+    if (!email || typeof email !== "string" || !EMAIL_PATTERN.test(email.trim()) || email.length > 254) {
       return NextResponse.json(
         { status: "error", message: "A valid email address is required" },
         { status: 400 }
@@ -31,13 +40,13 @@ export async function POST(request: Request) {
 
     const visitor = getVisitorContext(request);
     const payload = {
-      name: name.trim(),
+      name: clean(name.trim()).slice(0, 100),
       email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      itineraryId: itineraryId || null,
-      partySize: partySize || null,
-      preferredDates: preferredDates || null,
-      message: message || null,
+      phone: clean(phone.trim()).slice(0, 40),
+      itineraryId: typeof itineraryId === "string" && itineraryId ? itineraryId : null,
+      partySize: optional(partySize, 100),
+      preferredDates: optional(preferredDates, 200),
+      message: optional(message, 5000),
       source: body.source === "modal" || body.source === "studio" ? body.source : null,
       pagePath: optional(body.pagePath, 500),
       referrerHost: optional(body.referrerHost, 255),

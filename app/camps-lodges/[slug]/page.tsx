@@ -11,7 +11,7 @@ import LodgeCard from "@/components/public/camps-lodges/LodgeCard";
 import AccommodationEnquireButton from "@/components/public/accommodations/AccommodationEnquireButton";
 import { JsonLd } from "@/lib/seo/jsonLd";
 import { clip } from "@/lib/seo/text";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import {
   getAllCampLodgeSlugs,
   getCampLodgeBySlug,
@@ -44,8 +44,8 @@ export async function generateMetadata({ params }: { params: Promise<LodgePagePa
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, images: image ? [{ url: image, alt: lodge.images[0].alt }] : undefined },
-    twitter: { card: "summary_large_image", title, description, images: image ? [image] : undefined },
+    openGraph: { title, description, url, images: image ? [{ url: image, alt: lodge.images[0].alt }] : [OG_DEFAULT_IMAGE] },
+    twitter: { card: "summary_large_image", title, description, images: image ? [image] : [OG_DEFAULT_IMAGE.url] },
   };
 }
 

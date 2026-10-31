@@ -72,6 +72,7 @@ export const ngorongoroStays: CampLodge[] = [
     ],
     features: ["Crater-rim location", "Restaurant and bar", "Large rooms with balconies", "Game drives arranged"],
     idealFor: ["Families", "Couples", "Small groups"],
+    imageAlts: ["Ngorongoro Sopa Lodge and its pool lit at dusk"],
   }),
   defineLodge({
     slug: "ngorongoro-crater-lodge",
@@ -93,6 +94,7 @@ export const ngorongoroStays: CampLodge[] = [
     ],
     features: ["Private balconies", "Butler service", "Fireplaces", "Crater-rim location"],
     idealFor: ["Honeymooners", "Special occasions", "Luxury travellers"],
+    imageAlts: ["Zebra grazing in front of the cottages at Ngorongoro Crater Lodge"],
   }),
   defineLodge({
     slug: "lemala-ngorongoro",
@@ -114,6 +116,7 @@ export const ngorongoroStays: CampLodge[] = [
     ],
     features: ["Spacious tents", "Restaurant and bar", "Rim location", "Game drives arranged"],
     idealFor: ["Couples", "Nature lovers", "Families"],
+    imageAlts: ["The tented dining area at Lemala Ngorongoro under a large acacia"],
   }),
   defineLodge({
     slug: "gibbs-farm",
@@ -159,6 +162,7 @@ export const ngorongoroStays: CampLodge[] = [
     features: ["Restaurant and bar", "Gardens", "Close to Ngorongoro gate", "Game drives arranged"],
     idealFor: ["Value-minded travellers", "Families", "Groups"],
     destinations: ["lake-eyasi", "manyara"],
+    imageAlts: ["The thatched octagonal bar of Octagon Lodge glowing at night"],
   }),
   defineLodge({
     slug: "rhotia-valley-tented-lodge",
@@ -181,5 +185,6 @@ export const ngorongoroStays: CampLodge[] = [
     features: ["Tented rooms", "Restaurant and bar", "Garden setting", "Game drives arranged"],
     idealFor: ["Couples", "Nature lovers", "Cultural visits"],
     destinations: ["lake-eyasi"],
+    imageAlts: ["Thatched tents on stilts above the green Rhotia valley"],
   }),
 ];

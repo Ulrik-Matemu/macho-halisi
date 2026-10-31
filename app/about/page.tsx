@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/public/ScrollReveal";
 import AboutHero from "@/components/public/about/AboutHero";
 import Image from "next/image";
 import { aboutSections, aboutFleet, aboutTeamFleet } from "@/data/aboutData";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
       "A 100% Tanzanian-owned safari company crafting bespoke journeys for over seventeen years, led by native naturalist guides.",
     url: `${getSiteUrl()}/about`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

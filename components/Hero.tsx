@@ -20,6 +20,23 @@ const HERO_POSTER = "/media/hero-vids/new-cheetah-poster.webp";
 const HERO_LQIP =
   "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoYAA4APtFUo0uoJKMhsAgBABoJZwAAPv0ShnsPvcA4eO1kAP6l+GXgUjQZBXAUiPfO4cexClAqE+tXwkYBRuzfeMAZW+WMfOH7h2kD9t1SOCM0l7AxteOaZ9sOBBAZEuioVo+NEotZGpJ2u17N+8AD9GU/chpwAAA=";
 
+/**
+ * True on connections where a 5 MB looping video would hurt more than it
+ * helps: the browser's Data Saver switch, a mobile-data (cellular) link, or
+ * a 2G/3G-class link. The hero
+ * then stays on its graded poster frame. (Network Information API —
+ * Chromium only; elsewhere this is false and the video loads as normal.)
+ */
+function prefersLightMedia(): boolean {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string; type?: string } }).connection;
+  if (!connection) return false;
+  return (
+    Boolean(connection.saveData) ||
+    connection.type === "cellular" ||
+    ["slow-2g", "2g", "3g"].includes(connection.effectiveType ?? "")
+  );
+}
+
 /** Minimum time each phase stays on screen before the next can start (ms). */
 const PHASE_DWELL_MS = 900;
 
@@ -29,6 +46,10 @@ export default function Hero({ onVideoReady }: HeroProps) {
   const reducedMotion = useReducedMotion();
 
   const [isEntered, setIsEntered] = useState(false);
+  // The video file is attached only after hydration (so its download never
+  // competes with the first paint and scripts) and only when the visitor
+  // wants motion on a connection that can afford it.
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
   const hasNotifiedReadyRef = useRef(false);
 
   // Scroll tracking across the 220vh hero storytelling range. rAF-throttled
@@ -88,12 +109,29 @@ export default function Hero({ onVideoReady }: HeroProps) {
     }
   }, [onVideoReady]);
 
-  // Initial video setup & autoplay handling. Skipped entirely under
-  // prefers-reduced-motion: the video stays paused on its poster frame
-  // rather than looping motion nobody asked for.
+  // Decide whether to load the video at all. Under reduced motion or a
+  // light-media connection the poster frame is the final state, so the
+  // hero is "ready" straight away.
+  useEffect(() => {
+    if (reducedMotion || prefersLightMedia()) {
+      notifyVideoReady();
+      return;
+    }
+    // Wait for the page's own load to finish so the video never competes
+    // with the logo, fonts and first images for bandwidth.
+    const attach = () => setVideoSrc(HERO_VIDEO);
+    if (document.readyState === "complete") {
+      const timer = setTimeout(attach, 0);
+      return () => clearTimeout(timer);
+    }
+    window.addEventListener("load", attach, { once: true });
+    return () => window.removeEventListener("load", attach);
+  }, [notifyVideoReady, reducedMotion]);
+
+  // Autoplay handling once the source is attached.
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || reducedMotion) return;
+    if (!video || !videoSrc) return;
 
     video.defaultMuted = true;
     video.muted = true;
@@ -117,7 +155,7 @@ export default function Hero({ onVideoReady }: HeroProps) {
         window.addEventListener("scroll", handleInteraction, { once: true });
       });
     }
-  }, [notifyVideoReady, reducedMotion]);
+  }, [notifyVideoReady, videoSrc]);
 
   // Which phase the current scroll position asks for. Advance and retreat
   // thresholds differ (hysteresis): 0.05 / 0.03 for the offer, 0.30 / 0.26
@@ -185,9 +223,9 @@ export default function Hero({ onVideoReady }: HeroProps) {
         >
           <video
             ref={videoRef}
-            src={HERO_VIDEO}
+            src={videoSrc}
             poster={HERO_POSTER}
-            autoPlay={!reducedMotion}
+            autoPlay
             loop
             muted
             playsInline

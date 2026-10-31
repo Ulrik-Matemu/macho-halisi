@@ -5,7 +5,7 @@ import SmoothScroll from "@/components/public/SmoothScroll";
 import ScrollReveal from "@/components/public/ScrollReveal";
 import EnquiryStudioForm from "@/components/public/enquiry/EnquiryStudioForm";
 import EnquiryConciergePanel from "@/components/public/enquiry/EnquiryConciergePanel";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
       "Connect directly with our master naturalist planning directors in Karatu, Tanzania.",
     url: `${getSiteUrl()}/enquire`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

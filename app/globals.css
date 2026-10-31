@@ -392,3 +392,18 @@ body {
 }
 
 
+
+/* ── Touch targets ───────────────────────────────────────────────
+   On phones and other touch devices, filter chips and footer links get a
+   48px-tall hit area (the dashboard keeps its own denser sizing). The
+   visible type and spacing barely change — the extra height is padding
+   around the same text. */
+@media (pointer: coarse), (max-width: 767px) {
+  button[aria-pressed]:not([data-app="dashboard"] *),
+  footer a,
+  footer button {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+}

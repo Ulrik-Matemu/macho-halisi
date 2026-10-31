@@ -135,7 +135,7 @@ export default function Navbar({
           {/* Enquire CTA Button */}
           <button
             onClick={onOpenEnquiry}
-            className={`relative px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border ${overHero ? "border-white/60 text-white" : "border-safari-night/60 text-safari-night"} hover:border-safari-night hover:bg-safari-night hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer`}
+            className={`relative min-h-12 px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border ${overHero ? "border-white/60 text-white" : "border-safari-night/60 text-safari-night"} hover:border-safari-night hover:bg-safari-night hover:text-safari-champagne font-serif-luxury text-xs sm:text-sm font-normal tracking-[0.22em] uppercase transition-all duration-300 rounded shadow-md hover:shadow-[0_4px_20px_rgba(198,134,66,0.3)] hover:scale-[1.02] cursor-pointer`}
           >
             <span className="sm:hidden">ENQUIRE</span>
             <span className="hidden sm:inline">ENQUIRE</span>
@@ -143,7 +143,7 @@ export default function Navbar({
           <button
             onClick={onOpenMenu}
             aria-label="Open Navigation Menu"
-            className={`group flex items-center gap-3 ${overHero ? "text-white" : "text-safari-night"} rounded cursor-pointer`}
+            className={`group flex items-center justify-center gap-3 min-h-12 min-w-12 ${overHero ? "text-white" : "text-safari-night"} rounded cursor-pointer`}
           >
             <div className="w-10 h-10 flex flex-col justify-center gap-2.5 transition-all duration-300 group-hover:scale-105">
               <span className={`w-10 h-[2px] ${overHero ? "bg-white" : "bg-safari-night"} transition-all duration-400 group-hover:bg-safari-ochre group-hover:w-12`} />

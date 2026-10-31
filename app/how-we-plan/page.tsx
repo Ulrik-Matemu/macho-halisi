@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/public/ScrollReveal";
 import PlanStagesRail from "@/components/public/planning/PlanStagesRail";
 import PlanningComparison from "@/components/public/planning/PlanningComparison";
 import SafariVehicleBlueprint from "@/components/public/planning/SafariVehicleBlueprint";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
       "From a blank map to the African bush. Explore our five-stage bespoke safari planning process.",
     url: `${getSiteUrl()}/how-we-plan`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

@@ -3,7 +3,7 @@ import { Hotel } from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
 import AccommodationsExplorer from "@/components/public/accommodations/AccommodationsExplorer";
 import { getPublishedAccommodations } from "@/lib/public/api";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { itemList, JsonLd } from "@/lib/seo/jsonLd";
 import { areaImageFor } from "@/lib/accommodations/areaImage";
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "Safari Lodges & Tented Camps in Tanzania | Macho Halisi",
     description: "Hand-picked safari lodges, tented camps and beach villas across Tanzania.",
     url: `${getSiteUrl()}/accommodations`,
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

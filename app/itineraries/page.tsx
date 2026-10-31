@@ -4,7 +4,7 @@ import { Compass } from "lucide-react";
 import SiteChrome from "@/components/SiteChrome";
 import ItineraryCard from "@/components/public/ItineraryCard";
 import { getPublishedItineraries } from "@/lib/public/api";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { itemList, JsonLd } from "@/lib/seo/jsonLd";
 
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "Tanzania Safari Itineraries & Tour Packages | Macho Halisi",
     description: "Private Tanzania safari itineraries from 7 to 15 days with day-by-day routes, tailored by native guides.",
     url: `${getSiteUrl()}/itineraries`,
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

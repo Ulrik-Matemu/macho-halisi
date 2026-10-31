@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/public/ScrollReveal";
 import SeasonalMatrix from "@/components/public/seasons/SeasonalMatrix";
 import SeasonalErasTabs from "@/components/public/seasons/SeasonalErasTabs";
 import WildlifeInterestFilter from "@/components/public/seasons/WildlifeInterestFilter";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import MonthByMonthGuide from "@/components/public/seasons/MonthByMonthGuide";
 
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
       "Tanzania is a year-round destination. Discover the optimal month for your bespoke safari desires.",
     url: `${getSiteUrl()}/when-to-travel`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

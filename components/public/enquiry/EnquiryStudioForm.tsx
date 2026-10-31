@@ -459,10 +459,10 @@ export default function EnquiryStudioForm({
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                <label htmlFor="enq-studio-full-name" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Full Name *
                 </label>
-                <input
+                <input id="enq-studio-full-name" autoComplete="name" maxLength={100}
                   type="text"
                   required
                   value={contactData.name}
@@ -473,10 +473,10 @@ export default function EnquiryStudioForm({
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                <label htmlFor="enq-studio-email-address" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Email Address *
                 </label>
-                <input
+                <input id="enq-studio-email-address" autoComplete="email" maxLength={254}
                   type="email"
                   required
                   value={contactData.email}
@@ -489,10 +489,10 @@ export default function EnquiryStudioForm({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                <label htmlFor="enq-studio-phone-or-whatsapp" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Phone or WhatsApp *
                 </label>
-                <input
+                <input id="enq-studio-phone-or-whatsapp" autoComplete="tel" maxLength={40}
                   type="tel"
                   required
                   value={contactData.phone}
@@ -503,10 +503,10 @@ export default function EnquiryStudioForm({
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                <label htmlFor="enq-studio-preferred-contact-channel" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                   Preferred Contact Channel
                 </label>
-                <select
+                <select id="enq-studio-preferred-contact-channel"
                   value={contactData.preferredChannel}
                   onChange={(e) =>
                     setContactData({ ...contactData, preferredChannel: e.target.value })
@@ -521,10 +521,10 @@ export default function EnquiryStudioForm({
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+              <label htmlFor="enq-studio-special-requests-or-notes" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
                 Special Requests or Notes (Optional)
               </label>
-              <textarea
+              <textarea id="enq-studio-special-requests-or-notes" maxLength={2000}
                 rows={3}
                 value={contactData.notes}
                 onChange={(e) => setContactData({ ...contactData, notes: e.target.value })}

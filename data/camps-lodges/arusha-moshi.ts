@@ -24,6 +24,7 @@ export const arushaStays: CampLodge[] = [
     idealFor: ["Couples", "Honeymooners", "Arrival or departure nights"],
     destinations: ["arusha", "meru", "momella-lakes", "lake-duluti", "longido", "kikuletwa", "mkomazi", "lake-natron", "ol-doinyo-lengai"],
     featured: true,
+    imageAlts: ["Arusha Coffee Lodge's dining pavilion lit up at night beside a reflecting pool"],
   }),
   defineLodge({
     slug: "the-arusha-hotel",
@@ -166,6 +167,7 @@ export const arushaStays: CampLodge[] = [
     idealFor: ["Groups", "Business travellers", "Arrival nights"],
     destinations: ["arusha", "meru", "momella-lakes", "lake-duluti", "longido", "kikuletwa", "mkomazi", "lake-natron", "ol-doinyo-lengai"],
     featured: true,
+    imageAlts: ["The Mount Meru Hotel and its lawn in Arusha"],
   }),
   defineLodge({
     slug: "legendary-lodge",
@@ -189,6 +191,7 @@ export const arushaStays: CampLodge[] = [
     idealFor: ["Couples", "Honeymooners", "Arrival or departure nights"],
     destinations: ["arusha", "meru", "momella-lakes", "lake-duluti", "longido", "kikuletwa", "mkomazi", "lake-natron", "ol-doinyo-lengai"],
     featured: true,
+    imageAlts: ["The Legendary Lodge in its lawned gardens"],
   }),
   defineLodge({
     slug: "onsea-house",
@@ -211,6 +214,7 @@ export const arushaStays: CampLodge[] = [
     features: ["Lakeside gardens", "Restaurant", "Forest and lake walks", "Canoeing nearby"],
     idealFor: ["Couples", "Nature lovers", "Slow travellers"],
     destinations: ["lake-duluti"],
+    imageAlts: ["The pool and gardens at Onsea House beside Lake Duluti"],
   }),
   defineLodge({
     slug: "gran-melia-arusha",
@@ -234,6 +238,7 @@ export const arushaStays: CampLodge[] = [
     idealFor: ["Couples", "Families", "Arrival or departure nights"],
     destinations: ["arusha", "meru", "momella-lakes", "lake-duluti", "longido", "kikuletwa", "mkomazi", "lake-natron", "ol-doinyo-lengai"],
     featured: true,
+    imageAlts: ["The bright, airy lobby of Gran Meliá Arusha"],
   }),
 ];
 
@@ -258,6 +263,7 @@ export const moshiStays: CampLodge[] = [
     ],
     features: ["Gardens", "Restaurant and bar", "Close to the Marangu gate", "Climb briefings arranged"],
     idealFor: ["Kilimanjaro climbers", "Walkers", "Couples"],
+    imageAlts: ["The Marangu Hotel and its gardens"],
   }),
   defineLodge({
     slug: "protea-hotel-aishi-machame",
@@ -279,6 +285,7 @@ export const moshiStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Restaurant and bar", "Gardens", "Close to the Machame gate"],
     idealFor: ["Kilimanjaro climbers", "Couples", "Families"],
+    imageAlts: ["The main building and lawn at Protea Hotel Aishi Machame"],
   }),
   defineLodge({
     slug: "springlands-hotel",
@@ -300,6 +307,7 @@ export const moshiStays: CampLodge[] = [
     ],
     features: ["Restaurant and bar", "Central location", "Climb logistics arranged", "Gardens"],
     idealFor: ["Kilimanjaro climbers", "Value-minded travellers", "Groups"],
+    imageAlts: ["The arched balconies of Springlands Hotel in Moshi"],
   }),
   defineLodge({
     slug: "kilimanjaro-mountain-resort",
@@ -322,6 +330,7 @@ export const moshiStays: CampLodge[] = [
     features: ["Swimming pool", "Restaurant and bar", "Gardens", "Mountain views"],
     idealFor: ["Post-climb rest", "Families", "Couples"],
     destinations: ["materuni-falls"],
+    imageAlts: ["Ivy-covered buildings among banana plants at Kilimanjaro Mountain Resort"],
   }),
   defineLodge({
     slug: "weru-weru-river-lodge",
@@ -344,6 +353,7 @@ export const moshiStays: CampLodge[] = [
     features: ["Riverside gardens", "Restaurant and bar", "Mountain views", "Birdwatching"],
     idealFor: ["Birdwatchers", "Couples", "Climbers resting"],
     destinations: ["materuni-falls", "kikuletwa"],
+    imageAlts: ["Aerial view of the cottages and pool at Weru Weru River Lodge"],
   }),
   defineLodge({
     slug: "honey-badger-lodge",
@@ -391,6 +401,7 @@ export const natronEyasiStays: CampLodge[] = [
     features: ["Tented rooms", "Restaurant", "Guided walks", "Lengai climb logistics"],
     idealFor: ["Adventurers", "Volcano climbers", "Photographers"],
     destinations: ["ol-doinyo-lengai"],
+    imageAlts: ["Lake Natron Camp beside a stream, with Ol Doinyo Lengai behind"],
   }),
   defineLodge({
     slug: "moivaro-lake-natron-tented-camp",
@@ -413,6 +424,7 @@ export const natronEyasiStays: CampLodge[] = [
     features: ["Tented rooms", "Restaurant and bar", "Guided walks", "Lengai climb logistics"],
     idealFor: ["Adventurers", "Photographers", "Couples"],
     destinations: ["ol-doinyo-lengai"],
+    imageAlts: ["A thatched tent with driftwood posts at Moivaro Lake Natron Tented Camp"],
   }),
   defineLodge({
     slug: "kisima-ngeda-tented-camp",
@@ -434,6 +446,7 @@ export const natronEyasiStays: CampLodge[] = [
     ],
     features: ["Tented rooms", "Restaurant and bar", "Cultural visits arranged", "Lake views"],
     idealFor: ["Cultural travellers", "Photographers", "Adventurers"],
+    imageAlts: ["The inside of a tent at Kisima Ngeda Tented Camp, lit by the setting sun"],
   }),
   defineLodge({
     slug: "lake-eyasi-safari-lodge",

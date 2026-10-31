@@ -19,7 +19,7 @@ import {
   groupAccommodationNights,
   getItineraryMapPins,
 } from "@/lib/public/api";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { itineraryTrip, JsonLd } from "@/lib/seo/jsonLd";
 import { clip, listJoin } from "@/lib/seo/text";
@@ -76,9 +76,9 @@ export async function generateMetadata({
       title,
       description,
       url,
-      images: coverImage ? [{ url: coverImage }] : undefined,
+      images: coverImage ? [{ url: coverImage }] : [OG_DEFAULT_IMAGE],
     },
-    twitter: { card: "summary_large_image", title, description, images: coverImage ? [coverImage] : undefined },
+    twitter: { card: "summary_large_image", title, description, images: coverImage ? [coverImage] : [OG_DEFAULT_IMAGE.url] },
   };
 }
 

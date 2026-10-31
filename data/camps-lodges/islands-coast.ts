@@ -114,7 +114,7 @@ export const stoneTownStays: CampLodge[] = [
     ],
     features: ["Seafront location", "Swimming pool", "Restaurant and bar", "Spa"],
     idealFor: ["Couples", "Honeymooners", "Families"],
-    imageAlts: ["A beach and fishing canoe below Zanzibar Serena Inn", "Sunset over the sea from Zanzibar Serena Inn", "A dhow's sail seen from Zanzibar Serena Inn"],
+    imageAlts: ["The pool and white façade of Zanzibar Serena Inn", "Sunset over the sea from Zanzibar Serena Inn", "A dhow's sail seen from Zanzibar Serena Inn"],
   }),
   defineLodge({
     slug: "park-hyatt-zanzibar",
@@ -183,6 +183,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     features: ["Private villas", "Swimming pool", "Spa", "Beachfront"],
     idealFor: ["Honeymooners", "Couples", "Post-safari relaxation"],
     destinations: ["jozani"],
+    imageAlts: ["The long swimming pool in the arched courtyard at Baraza Resort & Spa"],
   }),
   defineLodge({
     slug: "the-residence-zanzibar",
@@ -205,6 +206,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     features: ["Private villas", "Swimming pools", "Spa", "Beachfront"],
     idealFor: ["Honeymooners", "Families", "Post-safari relaxation"],
     destinations: ["jozani"],
+    imageAlts: ["The beach and villas at The Residence Zanzibar"],
   }),
   defineLodge({
     slug: "zuri-zanzibar",
@@ -226,6 +228,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Swimming pool", "Spa", "Several restaurants"],
     idealFor: ["Couples", "Families", "Honeymooners"],
+    imageAlts: ["The steps down to the beach at Zuri Zanzibar"],
   }),
   defineLodge({
     slug: "melia-zanzibar",
@@ -247,6 +250,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Swimming pool", "Several restaurants", "Water sports"],
     idealFor: ["Families", "Groups", "Active beach holidays"],
+    imageAlts: ["The white-sand beach and sun beds at Meliá Zanzibar"],
   }),
   defineLodge({
     slug: "mnemba-island-lodge",
@@ -269,6 +273,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     features: ["Private island", "Beach bandas", "Snorkelling and diving", "All-inclusive style"],
     idealFor: ["Honeymooners", "Divers", "Luxury travellers"],
     destinations: ["mnemba"],
+    imageAlts: ["Mnemba Island Lodge on its white-sand beach"],
   }),
   defineLodge({
     slug: "kendwa-rocks",
@@ -290,6 +295,7 @@ export const zanzibarBeachStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Beach restaurant", "Bungalows", "Water sports nearby"],
     idealFor: ["Backpackers", "Sociable travellers", "Value-minded travellers"],
+    imageAlts: ["A balcony and garden at Kendwa Rocks beach hotel"],
   }),
   defineLodge({
     slug: "chumbe-island-lodge",
@@ -341,6 +347,7 @@ export const pembaMafiaStays: CampLodge[] = [
     features: ["Hillside tented rooms", "Diving centre", "Restaurant and bar", "Spa"],
     idealFor: ["Divers", "Honeymooners", "Quiet-seekers"],
     destinations: ["misali"],
+    imageAlts: ["A thatched deck and plunge pool above the sea at Fundu Lagoon"],
   }),
   defineLodge({
     slug: "manta-resort-pemba",
@@ -362,6 +369,7 @@ export const pembaMafiaStays: CampLodge[] = [
     ],
     features: ["Beachfront villas", "Underwater room", "Dive centre", "Swimming pool"],
     idealFor: ["Honeymooners", "Divers", "Couples"],
+    imageAlts: ["The Underwater Room floating over turquoise water at The Manta Resort"],
   }),
   defineLodge({
     slug: "pemba-misali-sunset-beach",
@@ -384,6 +392,7 @@ export const pembaMafiaStays: CampLodge[] = [
     features: ["Beachfront", "Restaurant and bar", "Snorkelling trips", "Dive trips arranged"],
     idealFor: ["Divers", "Value-minded travellers", "Quiet stays"],
     destinations: ["misali"],
+    imageAlts: ["The infinity pool beside the turquoise sea at Pemba Misali Sunset Beach"],
   }),
   defineLodge({
     slug: "pole-pole-resort",
@@ -405,6 +414,7 @@ export const pembaMafiaStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Dive centre", "Restaurant and bar", "Whale-shark trips (seasonal)"],
     idealFor: ["Divers", "Couples", "Quiet-seekers"],
+    imageAlts: ["A thatched bungalow and swimming pool at Pole Pole Resort"],
   }),
   defineLodge({
     slug: "chole-mjini",
@@ -427,6 +437,7 @@ export const pembaMafiaStays: CampLodge[] = [
     features: ["Treehouse rooms", "Snorkelling", "Island ruin walks", "Restaurant"],
     idealFor: ["Adventurous couples", "Eco-minded travellers", "History lovers"],
     destinations: ["songo-songo"],
+    imageAlts: ["Aerial view of the forested shore of Chole Island, home of Chole Mjini"],
   }),
   defineLodge({
     slug: "kinasi-lodge",
@@ -448,6 +459,7 @@ export const pembaMafiaStays: CampLodge[] = [
     ],
     features: ["Sea views", "Restaurant and bar", "Dive trips arranged", "Pool"],
     idealFor: ["Divers", "Couples", "Quiet-seekers"],
+    imageAlts: ["Palm trees and the beach at Kinasi Lodge on Mafia Island"],
   }),
 ];
 
@@ -473,6 +485,7 @@ export const coastStays: CampLodge[] = [
     features: ["Waterfront location", "Restaurant", "Shops nearby", "Island boat trips"],
     idealFor: ["Island day-trippers", "City stays", "Families"],
     destinations: ["bongoyo", "mbudya"],
+    imageAlts: ["A balcony over the courtyard at The Slipway"],
   }),
   defineLodge({
     slug: "serena-hotel-dar-es-salaam",
@@ -494,6 +507,7 @@ export const coastStays: CampLodge[] = [
     ],
     features: ["Swimming pool", "Restaurant and bar", "Gardens", "Central location"],
     idealFor: ["Business travellers", "Arrival nights", "City stays"],
+    imageAlts: ["The grand lobby of the Serena Hotel in Dar es Salaam"],
   }),
   defineLodge({
     slug: "white-sands-hotel",
@@ -561,6 +575,7 @@ export const coastStays: CampLodge[] = [
     features: ["Beach bandas", "Swimming pool", "Windsurfing and sailing", "Sundowner bar"],
     idealFor: ["Couples", "Families", "Bagamoyo visitors"],
     destinations: ["bagamoyo"],
+    imageAlts: ["Aerial view of Lazy Lagoon Island Lodge on its sandy spit"],
   }),
   defineLodge({
     slug: "saadani-safari-lodge",
@@ -582,6 +597,7 @@ export const coastStays: CampLodge[] = [
     ],
     features: ["Beachfront", "Swimming pool", "Boat safaris", "Game drives"],
     idealFor: ["Short safaris", "Families", "Combining bush and beach"],
+    imageAlts: ["The infinity pool and beach at Saadani Safari Lodge"],
   }),
   defineLodge({
     slug: "tent-with-a-view-safari-lodge",
@@ -624,5 +640,6 @@ export const coastStays: CampLodge[] = [
     ],
     features: ["Riverside bandas", "Restaurant and bar", "Boat safaris", "Game drives"],
     idealFor: ["Families", "Birdwatchers", "Short safaris"],
+    imageAlts: ["A tented suite interior at Saadani River Lodge"],
   }),
 ];

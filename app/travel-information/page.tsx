@@ -3,7 +3,7 @@ import SiteChrome from "@/components/SiteChrome";
 import SmoothScroll from "@/components/public/SmoothScroll";
 import ScrollReveal from "@/components/public/ScrollReveal";
 import TravelInfoStickyNav from "@/components/public/travel-info/TravelInfoStickyNav";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, OG_DEFAULT_IMAGE } from "@/lib/site";
 import Breadcrumbs from "@/components/public/Breadcrumbs";
 import { faqPage, JsonLd } from "@/lib/seo/jsonLd";
 import { TRAVEL_FAQS, TRAVEL_SECTIONS, travelIntro, type TravelEntry } from "@/data/travelInfoData";
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
       "Everything to prepare for a Tanzanian safari: visas, climate, currency, park rules, tipping, and health and safety.",
     url: `${getSiteUrl()}/travel-information`,
     siteName: "Macho Halisi",
+    images: [OG_DEFAULT_IMAGE],
   },
 };
 

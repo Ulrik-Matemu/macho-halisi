@@ -28,7 +28,7 @@ function SectionShell({ children }: { children: React.ReactNode }) {
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12 mb-12 lg:mb-11">
           <div>
-            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-russet uppercase mb-[18px]">
+            <div className="font-sans font-light text-[11px] tracking-[0.42em] text-safari-umber uppercase mb-[18px]">
               Featured Itineraries
             </div>
             <h2 className="font-serif-luxury font-light text-4xl sm:text-5xl lg:text-[46px] leading-[1.08] tracking-[0.16em] text-safari-bark uppercase">
