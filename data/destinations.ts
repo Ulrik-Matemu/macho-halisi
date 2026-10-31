@@ -418,15 +418,15 @@ const coreDestinations: Destination[] = [
     heroImageAlt: "Elephants at sunset in Tarangire National Park",
     gallery: [
       {
-        url: "/media/tarangire/tara-cheetah.jpg",
+        url: "/media/tarangire/African_Elephants_021816-2969_2048x.webp",
         alt: "An elephant amid Tarangire's woodland",
       },
       {
-        url: "/media/tarangire/tara-river.jpg",
+        url: "/media/tarangire/large_Tarangire_River_c410a3eec9.jpg",
         alt: "A safari vehicle crossing Tarangire's golden grassland",
       },
       {
-        url: "/media/tarangire/ashy-starling.jpg",
+        url: "/media/tarangire/Baobab-Tree-in-Tarangire-National-Park-1536x1022.jpg",
         alt: "Acacia-studded plains of Tarangire at dusk",
       },
       {
