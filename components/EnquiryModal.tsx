@@ -52,7 +52,7 @@ const DEFAULT_PARTY = {
   accommodationStyle: ACCOMMODATION_OPTIONS[0],
 };
 
-const DEFAULT_CONTACT = { name: "", email: "", phone: "", notes: "" };
+const DEFAULT_CONTACT = { name: "", email: "", phone: "", exactDates: "", budget: "", notes: "" };
 
 /**
  * Shared enquiry modal — opened from the Navbar, fullscreen nav menu,
@@ -149,8 +149,11 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
     setErrorMessage("");
 
     const message = [
+      seed?.itineraryTitle ? `Itinerary: ${seed.itineraryTitle}` : "",
       `Destinations of Interest: ${vision.destinations.join(", ") || "Open to specialist advice"}`,
       `Accommodation Style: ${party.accommodationStyle}`,
+      contact.exactDates ? `Exact dates: ${contact.exactDates}` : "",
+      contact.budget ? `Budget: ${contact.budget}` : "",
       contact.notes ? `Notes: ${contact.notes}` : "",
     ]
       .filter(Boolean)
@@ -166,7 +169,7 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
           phone: contact.phone,
           itineraryId: seed?.itineraryId || null,
           partySize: party.partySize,
-          preferredDates: vision.travelWindow,
+          preferredDates: contact.exactDates ? `${contact.exactDates} (${vision.travelWindow})` : vision.travelWindow,
           message,
           website,
           ...enquiryAttribution("modal"),
@@ -266,9 +269,12 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
                 Your {currentMeta.label}
               </h3>
               {seed?.itineraryTitle && (
-                <span className="mt-2 inline-flex items-center px-2.5 py-1 border border-safari-ochre/40 bg-safari-ochre/10 text-safari-russet text-[10px] font-sans">
+                <p className="mt-3 px-3.5 py-2.5 border border-safari-ochre/40 bg-safari-ochre/10 text-safari-night text-sm font-sans">
+                  <span className="block text-[10px] font-mono uppercase tracking-[3px] text-safari-russet mb-0.5">
+                    You are enquiring about
+                  </span>
                   {seed.itineraryTitle}
-                </span>
+                </p>
               )}
             </div>
 
@@ -464,16 +470,42 @@ export default function EnquiryModal({ isOpen, onClose, seed }: EnquiryModalProp
 
                 <div>
                   <label htmlFor="enq-modal-phone-whatsapp" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
-                    Phone / WhatsApp *
+                    Phone / WhatsApp (Optional)
                   </label>
                   <input id="enq-modal-phone-whatsapp" autoComplete="tel" maxLength={40}
                     type="tel"
-                    required
                     value={contact.phone}
                     onChange={(e) => setContact((prev) => ({ ...prev, phone: e.target.value }))}
                     placeholder="+1 (555) 000-0000"
                     className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
                   />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="enq-modal-exact-dates" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                      Exact Dates (Optional)
+                    </label>
+                    <input id="enq-modal-exact-dates" maxLength={100}
+                      type="text"
+                      value={contact.exactDates}
+                      onChange={(e) => setContact((prev) => ({ ...prev, exactDates: e.target.value }))}
+                      placeholder="e.g. 12–19 Feb 2027"
+                      className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="enq-modal-budget" className="block text-[10px] font-mono uppercase tracking-[5px] text-safari-russet mb-1.5">
+                      Budget (Optional)
+                    </label>
+                    <input id="enq-modal-budget" maxLength={100}
+                      type="text"
+                      value={contact.budget}
+                      onChange={(e) => setContact((prev) => ({ ...prev, budget: e.target.value }))}
+                      placeholder="e.g. USD 5,000 per person"
+                      className="w-full bg-safari-night/5 border border-safari-night/30 px-3.5 py-2.5 text-sm text-safari-night placeholder-safari-night/50 focus:border-safari-ochre focus:outline-none transition-colors"
+                    />
+                  </div>
                 </div>
 
                 <div>

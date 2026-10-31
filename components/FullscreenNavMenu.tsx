@@ -267,7 +267,8 @@ export default function FullscreenNavMenu({
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {searchResults.map(({ categoryTitle, item }, idx) => (
-                  <div
+                  <Link
+                    href={item.href}
                     // idx, not item.id or item.href: this list mixes
                     // curated navigationData subitems with destinations.ts-
                     // derived entries, and neither id nor href is
@@ -280,9 +281,7 @@ export default function FullscreenNavMenu({
                     // unique per render, and nothing here holds state that
                     // depends on stable identity across reorders.
                     key={idx}
-                    onClick={() => {
-                      handleClose();
-                    }}
+                    onClick={handleClose}
                     style={{ animationDelay: `${idx * 40}ms` }}
                     className="p-5 border border-safari-cream/20 hover:border-safari-ochre transition-all duration-300 rounded bg-safari-cream/[0.05] cursor-pointer group flex flex-col justify-between animate-nav-cascade hover:-translate-y-1 hover:shadow-xl"
                   >
@@ -306,7 +305,7 @@ export default function FullscreenNavMenu({
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -331,15 +330,18 @@ export default function FullscreenNavMenu({
                   {categories.map((category, index) => {
                     const isHovered = category.id === hoveredCategoryId;
                     return (
-                      <div
+                      <button
+                        type="button"
                         key={category.id}
+                        aria-expanded={isHovered}
                         style={{ animationDelay: `${index * 45}ms` }}
                         onMouseEnter={() => handleCategoryHover(category.id)}
+                        onFocus={() => handleCategoryHover(category.id)}
                         onClick={() => {
                           handleCategoryHover(category.id);
                           setMobileStep("subItems");
                         }}
-                        className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b cursor-pointer transition-all duration-300 animate-nav-cascade ${
+                        className={`group w-full py-4 sm:py-5 px-2 flex items-center justify-between border-b text-left cursor-pointer transition-all duration-300 animate-nav-cascade ${
                           isHovered
                             ? "border-safari-ochre text-safari-gold"
                             : "border-safari-cream/25 text-safari-cream hover:text-safari-champagne hover:border-safari-ochre"
@@ -356,7 +358,7 @@ export default function FullscreenNavMenu({
                               : "opacity-0 -translate-x-3 group-hover:opacity-40 group-hover:-translate-x-1"
                           }`}
                         />
-                      </div>
+                      </button>
                     );
                   })}
                 </div>

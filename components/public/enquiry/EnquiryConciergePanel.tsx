@@ -49,10 +49,10 @@ export default function EnquiryConciergePanel() {
             </span>
             <div>
               <div className="font-medium text-white text-sm">
-                24-Hour Review by a Lead Naturalist
+                We Review Your Request Within 24 Hours
               </div>
               <p className="text-white/70 mt-0.5 leading-relaxed">
-                Your desires are analyzed against real-time herd locations, weather cycles, and boutique camp availability.
+                We check your dates against the season, wildlife movements and camp availability.
               </p>
             </div>
           </div>
@@ -63,10 +63,10 @@ export default function EnquiryConciergePanel() {
             </span>
             <div>
               <div className="font-medium text-white text-sm">
-                Tailor-Made Route Proposal
+                Your Proposed Itinerary
               </div>
               <p className="text-white/70 mt-0.5 leading-relaxed">
-                You receive a day-by-day bespoke blueprint, including flight connections, private vehicle specs, and exact transparent pricing.
+                You receive a day-by-day itinerary with flights, vehicle details and clear pricing.
               </p>
             </div>
           </div>
@@ -77,10 +77,10 @@ export default function EnquiryConciergePanel() {
             </span>
             <div>
               <div className="font-medium text-white text-sm">
-                Refinement & Private Guide Lock
+                Confirm Your Guide and Dates
               </div>
               <p className="text-white/70 mt-0.5 leading-relaxed">
-                We adjust camps and pacing until your safari is perfect, securing your dates and assigning your dedicated naturalist.
+                We adjust camps and pacing until you are happy, then confirm your dates and your guide.
               </p>
             </div>
           </div>

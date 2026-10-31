@@ -289,12 +289,16 @@ function EnquiryDetail({
             <a href={`mailto:${enquiry.email}`} className="dash-focusable inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm" style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)" }}>
               <Mail className="w-4 h-4" style={{ color: "var(--dash-accent)" }} /> {enquiry.email}
             </a>
-            <a href={`tel:${enquiry.phone}`} className="dash-focusable inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm" style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)" }}>
+            {enquiry.phone && (
+              <>
+              <a href={`tel:${enquiry.phone}`} className="dash-focusable inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm" style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)" }}>
               <Phone className="w-4 h-4" style={{ color: "var(--dash-accent)" }} /> {enquiry.phone}
             </a>
             <a href={whatsappLink(enquiry.phone)} target="_blank" rel="noopener noreferrer" className="dash-focusable inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm" style={{ background: "var(--dash-surface-2)", border: "1px solid var(--dash-border)" }}>
               <MessageCircle className="w-4 h-4" style={{ color: "var(--dash-accent)" }} /> WhatsApp
             </a>
+              </>
+            )}
           </div>
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
@@ -565,8 +569,12 @@ function EnquiriesInbox() {
     ...statusItems([e.id], e.status),
     { kind: "heading", label: "Reply" },
     { label: "Reply by email", icon: <Mail className="w-4 h-4" />, onSelect: () => window.open(`mailto:${e.email}?subject=${encodeURIComponent(`Your Macho Halisi enquiry ${formatEnquiryRef(e.id)}`)}`, "_self") },
-    { label: "WhatsApp", icon: <MessageCircle className="w-4 h-4" />, onSelect: () => window.open(whatsappLink(e.phone), "_blank", "noopener,noreferrer") },
-    { label: "Call", icon: <Phone className="w-4 h-4" />, onSelect: () => window.open(`tel:${e.phone}`, "_self") },
+    ...(e.phone
+      ? [
+          { label: "WhatsApp", icon: <MessageCircle className="w-4 h-4" />, onSelect: () => window.open(whatsappLink(e.phone), "_blank", "noopener,noreferrer") },
+          { label: "Call", icon: <Phone className="w-4 h-4" />, onSelect: () => window.open(`tel:${e.phone}`, "_self") },
+        ]
+      : []),
     { label: "Copy email", icon: <Copy className="w-4 h-4" />, onSelect: () => copy(e.email, "Email address") },
     { label: "Copy reference", icon: <Copy className="w-4 h-4" />, hint: formatEnquiryRef(e.id), onSelect: () => copy(formatEnquiryRef(e.id), "Reference") },
     { kind: "heading", label: "Export" },

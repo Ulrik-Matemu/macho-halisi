@@ -25,7 +25,7 @@ export default function EnquirySummaryCard({ state }: EnquirySummaryCardProps) {
           <span className="font-serif-luxury text-base text-white">Your Safari Vision</span>
         </div>
         <span className="text-[10px] font-mono text-safari-sand uppercase tracking-widest">
-          Live Blueprint
+          Your Trip So Far
         </span>
       </div>
 

@@ -459,7 +459,7 @@ const baseExperiences: ExperienceBase[] = [
     ],
     quote: "By day the bush shows you what it wants you to see. By night, it shows you the rest.",
     quoteBy: "Guide, Karatu",
-    quoteImage: { url: img("/media/night/night-game-drive-masai-mara.webp", 2200), alt: "A full moon shining through acacia branches on a night in Tarangire" },
+    quoteImage: { url: img("/media/night/night-game-drive-masai-mara.webp", 2200), alt: "A full moon  ashining through acacia branches on a night in Tarangire" },
     places: [
       {
         name: "Lake Manyara",

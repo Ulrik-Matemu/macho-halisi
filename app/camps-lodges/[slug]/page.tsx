@@ -88,7 +88,7 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
     <SiteChrome>
       <JsonLd data={jsonLd} />
       <article className="bg-safari-linen text-safari-bark pb-16 sm:pb-24">
-        <div className="relative h-[56vh] min-h-[380px] w-full bg-safari-bark">
+        <div data-navbar-hero className="relative h-[56vh] min-h-[380px] w-full bg-safari-bark">
           <LodgeCover lodge={lodge} priority sizes="100vw" tagSide="right" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30" />
           <div className="absolute inset-x-0 bottom-0">

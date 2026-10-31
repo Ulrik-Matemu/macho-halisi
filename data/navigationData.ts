@@ -184,7 +184,7 @@ export const navigationData: NavCategory[] = [
   },
   {
     id: "journeys",
-    title: "BESPOKE JOURNEYS & ACCOMODATIONS",
+    title: "BESPOKE JOURNEYS & ACCOMMODATIONS",
     // Mirrors the collections in data/journeys.ts (not imported here —
     // this file ships in the client bundle via FullscreenNavMenu).
     href: "/itineraries",

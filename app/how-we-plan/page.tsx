@@ -73,8 +73,7 @@ export default function HowWePlanPage() {
                 Ready to Draw Your Route With Us?
               </h2>
               <p className="font-sans font-light text-sm sm:text-base text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-                Connect directly with our master naturalist planning directors in Karatu to begin your
-                bespoke expedition blueprint.
+                Talk directly with our safari planners in Karatu to start your tailor-made itinerary.
               </p>
               <div className="flex items-center justify-center gap-4 flex-wrap">
                 <Link

@@ -56,6 +56,8 @@ export default function EnquiryStudioForm({
     email: "",
     phone: "",
     preferredChannel: "WhatsApp",
+    exactDates: "",
+    budget: "",
     notes: "",
   });
 
@@ -90,9 +92,12 @@ export default function EnquiryStudioForm({
 
     try {
       const messageContent = [
+        initialItineraryTitle ? `Itinerary: ${initialItineraryTitle}` : "",
         `Destination Desires: ${state.destinations.join(", ") || "Open to suggestions"}`,
         `Trip Length: ${state.tripLength}`,
         `Travel Window: ${state.travelWindow}`,
+        contactData.exactDates ? `Exact dates: ${contactData.exactDates}` : "",
+        contactData.budget ? `Budget: ${contactData.budget}` : "",
         `Accommodation: ${state.accommodationStyle}`,
         `Special Interests: ${state.specialInterests.join(", ") || "None specified"}`,
         `Preferred Contact Method: ${contactData.preferredChannel}`,
@@ -106,7 +111,7 @@ export default function EnquiryStudioForm({
         email: contactData.email,
         phone: contactData.phone,
         partySize: state.partySize,
-        preferredDates: `${state.travelWindow} (${state.tripLength})`,
+        preferredDates: `${contactData.exactDates ? `${contactData.exactDates} — ` : ""}${state.travelWindow} (${state.tripLength})`,
         message: messageContent,
         website,
         ...enquiryAttribution("studio"),
@@ -192,6 +197,15 @@ export default function EnquiryStudioForm({
           </div>
           <span className="font-mono text-xs text-safari-russet">Step {step} of 4</span>
         </div>
+
+        {initialItineraryTitle && (
+          <p className="mb-6 px-4 py-3 border border-safari-russet/30 bg-safari-russet/5 text-safari-bark text-sm font-sans">
+            <span className="block text-[10px] font-mono uppercase tracking-[3px] text-safari-russet mb-0.5">
+              You are enquiring about
+            </span>
+            {initialItineraryTitle}
+          </p>
+        )}
 
         {errorMessage && (
           <div className="p-4 mb-6 bg-red-50 border border-red-200 text-red-700 text-xs">
@@ -490,11 +504,10 @@ export default function EnquiryStudioForm({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="enq-studio-phone-or-whatsapp" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
-                  Phone or WhatsApp *
+                  Phone or WhatsApp (Optional)
                 </label>
                 <input id="enq-studio-phone-or-whatsapp" autoComplete="tel" maxLength={40}
                   type="tel"
-                  required
                   value={contactData.phone}
                   onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
                   placeholder="e.g. +1 (555) 234-5678"
@@ -517,6 +530,33 @@ export default function EnquiryStudioForm({
                   <option value="Email">Detailed Email</option>
                   <option value="Phone Call">Direct Phone Call</option>
                 </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="enq-studio-exact-dates" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                  Exact Dates (Optional)
+                </label>
+                <input id="enq-studio-exact-dates" maxLength={100}
+                  type="text"
+                  value={contactData.exactDates}
+                  onChange={(e) => setContactData({ ...contactData, exactDates: e.target.value })}
+                  placeholder="e.g. 12–19 Feb 2027"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none"
+                />
+              </div>
+              <div>
+                <label htmlFor="enq-studio-budget" className="block text-xs font-mono uppercase tracking-wider text-safari-russet mb-1">
+                  Budget (Optional)
+                </label>
+                <input id="enq-studio-budget" maxLength={100}
+                  type="text"
+                  value={contactData.budget}
+                  onChange={(e) => setContactData({ ...contactData, budget: e.target.value })}
+                  placeholder="e.g. USD 5,000 per person"
+                  className="w-full bg-white border border-safari-bark/15 px-3.5 py-2.5 text-sm text-safari-bark placeholder-safari-bark/30 focus:border-safari-russet focus:outline-none"
+                />
               </div>
             </div>
 
@@ -549,7 +589,7 @@ export default function EnquiryStudioForm({
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-safari-russet hover:bg-safari-russet disabled:opacity-60 text-white text-xs font-sans tracking-widest uppercase rounded shadow-lg transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
-                <span>{isSubmitting ? "Dispatching to Karatu…" : "Submit Expedition Blueprint"}</span>
+                <span>{isSubmitting ? "Sending…" : "Send Enquiry"}</span>
               </button>
             </div>
           </form>

@@ -89,7 +89,7 @@ export default async function AccommodationDetailPage({
       <JsonLd data={lodging(accommodation)} />
       <article className="pb-16 sm:pb-24">
         {/* Hero */}
-        <div className="relative h-[60vh] min-h-[420px] w-full bg-black">
+        <div data-navbar-hero className="relative h-[60vh] min-h-[420px] w-full bg-black">
           {cover ? (
             <Image
               src={cover.url}

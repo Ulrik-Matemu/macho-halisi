@@ -191,8 +191,8 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
     },
     {
       id: "passports-visas",
-      title: "6. Passports, Visas & Traveler Responsibilities",
-      shortTitle: "6. Passports & Visas",
+      title: "5. Passports, Visas & Traveler Responsibilities",
+      shortTitle: "5. Passports & Visas",
       content: [
         "Travelers are solely responsible for ensuring they possess a passport valid for at least six (6) months beyond their planned departure date from Tanzania, containing at least three blank unstamped visa pages.",
         "Travelers are responsible for securing appropriate Tanzanian visas and adhering to all health and vaccination directives (including Yellow Fever certificates when arriving from designated transit zones).",
@@ -200,8 +200,8 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
     },
     {
       id: "bush-safety",
-      title: "7. Safari Bush Etiquette & Guide Authority",
-      shortTitle: "7. Bush Safety",
+      title: "6. Safari Bush Etiquette & Guide Authority",
+      shortTitle: "6. Bush Safety",
       content: [
         "Tanzania's national parks are unfenced wilderness habitats. For your personal safety and the preservation of wildlife, guests must unconditionally follow the instructions of their Macho Halisi Naturalist Guide at all times.",
         "Guests must remain inside the safari vehicle during game drives except in designated picnic areas or under explicit ranger direction. Walking unescorted outside tented camp boundaries at night is strictly prohibited.",
@@ -210,8 +210,8 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
     },
     {
       id: "liability-jurisdiction",
-      title: "8. Limitation of Liability & Governing Law",
-      shortTitle: "8. Law & Jurisdiction",
+      title: "7. Limitation of Liability & Governing Law",
+      shortTitle: "7. Law & Jurisdiction",
       content: [
         "Macho Halisi acts as a bespoke tour operator coordinating private transport, guides, camps, and charter aviation. While we exercise the utmost diligence in vetting all partners, Macho Halisi cannot be held liable for personal injury, property damage, or delays caused by third-party carriers or unforeseen acts of God.",
         "This contract is governed exclusively by the laws of the United Republic of Tanzania. Any dispute arising under or in connection with these terms shall fall under the exclusive jurisdiction of the competent courts in Arusha, Tanzania.",

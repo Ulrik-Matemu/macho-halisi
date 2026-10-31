@@ -51,8 +51,8 @@ export default async function EnquiryPage({ searchParams }: EnquiryPageProps) {
               Begin Your Journey
             </h1>
             <p className="font-sans font-light text-sm sm:text-base text-safari-bark/78 mt-3 max-w-2xl leading-relaxed">
-              Share your wilderness aspirations. Our native safari directors will draft a bespoke
-              day-by-day blueprint calibrated to the real movements of Tanzania&apos;s wildlife.
+              Tell us about your trip. Our safari team will draft a day-by-day proposed itinerary
+              based on where the wildlife is at the time you travel.
             </p>
           </ScrollReveal>
 

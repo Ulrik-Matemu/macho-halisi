@@ -31,7 +31,15 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    if (!phone || typeof phone !== "string" || phone.trim().length < 5) {
+    // Phone is optional; when given it must look like a real number.
+    const phoneText = typeof phone === "string" ? phone.trim() : "";
+    if (phone != null && typeof phone !== "string") {
+      return NextResponse.json(
+        { status: "error", message: "A valid phone number is required" },
+        { status: 400 }
+      );
+    }
+    if (phoneText && phoneText.length < 5) {
       return NextResponse.json(
         { status: "error", message: "A valid phone number is required" },
         { status: 400 }
@@ -42,7 +50,7 @@ export async function POST(request: Request) {
     const payload = {
       name: clean(name.trim()).slice(0, 100),
       email: email.trim().toLowerCase(),
-      phone: clean(phone.trim()).slice(0, 40),
+      phone: clean(phoneText).slice(0, 40),
       itineraryId: typeof itineraryId === "string" && itineraryId ? itineraryId : null,
       partySize: optional(partySize, 100),
       preferredDates: optional(preferredDates, 200),
