@@ -130,8 +130,9 @@ export default function Hero({ onVideoReady }: HeroProps) {
 
   // Autoplay handling once the source is attached.
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !videoSrc) return;
+    const maybeVideo = videoRef.current;
+    if (!maybeVideo || !videoSrc) return;
+    const video: HTMLVideoElement = maybeVideo;
 
     video.defaultMuted = true;
     video.muted = true;
@@ -140,21 +141,37 @@ export default function Hero({ onVideoReady }: HeroProps) {
       notifyVideoReady();
     }
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((err) => {
-        console.warn("Autoplay deferred, waiting for user gesture:", err);
-        const handleInteraction = () => {
-          video.play().catch(() => {});
-          window.removeEventListener("click", handleInteraction);
-          window.removeEventListener("touchstart", handleInteraction);
-          window.removeEventListener("scroll", handleInteraction);
-        };
-        window.addEventListener("click", handleInteraction, { once: true });
-        window.addEventListener("touchstart", handleInteraction, { once: true });
-        window.addEventListener("scroll", handleInteraction, { once: true });
-      });
+    // Only real user gestures count as activation for play() (scroll and
+    // touchstart don't), so retry on those and keep the listeners until a
+    // play() actually succeeds. Also retry when the media becomes playable
+    // or the tab returns to the foreground, since browsers can abort/pause
+    // autoplay (power saving, background tabs) without any gesture.
+    const gestureEvents = ["pointerup", "touchend", "click", "keydown"] as const;
+    let disposed = false;
+
+    const detach = () => {
+      gestureEvents.forEach((e) => window.removeEventListener(e, tryPlay));
+      video.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+
+    function tryPlay() {
+      if (disposed || !video.paused) return;
+      video.play().then(detach, () => {});
     }
+    function onVisible() {
+      if (!document.hidden) tryPlay();
+    }
+
+    gestureEvents.forEach((e) => window.addEventListener(e, tryPlay, { passive: true }));
+    video.addEventListener("canplay", tryPlay);
+    document.addEventListener("visibilitychange", onVisible);
+    tryPlay();
+
+    return () => {
+      disposed = true;
+      detach();
+    };
   }, [notifyVideoReady, videoSrc]);
 
   // Which phase the current scroll position asks for. Advance and retreat
