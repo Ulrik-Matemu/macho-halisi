@@ -16,7 +16,7 @@ export default function AboutHero() {
         sizes="100vw"
         className="object-cover object-center"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/5" />
 
       <div className="absolute inset-x-0 bottom-0">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pb-12 sm:pb-16">

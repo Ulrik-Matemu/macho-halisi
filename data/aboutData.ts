@@ -20,7 +20,7 @@ export interface AboutSection {
 export const aboutHero = {
   title: "ABOUT US",
   image: {
-    url: "/media/cheetah-about-us.jpg",
+    url: "/media/cheetah-about-us2.jpg",
     alt: "A cheetah in the Tanzanian savannah",
   },
 };
@@ -141,11 +141,11 @@ export const aboutTeamFleet = {
       },
       {
         title: "Passionate & Instinctive Naturalists",
-        body: "Far beyond driving, our team reads the bush like an open book. From interpreting subtle alarm calls in the acacia canopy to tracking a solitary leopard by a faint footprint in the dusk soil, their sharp eyes and deep ecological insight turn every game drive into an immersive masterclass.",
+        body: "Far beyond driving, our team reads the bush like an open book. From interpreting subtle alarm calls in the acacia canopy to tracking a solitary leopard by a faint footprint in the dust soil, their sharp eyes and deep ecological insight turn every game drive into an immersive masterclass.",
       },
       {
         title: "Tailored Guest Connections",
-        body: "Our guides excel at reading guest preferences — whether accommodating wildlife photographers needing precise light angles and patient positioning, or engaging families with captivating lore of the bush.",
+        body: "Our guides excel at reading guest preferences — whether accommodating wildlife photographers needing precise light angles and patient positioning, or engaging families with captivating love of the bush.",
       },
     ] as TeamFleetPoint[],
   },
