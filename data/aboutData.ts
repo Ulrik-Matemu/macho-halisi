@@ -20,8 +20,8 @@ export interface AboutSection {
 export const aboutHero = {
   title: "ABOUT US",
   image: {
-    url: "/media/savannah.jpg",
-    alt: "The Macho Halisi fleet lined up at golden hour",
+    url: "/media/cheetah-about-us.jpg",
+    alt: "A cheetah in the Tanzanian savannah",
   },
 };
 
