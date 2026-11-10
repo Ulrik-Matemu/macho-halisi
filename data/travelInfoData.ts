@@ -273,47 +273,41 @@ export const TRAVEL_SECTIONS: TravelSection[] = [
   {
     id: "health",
     number: "9",
-    title: "HEALTH AND SAFETY",
+    title: "EMERGENCY MEDICAL EVACUATION & TRAVEL INSURANCE",
     shortTitle: "Health",
     intro:
-      "Your personal safety and health are held to the absolute highest standards throughout your time with Macho Halisi:",
+      "Exploring Tanzania’s remote wilderness areas is an unforgettable experience, but it is equally important to be prepared for unexpected medical emergencies. During a safari, guests may travel far from major hospitals and medical facilities, particularly in remote areas such as the Serengeti and Ngorongoro Conservation Area. For this reason, we strongly recommend that all guests travel with comprehensive travel insurance that includes emergency medical treatment, medical evacuation and repatriation coverage.",
     entries: [
       {
-        title: "Emergency Medical Evacuation (AMREF Flying Doctors)",
-        body: "Remote wilderness areas require guaranteed medical response capabilities. Macho Halisi works directly with AMREF Flying Doctors, East Africa’s leading emergency air ambulance network.",
+        title: "The Importance of Comprehensive Travel Insurance",
+        body: "Travel insurance provides essential financial protection in the event of unexpected illness, injury, hospitalisation or other travel-related emergencies. In remote safari destinations, accessing appropriate medical care may require specialised air evacuation, which can be extremely expensive without adequate insurance coverage.",
         items: [
           {
-            title: "24/7 Rapid Evacuation",
-            body: "In the unlikely event of a medical emergency, severe injury, or sudden illness in remote areas like the Northern Serengeti, AMREF dispatches medically equipped aircraft staffed by emergency flight physicians.",
-          },
-          {
-            title: "Air Ambulance Coverage",
-            body: "Guests are covered for direct air transportation from bush airstrips straight to full-service medical centers in Nairobi or Dar es Salaam.",
-          },
-          {
-            title: "Seamless Peace of Mind",
-            body: "We automatically assist guests with enrolling in the AMREF Maisha Tourist Cover to ensure complete field protection without out-of-pocket evacuation costs.",
+            body: "Guests are therefore responsible for ensuring that their travel insurance provides sufficient coverage for emergency medical evacuation, hospital treatment and repatriation, where necessary.",
           },
         ],
       },
       {
-        title: "Certified Wilderness First Responders (WFR)",
-        body: "On the ground, you are supported by highly skilled professionals. Every single Macho Halisi driver-guide holds full certification as a Wilderness First Responder (WFR), trained in remote medical care, CPR, and trauma response. Every Land Cruiser is continuously stocked with comprehensive medical first-aid kits and field communications.",
-      },
-      {
-        title: "Health & Routine Preparations",
+        title: "AMREF Flying Doctors – Emergency Air Evacuation",
+        body: "To provide an additional level of safety and peace of mind, Macho Halisi Limited can assist guests in arranging emergency air evacuation services through AMREF Flying Doctors, a leading air ambulance provider in East Africa.",
         items: [
           {
-            title: "Yellow Fever Certificate",
-            body: "Required if arriving from or transiting through a country with risk of Yellow Fever transmission (e.g., Kenya, Uganda, Ethiopia) for more than 12 hours.",
+            body: "AMREF operates a 24-hour emergency response service, with medically equipped aircraft and trained medical personnel available to respond to emergencies in remote locations. Depending on the medical circumstances and coverage arrangements, guests can be evacuated from designated bush airstrips to appropriate medical facilities in Nairobi, Dar es Salaam or other suitable locations.",
+          },
+        ],
+      },
+      {
+        title: "Optional AMREF Coverage Arrangement",
+        body: "Macho Halisi can facilitate the arrangement of AMREF Flying Doctors’ Maisha Tourist Cover for guests who wish to have additional regional medical evacuation protection during their safari.",
+        items: [
+          {
+            body: "Please note that AMREF coverage is not automatically included in our safari packages. It is an optional service that can be arranged upon request at an additional cost, payable separately from the safari package price.",
           },
           {
-            title: "Malaria Prophylaxis",
-            body: "Northern Tanzania is a low-to-moderate malaria area. Consult your physician regarding antimalarial tablets (such as Atovaquone-Proguanil/Malarone or Doxycycline). Apply insect repellent during dusk and wear long sleeves during evening dinners.",
+            body: "We strongly encourage guests to consider this additional protection before travelling, particularly when visiting remote wilderness destinations. Our team will be happy to assist with the arrangements and provide the relevant coverage details and costs upon request.",
           },
           {
-            title: "On-Board Hydration",
-            body: "Safe, cold, filtered drinking water is supplied inside all our custom safari vehicles to keep you energized throughout daily game drives.",
+            body: "Your safety and well-being remain our priority throughout your journey with Macho Halisi.",
           },
         ],
       },
