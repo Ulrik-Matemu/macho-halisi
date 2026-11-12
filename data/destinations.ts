@@ -86,9 +86,8 @@ const coreDestinations: Destination[] = [
     categoryLabel: "National Park",
     region: "Northern Circuit",
     tagline: "The Endless Plains & The Great Migration",
-    heroImage:
-      "/media/serengeti/macho-serengeti.jpg",
-    heroImageAlt: "Safari vehicle crossing the golden plains of the Serengeti at sunset",
+    heroImage: "/media/sere-new.jpeg",
+    heroImageAlt: "A Macho Halisi safari vehicle with guests watching a leopard in the Serengeti",
     gallery: [
       {
         url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85",
