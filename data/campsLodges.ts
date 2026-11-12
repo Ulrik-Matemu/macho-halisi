@@ -10,6 +10,21 @@ export interface LodgeImage {
   alt: string;
 }
 
+export interface LodgeStory {
+  /** A short pull-quote shown beneath the hero. */
+  pullQuote?: string;
+  /** Headline figures, e.g. { value: "7", label: "Private pool suites" }. */
+  stats?: { value: string; label: string }[];
+  /** The rooms, as titled paragraphs. */
+  suites?: { title: string; description: string }[];
+  /** Day trips and things to do from the property. */
+  experiences?: { title: string; description: string }[];
+  /** Dining and wellness, as titled paragraphs. */
+  amenities?: { title: string; description: string }[];
+  /** A closing note about the property's community work. */
+  purpose?: { title: string; description: string };
+}
+
 /**
  * A hand-curated camp, lodge or hotel recommended for a region. These live
  * in the front end (not the accommodations database) and are shown on the
@@ -36,6 +51,12 @@ export interface CampLodge {
   images: LodgeImage[];
   /** Larger, well-known properties that rank first wherever they are listed. */
   featured: boolean;
+  /** CSS object-position for the cover photo, to keep the subject in frame when cropped wide. */
+  coverPosition?: string;
+  /** Destinations where this stay leads the "Where to stay" row, ahead of the hub's other stays. */
+  promotedFor: string[];
+  /** Optional editorial content that gives a property a richer, longer page. */
+  story?: LodgeStory;
   /**
    * Set only for properties with no photo of their own: a photo of the area
    * they serve, shown with an "Area photo" label so it never passes for the
@@ -95,6 +116,7 @@ export function getAllCampLodgeSlugs(): string[] {
 export function getStaysForDestination(destinationSlug: string, limit = 4): CampLodge[] {
   const rank = (lodge: CampLodge): number | null => {
     const hub = LODGE_HUBS[lodge.hub];
+    if (lodge.promotedFor.includes(destinationSlug)) return -1;
     if (hub.destinations[0] === destinationSlug) return 0;
     if (lodge.destinations.includes(destinationSlug)) return 1;
     if (hub.destinations.includes(destinationSlug)) return 2;

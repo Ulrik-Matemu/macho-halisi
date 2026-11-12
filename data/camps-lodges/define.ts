@@ -1,4 +1,4 @@
-import type { CampLodge, LodgeKind, LodgeTier } from "@/data/campsLodges";
+import type { CampLodge, LodgeKind, LodgeStory, LodgeTier } from "@/data/campsLodges";
 import type { LodgeHubId } from "@/data/campsLodgeHubs";
 
 /**
@@ -23,6 +23,9 @@ export interface LodgeSpec {
   destinations?: string[];
   imageAlts?: string[];
   featured?: boolean;
+  promotedFor?: string[];
+  coverPosition?: string;
+  story?: LodgeStory;
 }
 
 export function defineLodge(spec: LodgeSpec): CampLodge {
@@ -42,6 +45,9 @@ export function defineLodge(spec: LodgeSpec): CampLodge {
     idealFor: spec.idealFor,
     destinations: spec.destinations ?? [],
     featured: spec.featured ?? false,
+    promotedFor: spec.promotedFor ?? [],
+    coverPosition: spec.coverPosition,
+    story: spec.story,
     images: (spec.imageAlts ?? []).map((alt, i) => ({
       url: `${dir}/${i === 0 ? "hero" : `gallery-${i}`}.jpg`,
       alt,

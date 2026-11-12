@@ -32,7 +32,8 @@ export default function LodgeCover({ lodge, sizes, priority = false, className =
         fill
         priority={priority}
         sizes={sizes}
-        className={`object-cover object-center ${className}`}
+        className={`object-cover ${lodge.coverPosition ? "" : "object-center"} ${className}`}
+        style={lodge.coverPosition ? { objectPosition: lodge.coverPosition } : undefined}
       />
       {!own && area && (
         <span className={`absolute bottom-3 ${tagSide === "left" ? "left-3" : "right-3"} z-10 px-2 py-1 rounded text-[9px] font-sans tracking-[0.18em] uppercase bg-black/60 backdrop-blur-md text-safari-cream/90`}>

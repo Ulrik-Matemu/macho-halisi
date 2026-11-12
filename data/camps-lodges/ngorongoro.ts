@@ -3,6 +3,106 @@ import { defineLodge } from "./define";
 
 export const ngorongoroStays: CampLodge[] = [
   defineLodge({
+    slug: "oasis-residence",
+    name: "Oasis Residence",
+    kind: "Boutique Hotel",
+    tier: "Luxury",
+    hub: "ngorongoro-karatu",
+    location: "Karatu, between the Ngorongoro Crater and Lake Manyara",
+    tagline: "Beyond the safari circuit, a place to arrive",
+    summary: "Seven private pool suites in Karatu, an intimate residence between the Ngorongoro Crater and Lake Manyara.",
+    description: [
+      "Oasis Residence is an intimate luxury residence at the gateway to Tanzania's Northern Circuit, shaped by local people, local culture and the quiet beauty of everyday life in Karatu. It is a calm, personal place rather than a large safari lodge, with just seven suites in thatch, stone and timber.",
+      "It sits just outside town, between the Ngorongoro Crater and Lake Manyara, so it works equally well as a first night after Arusha, a base for the crater and Lake Manyara, or a slow final stop before the journey home.",
+    ],
+    highlights: [
+      ["A private pool for every suite", "Each suite opens onto its own terrace and plunge pool."],
+      ["Between two great parks", "Lake Manyara is minutes away and the Ngorongoro Crater a short drive."],
+      ["Made by local hands", "Natural materials and locally crafted art throughout."],
+    ],
+    features: [
+      "Seven private pool suites",
+      "One- and two-bedroom suites",
+      "Private terrace with every suite",
+      "Indoor-outdoor bathrooms",
+      "Shared swimming pool",
+      "Massage room and sauna",
+      "In-suite massage",
+      "Poolside and in-suite dining",
+      "Day trips arranged",
+    ],
+    idealFor: ["Couples", "Families and friends", "Slow travellers"],
+    destinations: ["manyara", "tarangire", "lake-eyasi"],
+    promotedFor: ["manyara", "ngorongoro", "lake-eyasi"],
+    coverPosition: "50% 64%",
+    story: {
+      pullQuote: "Come for the Crater. Stay for the stillness, the people and the long, slow evenings.",
+      stats: [
+        { value: "7", label: "Private pool suites" },
+        { value: "1–2", label: "Bedrooms per suite" },
+        { value: "4", label: "Day trips from the door" },
+      ],
+      suites: [
+        {
+          title: "Private pool suites",
+          description:
+            "Each of the seven suites has its own terrace and private pool, and opens from a living area with a coffee station, minibar, fresh fruit and locally crafted art. Choose a one-bedroom suite for two, or a two-bedroom suite for families and friends travelling together.",
+        },
+        {
+          title: "Indoor-outdoor bathrooms",
+          description:
+            "A freestanding soaking tub, double vanity, indoor shower and outdoor shower make the bathroom a place to linger, finished in natural materials and the work of local craftspeople.",
+        },
+      ],
+      experiences: [
+        {
+          title: "Ngorongoro Crater",
+          description: "A UNESCO World Heritage Site of lion, elephant, buffalo, rhino and flamingo-filled lakes, with an early departure and an unhurried return.",
+        },
+        {
+          title: "Lake Manyara National Park",
+          description: "Groundwater forest, tree-climbing lions and escarpment views, only minutes away and ideal for a relaxed first or final day.",
+        },
+        {
+          title: "Tarangire National Park",
+          description: "Baobabs and large elephant herds, easily reached from Karatu.",
+        },
+        {
+          title: "Lake Eyasi and Lake Natron",
+          description: "Cultural encounters, walking experiences and volcanic landscapes beyond the usual circuit.",
+        },
+        {
+          title: "Onward to the Serengeti",
+          description: "Well placed to begin or end a Serengeti journey, with the road north well connected from Karatu.",
+        },
+      ],
+      amenities: [
+        {
+          title: "Dining at your own pace",
+          description: "Poolside dinners and slow, quiet nights under the stars, or meals served privately on your own terrace.",
+        },
+        {
+          title: "Wellness",
+          description: "A secluded shared pool, a dedicated massage room and a sauna, with massage treatments also arranged in the comfort of your suite.",
+        },
+      ],
+      purpose: {
+        title: "Stay with purpose",
+        description:
+          "Oasis Residence contributes $5 for every room night booked to the Black Rhino Academy Scholarship Program, which supports students from the Karatu area with tuition, learning materials, school meals and more.",
+      },
+    },
+    imageAlts: [
+      "The thatched, stone-walled main building of Oasis Residence in the Karatu highlands",
+      "A suite bedroom with timber ceiling, draped bed and a view across the green hills",
+      "The suite living room with terracotta floors, striped rugs and locally made art",
+      "A curved red-brick path winding through gardens to the thatched residence",
+      "Oasis Residence glowing at dusk under a deep blue sky",
+      "A plated dinner served on a table dressed in red",
+      "A suite bedroom with white drapes and a handcrafted timber cabinet",
+    ],
+  }),
+  defineLodge({
     slug: "ngorongoro-serena-safari-lodge",
     name: "Ngorongoro Serena Safari Lodge",
     kind: "Lodge",

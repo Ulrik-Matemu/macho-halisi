@@ -69,6 +69,7 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
     .slice(0, 6);
   const others = getOtherStaysInHub(lodge, 3);
   const gallery = lodge.images.slice(1);
+  const story = lodge.story;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -117,6 +118,19 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
             ]}
           />
 
+          {story?.stats && story.stats.length > 0 && (
+            <ScrollReveal>
+              <dl className="grid grid-cols-3 border-y border-safari-gold/60 py-8 mb-14 text-center">
+                {story.stats.map((st, i) => (
+                  <div key={st.label} className={`flex flex-col px-3 ${i > 0 ? "border-l border-safari-gold/40" : ""}`}>
+                    <dt className="order-2 font-sans text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-safari-bark/60 mt-2">{st.label}</dt>
+                    <dd className="font-serif-luxury font-light text-4xl sm:text-5xl text-safari-russet leading-none order-1">{st.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </ScrollReveal>
+          )}
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
             <div className="lg:col-span-2 space-y-14">
               <ScrollReveal>
@@ -142,6 +156,26 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
                 </div>
               </section>
 
+              {story?.pullQuote && (
+                <blockquote className="border-l-2 border-safari-gold pl-6 sm:pl-8 py-1">
+                  <p className="font-serif-luxury italic font-light text-2xl sm:text-3xl leading-snug text-safari-umber">&ldquo;{story.pullQuote}&rdquo;</p>
+                </blockquote>
+              )}
+
+              {story?.suites && story.suites.length > 0 && (
+                <section>
+                  <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.12em] uppercase mb-6">The suites</h2>
+                  <div className="space-y-8">
+                    {story.suites.map((item) => (
+                      <div key={item.title}>
+                        <h3 className="font-serif-luxury text-xl text-safari-bark mb-2">{item.title}</h3>
+                        <p className="font-sans font-light text-[15px] leading-[1.85] text-safari-bark/80">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {lodge.features.length > 0 && (
                 <section>
                   <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.12em] uppercase mb-6">At the property</h2>
@@ -156,6 +190,20 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
                 </section>
               )}
 
+              {story?.amenities && story.amenities.length > 0 && (
+                <section>
+                  <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.12em] uppercase mb-6">Dining &amp; wellness</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {story.amenities.map((item) => (
+                      <div key={item.title} className="border-t border-safari-gold/60 pt-4">
+                        <h3 className="font-serif-luxury text-lg text-safari-bark mb-2">{item.title}</h3>
+                        <p className="font-sans font-light text-sm leading-relaxed text-safari-bark/78">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {gallery.length > 0 && (
                 <section>
                   <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.12em] uppercase mb-6">Gallery</h2>
@@ -166,6 +214,32 @@ export default async function CampLodgePage({ params }: { params: Promise<LodgeP
                       </div>
                     ))}
                   </div>
+                </section>
+              )}
+
+              {story?.experiences && story.experiences.length > 0 && (
+                <section>
+                  <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.12em] uppercase mb-2">Beyond the door</h2>
+                  <p className="font-sans font-light text-[15px] text-safari-bark/70 mb-6">Day trips and journeys from {lodge.name}.</p>
+                  <ol className="divide-y divide-safari-bark/10 border-y border-safari-bark/10">
+                    {story.experiences.map((item, i) => (
+                      <li key={item.title} className="flex gap-5 py-5">
+                        <span className="font-serif-luxury text-2xl text-safari-gold leading-none pt-0.5 w-8 shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                        <div>
+                          <h3 className="font-serif-luxury text-lg text-safari-bark mb-1">{item.title}</h3>
+                          <p className="font-sans font-light text-sm leading-relaxed text-safari-bark/78">{item.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              )}
+
+              {story?.purpose && (
+                <section className="bg-safari-bark text-safari-cream p-8 sm:p-10">
+                  <span className="text-[10px] tracking-[0.3em] text-safari-gold uppercase block mb-3">Giving back</span>
+                  <h2 className="font-serif-luxury font-light text-2xl sm:text-3xl tracking-[0.1em] uppercase mb-4">{story.purpose.title}</h2>
+                  <p className="font-sans font-light text-[15px] leading-[1.85] text-safari-cream/85">{story.purpose.description}</p>
                 </section>
               )}
             </div>
