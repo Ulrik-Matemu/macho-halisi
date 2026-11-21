@@ -130,7 +130,7 @@ export const TERMS_AND_CONDITIONS: LegalDocument = {
     "These booking terms govern all bespoke safari itineraries, mountain expeditions, and coastal journeys arranged by Macho Halisi Safaris Ltd. (TALA Licensed Tour Operator). By confirming a tailor-made safari and remitting a deposit, you enter into a binding contractual agreement governed by the laws of the United Republic of Tanzania.",
   inBrief: [
     {
-      title: "30% Deposit to Secure",
+      title: "40% Deposit to Secure",
       description:
         "A 30% advance deposit secures your private naturalist guide, custom 4x4 cruiser, and locks scarce luxury tented camp suites.",
     },
