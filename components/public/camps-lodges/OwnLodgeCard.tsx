@@ -6,7 +6,8 @@ import { ACCOMMODATION_TYPE_LABELS, SERVICE_TIER_LABELS } from "@/lib/accommodat
 import { areaImageFor } from "@/lib/accommodations/areaImage";
 
 /**
- * A database-managed accommodation (our own Kudu Lodge & Campsite) shown in
+ * A database-managed accommodation (Our Lodges: Kudu Lodge & Campsite, Oasis
+ * Residence) shown in
  * the same cream card style as the hardcoded camps and lodges, so the two
  * sit side by side in a destination's "Where to stay" row.
  */
@@ -54,7 +55,7 @@ export default function OwnLodgeCard({ accommodation }: { accommodation: PublicA
           <h3 className="font-serif-luxury text-xl font-normal text-safari-bark group-hover:text-safari-russet transition-colors tracking-wide">
             {accommodation.name}
           </h3>
-          <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-safari-gold mt-2">Our own lodge</p>
+          <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-safari-gold mt-2">Our lodge</p>
         </div>
         <div className="mt-4 flex items-center justify-end text-xs">
           <span className="flex items-center gap-1.5 text-safari-russet shrink-0">

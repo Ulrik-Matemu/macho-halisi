@@ -214,10 +214,68 @@ export const navigationData: NavCategory[] = [
     ],
   },
   {
+    id: "times",
+    title: "MACHO HALISI TIMES",
+    // The film-and-photograph journal (app/times). Its sections are anchors
+    // on that one page; ids match the section ids in components/public/times.
+    href: "/times",
+    featuredDefaultId: "times-home",
+    subItems: [
+      {
+        id: "times-home",
+        title: "ENTER THE TIMES",
+        tagline: "Films, Frames & Field Notes",
+        description:
+          "The films, photographs and field notes behind every Macho Halisi journey, gathered from the road.",
+        href: "/times",
+        image: "/media/hero-vids/lion-poster.webp",
+        highlights: [],
+      },
+      {
+        id: "times-films",
+        title: "THE FILM REEL",
+        tagline: "Short Films from the Road",
+        description: "Press play on short films from our journeys across Tanzania.",
+        href: "/times#films",
+        image: "/media/great-migration/gm-hero.jpg",
+        badge: "Watch",
+        highlights: [],
+      },
+      {
+        id: "times-journal",
+        title: "THE PHOTO JOURNAL",
+        tagline: "Frames from the Field",
+        description: "Wildlife, landscapes, people and the road, in a wall of photographs you can step through.",
+        href: "/times#journal",
+        image: "/media/tarangire/tara-cheetah.jpg",
+        highlights: [],
+      },
+      {
+        id: "times-road",
+        title: "ONE DAY ON SAFARI",
+        tagline: "First Light to After Dark",
+        description: "A single day on the road, told in six frames as you scroll.",
+        href: "/times#road",
+        image: "/media/entumoto-17831035.jpg",
+        highlights: [],
+      },
+      {
+        id: "times-stay",
+        title: "WHERE THE DAY ENDS",
+        tagline: "Oasis Residence, Karatu",
+        description: "A look inside Oasis Residence, one of our lodges in the Karatu highlands.",
+        href: "/times#stay",
+        image: "/media/oasis/aerial-suites.jpg",
+        highlights: [],
+      },
+    ],
+  },
+  {
     id: "camps-lodges",
-    title: "OUR LODGE",
+    title: "OUR LODGES",
     // Sub-items are not curated here: FullscreenNavMenu fills this
-    // category from the published accommodations in the database.
+    // category from the published accommodations in the database
+    // (Kudu Lodge & Campsite, Oasis Residence, ...).
     href: "/accommodations",
     featuredDefaultId: "",
     subItems: [],

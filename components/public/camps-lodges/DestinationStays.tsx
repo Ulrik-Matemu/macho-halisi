@@ -5,10 +5,13 @@ import { getStaysForDestination } from "@/data/campsLodges";
 import LodgeCard from "./LodgeCard";
 import OwnLodgeCard from "./OwnLodgeCard";
 import { getPublishedAccommodations } from "@/lib/public/api";
+import type { PublicAccommodationSummary as PublishedLodge } from "@/lib/public/types";
 
-// Destinations that show our own lodge (Kudu Lodge & Campsite, in Karatu,
-// managed in the database) alongside the hardcoded camps and lodges.
+// Destinations that show Our Lodges (Kudu Lodge & Campsite and Oasis
+// Residence, both in Karatu and managed in the database) alongside the
+// hardcoded camps and lodges.
 const DESTINATIONS_WITH_OWN_LODGE = new Set(["manyara", "ngorongoro"]);
+const OWN_LODGE_NAME = /kudu|oasis residence/i;
 
 /**
  * "Where to stay" section for a destination page: the best-fit camps,
@@ -21,19 +24,25 @@ export default async function DestinationStays({ destinationSlug, destinationNam
   const featuredCount = ranked.filter((l) => l.featured).length;
   const baseCount = featuredCount >= 4 ? Math.min(8, Math.max(featuredCount + 2, 6)) : 4;
 
-  // Our own lodge takes the first place where it applies, and counts toward
-  // the row, so the hardcoded stays make way for it. It is skipped quietly
-  // if the API is unreachable or the lodge isn't published.
-  let ownLodge = null;
+  // Our lodges take the first places where they apply, and count toward the
+  // row, so the hardcoded stays make way for them. They are skipped quietly
+  // if the API is unreachable or a lodge isn't published. A hardcoded entry
+  // for the same property (Oasis Residence has one) is dropped so it never
+  // appears twice.
+  let ownLodges: PublishedLodge[] = [];
   if (DESTINATIONS_WITH_OWN_LODGE.has(destinationSlug)) {
     const { data } = await getPublishedAccommodations({ limit: 50 });
-    ownLodge = data.find((a) => /kudu/i.test(a.name)) ?? null;
+    ownLodges = data.filter((a) => OWN_LODGE_NAME.test(a.name));
   }
-  const stays = ranked.slice(0, ownLodge ? baseCount - 1 : baseCount);
+  const shownOwn = ownLodges.map((a) => a.name.toLowerCase());
+  const stays = ranked
+    .filter((l) => !shownOwn.some((n) => n === l.name.toLowerCase()))
+    .slice(0, Math.max(0, baseCount - ownLodges.length));
 
-  if (stays.length === 0 && !ownLodge) return null;
+  if (stays.length === 0 && ownLodges.length === 0) return null;
 
-  const area = LODGE_HUBS[(stays[0] ?? ranked[0]).hub].area;
+  const hubSource = stays[0] ?? ranked[0];
+  const area = hubSource ? LODGE_HUBS[hubSource.hub].area : undefined;
 
   return (
     <section className="max-w-[1240px] mx-auto px-6 sm:px-16 pt-24 sm:pt-32">
@@ -46,7 +55,7 @@ export default async function DestinationStays({ destinationSlug, destinationNam
             Where to stay
           </h2>
           <Link
-            href={`/camps-lodges?area=${encodeURIComponent(area)}`}
+            href={area ? `/camps-lodges?area=${encodeURIComponent(area)}` : "/camps-lodges"}
             className="font-sans text-xs tracking-[0.2em] uppercase text-safari-russet hover:underline"
           >
             More in this area →
@@ -59,7 +68,9 @@ export default async function DestinationStays({ destinationSlug, destinationNam
       </ScrollReveal>
       <ScrollReveal delayMs={100} size="lift">
         <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 ${baseCount === 6 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
-          {ownLodge && <OwnLodgeCard accommodation={ownLodge} />}
+          {ownLodges.map((lodge) => (
+            <OwnLodgeCard key={lodge.id} accommodation={lodge} />
+          ))}
           {stays.map((lodge) => (
             <LodgeCard key={lodge.slug} lodge={lodge} compact />
           ))}

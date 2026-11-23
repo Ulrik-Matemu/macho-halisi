@@ -198,6 +198,146 @@ body {
 }
 
 /* ────────────────────────────────────────────────────────────────────
+   MACHO HALISI TIMES (/times) motion — masthead letters, the ticker,
+   the slow push-in on the hero still, and the "now playing" bars.
+   All of it stops for prefers-reduced-motion (see the block below). */
+@keyframes timesLetter {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.animate-times-letter {
+  display: inline-block;
+  animation: timesLetter 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes timesFade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-times-fade {
+  animation: timesFade 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes timesMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-times-marquee {
+  animation: timesMarquee 48s linear infinite;
+}
+.times-marquee:hover .animate-times-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes timesPushIn {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+.animate-times-pushin {
+  animation: timesPushIn 26s ease-in-out infinite alternate;
+}
+
+@keyframes timesEq {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.animate-times-eq {
+  transform-origin: bottom;
+  animation: timesEq 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-times-letter,
+  .animate-times-fade,
+  .animate-times-marquee,
+  .animate-times-pushin,
+  .animate-times-eq {
+    animation: none;
+  }
+}
+
+/* The film scrubber: a thin gold line with a round thumb that only shows on
+   hover/focus, so the control stays out of the picture. */
+.times-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  background: transparent;
+  cursor: pointer;
+}
+.times-range::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--safari-gold) var(--times-progress, 0%),
+    rgba(255, 246, 234, 0.28) var(--times-progress, 0%)
+  );
+}
+.times-range::-moz-range-track {
+  height: 3px;
+  background: rgba(255, 246, 234, 0.28);
+}
+.times-range::-moz-range-progress {
+  height: 3px;
+  background: var(--safari-gold);
+}
+.times-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4.5px;
+  border-radius: 9999px;
+  background: var(--safari-champagne);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.times-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--safari-champagne);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.times-range:hover::-webkit-slider-thumb,
+.times-range:focus-visible::-webkit-slider-thumb {
+  opacity: 1;
+}
+.times-range:hover::-moz-range-thumb,
+.times-range:focus-visible::-moz-range-thumb {
+  opacity: 1;
+}
+
+/* ────────────────────────────────────────────────────────────────────
    Dashboard design tokens — the internal operations app deliberately
    does NOT reuse --background/--safari-* above. Those are the public
    marketing site's exact black-and-gold skin; wearing it on UI chrome

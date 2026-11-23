@@ -17,6 +17,7 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/destinations", changeFrequency: "weekly", priority: 0.9 },
   { path: "/experiences", changeFrequency: "weekly", priority: 0.9 },
   { path: "/accommodations", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/times", changeFrequency: "monthly", priority: 0.6 },
   { path: "/camps-lodges", changeFrequency: "monthly", priority: 0.8 },
   { path: "/when-to-travel", changeFrequency: "monthly", priority: 0.9 },
   { path: "/how-we-plan", changeFrequency: "monthly", priority: 0.7 },

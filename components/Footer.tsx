@@ -266,7 +266,7 @@ export default function Footer() {
                   { label: "Safari experiences", href: "/experiences" },
                   { label: "How we plan", href: "/how-we-plan" },
                   { label: "When to travel", href: "/when-to-travel" },
-                  { label: "Accommodation", href: "/accommodations" },
+                  { label: "Our lodges", href: "/accommodations" },
                   { label: "Travel information", href: "/travel-information" },
                   { label: "Enquire", href: "/enquire" },
                 ]}
@@ -276,6 +276,7 @@ export default function Footer() {
               <FooterLinkColumn
                 title="Studio"
                 links={[
+                  { label: "Macho Halisi Times", href: "/times" },
                   { label: "Our story", href: "/about" },
                   { label: "Our mission", href: "/about#our-mission" },
                   { label: "Why book with us", href: "/why-book-with-us" },
