@@ -216,8 +216,8 @@ export const navigationData: NavCategory[] = [
   {
     id: "times",
     title: "MACHO HALISI TIMES",
-    // The film-and-photograph journal (app/times). Its sections are anchors
-    // on that one page; ids match the section ids in components/public/times.
+    // The film-and-photograph wall (app/times). Its sub-items are anchors on
+    // that one page; ids match the `anchor`s in data/timesData.ts.
     href: "/times",
     featuredDefaultId: "times-home",
     subItems: [
@@ -228,44 +228,26 @@ export const navigationData: NavCategory[] = [
         description:
           "The films, photographs and field notes behind every Macho Halisi journey, gathered from the road.",
         href: "/times",
-        image: "/media/hero-vids/lion-poster.webp",
+        image: "/media/times/posters/hippo.jpg",
         highlights: [],
       },
       {
         id: "times-films",
-        title: "THE FILM REEL",
+        title: "THE FILMS",
         tagline: "Short Films from the Road",
         description: "Press play on short films from our journeys across Tanzania.",
         href: "/times#films",
-        image: "/media/great-migration/gm-hero.jpg",
+        image: "/media/times/posters/crossing.jpg",
         badge: "Watch",
         highlights: [],
       },
       {
-        id: "times-journal",
-        title: "THE PHOTO JOURNAL",
-        tagline: "Frames from the Field",
-        description: "Wildlife, landscapes, people and the road, in a wall of photographs you can step through.",
-        href: "/times#journal",
+        id: "times-stills",
+        title: "THE STILLS",
+        tagline: "Photographs from the Field",
+        description: "Wildlife, landscapes and people, scattered across a single scrolling wall.",
+        href: "/times#stills",
         image: "/media/tarangire/tara-cheetah.jpg",
-        highlights: [],
-      },
-      {
-        id: "times-road",
-        title: "ONE DAY ON SAFARI",
-        tagline: "First Light to After Dark",
-        description: "A single day on the road, told in six frames as you scroll.",
-        href: "/times#road",
-        image: "/media/entumoto-17831035.jpg",
-        highlights: [],
-      },
-      {
-        id: "times-stay",
-        title: "WHERE THE DAY ENDS",
-        tagline: "Oasis Residence, Karatu",
-        description: "A look inside Oasis Residence, one of our lodges in the Karatu highlands.",
-        href: "/times#stay",
-        image: "/media/oasis/aerial-suites.jpg",
         highlights: [],
       },
     ],

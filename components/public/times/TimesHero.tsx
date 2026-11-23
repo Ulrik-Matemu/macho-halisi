@@ -2,46 +2,38 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowDown } from "lucide-react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import { TIMES_HERO_FILM, TIMES_HERO_POSTER } from "@/data/timesData";
+import { TIMES_HERO_FILM } from "@/data/timesData";
 
-const TITLE_LINES = ["MACHO HALISI", "TIMES"];
-
-/** Smooth-scrolls to a section by id (honouring reduced motion). */
-export function scrollToSection(id: string, reduced: boolean) {
-  document.getElementById(id)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-}
+const WORD = "TIMES";
 
 /**
- * Full-viewport masthead: a muted looping film behind a newspaper-style
- * title whose letters settle in one by one, with a scroll parallax that
- * drifts the title up and fades it while the film slowly pushes in.
+ * The masthead: a muted film behind one word. Scrolling lifts the film away
+ * slowly while the word drifts up, swells and fades.
  */
 export default function TimesHero() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLDivElement | null>(null);
   const mediaRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
 
-  // Scroll parallax — rAF-throttled, same pattern as ScrollProgressBar.
   useEffect(() => {
     if (reduced) return;
-    const section = sectionRef.current;
-    const content = contentRef.current;
+    const title = titleRef.current;
     const media = mediaRef.current;
-    if (!section || !content || !media) return;
+    if (!title || !media) return;
 
     let ticking = false;
     const update = () => {
       ticking = false;
-      const y = Math.min(window.scrollY, window.innerHeight * 1.2);
-      const progress = Math.min(1, y / (window.innerHeight * 0.85));
-      content.style.transform = `translate3d(0, ${(y * 0.32).toFixed(1)}px, 0)`;
-      content.style.opacity = String(1 - progress * 1.15 > 0 ? 1 - progress * 1.15 : 0);
-      media.style.transform = `translate3d(0, ${(y * 0.14).toFixed(1)}px, 0)`;
+      const vh = window.innerHeight;
+      const y = Math.min(window.scrollY, vh * 1.2);
+      const p = Math.min(1, y / (vh * 0.8));
+      title.style.transform = `translate3d(0, ${(y * 0.3).toFixed(1)}px, 0) scale(${(1 + p * 0.1).toFixed(4)})`;
+      title.style.opacity = String(Math.max(0, 1 - p * 1.25));
+      media.style.transform = `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
     };
     const onScroll = () => {
       if (!ticking) {
@@ -54,14 +46,12 @@ export default function TimesHero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [reduced]);
 
-  // Pause the background film once the hero is off-screen — it is decorative
-  // and there is a lot of page (and more video) below.
+  // Decorative and there is a lot of video below: stop it once out of view.
   useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
-    if (!section || !video || typeof IntersectionObserver === "undefined") return;
+    if (!section || !video || reduced || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (reduced) return;
       if (entry.isIntersecting) video.play().catch(() => {});
       else video.pause();
     });
@@ -69,17 +59,16 @@ export default function TimesHero() {
     return () => observer.disconnect();
   }, [reduced]);
 
-  let letterIndex = 0;
-
   return (
-    <section ref={sectionRef} data-navbar-hero className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-black">
+    <section ref={sectionRef} data-navbar-hero className="relative h-[100svh] min-h-[560px] w-full overflow-hidden bg-black">
       <div ref={mediaRef} className="absolute inset-0 will-change-transform">
         <div className="absolute inset-0 animate-times-pushin">
-          <Image src={TIMES_HERO_POSTER} alt="" fill priority sizes="100vw" className="object-cover object-center" />
+          <Image src={TIMES_HERO_FILM.poster} alt="" fill priority sizes="100vw" className="object-cover object-center" />
           {!reduced && (
             <video
               ref={videoRef}
               src={TIMES_HERO_FILM.src}
+              poster={TIMES_HERO_FILM.poster}
               autoPlay
               muted
               loop
@@ -87,77 +76,49 @@ export default function TimesHero() {
               preload="auto"
               aria-hidden="true"
               onCanPlay={() => setVideoReady(true)}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1600ms] ${
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1800ms] ${
                 videoReady ? "opacity-100" : "opacity-0"
               }`}
             />
           )}
         </div>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/25 to-black/90" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.55)_100%)]" />
+      <div className="absolute inset-0 bg-black/35" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-safari-night" />
 
-      <div ref={contentRef} className="relative z-10 flex h-full flex-col justify-between will-change-transform">
-        {/* Masthead strip */}
-        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32">
-          <div
-            className="animate-times-fade flex items-center justify-between gap-6 border-y border-safari-cream/30 py-3 font-sans font-light text-[10px] sm:text-[11px] tracking-[0.34em] uppercase text-safari-cream/85"
-            style={{ animationDelay: "200ms" }}
-          >
-            <span>Issue Nº 01</span>
-            <span className="hidden sm:inline">Films · Frames · Field notes</span>
-            <span>Karatu, Tanzania</span>
-          </div>
-        </div>
-
-        {/* Title */}
-        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 pb-16 sm:pb-20 lg:pb-24">
-          <h1 className="font-serif-luxury font-light text-safari-cream leading-[0.98] tracking-[0.08em] sm:tracking-[0.1em] text-[clamp(2.6rem,9.5vw,9rem)] drop-shadow-[0_6px_40px_rgba(0,0,0,0.65)]">
+      <div className="relative z-10 flex h-full items-center justify-center">
+        <div ref={titleRef} className="text-center will-change-transform">
+          <h1 className="text-safari-cream">
             <span className="sr-only">Macho Halisi Times</span>
-            <span aria-hidden="true" className="block">
-              {TITLE_LINES.map((line, li) => (
-                <span key={line} className={`block ${li === 1 ? "text-safari-gold" : ""}`}>
-                  {line.split("").map((ch, ci) => {
-                    const delay = 350 + letterIndex++ * 55;
-                    return (
-                      <span key={`${li}-${ci}`} className="animate-times-letter" style={{ animationDelay: `${delay}ms` }}>
-                        {ch === " " ? " " : ch}
-                      </span>
-                    );
-                  })}
+            <span
+              aria-hidden="true"
+              className="animate-times-fade block font-sans font-light text-[11px] sm:text-xs tracking-[0.7em] pl-[0.7em] text-safari-champagne"
+              style={{ animationDelay: "250ms" }}
+            >
+              MACHO HALISI
+            </span>
+            <span
+              aria-hidden="true"
+              className="mt-3 sm:mt-5 block font-serif-luxury font-light text-[clamp(4.2rem,19vw,17rem)] leading-none tracking-[0.1em] pl-[0.1em] drop-shadow-[0_6px_50px_rgba(0,0,0,0.5)]"
+            >
+              {WORD.split("").map((ch, i) => (
+                <span key={i} className="animate-times-letter" style={{ animationDelay: `${500 + i * 90}ms` }}>
+                  {ch}
                 </span>
               ))}
             </span>
           </h1>
-
-          <p
-            className="animate-times-fade mt-6 sm:mt-8 max-w-xl font-sans font-light text-[15px] sm:text-base leading-[1.9] text-safari-cream/90"
-            style={{ animationDelay: "1500ms" }}
-          >
-            The films, photographs and field notes behind every Macho Halisi journey, gathered from the road by the people who drive it.
-          </p>
-
-          <div className="animate-times-fade mt-9 flex flex-wrap items-center gap-4 sm:gap-6" style={{ animationDelay: "1750ms" }}>
-            <button
-              type="button"
-              onClick={() => scrollToSection("films", reduced)}
-              className="font-sans font-light text-[11px] tracking-[0.3em] uppercase bg-safari-ochre hover:bg-safari-gold text-safari-bark px-8 py-4 rounded transition-colors cursor-pointer"
-            >
-              Watch the reel
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection("journal", reduced)}
-              className="font-sans font-light text-[11px] tracking-[0.3em] uppercase text-safari-cream border border-safari-cream/40 hover:border-safari-gold hover:text-safari-gold px-8 py-4 rounded transition-colors cursor-pointer"
-            >
-              Browse the journal
-            </button>
-          </div>
         </div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-safari-cream/70">
-        <ArrowDown className="h-5 w-5 animate-scroll-cue" aria-hidden="true" />
+      <div className="animate-times-fade absolute bottom-7 left-4 right-4 z-10 flex items-end justify-between sm:left-8 sm:right-8 lg:left-12 lg:right-12" style={{ animationDelay: "1600ms" }}>
+        <span className="hidden sm:block w-40 font-sans font-light text-[10px] tracking-[0.3em] uppercase text-safari-cream/60">Films &amp; stills</span>
+        <span aria-hidden="true" className="block h-14 w-px overflow-hidden bg-safari-cream/15">
+          <span className="animate-times-line block h-full w-px bg-safari-champagne" />
+        </span>
+        <span className="w-40 text-right font-sans font-light text-[10px] tracking-[0.3em] uppercase text-safari-cream/60">
+          {TIMES_HERO_FILM.place}
+        </span>
       </div>
     </section>
   );

@@ -311,7 +311,7 @@ export default function FullscreenNavMenu({
             </div>
           ) : (
             /* Split Panel Navigation with Full-Height Top-Border Flush Preview */
-            <div className="w-full flex-1 flex flex-col lg:flex-row h-full min-h-[calc(100dvh-85px)]">
+            <div className="w-full max-w-[1600px] mx-auto flex-1 flex flex-col lg:flex-row h-full min-h-[calc(100dvh-85px)]">
               {/* Left & Middle: Columns 1 & 2 in an elegant padded container */}
               <div
                 onMouseEnter={cancelResetTimer}

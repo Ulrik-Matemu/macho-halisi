@@ -198,8 +198,8 @@ body {
 }
 
 /* ────────────────────────────────────────────────────────────────────
-   MACHO HALISI TIMES (/times) motion — masthead letters, the ticker,
-   the slow push-in on the hero still, and the "now playing" bars.
+   MACHO HALISI TIMES (/times) motion — masthead letters, the scroll line,
+   the slow push-in on the hero, and the wall's unmask-on-scroll reveals.
    All of it stops for prefers-reduced-motion (see the block below). */
 @keyframes timesLetter {
   from {
@@ -232,21 +232,6 @@ body {
   animation: timesFade 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes timesMarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.animate-times-marquee {
-  animation: timesMarquee 48s linear infinite;
-}
-.times-marquee:hover .animate-times-marquee {
-  animation-play-state: paused;
-}
-
 @keyframes timesPushIn {
   from {
     transform: scale(1.02);
@@ -259,27 +244,78 @@ body {
   animation: timesPushIn 26s ease-in-out infinite alternate;
 }
 
-@keyframes timesEq {
-  0%,
-  100% {
-    transform: scaleY(0.25);
+/* A thin line that draws itself down, then off, as the scroll cue. */
+@keyframes timesLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
   }
   50% {
     transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.01% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
   }
 }
-.animate-times-eq {
-  transform-origin: bottom;
-  animation: timesEq 0.9s ease-in-out infinite;
+.animate-times-line {
+  animation: timesLine 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* The wall. Each piece is unmasked from the bottom up as it enters, while
+   its picture settles from a slight zoom; the caption follows. The parent
+   `.times-item` gets `.is-in` from an IntersectionObserver (TimesWall). */
+.times-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.times-media {
+  transform: scale(1.28);
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.times-cap {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.9s ease 0.55s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+}
+.times-item.is-in .times-reveal {
+  clip-path: inset(0 0 0 0);
+}
+.times-item.is-in .times-media {
+  transform: scale(1);
+}
+.times-item.is-in .times-cap {
+  opacity: 1;
+  transform: none;
+}
+
+/* The follow-the-pointer label ("Play" / "View"). The native cursor is hidden
+   over a piece only while TimesCursor is actually running (it sets the
+   attribute), so nothing is lost when it isn't. */
+html[data-times-cursor-on] [data-times-cursor] {
+  cursor: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-times-letter,
   .animate-times-fade,
-  .animate-times-marquee,
   .animate-times-pushin,
-  .animate-times-eq {
+  .animate-times-line {
     animation: none;
+  }
+  .times-reveal,
+  .times-media,
+  .times-cap {
+    clip-path: none;
+    transform: none;
+    opacity: 1;
+    transition: none;
   }
 }
 
