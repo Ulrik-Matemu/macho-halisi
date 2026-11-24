@@ -266,56 +266,12 @@ body {
   animation: timesLine 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-/* The wall. Each piece is unmasked from the bottom up as it enters, while
-   its picture settles from a slight zoom; the caption follows. The parent
-   `.times-item` gets `.is-in` from an IntersectionObserver (TimesWall). */
-.times-reveal {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.times-media {
-  transform: scale(1.28);
-  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.times-cap {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.9s ease 0.55s,
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
-}
-.times-item.is-in .times-reveal {
-  clip-path: inset(0 0 0 0);
-}
-.times-item.is-in .times-media {
-  transform: scale(1);
-}
-.times-item.is-in .times-cap {
-  opacity: 1;
-  transform: none;
-}
-
-/* The follow-the-pointer label ("Play" / "View"). The native cursor is hidden
-   over a piece only while TimesCursor is actually running (it sets the
-   attribute), so nothing is lost when it isn't. */
-html[data-times-cursor-on] [data-times-cursor] {
-  cursor: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-times-letter,
   .animate-times-fade,
   .animate-times-pushin,
   .animate-times-line {
     animation: none;
-  }
-  .times-reveal,
-  .times-media,
-  .times-cap {
-    clip-path: none;
-    transform: none;
-    opacity: 1;
-    transition: none;
   }
 }
 
