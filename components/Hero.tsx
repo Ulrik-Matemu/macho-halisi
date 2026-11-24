@@ -7,35 +7,67 @@ interface HeroProps {
   onVideoReady?: () => void;
 }
 
-const HERO_VIDEO = "/media/hero-vids/new-cheetah-vid.mp4";
+// One film, three weights. All are cuts of the same footage and share the
+// poster below as their first frame, so stepping between them is invisible.
+//   full  H.264, the untouched original frames (5.6 MB) — universal fallback
+//   av1   same picture at about half the bytes (2.8 MB, SSIM 0.987 vs full)
+//   light 640x360 at ~360 kbps (1.1 MB) for slower or metered links
+const HERO_FULL = "/media/hero-vids/hero-full.mp4";
+const HERO_FULL_AV1 = "/media/hero-vids/hero-full-av1.mp4";
+const HERO_LIGHT = "/media/hero-vids/hero-light.mp4";
 
-// First frame of HERO_VIDEO, so the poster hands off to playback with no
+// First frame of the film, so the poster hands off to playback with no
 // visible jump.
-const HERO_POSTER = "/media/hero-vids/new-cheetah-poster.webp";
+const HERO_POSTER = "/media/hero-vids/hero-poster.webp";
 
 // 24px-wide extract of the poster frame, upscaled — already soft enough to
 // read as a blurred placeholder with no CSS filter needed. Paints with the
 // HTML (0 requests) so there is never a black rectangle before the poster
 // or video arrives, even on a throttled connection.
 const HERO_LQIP =
-  "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoYAA4APtFUo0uoJKMhsAgBABoJZwAAPv0ShnsPvcA4eO1kAP6l+GXgUjQZBXAUiPfO4cexClAqE+tXwkYBRuzfeMAZW+WMfOH7h2kD9t1SOCM0l7AxteOaZ9sOBBAZEuioVo+NEotZGpJ2u17N+8AD9GU/chpwAAA=";
+  "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADQAwCdASoYAA4APrVKoUqnJCMhsAgA4BaJZQC7AGCQbMlknY53KkAA/qmw/EFgKUQUVkZKCn2Ut3HPhh1Q5Qn4q3eBDsAEd0APEEOOImhXMu5wZu+T7SCpymv6lBg81IGxjXzIpE4EBIYA7Hs91lDa8PSvYXiZFNrnsy6Azrik2ePJjkp+TwFwOv7f7GIAAAA=";
+
+/** How much film to ask for, heaviest first. "poster" = no video at all. */
+type HeroTier = "full" | "light" | "poster";
 
 /**
- * True on connections where a 5 MB looping video would hurt more than it
- * helps: the browser's Data Saver switch, a mobile-data (cellular) link, or
- * a 2G/3G-class link. The hero
- * then stays on its graded poster frame. (Network Information API —
- * Chromium only; elsewhere this is false and the video loads as normal.)
+ * Picks the starting tier from what the browser will tell us about the link
+ * (Network Information API — Chromium only; elsewhere it starts at "full"
+ * and relies on the stall watchdog in the component to step down).
+ *   - Data Saver, or a 2G-class link: poster only.
+ *   - Cellular, a 3G-class link, or a measured downlink under 1.5 Mbps:
+ *     the light cut. Cellular alone no longer rules video out — most phones
+ *     are on 4G/5G and a 1 MB film is a fair price for the first screen.
+ *   - Anything else: the full-quality film.
  */
-function prefersLightMedia(): boolean {
-  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string; type?: string } }).connection;
-  if (!connection) return false;
-  return (
-    Boolean(connection.saveData) ||
+function pickHeroTier(): HeroTier {
+  const connection = (
+    navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string; type?: string; downlink?: number };
+    }
+  ).connection;
+  if (!connection) return "full";
+  if (connection.saveData || ["slow-2g", "2g"].includes(connection.effectiveType ?? "")) return "poster";
+  if (
     connection.type === "cellular" ||
-    ["slow-2g", "2g", "3g"].includes(connection.effectiveType ?? "")
-  );
+    connection.effectiveType === "3g" ||
+    (typeof connection.downlink === "number" && connection.downlink > 0 && connection.downlink < 1.5)
+  ) {
+    return "light";
+  }
+  return "full";
 }
+
+/** The file for a tier; the full tier prefers AV1 where the browser can decode it. */
+function heroSourceFor(tier: HeroTier): string | undefined {
+  if (tier === "poster") return undefined;
+  if (tier === "light") return HERO_LIGHT;
+  const probe = document.createElement("video");
+  return probe.canPlayType('video/mp4; codecs="av01.0.05M.08"') ? HERO_FULL_AV1 : HERO_FULL;
+}
+
+/** If the film is not playable this soon after attaching, drop a tier. */
+const STALL_STEP_DOWN_MS = 9000;
 
 /** Minimum time each phase stays on screen before the next can start (ms). */
 const PHASE_DWELL_MS = 900;
@@ -109,17 +141,18 @@ export default function Hero({ onVideoReady }: HeroProps) {
     }
   }, [onVideoReady]);
 
-  // Decide whether to load the video at all. Under reduced motion or a
-  // light-media connection the poster frame is the final state, so the
-  // hero is "ready" straight away.
+  // Decide whether to load the video at all, and which cut. Under reduced
+  // motion, Data Saver or a 2G link the poster frame is the final state, so
+  // the hero is "ready" straight away.
   useEffect(() => {
-    if (reducedMotion || prefersLightMedia()) {
+    const tier = reducedMotion ? "poster" : pickHeroTier();
+    if (tier === "poster") {
       notifyVideoReady();
       return;
     }
     // Wait for the page's own load to finish so the video never competes
     // with the logo, fonts and first images for bandwidth.
-    const attach = () => setVideoSrc(HERO_VIDEO);
+    const attach = () => setVideoSrc(heroSourceFor(tier));
     if (document.readyState === "complete") {
       const timer = setTimeout(attach, 0);
       return () => clearTimeout(timer);
@@ -127,6 +160,28 @@ export default function Hero({ onVideoReady }: HeroProps) {
     window.addEventListener("load", attach, { once: true });
     return () => window.removeEventListener("load", attach);
   }, [notifyVideoReady, reducedMotion]);
+
+  // Stall watchdog. If the film still cannot play shortly after attaching —
+  // a link slower than it claimed, or no Network Information API to tell us
+  // — step down one weight (full -> light -> poster). Abandoning the poster
+  // tier also aborts the download, so a slow connection stops paying for a
+  // film it will never watch. The poster stays on screen the whole time.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoSrc) return;
+    const timer = setTimeout(() => {
+      if (video.readyState >= 3) return;
+      if (videoSrc !== HERO_LIGHT) {
+        setVideoSrc(HERO_LIGHT);
+        return;
+      }
+      video.removeAttribute("src");
+      video.load();
+      setVideoSrc(undefined);
+      notifyVideoReady();
+    }, STALL_STEP_DOWN_MS);
+    return () => clearTimeout(timer);
+  }, [videoSrc, notifyVideoReady]);
 
   // Autoplay handling once the source is attached.
   useEffect(() => {
