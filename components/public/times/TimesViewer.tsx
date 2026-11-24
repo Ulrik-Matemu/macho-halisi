@@ -76,7 +76,7 @@ function FilmStage({ film }: { film: TimesFilm }) {
           type="button"
           onClick={toggle}
           aria-label={playing ? "Pause" : "Play"}
-          className="flex h-9 w-9 shrink-0 items-center justify-center text-safari-cream/80 transition-colors hover:text-safari-gold cursor-pointer"
+          className="flex h-9 w-9 shrink-0 items-center justify-center text-safari-bark/80 transition-colors hover:text-safari-russet cursor-pointer"
         >
           {playing ? <Pause className="h-[18px] w-[18px]" /> : <Play className="h-[18px] w-[18px]" />}
         </button>
@@ -95,7 +95,7 @@ function FilmStage({ film }: { film: TimesFilm }) {
           className="times-range min-w-0 flex-1"
           style={{ "--times-progress": `${progress}%` } as CSSProperties}
         />
-        <span className="w-[4.5rem] shrink-0 text-right font-sans font-light text-[11px] tabular-nums tracking-[0.12em] text-safari-cream/60">
+        <span className="w-[4.5rem] shrink-0 text-right font-sans font-light text-[11px] tabular-nums tracking-[0.12em] text-safari-bark/60">
           {fmt(time)} / {fmt(duration)}
         </span>
         <button
@@ -107,7 +107,7 @@ function FilmStage({ film }: { film: TimesFilm }) {
             setMuted(v.muted);
           }}
           aria-label={muted ? "Unmute" : "Mute"}
-          className="flex h-9 w-9 shrink-0 items-center justify-center text-safari-cream/80 transition-colors hover:text-safari-gold cursor-pointer"
+          className="flex h-9 w-9 shrink-0 items-center justify-center text-safari-bark/80 transition-colors hover:text-safari-russet cursor-pointer"
         >
           {muted ? <VolumeX className="h-[18px] w-[18px]" /> : <Volume2 className="h-[18px] w-[18px]" />}
         </button>
@@ -184,7 +184,7 @@ export default function TimesViewer({
   );
 
   const arrow =
-    "absolute top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-safari-cream/25 bg-black/40 backdrop-blur-sm transition-colors hover:border-safari-gold hover:text-safari-gold cursor-pointer sm:flex";
+    "absolute top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-safari-bark/25 bg-safari-cream/80 backdrop-blur-sm transition-colors hover:border-safari-russet hover:text-safari-russet cursor-pointer sm:flex";
 
   return (
     <div
@@ -193,7 +193,7 @@ export default function TimesViewer({
       aria-modal="true"
       aria-label={`${item.kind === "film" ? "Film" : "Photo"} ${index + 1} of ${count}: ${item.title}`}
       data-lenis-prevent
-      className="animate-modal-backdrop fixed inset-0 z-[70] flex flex-col bg-black text-safari-cream"
+      className="animate-modal-backdrop fixed inset-0 z-[70] flex flex-col bg-safari-linen text-safari-bark"
       onTouchStart={(e) => {
         touchStartX.current = e.touches[0].clientX;
       }}
@@ -205,7 +205,7 @@ export default function TimesViewer({
       }}
     >
       <div className="flex items-center justify-between px-4 py-4 sm:px-8">
-        <span className="font-sans font-light text-xs tracking-[0.3em] tabular-nums text-safari-cream/60">
+        <span className="font-sans font-light text-xs tracking-[0.3em] tabular-nums text-safari-bark/55">
           {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
         </span>
         <button
@@ -213,7 +213,7 @@ export default function TimesViewer({
           type="button"
           onClick={onClose}
           aria-label="Close viewer"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-safari-cream/30 transition-colors hover:border-safari-gold hover:text-safari-gold cursor-pointer"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-safari-bark/25 transition-colors hover:border-safari-russet hover:text-safari-russet cursor-pointer"
         >
           <X className="h-5 w-5" />
         </button>
@@ -230,8 +230,10 @@ export default function TimesViewer({
               alt={item.alt}
               fill
               sizes="100vw"
-              quality={85}
               priority
+              // Served as-is: these are small originals, and an on-demand resize
+              // would make every first view wait for the optimiser.
+              unoptimized
               className="animate-image-settle object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -267,12 +269,12 @@ export default function TimesViewer({
 
       <div className="px-4 py-5 text-center sm:px-8">
         <div className="font-serif-luxury text-lg font-light tracking-[0.14em] uppercase sm:text-xl">{item.title}</div>
-        <div className="mt-1 font-sans font-light text-[10px] tracking-[0.3em] uppercase text-safari-gold">{item.place}</div>
+        <div className="mt-1 font-sans font-light text-[10px] tracking-[0.3em] uppercase text-safari-russet">{item.place}</div>
       </div>
 
       <div className="sr-only" aria-hidden="true">
         {preload.map((n) => (
-          <Image key={n.src} src={n.src} alt="" width={1600} height={1000} quality={85} />
+          <Image key={n.src} src={n.src} alt="" width={1600} height={1000} unoptimized />
         ))}
       </div>
     </div>

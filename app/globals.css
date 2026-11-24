@@ -319,7 +319,7 @@ html[data-times-cursor-on] [data-times-cursor] {
   }
 }
 
-/* The film scrubber: a thin gold line with a round thumb that only shows on
+/* The film scrubber: a thin russet line with a round thumb that only shows on
    hover/focus, so the control stays out of the picture. */
 .times-range {
   -webkit-appearance: none;
@@ -332,17 +332,17 @@ html[data-times-cursor-on] [data-times-cursor] {
   height: 3px;
   background: linear-gradient(
     to right,
-    var(--safari-gold) var(--times-progress, 0%),
-    rgba(255, 246, 234, 0.28) var(--times-progress, 0%)
+    var(--safari-russet) var(--times-progress, 0%),
+    rgba(30, 18, 9, 0.2) var(--times-progress, 0%)
   );
 }
 .times-range::-moz-range-track {
   height: 3px;
-  background: rgba(255, 246, 234, 0.28);
+  background: rgba(30, 18, 9, 0.2);
 }
 .times-range::-moz-range-progress {
   height: 3px;
-  background: var(--safari-gold);
+  background: var(--safari-russet);
 }
 .times-range::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -351,7 +351,7 @@ html[data-times-cursor-on] [data-times-cursor] {
   height: 12px;
   margin-top: -4.5px;
   border-radius: 9999px;
-  background: var(--safari-champagne);
+  background: var(--safari-russet);
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -360,7 +360,7 @@ html[data-times-cursor-on] [data-times-cursor] {
   height: 12px;
   border: 0;
   border-radius: 9999px;
-  background: var(--safari-champagne);
+  background: var(--safari-russet);
   opacity: 0;
   transition: opacity 0.2s;
 }

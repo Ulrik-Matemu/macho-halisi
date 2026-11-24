@@ -75,7 +75,7 @@ export default function TimesCursor() {
     <div ref={wrapRef} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[60]">
       <div
         ref={dotRef}
-        className="flex h-[84px] w-[84px] items-center justify-center rounded-full border border-safari-cream/50 bg-black/35 backdrop-blur-sm transition-[transform,opacity] duration-300 ease-out"
+        className="flex h-[84px] w-[84px] items-center justify-center rounded-full border border-safari-cream/60 bg-safari-bark/60 backdrop-blur-sm transition-[transform,opacity] duration-300 ease-out"
         style={{ transform: "translate(-50%, -50%) scale(0)", opacity: 0 }}
       >
         <span ref={labelRef} className="font-sans font-light text-[10px] tracking-[0.3em] pl-[0.3em] uppercase text-safari-cream" />

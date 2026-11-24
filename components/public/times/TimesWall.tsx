@@ -116,7 +116,7 @@ function WallItem({
           aria-label={`${item.kind === "film" ? "Play film" : "View photo"}: ${item.title}, ${item.place}`}
           className="group block w-full text-left cursor-pointer"
         >
-          <div className="times-reveal overflow-hidden bg-safari-bark" style={{ aspectRatio: `${item.width} / ${item.height}` }}>
+          <div className="times-reveal overflow-hidden bg-safari-tan/30" style={{ aspectRatio: `${item.width} / ${item.height}` }}>
             <div className="times-media relative h-full w-full">
               <div className="relative h-full w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]">
                 {item.kind === "photo" ? (
@@ -131,8 +131,8 @@ function WallItem({
             </div>
           </div>
           <div className="times-cap mt-3 flex items-baseline justify-between gap-4">
-            <span className="font-serif-luxury text-[15px] font-light tracking-[0.08em] text-safari-cream/90">{item.title}</span>
-            <span className="font-sans font-light text-[10px] tracking-[0.28em] uppercase text-safari-gold/75">{item.place}</span>
+            <span className="font-serif-luxury text-[15px] font-light tracking-[0.08em] text-safari-bark">{item.title}</span>
+            <span className="font-sans font-light text-[10px] tracking-[0.28em] uppercase text-safari-russet">{item.place}</span>
           </div>
         </button>
       </div>
@@ -176,7 +176,9 @@ function ExpandFilm({ film, reduced, onOpen }: { film: TimesFilm; reduced: boole
       const e = 1 - Math.pow(1 - t, 3);
       frame.style.clipPath = `inset(${((1 - e) * 22 + 6).toFixed(2)}vh ${((1 - e) * 30 + 6).toFixed(2)}vw)`;
       media.style.transform = `scale(${(1.22 - 0.22 * e).toFixed(4)})`;
-      cap.style.opacity = String(Math.max(0, Math.min(1, (e - 0.7) / 0.3)));
+      // Only once the frame has (nearly) filled out: before that the caption
+      // would straddle the frame's edge, and cream text vanishes on the page.
+      cap.style.opacity = String(Math.max(0, Math.min(1, (e - 0.93) / 0.07)));
     };
     const onScroll = () => {
       if (!ticking) {
@@ -281,7 +283,7 @@ export default function TimesWall() {
   }, [reduced]);
 
   return (
-    <div className="overflow-x-clip bg-safari-night px-4 sm:px-8 lg:px-12 py-[14vh]">
+    <div className="overflow-x-clip bg-safari-linen px-4 sm:px-8 lg:px-12 py-[14vh]">
       <div ref={rootRef} className="mx-auto flex max-w-[1500px] flex-col gap-[22vw] sm:gap-[18vw] lg:gap-[20vh]">
         {TIMES_SCENES.map((scene, i) => {
           if (scene.kind === "expand") {

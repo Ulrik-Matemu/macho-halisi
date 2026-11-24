@@ -84,7 +84,7 @@ export default function TimesHero() {
         </div>
       </div>
       <div className="absolute inset-0 bg-black/35" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-safari-night" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/45" />
 
       <div className="relative z-10 flex h-full items-center justify-center">
         <div ref={titleRef} className="text-center will-change-transform">
