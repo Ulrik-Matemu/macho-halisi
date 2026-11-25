@@ -104,8 +104,6 @@ export const TIMES_PHOTOS: Record<string, TimesPhoto> = Object.fromEntries(
     photo("leopard-trunk", "leopard-trunk", 750, 1000, "Alert", "Leopard", "A leopard on a lichen-covered trunk, ears pricked"),
     photo("giraffe-lake", "giraffe-lake", 750, 1000, "Mirror", "Giraffe", "A giraffe walking along a lake shore, reflected in the water"),
     photo("lion-road", "lion-road", 750, 1000, "Road rest", "Lion", "A male lion lying on a dusty road, looking into the lens"),
-    photo("oasis-from-above", "/media/oasis/aerial-suites.jpg", 2000, 1125, "From above", "Oasis Residence", "A thatched Oasis Residence pool suite among the forested hills of Karatu, seen from above"),
-    photo("oasis-bath", "/media/oasis/stone-bath.jpg", 2200, 1650, "Stone bath", "Oasis Residence", "A carved stone bath on a timber deck at Oasis Residence"),
   ].map((p) => [p.id, p])
 );
 
@@ -237,13 +235,6 @@ export const TIMES_SCENES: WallScene[] = [
     slots: [
       { id: "lion-road", col: 3, span: 3, speed: -0.06 },
       { id: "leopard-acacia", col: 7, span: 4, top: 20, speed: 0.07 },
-    ],
-  },
-  {
-    kind: "grid",
-    slots: [
-      { id: "oasis-from-above", col: 1, span: 7, speed: 0.04 },
-      { id: "oasis-bath", col: 9, span: 4, top: 22, speed: -0.07 },
     ],
   },
 ];
