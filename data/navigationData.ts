@@ -216,8 +216,8 @@ export const navigationData: NavCategory[] = [
   {
     id: "times",
     title: "MACHO HALISI TIMES",
-    // The film-and-photograph wall (app/times). Its sub-items are anchors on
-    // that one page; ids match the `anchor`s in data/timesData.ts.
+    // The film-and-photograph wall (app/times) — a single destination; the
+    // films/photographs split is a filter on the page itself.
     href: "/times",
     featuredDefaultId: "times-home",
     subItems: [
@@ -229,25 +229,6 @@ export const navigationData: NavCategory[] = [
           "The films, photographs and field notes behind every Macho Halisi journey, gathered from the road.",
         href: "/times",
         image: "/media/times/posters/hippo.jpg",
-        highlights: [],
-      },
-      {
-        id: "times-films",
-        title: "THE FILMS",
-        tagline: "Short Films from the Road",
-        description: "Press play on short films from our journeys across Tanzania.",
-        href: "/times#films",
-        image: "/media/times/posters/crossing.jpg",
-        badge: "Watch",
-        highlights: [],
-      },
-      {
-        id: "times-stills",
-        title: "THE STILLS",
-        tagline: "Photographs from the Field",
-        description: "Wildlife, landscapes and people, scattered across a single scrolling wall.",
-        href: "/times#stills",
-        image: "/media/tarangire/tara-cheetah.jpg",
         highlights: [],
       },
     ],
